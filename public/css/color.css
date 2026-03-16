@@ -1,0 +1,30 @@
+:root {
+/* Backgrounds */
+--background-primary: #fbf7f4;
+--background-secondary: #ffffff;
+--background-beige-medium: #e5d5c5;
+--background-beige-dark: #d8c5b0;
+--background-beige-light: #e5ded2;
+
+/* Text */
+--text-primary: #232323;
+--text-secondary: #685d54;
+--text-tertiary: #a39382;
+--text-on-dark: #fbf7f4;
+--text-footer: #3a3a3a;
+
+/* Interactive */
+  --button-primary: #232323;
+  --button-primary-hover: #3a3a3a;
+  --button-primary-text: #fbf7f4;
+
+  --button-secondary: #e5d5c5;
+  --button-secondary-hover: #d8c5b0;
+  --button-secondary-text: #232323;
+
+  /* Fonts */
+  --font-heading: 'Cormorant', serif;  /* for headings */
+  --font-body: 'Inter', sans-serif;    /* for body and general text */
+
+    
+}
