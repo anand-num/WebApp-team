@@ -58,7 +58,7 @@ h2 {
 
 }
 
-review-card footer p{
+review-card p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 0.9rem;
@@ -84,7 +84,28 @@ p{
     line-height: 1.5;
 }
 h3{
-    color: var(--text-footer);
+    color: var(--text-primary);
     font-family: var(--font-heading);
     font-weight: 100;
+}
+
+.footer {
+    background-color: var(--background-dark);
+    color: var(--text-footer);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    
+}
+
+.footer a{
+    color: var(--text-footer);
+    font-family: var(--font-body);
+
+}
+.footer p{
+    color: var(--text-footer);
+    font-family: var(--font-body);
+}
+.footer li{
+    list-style: none;
 }
