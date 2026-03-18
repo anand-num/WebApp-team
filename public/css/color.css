@@ -5,6 +5,7 @@
 --background-beige-medium: #e5d5c5;
 --background-beige-dark: #d8c5b0;
 --background-beige-light: #e5ded2;
+--background-dark:#212121;
 
 /* Text */
 --text-primary: #232323;
@@ -12,7 +13,7 @@
 --text-tertiary: #a39382;
 --text-review: #e5ded2;
 --text-on-dark: #fbf7f4;
---text-footer: #3a3a3a;
+--text-footer: #a0a0a0;
 
 /* Interactive */
   --button-primary: #232323;
