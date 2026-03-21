@@ -7,3 +7,14 @@
     justify-content: space-between;
     padding: 0 2vw;
 }
+.reviews{
+    background-color: var(--background-beige-dark);
+}
+.review-container{
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--background-beige-light);
+}
