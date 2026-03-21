@@ -8,13 +8,28 @@
     padding: 0 5vw;
 }
 .reviews{
-    background-color: var(--background-beige-dark);
+    padding: 10vh 10vw;
 }
+
+.review-header p{
+    margin-bottom: 8vh;
+}
+
 .review-container{
-    width: 20rem;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    background-color: var(--background-beige-light);
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem auto;
+    height: 18rem;
+    width: 81rem;
+    margin:1rem auto;
+
 }
+.review-card{
+    box-sizing: border-box;
+    height: 20rem;
+    width: 25.6rem;
+    padding: 2rem;
+   
+}
+
