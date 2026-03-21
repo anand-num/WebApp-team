@@ -3,9 +3,9 @@
     display: flex;
     box-shadow: 0  1px 10px  rgb(167, 163, 163);
     flex-direction:row;
-    height: 65px;
+    height: 80px;
     justify-content: space-between;
-    padding: 0 2vw;
+    padding: 0 5vw;
 }
 .reviews{
     background-color: var(--background-beige-dark);
