@@ -155,14 +155,14 @@ a{
 }
 
 .review-card{
-    background-color: var(--background-secondary);
+    box-sizing: border-box;
+    background-color: var(--background-primary);
+    border: 1px solid var(--background-beige-medium);
     margin: 1rem;
     
 }
 
-.review-header p {
-    font-size: larger;
-}
+
 .review-header h2{
     color: var(--text-primary);
     font-family: var(--font-heading);
@@ -170,22 +170,65 @@ a{
     font-weight: 100;
 }
 
-.review-card p{
-    color: var(--text-secondary);
+
+
+p.stars+p{
+    position: relative;
+    top: -1.5rem;
+    color: var(--text-primary);
     font-family: var(--font-body);
     font-size: 1.1rem;
-
 }
+
+p.stars{
+    position: relative;
+    top:-1rem;
+    font-size: 1.3rem;
+}
+
 
 strong{
     color: var(--text-primary);
     font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 600;
-    border-top: 2px solid var(--background-beige-light);
+    font-size: 0.9rem;
+    font-weight: 550;
     padding-top: 1rem;
 }
+
+strong+p{
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 1rem
+}
+
+/*how it works section*/
+.how-it-works{
+    border-top:1px solid var(--background-beige-medium);
+    padding: 5vh 5vw;
+}
+
+.how-it-works header h2{
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 100;
+}
+
+.steps h2{
+    color: var(--text-tertiary);
+    font-family: var(--font-body);
+    font-size: 3rem;
+    font-weight: 100;
+    margin:-3px;
+}
+
+.steps p{
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+}
 /*footer*/
+
 
 p{
     color: var(--text-secondary);

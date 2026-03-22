@@ -17,6 +17,8 @@
 
 .review-container{
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     margin: 2rem auto;
@@ -29,7 +31,42 @@
     box-sizing: border-box;
     height: 20rem;
     width: 25.6rem;
-    padding: 2rem;
+    padding: 2.2rem;
    
+}
+
+.review-card footer{
+    position: relative;
+    bottom: 1rem;
+    border-top: 1px solid var(--background-beige-light);
+    padding-top: 2rem;
+}
+
+strong+p{
+    position: relative;
+    top:-0.9rem;
+}
+
+.how-it-works header{
+    margin-bottom: -2rem;
+}
+.work-steps-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem auto;
+    height: 20rem;
+    width: 85rem;}
+
+.steps{
+    box-sizing: border-box;
+    /*border: 1px solid var(--background-beige-medium);*/
+    margin: 1rem;
+    box-sizing: border-box;
+    height: 15rem;
+    width: 30rem;
+    padding: 2.2rem 1rem;
+
 }
 
