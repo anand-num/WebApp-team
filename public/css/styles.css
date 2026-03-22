@@ -255,6 +255,7 @@ h3{
     font-family: var(--font-body);
 
 }
+
 .footer p{
     color: var(--text-footer);
     font-family: var(--font-body);
@@ -275,4 +276,15 @@ h3{
     color: var(--button-secondary-text);
     text-decoration: none;
     margin:0rem 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--button-secondary-hover);
+    color: var(--button-primary-text);
+    transform: scale(1.1);
+}
+
+.footer a:hover {
+    color: var(--text-on-dark);
 }
