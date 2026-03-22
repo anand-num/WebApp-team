@@ -151,39 +151,29 @@ a{
 
 /*review*/
 .reviews{
-    background-color: var(--background-beige-secondary);
-}
+    background-color: var(--background-beige-secondary);}
 
 .review-card{
     background-color: var(--background-primary);
-    border: 1px solid var(--background-beige-medium);
-
-    
-}
-
+    border: 1px solid var(--background-beige-medium);}
 
 .review-header h2{
     color: var(--text-primary);
     font-family: var(--font-heading);
     font-size: 2.3rem;
-    font-weight: 100;
-}
-
-
+    font-weight: 100;}
 
 p.stars+p{
     position: relative;
     top: -1.5rem;
     color: var(--text-primary);
     font-family: var(--font-body);
-    font-size: 1.1rem;
-}
+    font-size: 1.1rem;}
 
 p.stars{
     position: relative;
     top:-1rem;
-    font-size: 1.3rem;
-}
+    font-size: 1.3rem;}
 
 
 strong{
@@ -191,41 +181,35 @@ strong{
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 550;
-    padding-top: 1rem;
-}
+    padding-top: 1rem;}
 
 strong+p{
     color: var(--text-secondary);
     font-family: var(--font-body);
-    font-size: 1rem
-}
+    font-size: 1rem}
 
 /*how it works section*/
 .how-it-works{
     border-top:1px solid var(--background-beige-medium);
-    padding: 3.5rem 0rem 0rem 0rem;
-}
+    padding: 3.5rem 0rem 0rem 0rem;}
 
 .how-it-works header h2{
     color: var(--text-primary);
     font-family: var(--font-heading);
     font-size: 2.3rem;
-    font-weight: 100;
-}
+    font-weight: 100;}
 
 .steps h2{
     color: var(--text-tertiary);
     font-family: var(--font-body);
     font-size: 3rem;
     font-weight: 100;
-    margin:-3px;
-}
+    margin:-3px;}
 
 .steps p{
     color: var(--text-secondary);
     font-family: var(--font-body);
-    font-size: 0.9rem;
-}
+    font-size: 0.9rem;}
 /*footer*/
 
 
@@ -233,32 +217,26 @@ p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 1rem;
-    line-height: 1.5;
-}
+    line-height: 1.5;}
+
 h3{
     color: var(--text-primary);
     font-family: var(--font-heading);
-    font-weight: 100;
-}
+    font-weight: 100;}
 
 .footer {
     background-color: var(--background-dark);
     color: var(--text-footer);
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    
-}
+    font-size: 0.9rem;}
 
 .footer a{
     color: var(--text-footer);
-    font-family: var(--font-body);
-
-}
+    font-family: var(--font-body);}
 
 .footer p{
     color: var(--text-footer);
-    font-family: var(--font-body);
-}
+    font-family: var(--font-body);}
 
 
 .social-icons a {
@@ -267,15 +245,12 @@ h3{
     border-radius: 50%;   
     background-color: var(--button-primary-text);
     color: var(--button-secondary-text);
-    text-decoration: none;
-}
+    text-decoration: none;}
 
 .social-icons a:hover {
     background-color: var(--button-secondary-hover);
     color: var(--button-primary-text);
-    transform: scale(1.1);
-}
+    transform: scale(1.1);}
 
 .footer a:hover {
-    color: var(--text-primary);
-}
+    color: var(--text-primary);}
