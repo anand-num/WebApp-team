@@ -204,7 +204,7 @@ strong+p{
 /*how it works section*/
 .how-it-works{
     border-top:1px solid var(--background-beige-medium);
-    padding: 5vh 5vw;
+    padding: 3.5rem 0rem 0rem 0rem;
 }
 
 .how-it-works header h2{
@@ -260,4 +260,19 @@ h3{
     font-family: var(--font-body);
 }
 .footer li{
-    list-style: none;}
+    list-style: none;
+    padding: 0.5rem 1rem;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;   
+    background-color: var(--button-primary-text);
+    color: var(--button-secondary-text);
+    text-decoration: none;
+    margin:0rem 0.5rem;
+}

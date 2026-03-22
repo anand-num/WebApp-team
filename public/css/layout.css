@@ -48,7 +48,7 @@ strong+p{
 }
 
 .how-it-works header{
-    margin-bottom: -2rem;
+    margin-bottom: -1rem;
 }
 .work-steps-container{
     display: flex;
@@ -56,17 +56,43 @@ strong+p{
     justify-content: space-between;
     align-items: center;
     margin: 2rem auto;
-    height: 20rem;
     width: 85rem;}
 
 .steps{
     box-sizing: border-box;
     /*border: 1px solid var(--background-beige-medium);*/
-    margin: 1rem;
+
     box-sizing: border-box;
     height: 15rem;
     width: 30rem;
     padding: 2.2rem 1rem;
 
+}
+
+.footer{
+    height: 45lvh;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    row-gap: 2rem;
+    grid-template-areas:
+    "footer-about footer-nav footer-support footer-policies";
+    box-sizing: border-box;
+    padding: 6rem 10vw 4rem 10vw;
+
+}
+
+.footer-about{ 
+    grid-column: span 1; 
+    padding-right: 2rem;
+}
+.footer-nav     { grid-column: span 1; }
+.footer-support { grid-column: span 1; }
+.footer-policies { grid-column: span 1; }
+
+.footer-bottom {
+    grid-column: 1 / -1; 
+    border-top: 1px solid var(--button-primary-hover);
+    padding-top: 2.3rem;
 }
 
