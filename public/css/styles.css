@@ -155,10 +155,9 @@ a{
 }
 
 .review-card{
-    box-sizing: border-box;
     background-color: var(--background-primary);
     border: 1px solid var(--background-beige-medium);
-    margin: 1rem;
+
     
 }
 
@@ -260,23 +259,15 @@ h3{
     color: var(--text-footer);
     font-family: var(--font-body);
 }
-.footer li{
-    list-style: none;
-    padding: 0.5rem 1rem;
-}
+
 
 .social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;   
     background-color: var(--button-primary-text);
     color: var(--button-secondary-text);
     text-decoration: none;
-    margin:0rem 0.5rem;
-    transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
@@ -286,5 +277,5 @@ h3{
 }
 
 .footer a:hover {
-    color: var(--text-on-dark);
+    color: var(--text-primary);
 }

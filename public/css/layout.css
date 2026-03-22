@@ -7,6 +7,7 @@
     justify-content: space-between;
     padding: 0 5vw;
 }
+/*review section*/
 .reviews{
     padding: 10vh 10vw;
 }
@@ -32,7 +33,7 @@
     height: 20rem;
     width: 25.6rem;
     padding: 2.2rem;
-   
+    margin: 1rem;
 }
 
 .review-card footer{
@@ -96,3 +97,15 @@ strong+p{
     padding-top: 2.3rem;
 }
 
+.footer li{
+    list-style: none;
+    padding: 0.5rem 1rem;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin:0rem 0.5rem;
+    transition: all 0.3s ease;
+}
