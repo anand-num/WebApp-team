@@ -35,7 +35,6 @@
 .review-card footer{
     position: relative;
     bottom: 1rem;
-    border-top: 1px solid var(--background-beige-light);
     padding-top: 2rem;}
 
 strong+p{
@@ -105,9 +104,6 @@ strong+p{
   max-width: 85rem;
   box-sizing: border-box;
 }
-
-
-
 
 /* ── Tablet: 640px – 1023px ── */
 @media (max-width: 1023px) {

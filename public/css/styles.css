@@ -175,6 +175,10 @@ p.stars{
     top:-1rem;
     font-size: 1.3rem;}
 
+hr{
+    border: none;
+    border-top: 1px solid var(--background-beige-light);
+    margin: 1rem 0rem;}
 
 strong{
     color: var(--text-primary);
