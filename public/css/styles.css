@@ -206,19 +206,15 @@ a{
 hr{
     border: none;
     border-top: 1px solid var(--background-beige-light);
-    margin: 1rem 0rem;}
-
+    margin: 1rem 0rem;
+    position: relative;
+}
 strong{
     color: var(--text-review);
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 550;
     ;}
-
-strong+p{
-    color: var(--text-review);
-    font-family: var(--font-body);
-    font-size: 1rem}
 
 /*how it works section*/
 .how-it-works{

@@ -18,7 +18,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin: 2rem auto;
     width: 85rem;
    /* height: 20rem;*/}
@@ -30,16 +29,18 @@
     max-width: 26rem;
     min-height: 16rem;
     padding: 2.2rem 2.2rem 0rem 2.2rem;
-    margin: 1rem;}
+    margin: 1rem 1rem 0rem 1rem;}
 
 .review-card footer{
     position: relative;
     bottom: 1rem;
-    padding-top: 2rem;}
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: row;}
 
-strong+p{
-    position: relative;
-    top:-0.9rem;}
+.review-card strong{
+  padding:1.4rem 0.8rem;
+}
 
 .how-it-works header{
     margin-bottom: -1rem;}
