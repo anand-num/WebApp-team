@@ -1,5 +1,19 @@
 @import url('color.css');
+.logo{
+    font-family: var(--font-heading), serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
 
+.logo em {
+    font-style: normal;
+    color: var(--gold);
+}
+.footer-about .logo {
+    color: var(--cream);
+    font-family: var(--font-heading), serif;
+}
 body{
     margin: 0;
 }
@@ -151,29 +165,43 @@ a{
 
 /*review*/
 .reviews{
-    background-color: var(--background-beige-secondary);}
+    background-color: var(--background-dark);}
 
 .review-card{
-    background-color: var(--background-primary);
+    background-color: var(--text-primary);
     border: 1px solid var(--background-beige-medium);}
 
 .review-header h2{
-    color: var(--text-primary);
+    color: var(--text-review);
     font-family: var(--font-heading);
     font-size: 2.3rem;
     font-weight: 100;}
 
-p.stars+p{
+.reviewer-initial{
+    top: -1.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;   
+    background-color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;}
+.stars+p{
     position: relative;
     top: -1.5rem;
-    color: var(--text-primary);
+    color: var(--text-review);
     font-family: var(--font-body);
     font-size: 1.1rem;}
 
-p.stars{
+.stars{
     position: relative;
     top:-1rem;
-    font-size: 1.3rem;}
+    font-size: 1.3rem;
+    color:var(--gold);
+}
 
 hr{
     border: none;
@@ -181,39 +209,52 @@ hr{
     margin: 1rem 0rem;}
 
 strong{
-    color: var(--text-primary);
+    color: var(--text-review);
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 550;
-    padding-top: 1rem;}
+    ;}
 
 strong+p{
-    color: var(--text-secondary);
+    color: var(--text-review);
     font-family: var(--font-body);
     font-size: 1rem}
 
 /*how it works section*/
 .how-it-works{
     border-top:1px solid var(--background-beige-medium);
-    padding: 3.5rem 0rem 0rem 0rem;}
+    padding: 3.5rem 0rem 0rem 0rem;
+    text-align: center;
+    }
 
 .how-it-works header h2{
     color: var(--text-primary);
-    font-family: var(--font-heading);
-    font-size: 2.3rem;
-    font-weight: 100;}
+    font-family: var(--font-heading),serif;
+    font-size: 2rem;
+    font-weight: 100;
+}
+
 
 .steps h2{
-    color: var(--text-tertiary);
-    font-family: var(--font-body);
-    font-size: 3rem;
-    font-weight: 100;
-    margin:-3px;}
+    box-sizing: border-box;
+    font-family: var(--font-heading),serif;
+    font-size: 2rem;
+    font-weight: 500;
+    padding-top: 10px;
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;   
+    background-color: var(--button-primary);
+    color: var(--gold2);
+    
+}
 
 .steps p{
     color: var(--text-secondary);
     font-family: var(--font-body);
-    font-size: 0.9rem;}
+    font-size: 0.9rem;
+}
 /*footer*/
 
 
@@ -248,13 +289,19 @@ h3{
     height: 40px;
     border-radius: 50%;   
     background-color: var(--button-primary-text);
-    color: var(--button-secondary-text);
+    color: var(--text-footer);
     text-decoration: none;}
 
 .social-icons a:hover {
-    background-color: var(--button-secondary-hover);
+    background-color: var(--button-primary-hover);
     color: var(--button-primary-text);
     transform: scale(1.1);}
 
 .footer a:hover {
     color: var(--text-primary);}
+
+.footer h3{
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-weight: 700;
+    }

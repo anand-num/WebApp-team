@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentFit</title>
+
+    <link rel="stylesheet" href="/public/csscolors.css">
+    <link rel="stylesheet" href="/public/css/layout.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+
+<body>
+    <header class="nav-header">
+        <div class="left-nav">
+            <a href="" class="logo-btn">
+                <img src="/public/source/shirt.svg" alt="" class="logo-icon">
+                <p>RentFit</p>
+            </a>
+        </div>
+        <div class="middle-nav">
+            <a href="">Нүүр</a>
+            <a href="">Үзэх</a>
+            <a href="">Миний түрээс</a>
+        </div>
+        <div class="right-nav">
+            <a href="" class="like-btn">
+                <img src="/public/source/love.svg" alt="">
+            </a>
+            <a href="" class="primary-btn">ЗАР НЭМЭХ</a>
+            <a href="" class="profile-btn">
+                <img src="/public/source/profile.svg" alt="" class="profile-btn">
+            </a>
+        </div>
+    </header>
+<!-- SIDE FILTER SECTION -->
+    <aside class="flt-sb">
+        <legend class="flt-ttl">Ангилал</legend>
+        <fieldset class="cat-chips">
+            <label class="flt-row">
+                <input type="checkbox" value="dress" onchange="togCat('dress')">
+                Гоёлын
+                хувцас</label>
+            <label class="flt-row">
+                <input type="checkbox" value="business" onchange="togCat('business')">
+                Бизнес</label>
+            <label class="flt-row">
+                <input type="checkbox" value="traditional" onchange="togCat('traditional')"> Монгол дэл</label>
+            <label class="flt-row">
+                <input type="checkbox" value="casual" onchange="togCat('casual')"> Өдөр тутмын</label>
+        </fieldset>
+        <legend class="flt-ttl">Размер</legend>
+        <fieldset class="sz-chips">
+            <label>
+                <input type="checkbox" name="size" value="XS"> XS
+            </label>
+
+            <label>
+                <input type="checkbox" name="size" value="S"> S
+            </label>
+
+            <label>
+                <input type="checkbox" name="size" value="M"> M
+            </label>
+
+            <label>
+                <input type="checkbox" name="size" value="L"> L
+            </label>
+
+            <label>
+                <input type="checkbox" name="size" value="XL"> XL
+            </label>
+
+            <label>
+                <input type="checkbox" name="size" value="XXL"> XXL
+            </label>
+        </fieldset>
+        <legend class="flt-ttl">Үнэ (₮/өдөр)</legend>
+        <div class="pr-inputs">
+            <input class="inp" style="font-size:.78rem" type="number" placeholder="Min" value=""
+                oninput="S.flt.pMin=this.value;applyFlt()">
+            <input class="inp" style="font-size:.78rem" type="number" placeholder="Max" value=""
+                oninput="S.flt.pMax=this.value;applyFlt()">
+        </div>
+        <button class="flt-reset" onclick="resetFlt()">Шүүлт цэвэрлэх</button>
+    </aside>
+
+<!-- MAIN BROWSE SECTION -->
+    <main class="cat-main">
+        <search class="cat-bar">
+            <form>
+                <input class="sw">
+                <span class="si">🔍</span>
+                <input class="inp" id="srchInp" placeholder="Хувцас хайх..."
+                    oninput="applyFlt()">
+                <button class="btn btn-dark btn-sm mob-flt" onclick="openFltDw()">⚙ Шүүлт</button>
+                <select class="inp" style="width:auto;min-width:150px" id="sortSel" onchange="applyFlt()">
+                    <option value="">Эрэмбэлэх</option>
+                    <option value="price-asc">Үнэ ↑</option>
+                    <option value="price-desc">Үнэ ↓</option>
+                    <option value="rating">Рейтинг ↓</option>
+                    <option value="new">Шинэ эхэнд</option>
+                </select>
+                <span class="cat-info" id="catInfo">16 хувцас</span>
+            </form>
+        </search>
+        <section class="pg" id="catGrid">
+            <article class="pc" onclick="go('product',1)">
+                    <img src="public/source/mongol-deel.png"
+                        alt="Хар гоёлын хантааз">
+                    <span class="badge b-gold">Хит</span>
+                <!-- ene havid like button baina -->
+                <summary class="pc-body">
+                    <h2 class="pc-brand">Zara</h2>
+                    <h1 class="pc-name">Хар гоёлын хантааз</h1>
+                    <span class="pc-meta">Одоо 5 хүний сагсанд байна</span>
+                    <footer class="pc-ft">
+                        <dl class="pc-price-group">
+                            <dt class="sr-only">Үнэ</dt>
+                            <dd>
+                            <span class="pc-from">өдрөөс</span>
+                            <data class="pc-price" value="15000">15,000₮</data>
+                            </dd>
+                        </dl>
+
+                        <dl class="pc-rating-group">
+                            <dt class="sr-only">Үнэлгээ</dt>
+                            <dd>
+                            <div class="pc-stars" aria-hidden="true">★★★★★</div>
+                            <div class="pc-meta">
+                                <data value="4.8">4.8</data> 
+                                <span class="pc-reviews">(42)</span>
+                            </div>
+                            </dd>
+                        </dl>
+                    </footer>
+                    <hr>
+                    <h3 class="pc-av">Нарантуяа</h3>
+                </summary>
+            </article>
+            <article class="pc" onclick="go('product',2)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#0a1020,#1a2840)">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Харанхуй бизнес костюм" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"><span class="badge b-gold">Онцлох</span></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(2,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Hugo Boss</div>
+                    <div class="pc-name">Харанхуй бизнес костюм</div>
+                    <div class="pc-meta">Бизнес · S M L XL XXL</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">25,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★★</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.9 (67)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Б</div>Батбаяр
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',3)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#5c0a00,#a02000)">
+                    <img src="https://images.unsplash.com/photo-1583160247711-2191776b4b91?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Улаан торгон дэл" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"><span class="badge b-gold">Тусгай</span></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(3,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Монгол Усан</div>
+                    <div class="pc-name">Улаан торгон дэл</div>
+                    <div class="pc-meta">Монгол дэл · S M L XL</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">20,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★★</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.7 (28)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Н</div>Нарантуяа
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',4)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#3a0830,#7a1060)">
+                    <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Ягаан урт дашинзи" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(4,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Mango</div>
+                    <div class="pc-name">Ягаан урт дашинзи</div>
+                    <div class="pc-meta">Гоёлын · XS S M L</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">12,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★★</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.5 (19)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Б</div>Батбаяр
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',5)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#0a1028,#1a3068)">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Тав тухтай спорт хос" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(5,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Adidas</div>
+                    <div class="pc-name">Тав тухтай спорт хос</div>
+                    <div class="pc-meta">Өдөр тутмын · S M L XL</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">8,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★☆</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.3 (14)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Н</div>Нарантуяа
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',6)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#1e1e1e,#3a3a3a)">
+                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Цагаан зуны костюм" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"><span class="badge b-gold">Шинэ</span></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(6,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Calvin Klein</div>
+                    <div class="pc-name">Цагаан зуны костюм</div>
+                    <div class="pc-meta">Бизнес · S M L XL</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">22,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★★</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.6 (31)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Б</div>Батбаяр
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',7)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#0a1840,#102860)">
+                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4dd9?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Цэнхэр загварлаг дэл" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(7,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Mongolian Craft</div>
+                    <div class="pc-name">Цэнхэр загварлаг дэл</div>
+                    <div class="pc-meta">Монгол дэл · S M L XL</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">18,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★☆</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.4 (16)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Н</div>Нарантуяа
+                    </div>
+                </div>
+            </article>
+            <article class="pc" onclick="go('product',8)">
+                <div class="pc-img" style="background:linear-gradient(135deg,#2a2218,#4a3a28)">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&amp;h=530&amp;fit=crop&amp;auto=format"
+                        alt="Бежевий намрын пальто" loading="lazy" onerror="this.style.display='none'"
+                        style="display: none;">
+                    <div class="pc-badges"><span class="badge b-gold">Онцлох</span></div>
+                    <div class="pc-acts">
+                        <button class="btn-icon" onclick="event.stopPropagation();doLike(8,this)" title="Дуртай"><svg
+                                width="12" height="11" viewBox="0 0 24 21" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 19.5C12 19.5 2 13 2 7a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 6-10 12.5-10 12.5z">
+                                </path>
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="pc-body">
+                    <div class="pc-brand">Max Mara Style</div>
+                    <div class="pc-name">Бежевий намрын пальто</div>
+                    <div class="pc-meta">Өдөр тутмын · XS S M L</div>
+                    <div class="pc-ft">
+                        <div><span class="pc-from">өдрөөс</span>
+                            <div class="pc-price">30,000₮</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="pc-stars">★★★★★</div>
+                            <div style="font-size:.62rem;color:var(--muted)">4.8 (38)</div>
+                        </div>
+                    </div>
+                    <div class="pc-owner">
+                        <div class="pc-av">Б</div>Батбаяр
+                    </div>
+                </div>
+            </article>
+        </section>
+        <div class="pagi" id="pagiEl"><button class="pgb" disabled="" onclick="setPage(0)">‹</button><button
+                class="pgb on" onclick="setPage(1)">1</button><button class="pgb" onclick="setPage(2)">2</button><button
+                class="pgb" onclick="setPage(2)">›</button></div>
+    </main>
+</body>

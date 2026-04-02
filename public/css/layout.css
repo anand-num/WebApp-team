@@ -54,7 +54,6 @@ strong+p{
 
 .steps{
     box-sizing: border-box;
-    /*border: 1px solid var(--background-beige-medium);*/
     width: 100%;
     max-width: 26rem;
     height: auto;          
@@ -62,7 +61,6 @@ strong+p{
     padding: 2.2rem 1rem;}
 
 .footer{
-    height: 45lvh;
     display:grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
@@ -83,7 +81,7 @@ strong+p{
 
 .footer-bottom {
     grid-column: 1 / -1; 
-    border-top: 1px solid var(--button-primary-hover);
+    border-top: 1px solid var(--muted);
     padding-top: 2.3rem;}
 
 .footer li{
@@ -94,7 +92,7 @@ strong+p{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin:0rem 0.5rem;
+    margin:0.5rem 0.5rem;
     transition: all 0.3s ease;}
 
 
@@ -183,8 +181,8 @@ strong+p{
     grid-template-areas:
       "footer-about"
       "footer-nav"
-      "footer-support"
-      "footer-policies";
+      "footer-policies"
+      "footer-contact";
     height: auto;
     padding: 3rem 6vw 2rem;
     text-align: center;
@@ -200,7 +198,7 @@ strong+p{
   }
 
   .footer-nav ul,
-  .footer-support ul,
+  .footer-contact ul,
   .footer-policies ul {
     padding-left: 0;
   }
