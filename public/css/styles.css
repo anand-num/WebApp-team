@@ -290,11 +290,13 @@ h3{
 
 .social-icons a:hover {
     background-color: var(--button-primary-hover);
-    color: var(--button-primary-text);
     transform: scale(1.1);}
 
+.social-icons a:hover svg{
+    color: var(--button-primary);
+}
 .footer a:hover {
-    color: var(--text-primary);}
+    color: var(--gold);}
 
 .footer h3{
     color: var(--gold);
