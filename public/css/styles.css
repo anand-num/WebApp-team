@@ -308,6 +308,35 @@ hr{
     accent-color: var(--gold);
     margin-bottom:1rem;
 }
+
+/*cat main*/
+.cat-main h1{
+    font-family: var(--font-heading), serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin: 0.5rem 0rem;
+}
+.cat-main h2{
+    font-family: var(--font-body), serif;
+    font-size: 0.6rem;
+    margin: 0.5rem 0rem;
+    text-transform: uppercase;
+}
+.pc-meta{
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color:var(--text-secondary);
+
+}
+.pc-ft{
+    box-sizing: border-box;
+    height:2.5rem;
+    object-fit: contain;
+}
+dd{
+    margin:0;
+    height:1.5rem;
+}
 /*footer*/
 
 

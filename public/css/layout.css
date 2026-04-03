@@ -188,10 +188,106 @@ ol li + li::before {
 
 /* ── cat-main ── */
 
+.pg {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+.pc{
+    grid-area: auto;
+    height:auto;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+}
 
+.cat-bar{
+  margin: 1rem;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
+.badge-gold {
+  position: fixed;
+  float: left;
+  padding: 4px 8px;
+  background: gold;
+  border-radius: 6px;
+  font-size: 12px;
+}
 
+.pc {
+  box-sizing: border-box;
+  width: 240px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #eee;
+}
 
+.pc img {
+  position: relative;
+  width: 100%;
+  height: 250px;        /* controls the image area height */
+  object-fit: contain;
+  object-position: center;  /* IMPORTANT: keeps full image visible */
+  
+}
+.like-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-body {
+  padding: 16px;
+  background: #f5f5f5;
+  height: 150px;
+}
+
+.pc-brand {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #c9a24a;
+}
+
+.pc-name {
+  font-size: 20px;
+  margin: 6px 0;
+}
+
+.pc-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.pc-from {
+  font-size: 12px;
+  color: gray;
+}
+
+.pc-rating-group dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-stars {
+  color: gold;
+}
 
 /* ── Tablet: 640px – 1023px ── */
 @media (max-width: 1023px) {
