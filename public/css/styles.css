@@ -203,7 +203,7 @@ a{
     color:var(--gold);
 }
 
-hr{
+.steps hr{
     border: none;
     border-top: 1px solid var(--background-beige-light);
     margin: 1rem 0rem;
@@ -251,6 +251,63 @@ strong{
     font-family: var(--font-body);
     font-size: 0.9rem;
 }
+
+/*browse page*/
+.browse-page, .cat-wrap, .flt-sb, .flt-reset, .cat-main{
+    background-color: var(--background-primary);
+}
+.breadcrumb a{
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+}
+.flt-ttl{
+    font-family: var(--font-bold);
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0.5rem 0rem;
+    padding: 0rem 0.5rem;
+    color: var(--text-secondary)
+}
+
+.flt-sb label{
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+fieldset{
+    border:none;
+}
+
+.flt-reset{
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 2px;
+}
+.pr-inputs{
+    margin-bottom: 2rem;
+    margin-left:0.5rem;
+}
+br+span{
+    color: var(--text-secondary);
+    font-family: var(--font-bold);
+    font-size: 0.9rem;
+    padding: 1rem 0rem;
+}
+hr{
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1rem 0.5rem;
+}
+
+.price-range {
+    width: 100%;
+    accent-color: var(--gold);
+    margin-bottom:1rem;
+}
 /*footer*/
 
 
@@ -273,7 +330,7 @@ h3{
 
 .footer a{
     color: var(--text-footer);
-    font-family: var(--font-body);}
+    font-family: var(--font-heading);}
 
 .footer p{
     color: var(--text-footer);
@@ -303,3 +360,4 @@ h3{
     font-family: var(--font-body);
     font-weight: 700;
     }
+

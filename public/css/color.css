@@ -25,9 +25,10 @@
 
   /* Fonts */
   --font-heading: 'Playfair Display', serif;  /* for headings */
-  --font-body: 'Inter', sans-serif;    /* for body and general text */
+  --font-body: 'Inter', sans-serif;  /* for body and general text */
+  --font-bold:'DM Sans',sans-serif;
 
-
+  /* Colors */
   --cream: #f5f0e8;
   --gold:#c9a84c;
   --gold2:#e8c97a;
