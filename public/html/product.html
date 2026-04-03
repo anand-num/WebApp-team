@@ -7,8 +7,7 @@
     <title>RentFit</title>
 
     <link rel="stylesheet" href="/public/css/colors.css">
-    <link rel="stylesheet" href="/public/css/layout.css">
-    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/product.css">
 </head>
 
 <body>
@@ -136,59 +135,52 @@
 </main>
 
 <!-- REVIEWS — directly below, anchored from rating link -->
-<section class="reviews" id="reviews" aria-labelledby="reviews-heading">
+<section class="reviews" id="reviews">
 
-  <header class="reviews-hd">
-    <h2 id="reviews-heading">Үнэлгээ ба сэтгэгдэл</h2>
-    <p class="reviews-summary">
-      <strong class="reviews-avg-num">4.5</strong>
-      <span class="reviews-avg-stars" aria-hidden="true">★★★★★</span>
-      <span class="reviews-total">56 үнэлгээнд суурилсан</span>
-    </p>
+  <header class="review-header">
+    <p>Сэтгэгдэл</p>
+    <h2>Хэрэглэгчдийн үнэлгээ</h2>
   </header>
 
-  <ol class="review-list" aria-label="Хэрэглэгчдийн сэтгэгдэл">
+  <section class="review-container">
 
-    <li>
-      <article class="review">
-        <header class="review-hd">
-          <p class="review-author">Нарантуяа Б.</p>
-          <span class="review-stars" aria-label="5 одтой">★★★★★</span>
-          <time class="review-date" datetime="2026-02-18">2026.02.18</time>
-        </header>
-        <p class="review-text">
-          Маш тав тухтай, чанар сайн байлаа. Хүргэлт хурдан ирсэн. Дараагийн удаа ч авна.
-        </p>
-      </article>
-    </li>
+    <article class="review-card">
+      <span class="rv-stars">★★★★★</span>
+      <p>Найзынхаа хурим дээр гоёлын хувцас өмсөх хэрэгтэй байсан. RentFit-ийн ачаар гайхалтай хувцас өмссөн. Зардал хямд, хувцас маш сайхан байсан!</p>
+      <footer>
+        <strong>Н</strong>
+        <p>Нарантуяа Б.</p>
+      </footer>
+    </article>
 
-    <li>
-      <article class="review">
-        <header class="review-hd">
-          <p class="review-author">Энхбат Д.</p>
-          <span class="review-stars" aria-label="4 одтой">★★★★☆</span>
-          <time class="review-date" datetime="2026-01-30">2026.01.30</time>
-        </header>
-        <p class="review-text">
-          Хэмжээ яг таарсан. Гагцхүү буцаах процесс арай удаан байсан, бусад бол гайхалтай.
-        </p>
-      </article>
-    </li>
+    <article class="review-card">
+      <span class="rv-stars">★★★★★</span>
+      <p>Бизнес уулзалтанд костюм шаардлагатай байхад хурдан хүргэж өгсөн. Чанар маш сайн, цэвэрлэгдсэн байсан.</p>
+      <footer>
+        <strong>Э</strong>
+        <p>Энхбат Д.</p>
+      </footer>
+    </article>
 
-    <li>
-      <article class="review">
-        <header class="review-hd">
-          <p class="review-author">Оюунчимэг Г.</p>
-          <span class="review-stars" aria-label="5 одтой">★★★★★</span>
-          <time class="review-date" datetime="2026-01-10">2026.01.10</time>
-        </header>
-        <p class="review-text">
-          Найзынхаа хурим дээр өмссөн. Угаасан цэвэрхэн хувцас ирсэн байсан. Маш их баярлалаа!
-        </p>
-      </article>
-    </li>
+    <article class="review-card">
+      <span class="rv-stars">★★★★★</span>
+      <p>Монгол дэлийн сонголт маш баялаг байсан! Наадамд монгол дэл өмсөж явсан. Хамгийн тохиромжтой үйлчилгээ.</p>
+      <footer>
+        <strong>О</strong>
+        <p>Оюунчимэг Г.</p>
+      </footer>
+    </article>
 
-  </ol>
+    <article class="review-card">
+      <span class="rv-stars">★★★★☆</span>
+      <p>Дахин дахин хэрэглэдэг болсон. Үнэ нь боломжийн, хувцас цэвэрлэгдсэн ирдэг.</p>
+      <footer>
+        <strong>Б</strong>
+        <p>Батбаяр М.</p>
+      </footer>
+    </article>
+
+  </section>
 
 </section>
 </body>
