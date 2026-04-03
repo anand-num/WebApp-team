@@ -329,13 +329,12 @@ hr{
 
 }
 .pc-ft{
-    box-sizing: border-box;
-    height:2.5rem;
-    object-fit: contain;
+    height:3rem;
 }
 dd{
     margin:0;
     height:1.5rem;
+    
 }
 /*footer*/
 

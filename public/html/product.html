@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentFit</title>
+
+    <link rel="stylesheet" href="/public/css/colors.css">
+    <link rel="stylesheet" href="/public/css/layout.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+
+<body>
+    <header class="nav-header">
+        <div class="left-nav">
+            <a href="" class="logo-btn">
+                <img src="/public/source/shirt.svg" alt="" class="logo-icon">
+                <p>RentFit</p>
+            </a>
+        </div>
+        <div class="middle-nav">
+            <a href="">Нүүр</a>
+            <a href="">Үзэх</a>
+            <a href="">Миний түрээс</a>
+        </div>
+        <div class="right-nav">
+            <a href="" class="like-btn">
+                <img src="/public/source/love.svg" alt="">
+            </a>
+            <a href="" class="primary-btn">ЗАР НЭМЭХ</a>
+            <a href="" class="profile-btn">
+                <img src="/public/source/profile.svg" alt="" class="profile-btn">
+            </a>
+        </div>
+    </header>
+    <!-- breadcrumb -->
+<nav class="breadcrumb" aria-label="Хэсгийн зам">
+  <a href="/">Нүүр</a>
+  <span aria-hidden="true">›</span>
+  <a href="/catalog">Каталог</a>
+  <span aria-hidden="true">›</span>
+  <a href="/catalog?cat=casual">Өдөр тутмын</a>
+  <span aria-hidden="true">›</span>
+  <span aria-current="page">Спорт костюм</span>
+</nav>
+
+<main class="pd-layout">
+
+  <!-- LEFT: image -->
+  <figure class="pd-fig">
+    <img src="/public/source/mongol-deel.png" alt="Nike Спорт костюм — бүтэн иж бүрдэл">
+  </figure>
+
+  <!-- RIGHT: all product info -->
+  <article class="pd-info">
+
+    <p class="pd-brand">Nike</p>
+    <h1 class="pd-name">Спорт костюм</h1>
+
+    <p class="pd-meta">
+      <span class="pd-stars" aria-label="4.5 одтой үнэлгээ">★★★★★</span>
+      <strong>4.5</strong>
+      <a href="#reviews" class="pd-rv-link">(56 үнэлгээ)</a>
+      <span class="pd-sep" aria-hidden="true">·</span>
+      <span class="pd-stock">8 ширхэг бэлэн</span>
+    </p>
+
+    <p class="pd-desc">
+      Nike-ийн тав тухтай спорт костюм. Тамирт дасгал, алхалт болон өдөр
+      тутмын хэрэглээнд тохиромжтой.
+    </p>
+
+    <!-- Duration picker — pure CSS :checked trick -->
+    <fieldset class="dur-opts">
+      <legend>Түрээсийн хугацаа</legend>
+
+      <input type="radio" name="dur" id="d1">
+      <label for="d1">
+        <span class="d-days">1 өдөр</span>
+        <span class="d-price">7,000₮</span>
+      </label>
+
+      <input type="radio" name="dur" id="d3" checked>
+      <label for="d3">
+        <span class="d-days">3 өдөр</span>
+        <span class="d-price">16,000₮</span>
+      </label>
+
+      <input type="radio" name="dur" id="d7">
+      <label for="d7">
+        <span class="d-days">7 өдөр</span>
+        <span class="d-price">27,000₮</span>
+      </label>
+    </fieldset>
+
+    <!-- Size picker -->
+    <fieldset class="sz-opts">
+      <legend>Размер</legend>
+
+      <input type="radio" name="sz" id="szS">
+      <label for="szS">S</label>
+
+      <input type="radio" name="sz" id="szM">
+      <label for="szM">M</label>
+
+      <input type="radio" name="sz" id="szL" checked>
+      <label for="szL">L</label>
+
+      <input type="radio" name="sz" id="szXL">
+      <label for="szXL">XL</label>
+
+      <input type="radio" name="sz" id="szXXL">
+      <label for="szXXL">XXL</label>
+    </fieldset>
+
+    <!-- Total -->
+    <p class="pd-total">
+      <span class="pd-total-lbl">Нийт дүн</span>
+      <strong class="pd-total-price">16,000₮</strong>
+    </p>
+
+    <!-- CTAs -->
+    <button class="btn-cart" type="button">🛍 Сагсанд нэмэх</button>
+    <button class="btn-wish" type="button">❤️ Дуртайнаас хасах</button>
+
+    <!-- Trust signals -->
+    <ul class="pd-perks">
+      <li>🚚 24 цагийн дотор хүргэнэ</li>
+      <li>🧺 Угаалга, цэвэрлэгээ манай хариуцлага</li>
+      <li>🛡 Хамгаалалтын мөнгө буцаагдана</li>
+      <li>📐 Размер таарахгүй бол солиулж болно</li>
+    </ul>
+
+  </article>
+</main>
+
+<!-- REVIEWS — directly below, anchored from rating link -->
+<section class="reviews" id="reviews" aria-labelledby="reviews-heading">
+
+  <header class="reviews-hd">
+    <h2 id="reviews-heading">Үнэлгээ ба сэтгэгдэл</h2>
+    <p class="reviews-summary">
+      <strong class="reviews-avg-num">4.5</strong>
+      <span class="reviews-avg-stars" aria-hidden="true">★★★★★</span>
+      <span class="reviews-total">56 үнэлгээнд суурилсан</span>
+    </p>
+  </header>
+
+  <ol class="review-list" aria-label="Хэрэглэгчдийн сэтгэгдэл">
+
+    <li>
+      <article class="review">
+        <header class="review-hd">
+          <p class="review-author">Нарантуяа Б.</p>
+          <span class="review-stars" aria-label="5 одтой">★★★★★</span>
+          <time class="review-date" datetime="2026-02-18">2026.02.18</time>
+        </header>
+        <p class="review-text">
+          Маш тав тухтай, чанар сайн байлаа. Хүргэлт хурдан ирсэн. Дараагийн удаа ч авна.
+        </p>
+      </article>
+    </li>
+
+    <li>
+      <article class="review">
+        <header class="review-hd">
+          <p class="review-author">Энхбат Д.</p>
+          <span class="review-stars" aria-label="4 одтой">★★★★☆</span>
+          <time class="review-date" datetime="2026-01-30">2026.01.30</time>
+        </header>
+        <p class="review-text">
+          Хэмжээ яг таарсан. Гагцхүү буцаах процесс арай удаан байсан, бусад бол гайхалтай.
+        </p>
+      </article>
+    </li>
+
+    <li>
+      <article class="review">
+        <header class="review-hd">
+          <p class="review-author">Оюунчимэг Г.</p>
+          <span class="review-stars" aria-label="5 одтой">★★★★★</span>
+          <time class="review-date" datetime="2026-01-10">2026.01.10</time>
+        </header>
+        <p class="review-text">
+          Найзынхаа хурим дээр өмссөн. Угаасан цэвэрхэн хувцас ирсэн байсан. Маш их баярлалаа!
+        </p>
+      </article>
+    </li>
+
+  </ol>
+
+</section>
+</body>
