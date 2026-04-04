@@ -336,6 +336,14 @@ dd{
     height:1.5rem;
     
 }
+
+/*liked page*/
+.wishlist{
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+}
 /*footer*/
 
 
