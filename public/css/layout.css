@@ -29,7 +29,8 @@
     width: 100%;
     max-width: 26rem;
     min-height: 16rem;
-    padding: 2.2rem 2.2rem 0rem 2.2rem;
+    padding: 0rem 2.5rem;
+    padding-top: 3rem;
     margin: 1rem 1rem 0rem 1rem;}
 
 .review-card footer{
@@ -50,7 +51,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 2rem auto;
+    margin: 3rem auto;
     width: 85rem;}
 
 .steps{
@@ -60,7 +61,7 @@
     max-width: 26rem;
     height: auto;          
     min-height: 16rem;
-    padding: 1.5rem 1.5rem;}
+    padding: 2.5rem 2.5rem;}
 
 .footer{
     display:grid;

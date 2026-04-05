@@ -184,10 +184,10 @@ a{
     color: var(--text-review);
     font-family: var(--font-heading);
     font-size: 2.3rem;
-    font-weight: 100;}
+    font-weight: 100;
+    margin-bottom: 2rem;}
 
 .reviewer-initial{
-    top: -1.5rem;
     font-size: 1rem;
     color: var(--text-primary);
     font-family: var(--font-heading), serif;
@@ -197,13 +197,14 @@ a{
     background-color: var(--gold);
     display: flex;
     align-items: center;
-    justify-content: center;}
+    justify-content: center;
+    margin-top: 1.1rem;}
 .stars+p{
     position: relative;
-    top: -1.5rem;
+    top: -0.5rem;
     color: var(--text-review);
     font-family: var(--font-body);
-    font-size: 1.1rem;}
+    font-size: 1rem;}
 
 .stars{
     position: relative;
@@ -235,16 +236,17 @@ strong{
 .how-it-works header h2{
     color: var(--text-primary);
     font-family: var(--font-heading),serif;
-    font-size: 2rem;
-    font-weight: 100;
+    font-size: 2.5rem;
+    font-weight: 800;
+    
 }
 
 
 .steps h2{
     box-sizing: border-box;
     font-family: var(--font-heading),serif;
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: 1.8rem;
+    font-weight: 700;
     padding-top: 10px;
     margin: 0 auto;
     width: 60px;
@@ -258,7 +260,7 @@ strong{
 .steps p{
     color: var(--text-secondary);
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 
@@ -269,7 +271,8 @@ p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 1rem;
-    line-height: 1.5;}
+    line-height: 1.5;
+    margin-top:1rem;}
 
 h3{
     color: var(--text-primary);
