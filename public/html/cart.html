@@ -58,7 +58,7 @@
 
       <!-- Tab body -->
       <div class="tab-content">
-        <div id="first-step" data-tab-content>
+        <div id="first-step" data-tab-content class="active">
           <h1 class="tab-title">Таны сагс</h1>
 
           <ul class="cart-item-list" aria-label="Сагсны бараанууд">
@@ -100,16 +100,138 @@
         </div>
         <div id="second-step" data-tab-content>
           <h1 class="tab-title">Таны мэдээлэл</h1>
-          bla bla
+          <section class="delivery-form-wrap">
+            <h2>Хүргэлтийн мэдээлэл</h2>
+
+            <form class="delivery-form" action="#" method="post" novalidate>
+
+              <fieldset class="form-row">
+                <p class="form-field">
+                  <label for="d-name">Овог нэр <abbr title="Шаардлагатай">*</abbr></label>
+                  <input id="d-name" type="text" name="name" placeholder="Бат Болд" autocomplete="name" required>
+                </p>
+                <p class="form-field">
+                  <label for="d-phone">Утасны дугаар <abbr title="Шаардлагатай">*</abbr></label>
+                  <input id="d-phone" type="tel" name="phone" placeholder="9911-0000" autocomplete="tel" required>
+                </p>
+              </fieldset>
+
+              <fieldset class="form-row">
+                <p class="form-field form-field--full">
+                  <label for="d-address">Хаяг <abbr title="Шаардлагатай">*</abbr></label>
+                  <input id="d-address" type="text" name="address" placeholder="Дүүрэг, хороо, байр, тоот..."
+                    autocomplete="street-address" required>
+                </p>
+              </fieldset>
+
+              <fieldset class="form-row">
+                <p class="form-field">
+                  <label for="d-date">Хүргэх огноо</label>
+                  <input id="d-date" type="date" name="date" autocomplete="off">
+                </p>
+                <p class="form-field">
+                  <label for="d-time">Цаг</label>
+                  <select id="d-time" name="time">
+                    <option value="" disabled selected>Цаг сонгох</option>
+                    <option value="09-12">09:00 - 12:00</option>
+                    <option value="12-15">12:00 - 15:00</option>
+                    <option value="15-18">15:00 - 18:00</option>
+                    <option value="18-21">18:00 - 21:00</option>
+                  </select>
+                </p>
+              </fieldset>
+
+              <fieldset class="form-row">
+                <p class="form-field form-field--full">
+                  <label for="d-note">Нэмэлт тайлбар</label>
+                  <textarea id="d-note" name="note" placeholder="Онцгой хүсэлт..." rows="4"></textarea>
+                </p>
+              </fieldset>
+
+            </form>
+          </section>
         </div>
         <div id="third-step" data-tab-content>
           <h1 class="tab-title">Баталгааны мэдээлэл</h1>
+          <main class="confirm-wrap">
+
+            <!-- 1. Order summary -->
+            <section class="confirm-card" aria-labelledby="summary-title">
+              <h2 id="summary-title">Захиалгын хураангуй</h2>
+
+              <article class="confirm-item">
+                <figure class="confirm-item-fig" style="background: linear-gradient(135deg,#3d0a30,#6b1050)">
+                  <img src="/public/source/mongol-deel.png" alt="Ягаан гоёлын">
+                </figure>
+                <section class="confirm-item-info">
+                  <h3>Ягаан гоёлын</h3>
+                  <p>S · 3 өдөр</p>
+                </section>
+                <strong class="confirm-item-price">80,000₮</strong>
+              </article>
+            </section>
+
+            <!-- 2. Delivery info -->
+            <section class="confirm-card" aria-labelledby="delivery-title">
+              <h2 id="delivery-title">Хүргэлтийн мэдээлэл</h2>
+
+              <address class="confirm-address">
+                <p><strong>Нарантуяа</strong> · <span>93802439</span></p>
+                <p>Сүхбаатар дүүрэг</p>
+                <p>📅 2026-04-13 · 15:00–18:00</p>
+                <p>📝 Онцгой хүсэлт байхгүй</p>
+              </address>
+
+              <a href="#delivery-form" class="confirm-edit-btn">Засах</a>
+            </section>
+
+            <!-- 3. Payment method -->
+            <section class="confirm-card" aria-labelledby="payment-title">
+              <h2 id="payment-title">Төлбөрийн арга</h2>
+
+              <fieldset class="pay-opts">
+                <legend class="sr-only">Төлбөрийн арга сонгох</legend>
+
+                <label class="pay-opt">
+                  <input type="radio" name="payment" value="cash" checked>
+                  <span class="pay-opt-radio" aria-hidden="true"></span>
+                  <span class="pay-opt-icon" aria-hidden="true">💵</span>
+                  <span class="pay-opt-body">
+                    <strong>Бэлэн мөнгө</strong>
+                    <span>Хүргэлтийн үед бэлэн мөнгөөр төлнө</span>
+                  </span>
+                </label>
+
+                <label class="pay-opt">
+                  <input type="radio" name="payment" value="transfer">
+                  <span class="pay-opt-radio" aria-hidden="true"></span>
+                  <span class="pay-opt-icon" aria-hidden="true">🏦</span>
+                  <span class="pay-opt-body">
+                    <strong>Банкны шилжүүлэг</strong>
+                    <span>Голомт, Хаан банк, TDB</span>
+                  </span>
+                </label>
+
+                <label class="pay-opt">
+                  <input type="radio" name="payment" value="qpay">
+                  <span class="pay-opt-radio" aria-hidden="true"></span>
+                  <span class="pay-opt-icon" aria-hidden="true">📱</span>
+                  <span class="pay-opt-body">
+                    <strong>QPay</strong>
+                    <span>QPay апп ашиглан QR кодоор төлнө</span>
+                  </span>
+                </label>
+
+              </fieldset>
+            </section>
+
+          </main>
         </div>
 
       </div>
       <nav class="tab-footer" aria-label="Захиалгын навигаци">
         <button type="button" data-tab-target="#first-step" class="secondary-btn">← БУЦАХ</button>
-        <button type="button" data-tab-target="#third-step" class="primary-btn">ҮРГЭЛЖЛҮҮЛЭХ →</button>
+        <button type="button" data-tab-target="#second-step" class="primary-btn">ҮРГЭЛЖЛҮҮЛЭХ →</button>
       </nav>
 
     </div>
