@@ -1,6 +1,6 @@
 @import url('color.css');
 .liked-wrap{
-    height: 100vh;
+    height: auto;
     padding: 2rem 4rem;
     background-color: var(--background-secondary);
 }
@@ -177,6 +177,7 @@ dd {
     margin: 0;
     height: 1.5rem;
 }
+
 
 /* ════════════════════════════════════════════
    RESPONSIVE
