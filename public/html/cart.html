@@ -62,18 +62,41 @@
           <h1 class="tab-title">Таны сагс</h1>
 
           <ul class="cart-item-list" aria-label="Сагсны бараанууд">
+
             <li>
               <article class="cart-item">
                 <figure class="cart-item-fig" style="background: linear-gradient(135deg,#0d1b2a,#1b2838)">
                   <img src="/public/source/mongol-deel.png" alt="Харанхуй бизнес костюм">
                 </figure>
-                <div class="cart-item-info">
+
+                <section class="cart-item-info">
+                  <p class="cart-item-brand">Hugo Boss</p>
                   <h2 class="cart-item-name">Харанхуй бизнес костюм</h2>
-                  <p class="cart-item-meta">Hugo Boss · S · 3 өдөр</p>
-                </div>
+                  <p class="cart-item-meta">Хэмжээ: <strong>S</strong></p>
+
+                  <fieldset class="cart-dur-opts">
+                    <legend class="sr-only">Түрээсийн хугацаа</legend>
+                    <label class="cart-dur-btn">
+                      <input type="radio" name="dur-1" value="1">
+                      <span class="dur-days">1 өдөр</span>
+                      <span class="dur-price">42,000₮</span>
+                    </label>
+                    <label class="cart-dur-btn sel">
+                      <input type="radio" name="dur-1" value="3" checked>
+                      <span class="dur-days">3 өдөр</span>
+                      <span class="dur-price">60,000₮</span>
+                    </label>
+                    <label class="cart-dur-btn">
+                      <input type="radio" name="dur-1" value="7">
+                      <span class="dur-days">7 өдөр</span>
+                      <span class="dur-price">110,000₮</span>
+                    </label>
+                  </fieldset>
+                </section>
+
                 <footer class="cart-item-ft">
                   <strong class="cart-item-price">60,000₮</strong>
-                  <a href="#" class="cart-item-remove">Устгах</a>
+                  <a href="#" class="cart-item-remove">Хасах</a>
                 </footer>
               </article>
             </li>
@@ -83,13 +106,35 @@
                 <figure class="cart-item-fig" style="background: linear-gradient(135deg,#4a1040,#8b2060)">
                   <img src="/public/source/mongol-deel.png" alt="Ягаан урт дашинзи">
                 </figure>
-                <div class="cart-item-info">
+
+                <section class="cart-item-info">
+                  <p class="cart-item-brand">Mango</p>
                   <h2 class="cart-item-name">Ягаан урт дашинзи</h2>
-                  <p class="cart-item-meta">Mango · XS · 3 өдөр</p>
-                </div>
+                  <p class="cart-item-meta">Хэмжээ: <strong>XS</strong></p>
+
+                  <fieldset class="cart-dur-opts">
+                    <legend class="sr-only">Түрээсийн хугацаа</legend>
+                    <label class="cart-dur-btn">
+                      <input type="radio" name="dur-2" value="1">
+                      <span class="dur-days">1 өдөр</span>
+                      <span class="dur-price">35,000₮</span>
+                    </label>
+                    <label class="cart-dur-btn sel">
+                      <input type="radio" name="dur-2" value="3" checked>
+                      <span class="dur-days">3 өдөр</span>
+                      <span class="dur-price">28,000₮</span>
+                    </label>
+                    <label class="cart-dur-btn">
+                      <input type="radio" name="dur-2" value="7">
+                      <span class="dur-days">7 өдөр</span>
+                      <span class="dur-price">145,000₮</span>
+                    </label>
+                  </fieldset>
+                </section>
+
                 <footer class="cart-item-ft">
                   <strong class="cart-item-price">28,000₮</strong>
-                  <a href="#" class="cart-item-remove">Устгах</a>
+                  <a href="#" class="cart-item-remove">Хасах</a>
                 </footer>
               </article>
             </li>
@@ -262,7 +307,5 @@
       </ul>
     </aside>
   </section>
-
-
 
 </body>

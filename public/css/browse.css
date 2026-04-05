@@ -111,6 +111,7 @@ ol li+li::before {
     cursor: pointer;
     font-family: var(--font-body);
     font-size: 1rem;
+    color:
 }
 
 .flt-ttl {
@@ -275,7 +276,7 @@ hr {
 .cat-sort-sel {
     font-family: var(--font-body);
     font-size: 0.875rem;
-    color: var(--text-primary);
+    color: var(--text-tertiary);
     background: white;
     border: 0.0625rem solid var(--background-beige-medium);
     border-radius: 6.25rem;
