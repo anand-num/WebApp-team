@@ -111,7 +111,6 @@ ol li+li::before {
     cursor: pointer;
     font-family: var(--font-body);
     font-size: 1rem;
-    color:
 }
 
 .flt-ttl {
@@ -400,7 +399,7 @@ hr {
 }
 
 .pc-meta {
-    /* padding-top: 0.3rem; */
+    padding-top: 0.3rem;
     font-family: var(--font-body);
     font-size: 0.7rem;
     color: var(--text-secondary);
@@ -412,6 +411,7 @@ hr {
     height: auto;
     padding-top: 2px;
 }
+
 .pc-price {
     font-size: 24px;
     font-weight: bold;

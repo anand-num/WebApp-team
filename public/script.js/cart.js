@@ -13,6 +13,7 @@ tabs.forEach(tab => {
     // update footer buttons
     const secondaryBtn = footer.querySelector('.secondary-btn');
     const primaryBtn = footer.querySelector('.primary-btn');
+    const receipt = document.querySelector('.cart-receipt');
 
     if (target.id === "first-step") {
       secondaryBtn.textContent = "← КАТАЛОГ";
@@ -37,7 +38,16 @@ tabs.forEach(tab => {
       secondaryBtn.onclick = null;
       secondaryBtn.dataset.tabTarget = "#second-step";
 
-      primaryBtn.style.display = "none"; // last step
+      primaryBtn.style.display = "inline-block";
+      primaryBtn.dataset.tabTarget = "#fourth-step"; 
+    }
+    if (target.id === "fourth-step") {
+
+      secondaryBtn.style.display = "none";
+
+      primaryBtn.style.display = "none";
+
+      receipt.style.display = "none";
     }
   });
 });
