@@ -177,3 +177,94 @@ dd {
     margin: 0;
     height: 1.5rem;
 }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 64rem) {
+
+  .liked-wrap {
+    padding: 1.75rem 2.5rem;
+  }
+
+  .wishlist {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .pc {
+    width: 100%;              /* let grid control width, not fixed 240px */
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 48rem) {
+
+  .liked-wrap {
+    padding: 1.25rem 1rem;
+    height: auto;             /* 100vh clips content on short items */
+    min-height: 100vh;
+  }
+
+  .wishlist {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  /* Tighten card image height */
+  .pc img {
+    height: 180px;
+  }
+
+  /* Tighten card body */
+  .pc-body {
+    padding: 10px 12px;
+  }
+
+  .pc-name {
+    font-size: 1rem;
+  }
+
+  .pc-price {
+    font-size: 1.1rem;
+  }
+
+  .pc-ft {
+    height: 2.5rem;
+  }
+}
+
+/* ── Small phone ── */
+@media (max-width: 30rem) {
+
+  .wishlist {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .pc img {
+    height: 150px;
+  }
+
+  .liked-wrap {
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* ── Very small ── */
+@media (max-width: 22rem) {
+
+  .wishlist {
+    grid-template-columns: 1fr;
+  }
+
+  .pc {
+    max-width: 100%;
+  }
+}

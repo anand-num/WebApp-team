@@ -399,7 +399,7 @@ hr {
 }
 
 .pc-meta {
-    padding-top: 0.3rem;
+    /* padding-top: 0.3rem; */
     font-family: var(--font-body);
     font-size: 0.7rem;
     color: var(--text-secondary);
@@ -411,7 +411,6 @@ hr {
     height: auto;
     padding-top: 2px;
 }
-
 .pc-price {
     font-size: 24px;
     font-weight: bold;
@@ -564,7 +563,7 @@ dd {
 }
 
 .sz-chips label:hover {
-  border-color: var(--background-beige-dark);
+  border-color: var(--text-primary);
   color: var(--text-primary);
 }
 
@@ -574,4 +573,96 @@ dd {
   border-color: var(--gold);
   background: rgba(201, 168, 76, 0.08);
   color: var(--gold);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+@media (max-width: 64rem) {
+
+  /* Stack sidebar above product grid */
+  .cat-wrap {
+    grid-template-areas:
+      "flt-sb"
+      "cat-main";
+    grid-template-columns: 1fr;
+    padding: 20px 20px 60px;
+    gap: 16px;
+  }
+
+  /* Sidebar — horizontal scrolling chip row instead of vertical list */
+  .flt-sb {
+    position: static;        /* unstick — no longer needs to follow scroll */
+    padding: 1rem 1.25rem;
+    background: var(--background-primary);
+    border: 1px solid var(--background-beige-medium);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: flex-start;
+  }
+
+  /* Each filter group sits side by side */
+  .flt-sb h1           { width: 100%; margin-bottom: 0.5rem; }
+  .cat-chips           { margin-bottom: 0; }
+  .pr-inputs           { margin: 0; }
+
+  /* Collapse filter groups into a row */
+  .flt-sb > *          { flex-shrink: 0; }
+
+  /* Reset button full width at bottom */
+  .flt-reset {
+    width: 100%;
+    margin: 0.5rem 0 0;
+  }
+
+  /* hr dividers unnecessary in horizontal layout */
+  .flt-sb hr           { display: none; }
+
+  /* Product card — fills available column width */
+  .pc                  { width: 100%; }
+
+  /* Search bar full width */
+  .cat-search-inp      { width: 100%; }
+}
+
+@media (max-width: 40rem) {
+
+  .cat-wrap {
+    padding: 12px 12px 48px;
+  }
+
+  /* Single column product grid on small phones */
+  .pg {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .cat-bar-form {
+    flex-wrap: wrap;
+  }
+
+  .cat-info {
+    display: none;
+  }
+
+  /* Stack search + sort vertically */
+  .cat-search-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Sidebar filter groups stack vertically again on very small screens */
+  .flt-sb {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 28rem) {
+  .pg {
+    grid-template-columns: 1fr;
+  }
 }

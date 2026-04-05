@@ -173,7 +173,7 @@ a{
 }
 
 /*review*/
-.reviews{
+.reviews-home{
     background-color: var(--background-dark);}
 
 .review-card{
@@ -202,9 +202,11 @@ a{
 .stars+p{
     position: relative;
     top: -0.5rem;
+    line-height: 1.5;
+    text-align: justify;
     color: var(--text-review);
     font-family: var(--font-body);
-    font-size: 1rem;}
+    font-size: .9rem;}
 
 .stars{
     position: relative;
@@ -256,28 +258,26 @@ strong{
     color: var(--gold2);
     
 }
-
-.steps p{
+.how-it-works h2 +p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 1rem;
+    line-height: 1.5;
+    margin-top:1rem;
 }
 
-
-/*footer*/
-
-
-p{
+.steps p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.5;
     margin-top:1rem;}
 
-h3{
+.steps h3{
     color: var(--text-primary);
     font-family: var(--font-heading);
-    font-weight: 100;}
+    font-size:1.5rem;
+    font-weight: 700;}
 
 .footer {
     background-color: var(--background-dark);
@@ -287,12 +287,16 @@ h3{
 
 .footer a{
     color: var(--text-footer);
-    font-family: var(--font-heading);}
+    font-family: var(--font-body);}
 
 .footer p{
     color: var(--text-footer);
     font-family: var(--font-body);}
 
+.social-icons {
+    display: flex;
+    column-gap: 2px;
+    margin-top: 1rem;}
 
 .social-icons a {
     width: 40px;

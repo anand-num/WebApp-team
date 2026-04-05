@@ -857,26 +857,60 @@
 /* ════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════ */
-@media (max-width: 48rem) {
+
+/* ── Tablet ── */
+@media (max-width: 64rem) {
 
   .cart {
-    grid-template-columns: 1fr;
-    grid-template-areas: "cart-tab" "cart-receipt";
+    grid-template-columns: 1fr 280px;
   }
 
   .cart-tab {
-    padding: 1.5rem 1.25rem 2.5rem;
+    padding: 2rem 2rem 3rem;
   }
 
   .cart-receipt {
-    position: static;
-    margin: 0 1rem 2rem;
+    margin: 2rem 1.5rem 2rem 0;
+  }
+}
+
+/* ── Mobile — receipt stacks below cart ── */
+@media (max-width: 48rem) {
+
+  /* Stack receipt below cart content */
+  .cart {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cart-tab"
+      "cart-receipt";
   }
 
+  .cart-tab {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  /* Receipt — full width card at the bottom */
+  .cart-receipt {
+    position: static;          /* unstick — scrolls naturally at the bottom */
+    margin: 0 1rem 2.5rem;
+    border-radius: 0.25rem;
+  }
+
+  /* Stepper — tighter on small screens */
+  .co-steps {
+    margin-bottom: 2rem;
+  }
+
+  .cs-l {
+    font-size: 0.6rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Cart item — smaller thumbnail */
   .cart-item {
     grid-template-columns: 5rem 1fr auto;
     gap: 0.875rem;
-    padding: 1rem;
+    padding: 0.875rem 1rem;
   }
 
   .cart-item-fig {
@@ -884,11 +918,21 @@
     height: 5rem;
   }
 
+  /* Duration chips — smaller */
   .cart-dur-btn {
     min-width: 3.5rem;
     padding: 0.375rem 0.625rem;
   }
 
+  .dur-days { font-size: 0.75rem; }
+  .dur-price { font-size: 0.6875rem; }
+
+  /* Cart item price — smaller on mobile */
+  .cart-item-price {
+    font-size: 1.1rem;
+  }
+
+  /* Delivery form — single column */
   .delivery-form-wrap,
   .confirm-card {
     padding: 1.5rem 1.25rem;
@@ -902,6 +946,7 @@
     grid-column: span 1;
   }
 
+  /* Confirmation item */
   .confirm-item {
     grid-template-columns: 3.5rem 1fr auto;
     gap: 0.875rem;
@@ -910,5 +955,49 @@
   .confirm-item-fig {
     width: 3.5rem;
     height: 3.5rem;
+  }
+
+  /* Tab footer nav buttons — stack on very small */
+  .tab-footer {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .tab-footer button,
+  .tab-footer a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Receipt promo row — stack on tiny screens */
+  .receipt-promo-row {
+    flex-direction: column;
+  }
+
+  .receipt-promo-row button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── Small phone ── */
+@media (max-width: 24rem) {
+
+  .cart-tab {
+    padding: 1.25rem 0.75rem 1.75rem;
+  }
+
+  .cart-receipt {
+    margin: 0 0.75rem 2rem;
+  }
+
+  .cart-item {
+    grid-template-columns: 4rem 1fr auto;
+    gap: 0.625rem;
+  }
+
+  .cart-item-fig {
+    width: 4rem;
+    height: 4rem;
   }
 }

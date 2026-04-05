@@ -9,10 +9,12 @@
     padding: 0 5vw;
 }
 /*review section*/
-.reviews{
+.reviews-home{
     padding: 10vh 10vw;}
 
 .review-header p{
+  color: var(--text-on-dark);
+  font-family: var(--font-bold);
     margin-bottom: 8vh;}
 
 .review-container{
@@ -38,7 +40,8 @@
     bottom: 1rem;
     padding-top: 0.5rem;
     display: flex;
-    flex-direction: row;}
+    flex-direction: row;
+    align-items: center;}
 
 .review-card strong{
   padding:1.4rem 0.8rem;
@@ -90,6 +93,10 @@
 .footer li{
     list-style: none;
     padding: 0.5rem 1rem;}
+
+.footer p{
+  margin-top:1rem;
+}
 
 .social-icons a {
     display: inline-flex;

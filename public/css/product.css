@@ -120,14 +120,16 @@ a{
 /* ══════════════════════════════
    RIGHT — PRODUCT INFO
 ══════════════════════════════ */
-.pd-brand {
-  font-size: .68rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
 
+.pd-brand {
+  font-family: var(--font-body), sans-serif;
+    font-size: 0.66rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 10px;
+}
 .pd-name {
   font-family: var(--font-heading), serif;
   font-size: 2.2rem;
@@ -155,7 +157,9 @@ a{
 .pd-stock    { color: var(--green, #27ae60); font-weight: 500; }
 
 .pd-desc {
+  font-family:var(--font-body), sans-serif;
   font-size: .9rem;
+  font-weight:500;
   color: var(--muted);
   line-height: 1.75;
   margin-bottom: 28px;
@@ -172,10 +176,11 @@ a{
 
 .dur-opts legend,
 .sz-opts legend {
+  font-family: var(--font-body), sans-serif;
   font-size: .68rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--muted);
   margin-bottom: 12px;
   float: left;          /* keeps legend inline with fieldset width */
@@ -232,25 +237,30 @@ a{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1.5px solid var(--border);
-  border-radius: 4px;
-  font-size: .85rem;
+  min-width: 2.75rem;
+  padding: 0.375rem 0.75rem;
+  border: 0.0625rem solid var(--background-beige-medium);
+  border-radius: 0.25rem;
+  background: var(--background-primary);
+  font-family: var(--font-bold);
+  font-size: 0.8125rem;
   font-weight: 600;
+  color: var(--text-secondary);
   cursor: pointer;
-  margin-right: 8px;
-  background: white;
-  color: var(--ink);
-  transition: all .2s;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  margin-bottom: 0;        /* override any inherited label margin */
+  gap: 0;
 }
 
-.sz-opts label:hover { border-color: var(--ink); }
+.sz-opts label:hover { 
+  border-color: var(--ink);
+  color: var(--text-primary)
+ }
 
 .sz-opts input[type="radio"]:checked + label {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: white;
+  background: rgba(201, 168, 76, 0.08);
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* ══════════════════════════════
@@ -269,6 +279,7 @@ a{
 .pd-total-lbl {
   font-size: .72rem;
   font-weight: 600;
+  font-family: var(--font-body);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   opacity: .6;
@@ -278,34 +289,45 @@ a{
   font-family: var(--font-heading), serif;
   font-size: 2rem;
   font-weight: 700;
+  color: var(--text-primary)
 }
 
 /* ══════════════════════════════
    CALL-TO-ACTION BUTTONS
 ══════════════════════════════ */
-.btn-cart,
-.btn-wish {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  border-radius: 4px;
-  font-family: var(--font-body), sans-serif;
-  font-size: .85rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all .25s;
+.cart-button {
+  background-color: var(--button-primary);   
+    color: var(--text-on-dark);
+    font-size: medium;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 8px 20px;
+    border-radius: 2px;
+    height:3rem;
+    width:100%;
+    padding: 1px;
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.btn-cart {
-  background: var(--ink);
-  color: white;
-  border: 2px solid var(--ink);
-  margin-bottom: 10px;
+.liked-button {
+  text-align: center;
+  font-size: medium;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--text-tertiary);
+    color: var(--text-tertiary);
+    width:100%;
+    margin-top:1rem;
+  height:3rem;
+  background-color: transparent;
+  padding: 1px;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-.btn-cart:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.cart-button:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.liked-button:hover {  border-color: var(--text-primary);    color: var(--text-primary);
+ }
 
 .btn-wish {
   background: white;
@@ -326,9 +348,11 @@ a{
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top:2rem;
 }
 
 .pd-perks li {
+  font-family:var(--font-bold);
   font-size: .8rem;
   color: var(--muted);
   display: flex;
@@ -336,15 +360,23 @@ a{
   gap: 8px;
   line-height: 1.5;
 }
-.reviews {
-  padding: 10vh 10vw;
+/* ════════════════════════════════════════════
+   PRODUCT PAGE REVIEWS — light mode overrides
+   Two-class pattern: .reviews.pd-reviews
+   Shared base rules stay in home/styles.css
+════════════════════════════════════════════ */
+.reviews{
+    padding: 10vh 10vw;}
+/* Section background — one step darker than page, creates a distinct band */
+.pd-reviews {
   background: var(--background-secondary);
-  color: var(--text-primary);
+  border-top: 1px solid var(--background-beige-medium);
 }
 
-.review-header p {
+/* Header tag — gold line + label */
+.pd-reviews .review-header p {
   font-family: var(--font-bold);
-  font-size: .68rem;
+  font-size: 0.68rem;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--gold);
@@ -354,7 +386,7 @@ a{
   margin-bottom: 14px;
 }
 
-.review-header p::before {
+.pd-reviews .review-header p::before {
   content: '';
   display: block;
   width: 28px;
@@ -363,106 +395,207 @@ a{
   flex-shrink: 0;
 }
 
-.review-header h2 {
+/* Heading — dark ink on beige */
+.pd-reviews .review-header h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8vh;
 }
 
-.review-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 16px;
-  margin: 0 auto;
-}
-
-.review-card {
-  box-sizing: border-box;
+/* Container — fluid, no fixed 85rem overflow */
+.pd-reviews .review-container {
   width: 100%;
-  min-height: 16rem;
-  padding: 2.2rem 2.2rem 0 2.2rem;
-  background-color: var(--background-primary);
-  border: 1px solid var(--background-beige-medium);
+  max-width: 100%;
+}
+
+/* Card — white on beige background */
+.pd-reviews .review-card {
+  background: var(--background-primary);
+  border: 1px solid var(--background-beige-dark);
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: background .2s, border-color .2s;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
-.review-card:hover {
-  background: var(--cream);
-  border-color: var(--background-beige-dark);
+.pd-reviews .review-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,.07);
+  transform: translateY(-3px);
 }
 
-.rv-stars {
+/* Stars — gold, same */
+.pd-reviews .stars {
   color: var(--gold);
-  font-size: 1rem;
-  letter-spacing: 2px;
 }
 
-.review-card > p {
-  font-family: var(--font-body);
-  font-size: .85rem;
-  color: var(--text-secondary);
-  line-height: 1.72;
-  flex: 1;
-}
-
-.review-card footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 1.2rem 0 1.6rem;
-  border-top: 1px solid var(--background-beige-medium);
-  margin-top: auto;
-}
-
-.review-card strong {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  border-radius: 50%;
-  background: rgba(201,168,76,.15);
-  border: 1px solid rgba(201,168,76,.4);
-  color: var(--gold);
-  font-family: var(--font-bold);
-  font-size: .8rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.review-card footer p {
-  font-family: var(--font-bold);
-  font-size: .9rem;
-  font-weight: 600;
+/* Review body text — dark on light */
+.pd-reviews .stars + p {
   color: var(--text-primary);
-  margin: 0;
 }
 
-@media (max-width: 1024px) {
-  .review-container {
-    flex-wrap: wrap;
-  }
-  .review-card {
-    width: calc(50% - 8px);
-  }
+/* Divider — subtle beige */
+.pd-reviews .review-card hr {
+  border: none;
+  border-top: 1px solid var(--background-beige-medium);
+  margin: 1rem 0;
 }
 
-@media (max-width: 640px) {
+/* Avatar circle — gold tint */
+.pd-reviews .reviewer-initial {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  margin-top: 0;
+}
+
+/* Name — dark primary text */
+.pd-reviews .review-card strong {
+  color: var(--text-primary);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 64rem) {
+
+  .breadcrumb {
+    padding: 16px 36px 0;
+  }
+
+  .pd-layout {
+    gap: 36px;
+    padding: 24px 36px 60px;
+  }
+
+  /* Reviews */
   .reviews {
     padding: 8vh 6vw;
   }
-  .review-container {
+
+  .pd-reviews .review-container {
+    flex-wrap: wrap;
+  }
+
+  .pd-reviews .review-card {
+    max-width: calc(50% - 1rem);
+    min-width: calc(50% - 1rem);
+  }
+}
+
+/* ── Mobile — single column ── */
+@media (max-width: 48rem) {
+
+  /* Nav */
+  .nav-header {
+    padding: 0 4vw;
+    height: 64px;
+  }
+
+  .middle-nav {
+    display: none;        /* hide nav links on mobile */
+  }
+
+  .right-nav {
+    min-width: unset;
+    gap: 12px;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 12px 20px 0;
+    font-size: 0.72rem;
+  }
+
+  /* Product layout — stack image above info */
+  .pd-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 16px 20px 48px;
+  }
+
+  /* Image — square on mobile, not tall portrait */
+  .pd-fig {
+    position: static;
+    aspect-ratio: 1 / 1;
+  }
+
+  .pd-name {
+    font-size: 1.6rem;
+  }
+
+  /* Duration chips — wrap and shrink */
+  .dur-opts label {
+    min-width: 72px;
+    padding: 9px 12px;
+    margin-right: 6px;
+  }
+
+  /* Size chips — wrap */
+  .sz-opts label {
+    min-width: 2.25rem;
+  }
+
+  /* Total row */
+  .pd-total-price {
+    font-size: 1.6rem;
+  }
+
+  /* Reviews — single column */
+  .reviews {
+    padding: 6vh 5vw;
+  }
+
+  .pd-reviews .review-header h2 {
+    margin-bottom: 4vh;
+  }
+
+  .pd-reviews .review-container {
     flex-direction: column;
   }
-  .review-card {
-    width: 100%;
+
+  .pd-reviews .review-card {
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0.5rem 0 0;
+  }
+}
+
+/* ── Small phone ── */
+@media (max-width: 30rem) {
+
+  .pd-layout {
+    padding: 12px 14px 40px;
+  }
+
+  .breadcrumb {
+    padding: 10px 14px 0;
+  }
+
+  .pd-name {
+    font-size: 1.4rem;
+  }
+
+  .pd-total-price {
+    font-size: 1.4rem;
+  }
+
+  /* Duration chips — equal width */
+  .dur-opts label {
+    flex: 1;
+    min-width: 0;
+    margin-right: 4px;
+    padding: 8px 6px;
+  }
+
+  /* Buttons full width already — just tighten font */
+  .cart-button,
+  .liked-button {
+    font-size: 0.85rem;
+  }
+
+  .reviews {
+    padding: 5vh 4vw;
   }
 }
