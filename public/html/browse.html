@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/public/csscolors.css">
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/browse.css">
 </head>
 
 <body class="browse-page">
@@ -20,12 +21,12 @@
             </a>
         </div>
         <div class="middle-nav">
-            <a href="">Нүүр</a>
-            <a href="">Үзэх</a>
-            <a href="">Миний түрээс</a>
+            <a href="/public/html/index.html">Нүүр</a>
+            <a href="/public/html/browse.html">Үзэх</a>
+            <a href="/public/html/my-rentals.html">Миний түрээс</a>
         </div>
         <div class="right-nav">
-            <a href="" class="like-btn">
+            <a href="/public/html/liked.html" class="like-btn">
                 <img src="/public/source/love.svg" alt="">
             </a>
             <a href="" class="primary-btn">ЗАР НЭМЭХ</a>
@@ -48,47 +49,47 @@
             <legend class="flt-ttl">Ангилал</legend>
             <fieldset class="cat-chips">
                 <label class="flt-row">
-                    <input type="checkbox" name="all">Бүгд
+                    <input type="radio" name="cat">Бүгд
                 </label>
                 <label class="flt-row">
-                    <input type="checkbox" name="cat">
+                    <input type="radio" name="cat">
                     Гоёлын
                     хувцас</label>
                 <label class="flt-row">
-                    <input type="checkbox" name="cat">
+                    <input type="radio" name="cat">
                     Бизнес</label>
                 <label class="flt-row">
-                    <input type="checkbox" name="cat"> Монгол дэл</label>
+                    <input type="radio" name="cat"> Монгол дэл</label>
                 <label class="flt-row">
-                    <input type="checkbox" name="cat"> Өдөр тутмын</label>
+                    <input type="radio" name="cat"> Өдөр тутмын</label>
             </fieldset>
             <legend class="flt-ttl">Размер</legend>
             <fieldset class="sz-chips">
                 <label>
-                    <input type="checkbox" name="all">Бүгд
+                    <input type="radio" name="size">Бүгд
                 </label>
                 <label>
-                    <input type="checkbox" name="size"> XS
-                </label>
-
-                <label>
-                    <input type="checkbox" name="size"> S
+                    <input type="radio" name="size"> XS
                 </label>
 
                 <label>
-                    <input type="checkbox" name="size"> M
+                    <input type="radio" name="size"> S
                 </label>
 
                 <label>
-                    <input type="checkbox" name="size"> L
+                    <input type="radio" name="size"> M
                 </label>
 
                 <label>
-                    <input type="checkbox" name="size"> XL
+                    <input type="radio" name="size"> L
                 </label>
 
                 <label>
-                    <input type="checkbox" name="size"> XXL
+                    <input type="radio" name="size"> XL
+                </label>
+
+                <label>
+                    <input type="radio" name="size"> XXL
                 </label>
             </fieldset>
             <legend class="flt-ttl">Үнэ (1 өдөр)</legend>
@@ -104,18 +105,25 @@
         <!-- MAIN BROWSE SECTION -->
         <main class="cat-main">
             <search class="cat-bar">
-                <form>
-                    <span class="si">🔍</span>
-                    <input class="inp" id="srchInp" placeholder="Хувцас хайх..." oninput="applyFlt()">
-                    <button class="btn btn-dark btn-sm mob-flt">⚙ Шүүлт</button>
-                    <select class="inp" style="width:auto;min-width:150px" id="sortSel">
-                        <option value="">Эрэмбэлэх</option>
-                        <option value="price-asc">Үнэ ↑</option>
-                        <option value="price-desc">Үнэ ↓</option>
-                        <option value="rating">Рейтинг ↓</option>
-                        <option value="new">Шинэ эхэнд</option>
-                    </select>
-                    <span class="cat-info" id="catInfo">16 хувцас</span>
+                <form class="cat-bar-form" role="search">
+
+                    <label class="cat-search-wrap" for="srchInp">
+                        <span class="si" aria-hidden="true">🔍</span>
+                        <input class="cat-search-inp" id="srchInp" type="search"
+                            placeholder="Нэр, тайлбар, брэндээр хайх..." autocomplete="off">
+                    </label>
+
+                    <p class="cat-info" id="catInfo" aria-live="polite">15 бараа олдлоо</p>
+
+                    <label class="cat-sort-wrap" for="sortSel">
+                        <select class="cat-sort-sel" id="sortSel">
+                            <option value="new">Шинэ эхэнд</option>
+                            <option value="price-asc">Үнэ ↑</option>
+                            <option value="price-desc">Үнэ ↓</option>
+                            <option value="rating">Рейтинг ↓</option>
+                        </select>
+                    </label>
+
                 </form>
             </search>
             <section class="pg" id="catGrid">
@@ -123,7 +131,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    <!-- ene havid like button baina -->
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -149,7 +157,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    <!-- ene havid like button baina -->
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -175,7 +183,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    <!-- ene havid like button baina -->
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -201,7 +209,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    <!-- ene havid like button baina -->
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -227,7 +235,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    <!-- ene havid like button baina -->
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -253,7 +261,7 @@
                 <article class="pc">
                     <img src="/public/source/mongol-deel.png" alt="Хар гоёлын хантааз">
                     <span class="badge-gold">Хит</span>
-                    
+                    <span id="heart" class="heart">&#10084;</span>
                     <summary class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -361,4 +369,13 @@
 
         <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
     </footer>
+    <script>
+    // Get the heart element
+    const heart = document.getElementById('heart');
+
+    // Toggle red color on click
+    heart.addEventListener('click', () => {
+      heart.classList.toggle('active');
+    });
+  </script>
 </body>

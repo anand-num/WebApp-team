@@ -2,185 +2,186 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentFit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentFit</title>
 
-    <link rel="stylesheet" href="/public/css/colors.css">
-    <link rel="stylesheet" href="/public/css/product.css">
+  <link rel="stylesheet" href="/public/css/colors.css">
+  <link rel="stylesheet" href="/public/css/product.css">
 </head>
 
 <body>
-    <header class="nav-header">
-        <div class="left-nav">
-            <a href="" class="logo-btn">
-                <img src="/public/source/shirt.svg" alt="" class="logo-icon">
-                <p>RentFit</p>
-            </a>
-        </div>
-        <div class="middle-nav">
-            <a href="">Нүүр</a>
-            <a href="">Үзэх</a>
-            <a href="">Миний түрээс</a>
-        </div>
-        <div class="right-nav">
-            <a href="" class="like-btn">
-                <img src="/public/source/love.svg" alt="">
-            </a>
-            <a href="" class="primary-btn">ЗАР НЭМЭХ</a>
-            <a href="" class="profile-btn">
-                <img src="/public/source/profile.svg" alt="" class="profile-btn">
-            </a>
-        </div>
-    </header>
-    <!-- breadcrumb -->
-<nav class="breadcrumb" aria-label="Хэсгийн зам">
-  <a href="/">Нүүр</a>
-  <span aria-hidden="true">›</span>
-  <a href="/catalog">Каталог</a>
-  <span aria-hidden="true">›</span>
-  <a href="/catalog?cat=casual">Өдөр тутмын</a>
-  <span aria-hidden="true">›</span>
-  <span aria-current="page">Спорт костюм</span>
-</nav>
-
-<main class="pd-layout">
-
-  <!-- LEFT: image -->
-  <figure class="pd-fig">
-    <img src="/public/source/mongol-deel.png" alt="Nike Спорт костюм — бүтэн иж бүрдэл">
-  </figure>
-
-  <!-- RIGHT: all product info -->
-  <article class="pd-info">
-
-    <p class="pd-brand">Nike</p>
-    <h1 class="pd-name">Спорт костюм</h1>
-
-    <p class="pd-meta">
-      <span class="pd-stars" aria-label="4.5 одтой үнэлгээ">★★★★★</span>
-      <strong>4.5</strong>
-      <a href="#reviews" class="pd-rv-link">(56 үнэлгээ)</a>
-      <span class="pd-sep" aria-hidden="true">·</span>
-      <span class="pd-stock">8 ширхэг бэлэн</span>
-    </p>
-
-    <p class="pd-desc">
-      Nike-ийн тав тухтай спорт костюм. Тамирт дасгал, алхалт болон өдөр
-      тутмын хэрэглээнд тохиромжтой.
-    </p>
-
-    <!-- Duration picker — pure CSS :checked trick -->
-    <fieldset class="dur-opts">
-      <legend>Түрээсийн хугацаа</legend>
-
-      <input type="radio" name="dur" id="d1">
-      <label for="d1">
-        <span class="d-days">1 өдөр</span>
-        <span class="d-price">7,000₮</span>
-      </label>
-
-      <input type="radio" name="dur" id="d3" checked>
-      <label for="d3">
-        <span class="d-days">3 өдөр</span>
-        <span class="d-price">16,000₮</span>
-      </label>
-
-      <input type="radio" name="dur" id="d7">
-      <label for="d7">
-        <span class="d-days">7 өдөр</span>
-        <span class="d-price">27,000₮</span>
-      </label>
-    </fieldset>
-
-    <!-- Size picker -->
-    <fieldset class="sz-opts">
-      <legend>Размер</legend>
-
-      <input type="radio" name="sz" id="szS">
-      <label for="szS">S</label>
-
-      <input type="radio" name="sz" id="szM">
-      <label for="szM">M</label>
-
-      <input type="radio" name="sz" id="szL" checked>
-      <label for="szL">L</label>
-
-      <input type="radio" name="sz" id="szXL">
-      <label for="szXL">XL</label>
-
-      <input type="radio" name="sz" id="szXXL">
-      <label for="szXXL">XXL</label>
-    </fieldset>
-
-    <!-- Total -->
-    <p class="pd-total">
-      <span class="pd-total-lbl">Нийт дүн</span>
-      <strong class="pd-total-price">16,000₮</strong>
-    </p>
-
-    <!-- CTAs -->
-    <button class="btn-cart" type="button">🛍 Сагсанд нэмэх</button>
-    <button class="btn-wish" type="button">❤️ Дуртайнаас хасах</button>
-
-    <!-- Trust signals -->
-    <ul class="pd-perks">
-      <li>🚚 24 цагийн дотор хүргэнэ</li>
-      <li>🧺 Угаалга, цэвэрлэгээ манай хариуцлага</li>
-      <li>🛡 Хамгаалалтын мөнгө буцаагдана</li>
-      <li>📐 Размер таарахгүй бол солиулж болно</li>
-    </ul>
-
-  </article>
-</main>
-
-<!-- REVIEWS — directly below, anchored from rating link -->
-<section class="reviews" id="reviews">
-
-  <header class="review-header">
-    <p>Сэтгэгдэл</p>
-    <h2>Хэрэглэгчдийн үнэлгээ</h2>
+  <header class="nav-header">
+    <div class="left-nav">
+      <a href="" class="logo-btn">
+        <img src="/public/source/shirt.svg" alt="" class="logo-icon">
+        <p>RentFit</p>
+      </a>
+    </div>
+    <div class="middle-nav">
+      <a href="/public/html/index.html">Нүүр</a>
+      <a href="/public/html/browse.html">Үзэх</a>
+      <a href="/public/html/my-rentals.html">Миний түрээс</a>
+    </div>
+    <div class="right-nav">
+      <a href="" class="like-btn">
+        <img src="/public/source/love.svg" alt="">
+      </a>
+      <a href="" class="primary-btn">ЗАР НЭМЭХ</a>
+      <a href="" class="profile-btn">
+        <img src="/public/source/profile.svg" alt="" class="profile-btn">
+      </a>
+    </div>
   </header>
+  <!-- breadcrumb -->
+  <nav class="breadcrumb" aria-label="Хэсгийн зам">
+    <a href="/">Нүүр</a>
+    <span aria-hidden="true">›</span>
+    <a href="/catalog">Каталог</a>
+    <span aria-hidden="true">›</span>
+    <a href="/catalog?cat=casual">Өдөр тутмын</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Спорт костюм</span>
+  </nav>
 
-  <section class="review-container">
+  <main class="pd-layout">
 
-    <article class="review-card">
-      <span class="rv-stars">★★★★★</span>
-      <p>Найзынхаа хурим дээр гоёлын хувцас өмсөх хэрэгтэй байсан. RentFit-ийн ачаар гайхалтай хувцас өмссөн. Зардал хямд, хувцас маш сайхан байсан!</p>
-      <footer>
-        <strong>Н</strong>
-        <p>Нарантуяа Б.</p>
-      </footer>
+    <!-- LEFT: image -->
+    <figure class="pd-fig">
+      <img src="/public/source/mongol-deel.png" alt="Nike Спорт костюм — бүтэн иж бүрдэл">
+    </figure>
+
+    <!-- RIGHT: all product info -->
+    <article class="pd-info">
+
+      <p class="pd-brand">Nike</p>
+      <h1 class="pd-name">Спорт костюм</h1>
+
+      <p class="pd-meta">
+        <span class="pd-stars" aria-label="4.5 одтой үнэлгээ">★★★★★</span>
+        <strong>4.5</strong>
+        <a href="#reviews" class="pd-rv-link">(56 үнэлгээ)</a>
+        <span class="pd-sep" aria-hidden="true">·</span>
+        <span class="pd-stock">8 ширхэг бэлэн</span>
+      </p>
+
+      <p class="pd-desc">
+        Nike-ийн тав тухтай спорт костюм. Тамирт дасгал, алхалт болон өдөр
+        тутмын хэрэглээнд тохиромжтой.
+      </p>
+
+      <!-- Duration picker — pure CSS :checked trick -->
+      <fieldset class="dur-opts">
+        <legend>Түрээсийн хугацаа</legend>
+
+        <input type="radio" name="dur" id="d1">
+        <label for="d1">
+          <span class="d-days">1 өдөр</span>
+          <span class="d-price">7,000₮</span>
+        </label>
+
+        <input type="radio" name="dur" id="d3" checked>
+        <label for="d3">
+          <span class="d-days">3 өдөр</span>
+          <span class="d-price">16,000₮</span>
+        </label>
+
+        <input type="radio" name="dur" id="d7">
+        <label for="d7">
+          <span class="d-days">7 өдөр</span>
+          <span class="d-price">27,000₮</span>
+        </label>
+      </fieldset>
+
+      <!-- Size picker -->
+      <fieldset class="sz-opts">
+        <legend>Размер</legend>
+
+        <input type="radio" name="sz" id="szS">
+        <label for="szS">S</label>
+
+        <input type="radio" name="sz" id="szM">
+        <label for="szM">M</label>
+
+        <input type="radio" name="sz" id="szL" checked>
+        <label for="szL">L</label>
+
+        <input type="radio" name="sz" id="szXL">
+        <label for="szXL">XL</label>
+
+        <input type="radio" name="sz" id="szXXL">
+        <label for="szXXL">XXL</label>
+      </fieldset>
+
+      <!-- Total -->
+      <p class="pd-total">
+        <span class="pd-total-lbl">Нийт дүн</span>
+        <strong class="pd-total-price">16,000₮</strong>
+      </p>
+
+      <!-- CTAs -->
+      <button class="btn-cart" type="button">🛍 Сагсанд нэмэх</button>
+      <button class="btn-wish" type="button">❤️ Дуртайнаас хасах</button>
+
+      <!-- Trust signals -->
+      <ul class="pd-perks">
+        <li>🚚 24 цагийн дотор хүргэнэ</li>
+        <li>🧺 Угаалга, цэвэрлэгээ манай хариуцлага</li>
+        <li>🛡 Хамгаалалтын мөнгө буцаагдана</li>
+        <li>📐 Размер таарахгүй бол солиулж болно</li>
+      </ul>
+
     </article>
+  </main>
 
-    <article class="review-card">
-      <span class="rv-stars">★★★★★</span>
-      <p>Бизнес уулзалтанд костюм шаардлагатай байхад хурдан хүргэж өгсөн. Чанар маш сайн, цэвэрлэгдсэн байсан.</p>
-      <footer>
-        <strong>Э</strong>
-        <p>Энхбат Д.</p>
-      </footer>
-    </article>
+  <!-- REVIEWS — directly below, anchored from rating link -->
+  <section class="reviews" id="reviews">
 
-    <article class="review-card">
-      <span class="rv-stars">★★★★★</span>
-      <p>Монгол дэлийн сонголт маш баялаг байсан! Наадамд монгол дэл өмсөж явсан. Хамгийн тохиромжтой үйлчилгээ.</p>
-      <footer>
-        <strong>О</strong>
-        <p>Оюунчимэг Г.</p>
-      </footer>
-    </article>
+    <header class="review-header">
+      <p>Сэтгэгдэл</p>
+      <h2>Хэрэглэгчдийн үнэлгээ</h2>
+    </header>
 
-    <article class="review-card">
-      <span class="rv-stars">★★★★☆</span>
-      <p>Дахин дахин хэрэглэдэг болсон. Үнэ нь боломжийн, хувцас цэвэрлэгдсэн ирдэг.</p>
-      <footer>
-        <strong>Б</strong>
-        <p>Батбаяр М.</p>
-      </footer>
-    </article>
+    <section class="review-container">
+
+      <article class="review-card">
+        <span class="rv-stars">★★★★★</span>
+        <p>Найзынхаа хурим дээр гоёлын хувцас өмсөх хэрэгтэй байсан. RentFit-ийн ачаар гайхалтай хувцас өмссөн. Зардал
+          хямд, хувцас маш сайхан байсан!</p>
+        <footer>
+          <strong>Н</strong>
+          <p>Нарантуяа Б.</p>
+        </footer>
+      </article>
+
+      <article class="review-card">
+        <span class="rv-stars">★★★★★</span>
+        <p>Бизнес уулзалтанд костюм шаардлагатай байхад хурдан хүргэж өгсөн. Чанар маш сайн, цэвэрлэгдсэн байсан.</p>
+        <footer>
+          <strong>Э</strong>
+          <p>Энхбат Д.</p>
+        </footer>
+      </article>
+
+      <article class="review-card">
+        <span class="rv-stars">★★★★★</span>
+        <p>Монгол дэлийн сонголт маш баялаг байсан! Наадамд монгол дэл өмсөж явсан. Хамгийн тохиромжтой үйлчилгээ.</p>
+        <footer>
+          <strong>О</strong>
+          <p>Оюунчимэг Г.</p>
+        </footer>
+      </article>
+
+      <article class="review-card">
+        <span class="rv-stars">★★★★☆</span>
+        <p>Дахин дахин хэрэглэдэг болсон. Үнэ нь боломжийн, хувцас цэвэрлэгдсэн ирдэг.</p>
+        <footer>
+          <strong>Б</strong>
+          <p>Батбаяр М.</p>
+        </footer>
+      </article>
+
+    </section>
 
   </section>
-
-</section>
 </body>
