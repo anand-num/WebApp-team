@@ -60,7 +60,7 @@
 .steps{
     align-items: stretch;
     box-sizing: border-box;
-    width: 100%;
+
     max-width: 26rem;
     height: auto;          
     min-height: 16rem;
