@@ -18,6 +18,7 @@
   --button-primary: #232323;
   --button-primary-hover: #c9a84c;
   --button-primary-text: #232323;
+  
 
   --button-secondary: #e5d5c5;
   --button-secondary-hover: #7a7060;
@@ -32,10 +33,12 @@
   --cream: #f5f0e8;
   --gold:#c9a84c;
   --gold2:#e8c97a;
+  --gold-hover:#f9f7f2;
   --muted:#7a7060;
   --border:rgba(0,0,0,0.09);
   --red:#c0392b;
   --green:#27ae60;
+  --ligh-gray: #e2d8d1;
 }
 
 
