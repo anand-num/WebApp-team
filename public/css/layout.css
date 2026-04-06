@@ -1,3 +1,4 @@
+@import url('color.css');
 .nav-header{
     align-items: center;
     display: flex;
@@ -8,62 +9,64 @@
     padding: 0 5vw;
 }
 /*review section*/
-.reviews{
+.reviews-home{
     padding: 10vh 10vw;}
 
 .review-header p{
+  color: var(--text-on-dark);
+  font-family: var(--font-bold);
     margin-bottom: 8vh;}
 
 .review-container{
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin: 2rem auto;
-    height: 18rem;
-    width: 81rem;
-    margin:1rem auto;}
+    width: 85rem;
+   /* height: 20rem;*/}
 
 .review-card{
     box-sizing: border-box;
-    height: 20rem;
-    width: 25.6rem;
-    padding: 2.2rem;
-    margin: 1rem;}
+    height: auto;
+    width: 100%;
+    max-width: 26rem;
+    min-height: 16rem;
+    padding: 0rem 2.5rem;
+    padding-top: 3rem;
+    margin: 1rem 1rem 0rem 1rem;}
 
 .review-card footer{
     position: relative;
     bottom: 1rem;
-    border-top: 1px solid var(--background-beige-light);
-    padding-top: 2rem;}
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;}
 
-strong+p{
-    position: relative;
-    top:-0.9rem;}
+.review-card strong{
+  padding:1.4rem 0.8rem;
+}
 
-.how-it-works header{
-    margin-bottom: -1rem;}
+
 
 .work-steps-container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 2rem auto;
+    margin: 3rem auto;
     width: 85rem;}
 
 .steps{
+    align-items: stretch;
     box-sizing: border-box;
-    /*border: 1px solid var(--background-beige-medium);*/
 
-    box-sizing: border-box;
-    height: 15rem;
-    width: 30rem;
-    padding: 2.2rem 1rem;}
+    max-width: 26rem;
+    height: auto;          
+    min-height: 16rem;
+    padding: 2.5rem 2.5rem;}
 
 .footer{
-    height: 45lvh;
     display:grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
@@ -84,18 +87,22 @@ strong+p{
 
 .footer-bottom {
     grid-column: 1 / -1; 
-    border-top: 1px solid var(--button-primary-hover);
+    border-top: 1px solid var(--muted);
     padding-top: 2.3rem;}
 
 .footer li{
     list-style: none;
     padding: 0.5rem 1rem;}
 
+.footer p{
+  margin-top:1rem;
+}
+
 .social-icons a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin:0rem 0.5rem;
+    margin:0.5rem 0.5rem;
     transition: all 0.3s ease;}
 
 
@@ -106,14 +113,8 @@ strong+p{
   box-sizing: border-box;
 }
 
-.review-card,
-.steps {
-  width: 100%;
-  max-width: 26rem;
-  height: auto;          
-  min-height: 16rem;
-}
 
+/*Media query*/
 /* ── Tablet: 640px – 1023px ── */
 @media (max-width: 1023px) {
   .review-container {
@@ -126,7 +127,7 @@ strong+p{
   }
 
   .review-card {
-    width: calc(50% - 1.5rem);
+    width: calc(50% - 1.8rem);
     max-width: none;
   }
 
@@ -151,6 +152,8 @@ strong+p{
     padding: 4rem 6vw;
   }
 }
+
+
 
 /* ── Mobile: ≤ 639px ── */
 @media (max-width: 639px) {
@@ -192,8 +195,8 @@ strong+p{
     grid-template-areas:
       "footer-about"
       "footer-nav"
-      "footer-support"
-      "footer-policies";
+      "footer-policies"
+      "footer-contact";
     height: auto;
     padding: 3rem 6vw 2rem;
     text-align: center;
@@ -209,7 +212,7 @@ strong+p{
   }
 
   .footer-nav ul,
-  .footer-support ul,
+  .footer-contact ul,
   .footer-policies ul {
     padding-left: 0;
   }

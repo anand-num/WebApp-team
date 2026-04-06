@@ -1,12 +1,11 @@
 :root {
 /* Backgrounds */
 --background-primary: #fbf7f4;
---background-secondary: #f1ece7;
+--background-secondary: #f5f0e8;
 --background-beige-medium: #e5d5c5;
 --background-beige-dark: #d8c5b0;
 --background-beige-light: #e5ded2;
---background-dark:#212121;
-
+--background-dark:#0e0d0b;
 /* Text */
 --text-primary: #232323;
 --text-secondary: #685d54;
@@ -17,16 +16,28 @@
 
 /* Interactive */
   --button-primary: #232323;
-  --button-primary-hover: #3a3a3a;
-  --button-primary-text: #fbf7f4;
+  --button-primary-hover: #c9a84c;
+  --button-primary-text: #232323;
 
   --button-secondary: #e5d5c5;
-  --button-secondary-hover: #d8c5b0;
+  --button-secondary-hover: #7a7060;
   --button-secondary-text: #232323;
 
   /* Fonts */
-  --font-heading: 'Cormorant', serif;  /* for headings */
-  --font-body: 'Inter', sans-serif;    /* for body and general text */
+  --font-heading: 'Playfair Display', serif;  /* for headings */
+  --font-body: 'Inter', sans-serif;  /* for body and general text */
+  --font-bold:'DM Sans',sans-serif;
 
-    
+  /* Colors */
+  --cream: #f5f0e8;
+  --gold:#c9a84c;
+  --gold2:#e8c97a;
+  --muted:#7a7060;
+  --border:rgba(0,0,0,0.09);
+  --red:#c0392b;
+  --green:#27ae60;
 }
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }

@@ -1,0 +1,601 @@
+@import url('color.css');
+body{
+    background-color: var(--background-secondary);
+}
+a{
+    text-decoration: none;
+    color: var(--text-primary);
+}
+.nav-header{
+    align-items: center;
+    display: flex;
+    box-shadow: 0  1px 10px  rgb(167, 163, 163);
+    flex-direction:row;
+    height: 80px;
+    justify-content: space-between;
+    padding: 0 5vw;
+}
+
+.left-nav{
+    min-width: 20vw;
+}
+
+.middle-nav{
+    column-gap: 3vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-nav{
+    display: flex;
+    min-width: 20vw;
+    justify-content: right;
+    align-items: center;
+    column-gap: 1vw;
+}
+
+.like-btn{
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.profile-btn{
+    display: flex;
+    align-items: center;
+}
+
+.profile-btn img {
+    width: 35px;
+    height: 35px;
+}
+
+.logo-icon{
+    align-items: center;
+    width: 40px;
+    height: 40px;
+}
+
+.logo-btn{
+    display:flex ;
+    align-items: center;
+    column-gap: 1vw;
+    font-size: larger;
+    font-weight: bold;
+    width: fit-content;
+}
+/*PRDUCT DETAILS*/
+/* ══════════════════════════════
+   BREADCRUMB
+══════════════════════════════ */
+.breadcrumb {
+  padding: 20px 72px 0;
+  font-size: .78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a { color: var(--muted); transition: color .15s; }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb [aria-current="page"] { color: var(--ink); font-weight: 500; }
+
+/* ══════════════════════════════
+   TWO-COLUMN LAYOUT
+══════════════════════════════ */
+.pd-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 32px 72px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════
+   LEFT — IMAGE
+══════════════════════════════ */
+.pd-fig {
+  position: sticky;
+  top: calc(66px + 20px);   /* below fixed nav */
+  align-self: start;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a0a0a, #3a0000);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-fig img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ══════════════════════════════
+   RIGHT — PRODUCT INFO
+══════════════════════════════ */
+
+.pd-brand {
+  font-family: var(--font-body), sans-serif;
+    font-size: 0.66rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 10px;
+}
+.pd-name {
+  font-family: var(--font-heading), serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+/* Rating row */
+.pd-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.pd-stars    { color: var(--gold); letter-spacing: 1px; }
+.pd-meta strong { color: var(--ink); }
+.pd-rv-link  { color: var(--muted); text-decoration: underline; transition: color .15s; }
+.pd-rv-link:hover { color: var(--gold); }
+.pd-sep      { opacity: .4; }
+.pd-stock    { color: var(--green, #27ae60); font-weight: 500; }
+
+.pd-desc {
+  font-family:var(--font-body), sans-serif;
+  font-size: .9rem;
+  font-weight:500;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+/* ══════════════════════════════
+   DURATION PICKER
+══════════════════════════════ */
+.dur-opts {
+  border: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.dur-opts legend,
+.sz-opts legend {
+  font-family: var(--font-body), sans-serif;
+  font-size: .68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 12px;
+  float: left;          /* keeps legend inline with fieldset width */
+  width: 100%;
+}
+
+/* hide the radio inputs but keep them functional */
+.dur-opts input[type="radio"],
+.sz-opts  input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.dur-opts label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 11px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .2s;
+  margin-right: 8px;
+  background: white;
+  min-width: 88px;
+}
+
+.dur-opts label:hover { border-color: var(--gold); }
+
+.d-days { font-size: .88rem; font-weight: 700; color: var(--ink); }
+.d-price { font-size: .72rem; color: var(--muted); }
+
+/* checked state */
+.dur-opts input[type="radio"]:checked + label {
+  border-color: var(--gold);
+  background: rgba(201,168,76,.08);
+}
+.dur-opts input[type="radio"]:checked + label .d-price { color: var(--gold); }
+
+/* ══════════════════════════════
+   SIZE PICKER
+══════════════════════════════ */
+.sz-opts {
+  border: none;
+  padding: 0;
+  margin: 0 0 28px;
+}
+
+.sz-opts label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  padding: 0.375rem 0.75rem;
+  border: 0.0625rem solid var(--background-beige-medium);
+  border-radius: 0.25rem;
+  background: var(--background-primary);
+  font-family: var(--font-bold);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  margin-bottom: 0;        /* override any inherited label margin */
+  gap: 0;
+}
+
+.sz-opts label:hover { 
+  border-color: var(--ink);
+  color: var(--text-primary)
+ }
+
+.sz-opts input[type="radio"]:checked + label {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ══════════════════════════════
+   TOTAL ROW
+══════════════════════════════ */
+.pd-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.pd-total-lbl {
+  font-size: .72rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+.pd-total-price {
+  font-family: var(--font-heading), serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary)
+}
+
+/* ══════════════════════════════
+   CALL-TO-ACTION BUTTONS
+══════════════════════════════ */
+.cart-button {
+  background-color: var(--button-primary);   
+    color: var(--text-on-dark);
+    font-size: medium;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 8px 20px;
+    border-radius: 2px;
+    height:3rem;
+    width:100%;
+    padding: 1px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.liked-button {
+  text-align: center;
+  font-size: medium;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--text-tertiary);
+    color: var(--text-tertiary);
+    width:100%;
+    margin-top:1rem;
+  height:3rem;
+  background-color: transparent;
+  padding: 1px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.cart-button:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.liked-button:hover {  border-color: var(--text-primary);    color: var(--text-primary);
+ }
+
+.btn-wish {
+  background: white;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  margin-bottom: 20px;
+}
+
+.btn-wish:hover { background: var(--ink); color: white; }
+
+/* ══════════════════════════════
+   PERKS / TRUST SIGNALS
+══════════════════════════════ */
+.pd-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top:2rem;
+}
+
+.pd-perks li {
+  font-family:var(--font-bold);
+  font-size: .8rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+/* ════════════════════════════════════════════
+   PRODUCT PAGE REVIEWS — light mode overrides
+   Two-class pattern: .reviews.pd-reviews
+   Shared base rules stay in home/styles.css
+════════════════════════════════════════════ */
+.reviews{
+    padding: 10vh 10vw;}
+/* Section background — one step darker than page, creates a distinct band */
+.pd-reviews {
+  background: var(--background-secondary);
+  border-top: 1px solid var(--background-beige-medium);
+}
+
+/* Header tag — gold line + label */
+.pd-reviews .review-header p {
+  font-family: var(--font-bold);
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pd-reviews .review-header p::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Heading — dark ink on beige */
+.pd-reviews .review-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8vh;
+}
+
+/* Container — fluid, no fixed 85rem overflow */
+.pd-reviews .review-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Card — white on beige background */
+.pd-reviews .review-card {
+  background: var(--background-primary);
+  border: 1px solid var(--background-beige-dark);
+  border-radius: 4px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.pd-reviews .review-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,.07);
+  transform: translateY(-3px);
+}
+
+/* Stars — gold, same */
+.pd-reviews .stars {
+  color: var(--gold);
+}
+
+/* Review body text — dark on light */
+.pd-reviews .stars + p {
+  color: var(--text-primary);
+}
+
+/* Divider — subtle beige */
+.pd-reviews .review-card hr {
+  border: none;
+  border-top: 1px solid var(--background-beige-medium);
+  margin: 1rem 0;
+}
+
+/* Avatar circle — gold tint */
+.pd-reviews .reviewer-initial {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  margin-top: 0;
+}
+
+/* Name — dark primary text */
+.pd-reviews .review-card strong {
+  color: var(--text-primary);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 64rem) {
+
+  .breadcrumb {
+    padding: 16px 36px 0;
+  }
+
+  .pd-layout {
+    gap: 36px;
+    padding: 24px 36px 60px;
+  }
+
+  /* Reviews */
+  .reviews {
+    padding: 8vh 6vw;
+  }
+
+  .pd-reviews .review-container {
+    flex-wrap: wrap;
+  }
+
+  .pd-reviews .review-card {
+    max-width: calc(50% - 1rem);
+    min-width: calc(50% - 1rem);
+  }
+}
+
+/* ── Mobile — single column ── */
+@media (max-width: 48rem) {
+
+  /* Nav */
+  .nav-header {
+    padding: 0 4vw;
+    height: 64px;
+  }
+
+  .middle-nav {
+    display: none;        /* hide nav links on mobile */
+  }
+
+  .right-nav {
+    min-width: unset;
+    gap: 12px;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 12px 20px 0;
+    font-size: 0.72rem;
+  }
+
+  /* Product layout — stack image above info */
+  .pd-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 16px 20px 48px;
+  }
+
+  /* Image — square on mobile, not tall portrait */
+  .pd-fig {
+    position: static;
+    aspect-ratio: 1 / 1;
+  }
+
+  .pd-name {
+    font-size: 1.6rem;
+  }
+
+  /* Duration chips — wrap and shrink */
+  .dur-opts label {
+    min-width: 72px;
+    padding: 9px 12px;
+    margin-right: 6px;
+  }
+
+  /* Size chips — wrap */
+  .sz-opts label {
+    min-width: 2.25rem;
+  }
+
+  /* Total row */
+  .pd-total-price {
+    font-size: 1.6rem;
+  }
+
+  /* Reviews — single column */
+  .reviews {
+    padding: 6vh 5vw;
+  }
+
+  .pd-reviews .review-header h2 {
+    margin-bottom: 4vh;
+  }
+
+  .pd-reviews .review-container {
+    flex-direction: column;
+  }
+
+  .pd-reviews .review-card {
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0.5rem 0 0;
+  }
+}
+
+/* ── Small phone ── */
+@media (max-width: 30rem) {
+
+  .pd-layout {
+    padding: 12px 14px 40px;
+  }
+
+  .breadcrumb {
+    padding: 10px 14px 0;
+  }
+
+  .pd-name {
+    font-size: 1.4rem;
+  }
+
+  .pd-total-price {
+    font-size: 1.4rem;
+  }
+
+  /* Duration chips — equal width */
+  .dur-opts label {
+    flex: 1;
+    min-width: 0;
+    margin-right: 4px;
+    padding: 8px 6px;
+  }
+
+  /* Buttons full width already — just tighten font */
+  .cart-button,
+  .liked-button {
+    font-size: 0.85rem;
+  }
+
+  .reviews {
+    padding: 5vh 4vw;
+  }
+}
