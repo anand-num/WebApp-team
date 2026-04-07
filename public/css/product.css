@@ -1,6 +1,6 @@
 @import url('global.css');
 body{
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
 }
 a{
     text-decoration: none;
