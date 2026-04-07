@@ -230,7 +230,7 @@
           <h2>02</h2>
           <h3>Огноо сонгох</h3>
           <p>
-            Түрээслэх хугацаагаа сонгоно уу. Стандарт 4 өдрийн түрээс нь
+            Түрээслэх хугацаагаа сонгоно уу. Стандарт 4 1 1 Өдөрт түрээс нь
             хүргэлт, буцаалтыг багтаасан.
           </p>
         </article>
@@ -257,105 +257,116 @@
         <p class="section-tag" aria-hidden="true">Онцлох</p>
         <h2 class="featured-title" id="featured-title">Түгээмэл хувцаснууд</h2>
       </header>
-      <!-- Карт Grid -->
-      <div class="product-grid" role="list">
-        <!-- ── Карт 1: Хар гоёлын хантааз ── -->
-        <article class="product-card" role="listitem">
-          <div class="card-visual dark-maroon">
-            <span class="card-badge">Шинэ</span>
-            <button class="card-heart" type="button" aria-label="Дуртайд нэмэх" onclick="this.classList.toggle('liked')">♥</button>
-            <span class="card-icon" aria-hidden="true"></span>
-          </div>
-          <div class="card-body">
-            <p class="card-brand">Zara</p>
-            <h3 class="card-name">Хар гоёлын хантааз</h3>
-            <div class="card-rating" aria-label="4.8 одтой үнэлгээ, 24 үнэлгээ">
-              <span class="stars" aria-hidden="true">★★★★★</span>
-              <span class="rating-text">4.8 (24)</span>
-            </div>
-            <div class="card-footer">
-              <div class="price-wrap">
-                <strong class="price">15,000₮</strong>
-                <span class="price-lbl">өдрөөс</span>
-              </div>
-              <a href="/public/html/product.html" class="card-link" aria-label="Хар гоёлын хантааз — дэлгэрэнгүй харах">Харах →</a>
-            </div>
-          </div>
-        </article>
+      <div class="product-grid">
 
-        <!-- ── Карт 2: Бизнес костюм ── -->
-        <article class="product-card" role="listitem">
-          <div class="card-visual dark-navy">
-            <span class="card-badge">Онцлох</span>
-            <button class="card-heart" type="button" aria-label="Дуртайд нэмэх" onclick="this.classList.toggle('liked')">♥</button>
-            <span class="card-icon" aria-hidden="true"></span>
-          </div>
-          <div class="card-body">
-            <p class="card-brand">Hugo Boss</p>
-            <h3 class="card-name">Бизнес костюм</h3>
-            <div class="card-rating" aria-label="4.9 одтой үнэлгээ, 41 үнэлгээ">
-              <span class="stars" aria-hidden="true">★★★★★</span>
-              <span class="rating-text">4.9 (41)</span>
-            </div>
-            <div class="card-footer">
-              <div class="price-wrap">
-                <strong class="price">25,000₮</strong>
-                <span class="price-lbl">өдрөөс</span>
-              </div>
-              <a href="/public/html/product.html" class="card-link" aria-label="Бизнес костюм — дэлгэрэнгүй харах">Харах →</a>
-            </div>
-          </div>
-        </article>
+  <!-- Карт 1 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/voiled-evergarden-cos.jpg" alt="Хар гоёлын хантааз">
 
-        <!-- ── Карт 3: Улаан торгон дээл ── -->
-        <article class="product-card" role="listitem">
-          <div class="card-visual dark-red">
-            <span class="card-badge">Тусгай</span>
-            <button class="card-heart liked" type="button" aria-label="Дуртайд нэмэх" onclick="this.classList.toggle('liked')">♥</button>
-            <span class="card-icon" aria-hidden="true"></span>
-          </div>
-          <div class="card-body">
-            <p class="card-brand">Монгол Бренд</p>
-            <h3 class="card-name">Улаан торгон дээл</h3>
-            <div class="card-rating" aria-label="4.9 одтой үнэлгээ, 18 үнэлгээ">
-              <span class="stars" aria-hidden="true">★★★★★</span>
-              <span class="rating-text">4.9 (18)</span>
-            </div>
-            <div class="card-footer">
-              <div class="price-wrap">
-                <strong class="price">20,000₮</strong>
-                <span class="price-lbl">өдрөөс</span>
-              </div>
-              <a href="/public/html/product.html" class="card-link" aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-            </div>
-          </div>
-        </article>
+      <span class="card-badge">Шинэ</span>
+      <button class="card-heart" onclick="this.classList.toggle('liked')">♥</button>
+    </div>
 
-        <!-- ── Карт 4: Ягаан даашинз ── -->
-        <article class="product-card" role="listitem">
-          <div class="card-visual dark-plum">
-            <button class="card-heart" type="button" aria-label="Дуртайд нэмэх" onclick="this.classList.toggle('liked')">♥</button>
-            <span class="card-icon" aria-hidden="true"></span>
-          </div>
-          <div class="card-body">
-            <p class="card-brand">Mango</p>
-            <h3 class="card-name">Ягаан даашинз</h3>
-            <div class="card-rating" aria-label="4.6 одтой үнэлгээ, 15 үнэлгээ">
-              <span class="stars" aria-hidden="true">★★★★★</span>
-              <span class="rating-text">4.6 (15)</span>
-            </div>
-            <div class="card-footer">
-              <div class="price-wrap">
-                <strong class="price">12,000₮</strong>
-                <span class="price-lbl">өдрөөс</span>
-              </div>
-              <a href="/public/html/product.html" class="card-link" aria-label="Ягаан дашинси — дэлгэрэнгүй харах">Харах →</a>
-            </div>
-          </div>
-        </article>
+    <div class="card-body">
+      <p class="card-brand">COSPLAY</p>
+      <h3 class="card-name">Косплей хувцас</h3>
 
+      <div class="card-rating">
+        ★★★★★ <span>4.8 (24)</span>
       </div>
 
+      <div class="card-footer">
+        <div>
+          <strong>15,000₮</strong>
+          <p> Өдөрт</p>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карт 2 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/mongolian-male-deel.jpg" alt="Бизнес костюм">
+
+      <span class="card-badge">Онцлох</span>
+      <button class="card-heart" onclick="this.classList.toggle('liked')">♥</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">МОНГОЛ УРЛАГ</p>
+      <h3 class="card-name">Монгол эрэгтэй дээл</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.9 (41)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <strong>25,000₮</strong>
+          <p>Өдөрт</p>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карт 3 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/dress2.jpg" alt="Улаан торгон дээл">
+
+      <span class="card-badge">Тусгай</span>
+      <button class="card-heart liked" onclick="this.classList.toggle('liked')">♥</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">Баяр ёслол</p>
+      <h3 class="card-name">Хуримын даашинз</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.9 (18)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <strong>20,000₮</strong>
+          <p>Өдөрт</p>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карт 4 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/bear-costume.jpg" alt="Ягаан даашинз">
+
+      <button class="card-heart" onclick="this.classList.toggle('liked')">♥</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">COSPLAY</p>
+      <h3 class="card-name">Баавгайн хувцас</h3>
+
+      <div class="card-rating">
+        ★★★★☆ <span>4.6 (15)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <strong>12,000₮</strong>
+          <p>Өдөрт</p>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+</div>
       <!-- "БҮХ КАТАЛОГ" товч -->
       <div class="featured-cta">
         <a href="/public/html/browse.html" class="catalog-btn">
