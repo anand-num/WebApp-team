@@ -2,6 +2,7 @@ const tabs = document.querySelectorAll('[data-tab-target]');
 const tabContents = document.querySelectorAll('[data-tab-content]');
 const footer = document.querySelector('.tab-footer');
 const steps = document.querySelectorAll('.co-step');
+const fourthStep = document.querySelector('#fourth-step');
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -45,10 +46,11 @@ tabs.forEach(tab => {
     if (target.id === "fourth-step") {
 
       secondaryBtn.style.display = "none";
-
       primaryBtn.style.display = "none";
 
       receipt.style.display = "none";
+      steps.style.display = "none";
+      
     }
   });
 });

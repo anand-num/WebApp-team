@@ -91,7 +91,7 @@ ol li+li::before {
 
 .flt-sb {
     grid-area: flt-sb;
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
     padding-left: 4rem;
     position: sticky;
     top: 86px;
@@ -180,7 +180,7 @@ hr {
 ════════════════════════════════════════════ */
 .cat-main {
     grid-area: cat-main;
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
     padding: 20px;
 }
 
