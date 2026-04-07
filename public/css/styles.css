@@ -76,7 +76,21 @@ a{
 .sub-nav a:hover{
     color:var(--button-primary-hover);
 }
-
+.top-right-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 6vw;
+}
+.top-right-nav .line-vertical{
+    height: 0.8rem;
+    background-color: var(--gray);
+}
+.top-right-nav a{
+    color: var(--gray);
+    font-size: 0.6rem;
+    letter-spacing:0.1rem ;
+}
 .right-nav{
     display: flex;
     min-width: 20vw;
