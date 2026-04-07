@@ -1,6 +1,7 @@
 const tabs = document.querySelectorAll('[data-tab-target]');
 const tabContents = document.querySelectorAll('[data-tab-content]');
 const footer = document.querySelector('.tab-footer');
+const steps = document.querySelectorAll('.co-step');
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {

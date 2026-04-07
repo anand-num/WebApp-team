@@ -41,7 +41,7 @@
   grid-template-areas: "cart-tab cart-receipt";
   gap: 0;
   min-height: calc(100vh - 66px);
-  background-color: var(--background-secondary);
+  background-color: var(--background-primary);
 }
 
 /* ════════════════════════════════════════════
