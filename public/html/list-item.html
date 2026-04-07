@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Зар нэмэх — RentFit</title>
+  <link rel="stylesheet" href="/public/css/color.css">
+  <link rel="stylesheet" href="/public/css/layout.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <link rel="stylesheet" href="/public/css/list-item.css">
+</head>
+<body class="list-page">
+
+  <header class="nav-header">
+    <div class="left-nav">
+      <a href="/public/html/index.html" class="logo-btn">
+        <img src="/public/source/shirt.svg" alt="RentFit лого" class="logo-icon">
+        <p>RentFit</p>
+      </a>
+    </div>
+    <nav class="middle-nav" aria-label="Үндсэн цэс">
+      <a href="/public/html/index.html">Нүүр</a>
+      <a href="/public/html/browse.html">Үзэх</a>
+      <a href="/public/html/my-rentals.html">Миний түрээс</a>
+    </nav>
+    <div class="right-nav">
+      <a href="/public/html/liked.html" class="like-btn" aria-label="Дуртай жагсаалт">
+        <img src="/public/source/love.svg" alt="">
+      </a>
+      <a href="/public/html/list-item.html" class="primary-btn" aria-current="page">ЗАР НЭМЭХ</a>
+      <a href="#" class="profile-btn" aria-label="Профайл">
+        <img src="/public/source/profile.svg" alt="">
+      </a>
+    </div>
+  </header>
+
+  <section class="list-hero">
+    <h1>Зар нэмэх</h1>
+    <p>Хувцасаа түрээслүүлж нэмэлт орлого олоорой — бүртгэх нь зөвхөн 3 минут!</p>
+  </section>
+
+  <nav class="breadcrumb" aria-label="Хэсгийн зам">
+    <a href="/public/html/index.html">Нүүр</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Зар нэмэх</span>
+  </nav>
+
+  <div class="list-layout">
+
+    <!-- FORM талбар -->
+    <div>
+
+      <section class="list-card" aria-labelledby="basic-title">
+        <h2 class="card-title" id="basic-title">Үндсэн мэдээлэл</h2>
+        <fieldset class="form-row">
+          <p class="form-field">
+            <label for="item-name">Хувцасны нэр <abbr title="Шаардлагатай">*</abbr></label>
+            <input id="item-name" type="text" name="name" placeholder="Жнэ: Цагаан Монгол дээл" required>
+          </p>
+          <p class="form-field">
+            <label for="item-brand">Брэнд / Үйлдвэрлэгч</label>
+            <input id="item-brand" type="text" name="brand" placeholder="Жнэ: Yalguun, Zara, Hugo Boss">
+          </p>
+        </fieldset>
+        <fieldset class="form-row">
+          <p class="form-field">
+            <label for="item-cat">Ангилал <abbr title="Шаардлагатай">*</abbr></label>
+            <select id="item-cat" name="category" required>
+              <option value="" disabled selected>Ангилал сонгох</option>
+              <option value="mongolian">Монгол дэл</option>
+              <option value="formal">Гоёлын хувцас</option>
+              <option value="business">Бизнес</option>
+              <option value="casual">Өдөр тутмын</option>
+              <option value="costume">Костюм / Маскот</option>
+            </select>
+          </p>
+          <p class="form-field">
+            <label for="item-gender">Хүйс</label>
+            <select id="item-gender" name="gender">
+              <option value="" disabled selected>Сонгох</option>
+              <option value="women">Эмэгтэй</option>
+              <option value="men">Эрэгтэй</option>
+              <option value="unisex">Унисекс</option>
+            </select>
+          </p>
+        </fieldset>
+        <p class="form-field">
+          <label for="item-desc">Тайлбар</label>
+          <textarea id="item-desc" name="description"
+            placeholder="Хувцасны материал, онцлог шинж чанар, яаж өмсөх талаар бичнэ үү…" rows="4"></textarea>
+        </p>
+      </section>
+
+      <section class="list-card" aria-labelledby="price-title">
+        <h2 class="card-title" id="price-title">Үнэ тогтоох</h2>
+        <div class="price-group">
+          <p class="form-field">
+            <label for="price-1">1 өдрийн үнэ ₮ <abbr title="Шаардлагатай">*</abbr></label>
+            <input id="price-1" type="number" name="price_1d" placeholder="15000" min="0" step="500" required>
+          </p>
+          <p class="form-field">
+            <label for="price-3">3 өдрийн үнэ ₮</label>
+            <input id="price-3" type="number" name="price_3d" placeholder="40000" min="0" step="500">
+          </p>
+          <p class="form-field">
+            <label for="price-7">7 өдрийн үнэ ₮</label>
+            <input id="price-7" type="number" name="price_7d" placeholder="80000" min="0" step="500">
+          </p>
+        </div>
+        <p class="form-field">
+          <label for="item-deposit">Баталгааны мөнгө ₮</label>
+          <input id="item-deposit" type="number" name="deposit" placeholder="50000" min="0" step="1000">
+        </p>
+      </section>
+
+      <section class="list-card" aria-labelledby="size-title">
+        <h2 class="card-title" id="size-title">Боломжит размерууд</h2>
+        <fieldset class="size-chips" aria-label="Размер сонгох">
+          <legend class="sr-only">Боломжит размерууд</legend>
+          <input type="checkbox" id="sz-xs"   name="sizes" value="XS">
+          <label for="sz-xs">XS</label>
+          <input type="checkbox" id="sz-s"    name="sizes" value="S">
+          <label for="sz-s">S</label>
+          <input type="checkbox" id="sz-m"    name="sizes" value="M">
+          <label for="sz-m">M</label>
+          <input type="checkbox" id="sz-l"    name="sizes" value="L">
+          <label for="sz-l">L</label>
+          <input type="checkbox" id="sz-xl"   name="sizes" value="XL">
+          <label for="sz-xl">XL</label>
+          <input type="checkbox" id="sz-xxl"  name="sizes" value="XXL">
+          <label for="sz-xxl">XXL</label>
+          <input type="checkbox" id="sz-free" name="sizes" value="Нэг хэмжээ">
+          <label for="sz-free">Нэг хэмжээ</label>
+        </fieldset>
+      </section>
+
+      <section class="list-card" aria-labelledby="photo-title">
+        <h2 class="card-title" id="photo-title">Зураг оруулах</h2>
+        <label class="upload-zone" for="photo-input">
+          <span class="upload-icon" aria-hidden="true">📸</span>
+          <p>Зургаа энд дарж оруулах эсвэл чирж оруулна уу</p>
+          <small>PNG, JPG, WEBP · Дээд тал нь 10MB · 6 хүртэл зураг</small>
+          <input id="photo-input" type="file" accept="image/png,image/jpeg,image/webp"
+            multiple aria-label="Зураг сонгох" style="display:none">
+        </label>
+      </section>
+
+      <section class="list-card" aria-labelledby="delivery-title">
+        <h2 class="card-title" id="delivery-title">Хүргэлтийн мэдээлэл</h2>
+        <fieldset class="form-row">
+          <p class="form-field">
+            <label for="item-district">Дүүрэг <abbr title="Шаардлагатай">*</abbr></label>
+            <select id="item-district" name="district" required>
+              <option value="" disabled selected>Дүүрэг сонгох</option>
+              <option>Баянзүрх</option>
+              <option>Сүхбаатар</option>
+              <option>Чингэлтэй</option>
+              <option>Хан-Уул</option>
+              <option>Баянгол</option>
+              <option>Налайх</option>
+              <option>Багануур</option>
+              <option>Багахангай</option>
+              <option>Бусад</option>
+            </select>
+          </p>
+          <p class="form-field">
+            <label for="item-address">Хаяг</label>
+            <input id="item-address" type="text" name="address"
+              placeholder="Хороо, байр, тоот…" autocomplete="street-address">
+          </p>
+        </fieldset>
+      </section>
+
+      <button type="button" class="list-submit">ЗАР БАЙРШУУЛАХ →</button>
+    </div>
+
+    <!-- PREVIEW хэсэг -->
+    <aside class="list-preview" aria-label="Зарын урьдчилан харах">
+      <div class="preview-card">
+        <div class="preview-img" aria-hidden="true"><span>Зурагны урьдчилан харах</span></div>
+        <div class="preview-body">
+          <p class="preview-brand" id="prev-brand">Брэнд</p>
+          <p class="preview-name"  id="prev-name">Хувцасны нэр</p>
+          <p class="preview-price-lbl">өдөрт</p>
+          <p class="preview-price"  id="prev-price">0 ₮</p>
+        </div>
+      </div>
+      <p class="preview-tip">Мэдээлэл оруулахад урьдчилан харах автоматаар шинэчлэгдэнэ.</p>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <section class="footer-about">
+      <p class="logo">Rent<em>Fit</em></p>
+      <p>Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой сонголт.</p>
+    </section>
+    <nav class="footer-nav">
+      <ul>
+        <li><h3>Цэс</h3></li>
+        <li><a href="/public/html/index.html">Нүүр</a></li>
+        <li><a href="/public/html/browse.html">Цуглуулга</a></li>
+        <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
+        <li><a href="/public/html/my-rentals.html">Миний түрээс</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-policies">
+      <ul>
+        <li><h3>Бодлого</h3></li>
+        <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        <li><a href="#">Нууцлалын бодлого</a></li>
+        <li><a href="#">Cookie бодлого</a></li>
+        <li><a href="#">Бидний тухай</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-contact">
+      <ul>
+        <li><h3>Холбоо барих</h3></li>
+        <li><a href="#">Холбоо барих</a></li>
+        <li><a href="#">Тусламж</a></li>
+        <li><a href="#">Санал хүсэлт</a></li>
+      </ul>
+    </nav>
+    <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
+  </footer>
+
+  <script>
+    const nameInp  = document.getElementById('item-name');
+    const brandInp = document.getElementById('item-brand');
+    const priceInp = document.getElementById('price-1');
+
+    function updatePreview() {
+      document.getElementById('prev-name').textContent  = nameInp.value  || 'Хувцасны нэр';
+      document.getElementById('prev-brand').textContent = brandInp.value || 'Брэнд';
+      const p = Number(priceInp.value);
+      document.getElementById('prev-price').textContent = p ? p.toLocaleString() + ' ₮' : '0 ₮';
+    }
+    [nameInp, brandInp, priceInp].forEach(el => el.addEventListener('input', updatePreview));
+
+    document.querySelector('.list-submit').addEventListener('click', function () {
+      this.classList.add('submit-success');
+      this.addEventListener('animationend', () => this.classList.remove('submit-success'), { once: true });
+    });
+  </script>
+</body>
+</html>
