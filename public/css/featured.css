@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-/* CSS Custom Properties — өнгө, фонт систем */
 :root {
   /* Арын дэвсгэр */
   --bg-primary:       #fbf7f4;
@@ -159,7 +158,7 @@ body {
   }
 }
 
-/* Өнгөт дэвсгэр variant-ууд */
+/* Өнгөт дэвсгэр variant-ууд 
 .card-visual.dark-maroon {
   background: radial-gradient(ellipse at 70% 30%, #3d0a0a 0%, #0d0504 100%);
 }
@@ -172,14 +171,14 @@ body {
 .card-visual.dark-plum {
   background: radial-gradient(ellipse at 50% 30%, #5a0d4a 0%, #2a0520 100%);
 }
-
+*/
 /* ── Badge — дээд зүүн булан ── */
 .card-badge {
   position: absolute;
   top: 14px;
   left: 14px;
   z-index: 3;
-  background: var(--bg-dark);
+  background: var(--gold);
   color: var(--text-on-dark);
   font-family: var(--font-body);
   font-size: 0.5625rem;
@@ -283,17 +282,17 @@ body {
         font-family: var(--font-body);
         font-size: 1.1rem;
         font-weight: 700;
-        color: var(--text-primary);
+        color:#c9a227);
         line-height: 1;
       }
 
       & .price-lbl {
-        font-size: 0.6875rem;
-        color: var(--text-tertiary);
+        font-size: 0.5rem;
+        color: #888;
         font-weight: 400;
       }
     }
-a
+
     /* "ХАРАХ →" холбоос */
     & .card-link {
       font-family: var(--font-body);
@@ -439,4 +438,24 @@ a
 
     & .card-icon { font-size: 3rem; }
   }
+}
+/*price color*/
+.card-footer > div > strong {
+  color:var(--gold);
+;
+}
+
+/* Зураг */
+.card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* зураг суналтгүй дүүргэнэ */
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* overlay бага харагдуулах */
+.card-visual::after {
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
 }
