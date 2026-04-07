@@ -367,6 +367,9 @@ a{
     flex-direction: row;
     justify-content: space-between;
 }
+.hero-info p{
+    color: var(--gray);
+}
 
 /*review*/
 .reviews-home{
