@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/featured.css" />
   </head>
 
   <body>
@@ -159,6 +160,7 @@
         </div>
       </div>
     </section>
+
     <section class="reviews-home">
       <header class="review-header" style="text-align: center">
         <h2>Үйлчлүүлэгчдийн сэтгэгдэл</h2>
@@ -228,7 +230,7 @@
           <h2>02</h2>
           <h3>Огноо сонгох</h3>
           <p>
-            Түрээслэх хугацаагаа сонгоно уу. Стандарт 4 өдрийн түрээс нь
+            Түрээслэх хугацаагаа сонгоно уу. Стандарт 4 1 1 Өдөрт түрээс нь
             хүргэлт, буцаалтыг багтаасан.
           </p>
         </article>
@@ -247,6 +249,132 @@
           </p>
         </article>
       </section>
+    </section>
+
+    <section class="featured" aria-labelledby="featured-title">
+      <!-- Гарчиг -->
+      <header class="featured-header">
+        <p class="section-tag" aria-hidden="true">Онцлох</p>
+        <h2 class="featured-title" id="featured-title">Түгээмэл хувцаснууд</h2>
+      </header>
+      <div class="product-grid">
+
+  <!-- Карт 1 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/voiled-evergarden-cos.jpg" alt="Хар гоёлын хантааз">
+
+      <span class="card-badge">Шинэ</span>
+      <button class="card-heart" onclick="this.classList.toggle('liked')">&#10084</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">COSPLAY</p>
+      <h3 class="card-name">Косплей хувцас</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.8 (24)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <p> Өдөрт</p>
+          <strong>15,000₮</strong>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карт 2 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/mongolian-male-deel.jpg" alt="Бизнес костюм">
+
+      <span class="card-badge">Онцлох</span>
+      <button class="card-heart" onclick="this.classList.toggle('liked')">&#10084</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">МОНГОЛ УРЛАГ</p>
+      <h3 class="card-name">Монгол эрэгтэй дээл</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.9 (41)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <p>Өдөрт</p>
+          <strong>25,000₮</strong>        
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карт 3 -->
+  <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/dress2.jpg" alt="Улаан торгон дээл">
+
+      <span class="card-badge">Тусгай</span>
+      <button class="card-heart liked" onclick="this.classList.toggle('liked')">&#10084</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">Баяр ёслол</p>
+      <h3 class="card-name">Хуримын даашинз</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.9 (18)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <p>Өдөрт</p>
+          <strong>20,000₮</strong>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+        <!-- ── Карт 4: Ягаан даашинз ── -->
+        <article class="product-card">
+    <div class="card-visual">
+      <img src="../source/bear-costume.jpg" alt="Улаан торгон дээл">
+
+      <span class="card-badge">Тусгай</span>
+      <button class="card-heart liked" onclick="this.classList.toggle('liked')">&#10084</button>
+    </div>
+
+    <div class="card-body">
+      <p class="card-brand">Cosplay</p>
+      <h3 class="card-name">Баавгайн хувцас</h3>
+
+      <div class="card-rating">
+        ★★★★★ <span>4.9 (18)</span>
+      </div>
+
+      <div class="card-footer">
+        <div>
+          <p>Өдөрт</p>
+          <strong>12,000₮</strong>
+        </div>
+        <a href="#">Харах →</a>
+      </div>
+    </div>
+  </article>
+
+</div>
+      <!-- "БҮХ КАТАЛОГ" товч -->
+      <div class="featured-cta">
+        <a href="/public/html/browse.html" class="catalog-btn">
+          Бүх каталог →
+        </a>
+      </div>
+
     </section>
 
     <footer class="footer">
@@ -406,6 +534,7 @@
           <a href="public/html/admin-dashboard.html" class="modal-admin"
             >Admin нэвтрэх →</a
           >
+          <p>Example: nara@example.com/pass123</p>
         </footer>
       </article>
     </div>

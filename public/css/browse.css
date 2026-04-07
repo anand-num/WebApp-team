@@ -91,7 +91,7 @@ ol li+li::before {
 
 .flt-sb {
     grid-area: flt-sb;
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
     padding-left: 4rem;
     position: sticky;
     top: 86px;
@@ -180,7 +180,7 @@ hr {
 ════════════════════════════════════════════ */
 .cat-main {
     grid-area: cat-main;
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
     padding: 20px;
 }
 
@@ -419,7 +419,16 @@ hr {
     font-family: var(--font-body);
     color:var(--text-primary);
 }
-
+.pc-price-group {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 3px;
+    }
+  .price{
+    color:var(--text-primary)
+  }
 .pc-from {
     font-size: 12px;
     color: var(--text-tertiary);

@@ -6,64 +6,8 @@ a{
     text-decoration: none;
     color: var(--text-primary);
 }
-.nav-header{
-    align-items: center;
-    display: flex;
-    box-shadow: 0  1px 10px  rgb(167, 163, 163);
-    flex-direction:row;
-    height: 80px;
-    justify-content: space-between;
-    padding: 0 5vw;
-}
 
-.left-nav{
-    min-width: 20vw;
-}
 
-.middle-nav{
-    column-gap: 3vw;
-    display: flex;
-    justify-content: space-between;
-}
-
-.right-nav{
-    display: flex;
-    min-width: 20vw;
-    justify-content: right;
-    align-items: center;
-    column-gap: 1vw;
-}
-
-.like-btn{
-    align-items: center;
-    width: 30px;
-    height: 30px;
-}
-
-.profile-btn{
-    display: flex;
-    align-items: center;
-}
-
-.profile-btn img {
-    width: 35px;
-    height: 35px;
-}
-
-.logo-icon{
-    align-items: center;
-    width: 40px;
-    height: 40px;
-}
-
-.logo-btn{
-    display:flex ;
-    align-items: center;
-    column-gap: 1vw;
-    font-size: larger;
-    font-weight: bold;
-    width: fit-content;
-}
 /*PRDUCT DETAILS*/
 /* ══════════════════════════════
    BREADCRUMB
@@ -114,7 +58,7 @@ a{
 .pd-fig img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* ══════════════════════════════

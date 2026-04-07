@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+:root {
+  /* Арын дэвсгэр */
+  --bg-primary:       #fbf7f4;
+  --bg-secondary:     #f5f0e8;
+  --bg-beige-md:      #e5d5c5;
+  --bg-dark:          #0e0d0b;
+
+  /* Текст */
+  --text-primary:     #1a1714;
+  --text-secondary:   #685d54;
+  --text-tertiary:    #a39382;
+  --text-on-dark:     #fbf7f4;
+
+  /* Accent өнгөнүүд */
+  --gold:             #c9a84c;
+  --gold-light:       #e8c97a;
+  --gold-glow:        rgba(201, 168, 76, 0.18);
+  --border:           rgba(0, 0, 0, 0.08);
+
+  /* Фонт */
+  --font-display:     'Playfair Display', Georgia, serif;
+  --font-body:        'DM Sans', sans-serif;
+
+  /* Карт shadow */
+  --shadow-card:      0 2px 20px rgba(0, 0, 0, 0.10);
+  --shadow-hover:     0 16px 48px rgba(0, 0, 0, 0.22);
+}
+
+/*  RESET СУУРЬ*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* FEATURED SECTION*/
+.featured {
+  padding: 6rem 8vw 5rem;
+  background: var(--bg-primary);
+
+  /* ── Section гарчиг хэсэг ── */
+  & .featured-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    /* ✓ ANIMATION — гарчиг доороос дээш гарах */
+    animation: fade-up 0.7s ease both;
+  }
+}
+
+/* ── "ОНЦЛОХ" section tag ── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+
+  /* Хоёр талд зураас */
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+}
+
+/* ── Үндсэн гарчиг ── */
+.featured-title {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+/* PRODUCT GRID — 4 баганат карт зохион байрлал*/
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+/*  PRODUCT CARD — нэг бараа картын загвар */
+.product-card {
+  position: relative;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  /* ✓ TRANSITION — smooth hover */
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s ease;
+  /* ✓ ANIMATION — дараалсан гарах (stagger) */
+  animation: card-in 0.6s ease both;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Стagger delay — картууд дараалан гарна */
+  &:nth-child(1) { animation-delay: 0.10s; }
+  &:nth-child(2) { animation-delay: 0.20s; }
+  &:nth-child(3) { animation-delay: 0.30s; }
+  &:nth-child(4) { animation-delay: 0.40s; }
+}
+
+/* ── Зургийн хэсэг — өнгөт дэвсгэртэй ── */
+.card-visual {
+  position: relative;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Emoji/icon дүрс */
+  & .card-icon {
+    font-size: 6rem;
+    line-height: 1;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.35));
+    /* ✓ TRANSITION — hover дээр бага томордог */
+    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover-т дүрс ойртох */
+  .product-card:hover & .card-icon {
+    transform: scale(1.08) translateY(-4px);
+  }
+
+  /* Арын subtle overlay эффект */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.25) 100%);
+    pointer-events: none;
+  }
+}
+
+/* Өнгөт дэвсгэр variant-ууд 
+.card-visual.dark-maroon {
+  background: radial-gradient(ellipse at 70% 30%, #3d0a0a 0%, #0d0504 100%);
+}
+.card-visual.dark-navy {
+  background: radial-gradient(ellipse at 40% 35%, #1b2d45 0%, #0b1520 100%);
+}
+.card-visual.dark-red {
+  background: radial-gradient(ellipse at 60% 40%, #7a0d0d 0%, #3d0000 100%);
+}
+.card-visual.dark-plum {
+  background: radial-gradient(ellipse at 50% 30%, #5a0d4a 0%, #2a0520 100%);
+}
+*/
+/* ── Badge — дээд зүүн булан ── */
+.card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  background: var(--gold);
+  color: var(--text-on-dark);
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+/* ── Heart товч — дээд баруун булан ── */
+.card-heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  /* ✓ TRANSITION */
+  transition: transform 0.2s ease, background 0.2s ease;
+  color: #aaa;
+  font-size: 0.875rem;
+
+  &:hover {
+    transform: scale(1.15);
+    color: #e74c3c;
+  }
+
+  &.liked {
+    color: #e74c3c;
+    background: #fff0f0;
+  }
+}
+
+/* ── Карт мэдээлэл доод хэсэг ── */
+.card-body {
+  padding: 1rem 1.125rem 1.125rem;
+  background: white;
+
+  /* Брэнд нэр */
+  & .card-brand {
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  /* Барааны нэр */
+  & .card-name {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+
+  /* Үнэлгээ мөр */
+  & .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-bottom: 0.875rem;
+
+    & .stars {
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+
+    & .rating-text {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+  }
+
+  /* Үнэ + "ХАРАХ →" мөр */
+  & .card-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    & .price-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+
+      & .price {
+        font-family: var(--font-body);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color:#c9a227;
+        line-height: 1;
+      }
+
+      & .price-lbl {
+        font-size: 0.5rem;
+        color: #888;
+        font-weight: 400;
+      }
+    }
+
+    /* "ХАРАХ →" холбоос */
+    & .card-link {
+      font-family: var(--font-body);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      /* ✓ TRANSITION */
+      transition: letter-spacing 0.25s ease, opacity 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+        letter-spacing: 3px;
+        opacity: 0.75;
+      }
+    }
+  }
+}
+
+/* "БҮХ КАТАЛОГ →" товч — хэсгийн доод хэсэг */
+.featured-cta {
+  display: flex;
+  justify-content: center;
+  /* ANIMATION */
+  animation: fade-up 0.7s 0.55s ease both;
+}
+
+.catalog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2.5rem;
+  border: 1.5px solid var(--text-primary);
+  border-radius: 2px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  /* ✓ TRANSITION */
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+}
+
+/* KEYFRAMES */
+
+/* ✓ ANIMATION 1 — доороос дээш гарах */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ✓ ANIMATION 2 — карт гарах */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*  RESPONSIVE */
+
+/*Tablet*/
+@media (max-width: 68.75rem) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .featured {
+    padding: 4.5rem 6vw 4rem;
+  }
+}
+
+/*Mobile*/
+@media (max-width: 40rem) {
+  .featured {
+    padding: 3.5rem 5vw 3rem;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  /* Гар утсанд карт хэвтээ болно */
+  .product-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+  }
+
+  .card-visual {
+    height: 100%;
+    min-height: 140px;
+    border-radius: 0;
+
+    & .card-icon {
+      font-size: 4rem;
+    }
+  }
+
+  .card-body {
+    padding: 0.875rem 1rem;
+
+    & .card-name {
+      font-size: 1rem;
+    }
+  }
+
+  .featured-title {
+    font-size: 1.875rem;
+  }
+}
+
+/*Small phone*/
+@media (max-width: 25rem) {
+  .product-card {
+    grid-template-columns: 100px 1fr;
+  }
+
+  .card-visual {
+    min-height: 120px;
+
+    & .card-icon { font-size: 3rem; }
+  }
+}
+/*price color*/
+.card-footer > div > strong {
+  color:var(--gold);
+;
+}
+
+/* Зураг */
+.card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* зураг суналтгүй дүүргэнэ */
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* overlay бага харагдуулах */
+.card-visual::after {
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+}
