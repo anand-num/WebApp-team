@@ -1,4 +1,4 @@
-@import url('color.css');
+@import url('global.css');
 
 .logo{
     font-family: var(--font-heading), serif;
@@ -33,9 +33,11 @@ a{
     font-family: var(--font-heading); 
     color: var(--text-on-dark);
     font-size: medium;
-    padding: 0.7rem 2.5rem;
-    border-radius: 3px;
-    transition: background-color 0.5s,transform 0.3s;
+    font-weight: 600;
+   font-family: var(--font-bold);
+    padding: 0.7rem 1.5rem;
+    border:none;
+    border-radius: 2px;
 }
 
 .primary-btn:hover{
@@ -408,13 +410,13 @@ strong{
     ;}
 
 /*how it works section*/
-.how-it-works{
+#how-it-works{
     border-top:1px solid var(--background-beige-medium);
     padding: 3.5rem 0rem 0rem 0rem;
     text-align: center;
     }
 
-.how-it-works header h2{
+#how-it-works header h2{
     color: var(--text-primary);
     font-family: var(--font-heading),serif;
     font-size: 2.5rem;
@@ -438,7 +440,7 @@ strong{
     color: var(--gold2);
     
 }
-.how-it-works h2 +p{
+#how-it-works h2 +p{
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 1rem;
@@ -505,22 +507,43 @@ strong{
 
 /* ── Overlay ── */
 .modal {
-  display: none;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
   z-index: 999;
+  display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .modal.open {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  animation: overlayIn 0.25s ease forwards;
+}
+/* ── Overlay fade in ── */
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
+/* ── Card slide up ── */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* ── Card ── */
 .modal-content {
+opacity: 0;
   position: relative;
   background: var(--background-primary);
   width: 100%;
@@ -530,6 +553,10 @@ strong{
   padding: 2.5rem 2.25rem 2rem;
   margin: 1rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  
+}
+.modal.open .modal-content {
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* ── Close button ── */
