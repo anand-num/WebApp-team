@@ -13,74 +13,55 @@
 </head>
 
 <body class="browse-page">
-<header class="nav-header">
-      <div class="top-nav">
-        <div class="left-nav">
-          <a href="../html/index.html" class="logo">
-            <p>Rent<span class="highlight">Fit</span></p>
-          </a>
+    <header class="nav-header">
+        <div class="top-nav">
+            <div class="left-nav">
+                <a href="../html/index.html" class="logo">
+                    <p>Rent<span class="highlight">Fit</span></p>
+                </a>
+            </div>
+            <div class="right-nav">
+
+                <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-4-4" />
+                    </svg>
+                    <input type="text" placeholder="хайх..">
+                </div>
+
+                <a href="../html/cart.html" class="cart-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                </a>
+                <a href="../html/liked.html" class="like-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z" />
+                    </svg>
+                </a>
+
+                <button id="loginBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                    </svg>
+                </button>
+            </div>
         </div>
-        <div class="right-nav">
-
-          <div class="search-bar">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <circle cx="11" cy="11" r="7"/>
-            <path d="m20 20-4-4"/>
-            </svg>
-            <input type="text" placeholder="хайх..">
-          </div>
-
-          <a href="../html/cart.html" class="cart-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>
-          </a>
-          <a href="../html/liked.html" class="like-btn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
-              />
-            </svg>
-          </a>
-
-          <button id="loginBtn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-          </button>
+        <div class="sub-nav">
+            <a href="">Шинэ</a>
+            <a href="">Гоёлын</a>
+            <a href="">Өдөр тутмын</a>
+            <a href="">Бизнес</a>
+            <a href="">Монгол Үндэсний</a>
         </div>
-      </div>
-      <div class="sub-nav">
-        <a href="">Шинэ</a>
-        <a href="">Гоёлын</a>
-        <a href="">Өдөр тутмын</a>
-        <a href="">Бизнес</a>
-        <a href="">Монгол Үндэсний</a>
-      </div>
     </header>
     <nav class="breadcrumb">
         <ol>
@@ -175,9 +156,9 @@
             </search>
             <section class="pg" id="catGrid">
                 <article class="pc">
-                    <img src="/public/source/mongol-deel.png" >
+                    <img src="/public/source/mongol-deel.png">
                     <span class="badge-gold">Хит</span>
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Zara</h2>
                         <h1 class="pc-name">Хар гоёлын хантааз</h1>
@@ -200,9 +181,9 @@
                     </div>
                 </article>
                 <article class="pc">
-                    <img src="/public/source/mongolian-queen-deel.jpg" >
+                    <img src="/public/source/mongolian-queen-deel.jpg">
                     <span class="badge-gold">Хит</span>
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Yalguun</h2>
                         <h1 class="pc-name">Монгол хатны дээл</h1>
@@ -222,12 +203,12 @@
                             </dl>
                         </footer>
 
-                    </summary>
+                        </summary>
                 </article>
                 <article class="pc">
                     <img src="/public/source/wedding cost.jpg" alt="Цагаан костюм">
                     <span class="badge-gold">Онцлох</span>
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Samuel</h2>
                         <h1 class="pc-name">Цагаан костюм</h1>
@@ -251,7 +232,7 @@
                 </article>
                 <article class="pc">
                     <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Belucci</h2>
                         <h1 class="pc-name">Цэнхэр даашинз</h1>
@@ -275,7 +256,7 @@
                 </article>
                 <article class="pc">
                     <img src="/public/source/kimono.jpg" alt="Kimono">
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Kishimori</h2>
                         <h1 class="pc-name">Хар кимоно</h1>
@@ -299,7 +280,7 @@
                 </article>
                 <article class="pc">
                     <img src="/public/source/bear-costume.jpg" alt="bear costume">
-                    <span class="heart" class="heart">&#10084;</span>
+                    <button class="heart">&#10084;</button>
                     <div class="pc-body">
                         <h2 class="pc-brand">Temu</h2>
                         <h1 class="pc-name">Баавгайн маскот</h1>
@@ -370,9 +351,11 @@
         </section>
 
         <nav class="footer-nav">
-            
+
             <ul>
-                <li><h3>Цэс</h3></li>
+                <li>
+                    <h3>Цэс</h3>
+                </li>
                 <li><a href="/public/html/index.html">Нүүр</a></li>
                 <li><a href="/public/html/browse.html">Цуглуулга</a></li>
                 <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
@@ -406,12 +389,12 @@
         <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
     </footer>
     <script>
-    // Get the heart element
-    const heart = document.getElementByclass('heart');
+ const hearts = document.querySelectorAll('.heart');
 
-    // Toggle red color on click
-    heart.addEventListener('click', () => {
-      heart.classList.toggle('active');
-    });
-  </script>
+        hearts.forEach(heart => {
+            heart.addEventListener('click', () => {
+                heart.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
