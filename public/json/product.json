@@ -1,0 +1,156 @@
+[
+  {
+    "brand": "Disney_collection",
+    "publisher": "Bataa",
+    "item_name": "Anna_costume",
+    "rating": 4.8,
+    "review_count": 12,
+    "price": "45,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "anna-costume.jpg"
+  },
+  {
+    "brand": "Classic_ballroom",
+    "publisher": "Anand",
+    "item_name": "Ballroom_male_costume",
+    "rating": 4.5,
+    "review_count": 5,
+    "price": "55,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "ballroom-male-costume.jpg"
+  },
+  {
+    "brand": "Fun_party",
+    "publisher": "Dulguun",
+    "item_name": "Bear_costume",
+    "rating": 4.2,
+    "review_count": 20,
+    "price": "25,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "bear-costume.jpg"
+  },
+  {
+    "brand": "Royal_gala",
+    "publisher": "Bataa",
+    "item_name": "Big_blue_dress",
+    "rating": 4.9,
+    "review_count": 15,
+    "price": "65,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "big-blue-dress.jpg"
+  },
+  {
+    "brand": "Valentino",
+    "publisher": "Anand",
+    "item_name": "Ягаан_гоёлын",
+    "rating": 5.0,
+    "review_count": 9,
+    "price": "35,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "dress2.jpg"
+  },
+  {
+    "brand": "Kyoto_style",
+    "publisher": "Dulguun",
+    "item_name": "Kimono",
+    "rating": 4.7,
+    "review_count": 8,
+    "price": "40,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "kimono.jpg"
+  },
+  {
+    "brand": "Traditional_mn",
+    "publisher": "Bataa",
+    "item_name": "Mongol_deel",
+    "rating": 5.0,
+    "review_count": 32,
+    "price": "50,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "mongol-deel.png"
+  },
+  {
+    "brand": "Nomad_chic",
+    "publisher": "Anand",
+    "item_name": "Mongolian_male_costume",
+    "rating": 4.6,
+    "review_count": 14,
+    "price": "45,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "mongolian-male-costume.jpg"
+  },
+  {
+    "brand": "Olympic_pride",
+    "publisher": "Dulguun",
+    "item_name": "Mongolian_olimpic",
+    "rating": 4.8,
+    "review_count": 50,
+    "price": "70,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "mongolian-olimpic.jpg"
+  },
+  {
+    "brand": "Heritage_luxury",
+    "publisher": "Bataa",
+    "item_name": "Mongolian_queen",
+    "rating": 5.0,
+    "review_count": 21,
+    "price": "120,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "mongolian-queen.jpg"
+  },
+  {
+    "brand": "Passion_dance",
+    "publisher": "Anand",
+    "item_name": "Tango_red_dress",
+    "rating": 4.9,
+    "review_count": 18,
+    "price": "48,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "tango-red-dress.jpg"
+  },
+  {
+    "brand": "Anime_couture",
+    "publisher": "Dulguun",
+    "item_name": "Voiled_evergarden",
+    "rating": 4.9,
+    "review_count": 11,
+    "price": "85,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "voiled-evergarden.jpg"
+  },
+  {
+    "brand": "Bridal_house",
+    "publisher": "Bataa",
+    "item_name": "Wedding_cost",
+    "rating": 4.4,
+    "review_count": 6,
+    "price": "95,000₮",
+    "price_period": "өдрөөс",
+    "status": "Standard",
+    "img_src": "wedding cost.jpg"
+  },
+  {
+    "brand": "Eternal_love",
+    "publisher": "Anand",
+    "item_name": "Wedding_dress",
+    "rating": 5.0,
+    "review_count": 40,
+    "price": "150,000₮",
+    "price_period": "өдрөөс",
+    "status": "Premium",
+    "img_src": "wedding dress.jpg"
+  }
+]
