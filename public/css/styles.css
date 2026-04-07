@@ -69,6 +69,7 @@ a{
     min-width: 20vw;
 }
 .sub-nav a{
+    color: var(--dark-gray);
     transition: color 0.5s;
 }
 
