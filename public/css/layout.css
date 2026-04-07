@@ -1,14 +1,24 @@
 @import url('global.css');
 
-.top-nav{
+.mid-nav{
     align-items: center;
     display: flex;
     box-shadow: 0  1px 0px  #e7e7e7;
     flex-direction:row;
     height: 60px;
     justify-content: space-between;
-    padding: 0 5vw;
+    padding: 0 3vw;
     font-family: var(--font-heading);
+}
+
+.top-nav{
+  background-color: var(--background-dark);
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+  align-items: center;
+  text-transform: uppercase;
 }
 .nav-header{
   display: flex;
