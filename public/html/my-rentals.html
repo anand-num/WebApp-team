@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Миний түрээс — RentFit</title>
+  <link rel="stylesheet" href="/public/css/color.css">
+  <link rel="stylesheet" href="/public/css/layout.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <link rel="stylesheet" href="/public/css/my-rentals.css">
+</head>
+<body class="rentals-page">
+
+  <header class="nav-header">
+    <div class="left-nav">
+      <a href="/public/html/index.html" class="logo-btn">
+        <img src="/public/source/shirt.svg" alt="RentFit лого" class="logo-icon">
+        <p>RentFit</p>
+      </a>
+    </div>
+    <nav class="middle-nav" aria-label="Үндсэн цэс">
+      <a href="/public/html/index.html">Нүүр</a>
+      <a href="/public/html/browse.html">Үзэх</a>
+      <a href="/public/html/my-rentals.html" aria-current="page">Миний түрээс</a>
+    </nav>
+    <div class="right-nav">
+      <a href="/public/html/liked.html" class="like-btn" aria-label="Дуртай жагсаалт">
+        <img src="/public/source/love.svg" alt="">
+      </a>
+      <a href="/public/html/list-item.html" class="primary-btn">ЗАР НЭМЭХ</a>
+      <a href="#" class="profile-btn" aria-label="Профайл">
+        <img src="/public/source/profile.svg" alt="">
+      </a>
+    </div>
+  </header>
+
+  <!-- Хэрэглэгч + гарчиг -->
+  <section class="rentals-hero">
+    <div class="rentals-avatar" aria-hidden="true">Н</div>
+    <div class="rentals-hero-text">
+      <p>Сайн уу,</p>
+      <h1>Нарантуяа</h1>
+    </div>
+  </section>
+
+  <!-- Tab шүүлт -->
+  <div class="rentals-tabs" role="tablist" aria-label="Түрээсийн статус">
+    <button class="tab-btn active" role="tab" aria-selected="true"  id="tab-active"   aria-controls="panel-active">Идэвхтэй (2)</button>
+    <button class="tab-btn"        role="tab" aria-selected="false" id="tab-history"  aria-controls="panel-history">Түүх (5)</button>
+    <button class="tab-btn"        role="tab" aria-selected="false" id="tab-listings" aria-controls="panel-listings">Миний зар (3)</button>
+  </div>
+
+  <!-- Tab агуулга -->
+  <div class="rentals-content">
+
+    <!-- ── Идэвхтэй ── -->
+    <section id="panel-active" role="tabpanel" aria-labelledby="tab-active">
+
+      <article class="rental-card">
+        <figure class="rental-img" style="background:linear-gradient(135deg,#0d1b2a,#1b2838)">
+          <img src="/public/source/mongol-deel.png" alt="Харанхуй бизнес костюм">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Hugo Boss</p>
+          <h2 class="rental-name">Харанхуй бизнес костюм</h2>
+          <p class="rental-meta">
+            <span> 2026-04-05 – 2026-04-08</span>
+            <span> Размер S</span>
+            <span>3 өдөр</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <strong class="rental-price">60,000₮</strong>
+          <span class="badge badge-active">Хүргэлтэнд</span>
+        </footer>
+      </article>
+
+      <article class="rental-card">
+        <figure class="rental-img" style="background:linear-gradient(135deg,#4a1040,#8b2060)">
+          <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Belucci</p>
+          <h2 class="rental-name">Цэнхэр даашинз</h2>
+          <p class="rental-meta">
+            <span> 2026-04-10 - 2026-04-13</span>
+            <span> Размер XS</span>
+            <span>3 өдөр</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <strong class="rental-price">28,000₮</strong>
+          <span class="badge badge-pending">Хүлээгдэж буй</span>
+        </footer>
+      </article>
+
+    </section>
+
+    <!-- ── Түүх ── -->
+    <section id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+
+      <article class="rental-card">
+        <figure class="rental-img">
+          <img src="/public/source/kimono.jpg" alt="Хар кимоно">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Kishimori</p>
+          <h2 class="rental-name">Хар кимоно</h2>
+          <p class="rental-meta">
+            <span> 2026-03-15 – 2026-03-18</span>
+            <span> Размер M</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <strong class="rental-price">45,000₮</strong>
+          <span class="badge badge-done">Дууссан</span>
+        </footer>
+      </article>
+
+      <article class="rental-card">
+        <figure class="rental-img">
+          <img src="/public/source/mongolian-queen-deel.jpg" alt="Монгол хатны дээл">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Yalguun</p>
+          <h2 class="rental-name">Монгол хатны дээл</h2>
+          <p class="rental-meta">
+            <span> 2026-03-01 - 2026-03-04</span>
+            <span> Размер M</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <strong class="rental-price">90,000₮</strong>
+          <span class="badge badge-done">Дууссан</span>
+        </footer>
+      </article>
+
+      <article class="rental-card">
+        <figure class="rental-img">
+          <img src="/public/source/bear-costume.jpg" alt="Баавгайн маскот">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Temu</p>
+          <h2 class="rental-name">Баавгайн маскот</h2>
+          <p class="rental-meta">
+            <span> 2026-02-14 – 2026-02-15</span>
+            <span> Нэг хэмжээ</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <strong class="rental-price">10,000₮</strong>
+          <span class="badge badge-cancelled">Цуцалсан</span>
+        </footer>
+      </article>
+
+    </section>
+
+    <!-- ── Миний зар ── -->
+    <section id="panel-listings" role="tabpanel" aria-labelledby="tab-listings" hidden>
+
+      <article class="rental-card">
+        <figure class="rental-img">
+          <img src="/public/source/tango-red-dress.jpg" alt="Улаан танго даашинз">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Өөрийн зар</p>
+          <h2 class="rental-name">Улаан танго даашинз</h2>
+          <p class="rental-meta">
+            <span> 25,000₮ / өдөр</span>
+            <span> S, M</span>
+            <span>👁 42 үзэлт</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <span class="badge badge-active">Нийтлэгдсэн</span>
+          <a href="/public/html/list-item.html" class="primary-btn" style="font-size:0.75rem;padding:6px 12px;">Засах</a>
+        </footer>
+      </article>
+
+      <article class="rental-card">
+        <figure class="rental-img">
+          <img src="/public/source/wedding dress.jpg" alt="Хурим даашинз">
+        </figure>
+        <div class="rental-info">
+          <p class="rental-brand">Өөрийн зар</p>
+          <h2 class="rental-name">Хурим даашинз</h2>
+          <p class="rental-meta">
+            <span> 50,000₮ / өдөр</span>
+            <span> S</span>
+            <span>👁 89 үзэлт</span>
+          </p>
+        </div>
+        <footer class="rental-ft">
+          <span class="badge badge-active">Нийтлэгдсэн</span>
+          <a href="/public/html/list-item.html" class="primary-btn" style="font-size:0.75rem;padding:6px 12px;">Засах</a>
+        </footer>
+      </article>
+
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <section class="footer-about">
+      <p class="logo">Rent<em>Fit</em></p>
+      <p>Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой сонголт.</p>
+    </section>
+    <nav class="footer-nav">
+      <ul>
+        <li><h3>Цэс</h3></li>
+        <li><a href="/public/html/index.html">Нүүр</a></li>
+        <li><a href="/public/html/browse.html">Цуглуулга</a></li>
+        <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
+        <li><a href="/public/html/my-rentals.html">Миний түрээс</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-policies">
+      <ul>
+        <li><h3>Бодлого</h3></li>
+        <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        <li><a href="#">Нууцлалын бодлого</a></li>
+        <li><a href="#">Cookie бодлого</a></li>
+        <li><a href="#">Бидний тухай</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-contact">
+      <ul>
+        <li><h3>Холбоо барих</h3></li>
+        <li><a href="#">Холбоо барих</a></li>
+        <li><a href="#">Тусламж</a></li>
+        <li><a href="#">Санал хүсэлт</a></li>
+      </ul>
+    </nav>
+    <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
+  </footer>
+
+  <script>
+    /* ── Tab харилцан солих ── */
+    const tabs   = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.setAttribute('hidden', ''));
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const target = document.getElementById(btn.getAttribute('aria-controls'));
+        target.removeAttribute('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
