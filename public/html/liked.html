@@ -10,172 +10,153 @@
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="/public/css/liked.css">
+    <link rel="stylesheet" href="/public/css/featured.css">
 </head>
 
 <body>
-       <header class="nav-header">
-      <div class="top-nav">
-        <div class="top-left-nav">
-          <p style="color: var(--gray);font-size: 0.7rem; font-weight: 550;">Монголын №1 Хувцас Түрээс</p>
+    <header class="nav-header">
+        <div class="top-nav">
+            <div class="top-left-nav">
+                <p style="color: var(--gray);font-size: 0.7rem; font-weight: 550;">Монголын №1 Хувцас Түрээс</p>
+            </div>
+            <div class="top-right-nav">
+                <a href="">MN</a>
+                <div class="line-vertical"></div>
+                <a href="">admin</a>
+            </div>
         </div>
-        <div class="top-right-nav">
-          <a href="" >MN</a>
-          <div class="line-vertical"></div>
-          <a href="">admin</a>
-        </div>
-      </div>
-      <div class="mid-nav">
-        <div class="left-nav">
-          <a href="../html/index.html" class="logo">
-            <p>Rent<span class="highlight">Fit</span></p>
-          </a>
-        </div>
-        <div class="right-nav">
-          <div class="search-bar">
-            <svg
-              class="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-4-4" />
-            </svg>
-            <input type="text" placeholder="хайх.." />
-          </div>
+        <div class="mid-nav">
+            <div class="left-nav">
+                <a href="../html/index.html" class="logo">
+                    <p>Rent<span class="highlight">Fit</span></p>
+                </a>
+            </div>
+            <div class="right-nav">
+                <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-4-4" />
+                    </svg>
+                    <input type="text" placeholder="хайх.." />
+                </div>
 
-          <a href="../html/cart.html" class="cart-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>
-          </a>
-          <a href="../html/liked.html" class="like-btn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
-              />
-            </svg>
-          </a>
+                <a href="../html/cart.html" class="cart-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                </a>
+                <a href="../html/liked.html" class="like-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z" />
+                    </svg>
+                </a>
 
-          <button id="loginBtn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-          </button>
+                <button id="loginBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                    </svg>
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="sub-nav">
-        <a href="">Шинэ</a>
-        <a href="">Гоёлын</a>
-        <a href="">Өдөр тутмын</a>
-        <a href="">Бизнес</a>
-        <a href="">Монгол Үндэсний</a>
-      </div>
+        <div class="sub-nav">
+            <a href="">Шинэ</a>
+            <a href="">Гоёлын</a>
+            <a href="">Өдөр тутмын</a>
+            <a href="">Бизнес</a>
+            <a href="">Монгол Үндэсний</a>
+        </div>
     </header>
     <section class="liked-wrap">
 
         <p class="sec-tag">Хадгалсан</p>
         <h2 class="section-title">Дуртай хувцас</h2>
         <main class="wishlist">
-                <article class="pc">
-                    <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Belucci</h2>
-                        <h1 class="pc-name">Цэнхэр даашинз</h1>
-                        <p class="pc-meta">Одоо 4 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★★</div>
-                                    <span class="pc-reviews">4.5(20)</span>
-                                </dd>
-                            </dl>
-                            <dl class="pc-price-group">
-                                <dd class="sr-only">
-                                    <p class="pc-from">өдөрт</p>
-                                    <data class="pc-price" style="font-size:small">20,000₮</data>
-                                </dd>
-                            </dl>
-                        </footer>
+            <article class="pc">
+                <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
+                <button class="heart">&#10084;</button>
+                <div class="pc-body">
+                    <h2 class="pc-brand">Belucci</h2>
+                    <h1 class="pc-name">Цэнхэр даашинз</h1>
+                    <p class="pc-meta">Одоо 4 хүний сагсанд байна</p>
+                    <footer class="pc-ft">
+                        <dl class="pc-rating-group">
+                            <dd class="sr-only">
+                                <div class="pc-stars">★★★★★</div>
+                                <span class="pc-reviews">4.5(20)</span>
+                            </dd>
+                        </dl>
+                        <div class="pc-price-group">
+                            <div class="sr-only">
+                                <strong class="price">20,000₮</strong>
+                                <span class="price-lbl">өдөрт</span>
+                            </div>
+                            <a href="/public/html/product.html" class="card-link"
+                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
+                        </div>
 
-                    </div>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/kimono.jpg" alt="Kimono">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Kishimori</h2>
-                        <h1 class="pc-name">Хар кимоно</h1>
-                        <p class="pc-meta">Одоо 3 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★</div>
-                                    <span class="pc-reviews">4.8 (15)</span>
-                                </dd>
-                            </dl>
-                            <dl class="pc-price-group">
-                                <dd class="sr-only">
-                                    <p class="pc-from">өдөрт</p>
-                                    <data class="pc-price" style="font-size:small">15,000₮</data>
-                                </dd>
-                            </dl>
-                        </footer>
+                    </footer>
 
-                    </div>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/bear-costume.jpg" alt="bear costume">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Temu</h2>
-                        <h1 class="pc-name">Баавгайн маскот</h1>
-                        <p class="pc-meta">Одоо 5 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★</div>
-                                    <span class="pc-reviews">4.0(25)</span>
-                                </dd>
-                            </dl>
-                            <dl class="pc-price-group">
-                                <dd class="sr-only">
-                                    <p class="pc-from">өдөрт</p>
-                                    <data class="pc-price" style="font-size:small">10,000₮</data>
-                                    <button class="more-info" type="button" href="/product/html/product.html">Дэлгэрэнгүй</button>
-                                </dd>
-                            </dl>
-                        </footer>
+                </div>
+            </article>
+            <article class="pc">
+                <img src="/public/source/kimono.jpg" alt="Kimono">
+                <button class="heart">&#10084;</button>
+                <div class="pc-body">
+                    <h2 class="pc-brand">Kishimori</h2>
+                    <h1 class="pc-name">Хар кимоно</h1>
+                    <p class="pc-meta">Одоо 3 хүний сагсанд байна</p>
+                    <footer class="pc-ft">
+                        <dl class="pc-rating-group">
+                            <dd class="sr-only">
+                                <div class="pc-stars">★★★★</div>
+                                <span class="pc-reviews">4.8 (15)</span>
+                            </dd>
+                        </dl>
+                        <div class="pc-price-group">
+                            <div class="sr-only">
+                                <strong class="price">20,000₮</strong>
+                                <span class="price-lbl">өдөрт</span>
+                            </div>
+                            <a href="/public/html/product.html" class="card-link"
+                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
+                        </div>
+                    </footer>
 
-                    </div>
-                </article>
+                </div>
+            </article>
+            <article class="pc">
+                <img src="/public/source/bear-costume.jpg" alt="bear costume">
+                <button class="heart">&#10084;</button>
+                <div class="pc-body">
+                    <h2 class="pc-brand">Temu</h2>
+                    <h1 class="pc-name">Баавгайн маскот</h1>
+                    <p class="pc-meta">Одоо 5 хүний сагсанд байна</p>
+                    <footer class="pc-ft">
+                        <dl class="pc-rating-group">
+                            <dd class="sr-only">
+                                <div class="pc-stars">★★★★</div>
+                                <span class="pc-reviews">4.0(25)</span>
+                            </dd>
+                        </dl>
+                        <div class="pc-price-group">
+                            <div class="sr-only">
+                                <strong class="price">20,000₮</strong>
+                                <span class="price-lbl">өдөрт</span>
+                            </div>
+                            <a href="/public/html/product.html" class="card-link"
+                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
+                        </div>
+                    </footer>
+
+                </div>
+            </article>
         </main>
     </section>
 
@@ -192,9 +173,11 @@
         </section>
 
         <nav class="footer-nav">
-            
+
             <ul>
-                <li><h3>Цэс</h3></li>
+                <li>
+                    <h3>Цэс</h3>
+                </li>
                 <li><a href="/public/html/index.html">Нүүр</a></li>
                 <li><a href="/public/html/browse.html">Цуглуулга</a></li>
                 <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
@@ -204,7 +187,9 @@
 
         <nav class="footer-policies">
             <ul>
-                <li><h3>Бодлого</h3></li>
+                <li>
+                    <h3>Бодлого</h3>
+                </li>
                 <li><a href="#">Үйлчилгээний нөхцөл</a></li>
                 <li><a href="#">Нууцлалын бодлого</a></li>
                 <li><a href="#">Cookie бодлого</a></li>
@@ -213,7 +198,9 @@
         </nav>
         <nav class="footer-contact">
             <ul>
-                <li><h3>Холбоо барих</h3></li>
+                <li>
+                    <h3>Холбоо барих</h3>
+                </li>
                 <li><a href="#">Холбоо барих</a></li>
                 <li><a href="#">Тусламж</a></li>
                 <li><a href="#">Санал хүсэлт</a></li>
@@ -224,4 +211,5 @@
         <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
     </footer>
 </body>
+
 </html>

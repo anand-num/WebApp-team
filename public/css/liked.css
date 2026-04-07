@@ -149,7 +149,16 @@
     font-family: var(--font-body);
     color:var(--text-primary);
 }
-
+.pc-price-group {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 3px;
+    }
+  .price{
+    color:var(--text-primary)
+  }
 .pc-from {
     font-size: 12px;
     color: var(--text-tertiary);
