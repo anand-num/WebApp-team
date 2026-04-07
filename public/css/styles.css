@@ -1,4 +1,4 @@
-@import url('color.css');
+@import url('global.css');
 
 .logo{
     font-family: var(--font-heading), serif;
