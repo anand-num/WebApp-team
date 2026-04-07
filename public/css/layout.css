@@ -8,7 +8,7 @@
     height: 60px;
     justify-content: space-between;
     padding: 0 5vw;
-    font-family: var(font-heading);
+    font-family: var(--font-heading);
 }
 .nav-header{
   display: flex;

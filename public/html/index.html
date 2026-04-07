@@ -19,13 +19,19 @@
           </a>
         </div>
         <div class="right-nav">
-
           <div class="search-bar">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <circle cx="11" cy="11" r="7"/>
-            <path d="m20 20-4-4"/>
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
             </svg>
-            <input type="text" placeholder="хайх..">
+            <input type="text" placeholder="хайх.." />
           </div>
 
           <a href="../html/cart.html" class="cart-icon">
@@ -82,17 +88,26 @@
     </header>
     <section class="hero-section">
       <div class="hero-left">
-        <p>Монголын №1 Хувцас Түрээс</p>
-        <h1>
-          Загварлаг <br />
-          харагд, <br />
-          хямдаар
-        </h1>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 1.2rem;
+            margin-bottom: 2rem;
+          "
+        >
+          <div class="line-horizontal"></div>
+          <p class="highlight" style="letter-spacing: 0.3rem;font-weight: 300;">Хувцас түрээсийн платформ</p>
+        </div>
+
+        <h1>Загварлаг</h1>
+        <h1>харагд,</h1>
+        <h1 class="highlight">хямдаар</h1>
         <br />
         <article>
-          Брэндийн хувцас өдрөөр хэрэглэж, буцааж өг<br />
-          Угаалга, хүргэлт бидний хариуцлага. Хүн хооронд — <br />шимтгэлгүйгээр
-          биш.
+          Брэндийн хувцас өдрөөр, долоо хоногоор хэрэглэж, худалдан авах
+          шаардлагагүй. Захиал, хэрэглэ, буцаа, захиал.
         </article>
         <br />
         <br />
@@ -100,18 +115,22 @@
           <a href="../html/browse.html" class="primary-btn">КАТАЛОГ ҮЗЭХ &rarr;</a>
           <a href="#how-it-works" class="secondary-btn">ХЭРХЭН АЖИЛЛАДАГ</a>
         </div>
-        <br /><br />
-        <div class="line"></div>
-        <br />
         <div class="hero-info">
           <div>
             <h2>500+</h2>
-            <p>Загварын хувцас</p>
+            <p>хувцас</p>
           </div>
+          <div class="line-vertical"></div>
           <div>
-            <h2>10,000+</h2>
+            <h2>500+</h2>
+            <p>Брэнд</p>
+          </div>
+          <div class="line-vertical"></div>
+          <div>
+            <h2>10k+</h2>
             <p>үйлчлүүлэгч</p>
           </div>
+          <div class="line-vertical"></div>
           <div>
             <h2>4.9</h2>
             <p>Дундаж үнэлгээ</p>
@@ -119,11 +138,11 @@
         </div>
       </div>
       <div class="hero-right">
-        <div class="hero-img-left">
-          <div class="dummy-img"></div>
-          <div class="dummy-img"></div>
+        <div class="hero-img-grid">
+          <img src="../source/dress2.jpg" alt="Wedding Dress" />
+          <img src="../source/mongolian-male-deel.jpg" alt="Kimono" />
+          <img src="../source/big-blue-dress.jpg" alt="Blue Dress" />
         </div>
-        <div class="dummy-img-big"></div>
       </div>
     </section>
     <section class="reviews-home">
@@ -457,6 +476,79 @@
         </footer>
       </article>
     </div>
+    <nav class="bottom-nav">
+      <a href="/public/html/index.html" class="active">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+          <path d="M9 21V12h6v9" />
+        </svg>
+        Нүүр
+      </a>
+
+      <a href="/public/html/browse.html">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </svg>
+      </a>
+
+      <a href="/public/html/browse.html">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </a>
+
+      <a href="#">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
+          />
+        </svg>
+      </a>
+
+      <button id="mobileLoginBtn">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+        </svg>
+      </button>
+    </nav>
     <script>
       const loginModal = document.getElementById("loginModal");
       const registerModal = document.getElementById("registerModal");
