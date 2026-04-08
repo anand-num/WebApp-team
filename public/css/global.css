@@ -40,10 +40,6 @@
   --gold-glow:        rgba(201, 168, 76, 0.18);
   --border:           rgba(0, 0, 0, 0.08);
 
-  /* Фонт */
-  --font-display:     'Playfair Display', Georgia, serif;
-  --font-body:        'DM Sans', sans-serif;
-
   /* Карт shadow */
   --shadow-card:      0 2px 20px rgba(0, 0, 0, 0.10);
   --shadow-hover:     0 16px 48px rgba(0, 0, 0, 0.22);
