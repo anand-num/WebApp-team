@@ -4,235 +4,570 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RentFit — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-
 <div id="app"></div>
-<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* ═══ DATA ═══ */
-const DB={
-  adminLoggedIn:false,
-  adminSearch:'',adminFilter:'all',
-  products:[
-    {id:1,brand:'Zara',name:'Хар гоёлын хантааз',desc:'Онцгой арга хэмжээнд тохиромжтой нарийн хар торгон хантааз.',category:'dress',emoji:'👗',sizes:['XS','S','M','L'],prices:{1:15000,3:35000,7:65000},badge:'Шинэ',rating:4.8,reviews:24,stock:3,status:'active',dateAdded:'2025-01-15'},
-    {id:2,brand:'Hugo Boss',name:'Бизнес костюм',desc:'Ноосон дорны материалаар хийгдсэн бизнес костюм.',category:'business',emoji:'👔',sizes:['S','M','L','XL','XXL'],prices:{1:25000,3:60000,7:110000},badge:'Онцлох',rating:4.9,reviews:41,stock:2,status:'active',dateAdded:'2025-01-10'},
-    {id:3,brand:'Монгол Урлаг',name:'Улаан торгон дэл',desc:'Уламжлалт улаан торгон монгол дэл.',category:'traditional',emoji:'🥻',sizes:['S','M','L','XL'],prices:{1:20000,3:45000,7:80000},badge:'Тусгай',rating:4.9,reviews:18,stock:2,status:'active',dateAdded:'2025-01-05'},
-    {id:4,brand:'Mango',name:'Ягаан дашинси',desc:'Зуны гоёлын ягаан дашинси.',category:'dress',emoji:'🌸',sizes:['XS','S','M','L'],prices:{1:12000,3:28000,7:50000},rating:4.6,reviews:15,stock:4,status:'active',dateAdded:'2025-01-20'},
-    {id:5,brand:'Lacoste',name:'Спорт хос',desc:'Тав тухтай өдөр тутмын хос.',category:'casual',emoji:'👕',sizes:['S','M','L','XL'],prices:{1:8000,3:18000,7:30000},rating:4.4,reviews:32,stock:5,status:'active',dateAdded:'2025-01-22'},
-    {id:6,brand:'Carolina Herrera',name:'Улаан коктейль',desc:'Зоригтой улаан коктейль даашинзи.',category:'dress',emoji:'❤️',sizes:['XS','S','M'],prices:{1:18000,3:42000,7:78000},badge:'Хит',rating:4.7,reviews:29,stock:2,status:'active',dateAdded:'2025-01-08'},
-    {id:13,brand:'Theory',name:'Хар костюм эмэгтэй',desc:'Эмэгтэй хүний хар бизнес костюм.',category:'business',emoji:'👩‍💼',sizes:['XS','S','M','L'],prices:{1:20000,3:46000,7:85000},badge:'Шинэ',rating:4.8,reviews:19,stock:3,status:'pending',dateAdded:'2025-02-15'},
-    {id:14,brand:'Max Mara',name:'Бежевий пальто',desc:'Ноосон бежевий пальто.',category:'business',emoji:'🧥',sizes:['S','M','L'],prices:{1:28000,3:65000,7:118000},rating:4.9,reviews:7,stock:2,status:'pending',dateAdded:'2025-02-18'},
-    {id:17,brand:'Монгол Зэс',name:'Алтан дэл',desc:'Алтан шарын өнгийн гоёмсог монгол дэл.',category:'traditional',emoji:'✨',sizes:['S','M','L','XL'],prices:{1:25000,3:55000,7:95000},badge:'Тусгай',rating:4.9,reviews:11,stock:2,status:'pending',dateAdded:'2025-02-22'},
+/* ═══ STATE ═══ */
+const DB = {
+  adminLoggedIn: false,
+  products: [],
+  productsLoaded: false,
+  orders: [],
+  users: [
+    { id:1, name:'Нарантуяа Батболд', email:'nara@example.com', phone:'9911-0001', orders:3 },
+    { id:2, name:'Анхбаяр Дорж',      email:'ankhbayar@mail.mn', phone:'9922-3344', orders:1 },
+    { id:3, name:'Солонго Мөнх',      email:'solongo@gmail.com', phone:'9955-6677', orders:5 },
   ],
-  orders:[],
-  users:[{id:1,name:'Нарантуяа Батболд',email:'nara@example.com',phone:'9911-0001',orders:3}],
-  userListings:[],
-  notifications:[],
+  search: '',
+  filter: 'all',
 };
 
 /* ═══ UTILS ═══ */
-const $=id=>document.getElementById(id);
-const fmt=n=>n.toLocaleString()+'₮';
-const CATS=[{v:'all',l:'Бүгд'},{v:'dress',l:'Гоёлын'},{v:'casual',l:'Өдөр тутмын'},{v:'business',l:'Бизнес'},{v:'traditional',l:'Монгол дэл'}];
-const SIZES=['XS','S','M','L','XL','XXL'];
-let toastTimer;
-function showToast(m,t=''){const e=$('toast');e.textContent=m;e.className='toast show '+t;clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.className='toast',3000)}
-function navigate(p){window.location.hash=p}
+const $ = id => document.getElementById(id);
+const SIZES = ['XS','S','M','L','XL','XXL'];
+const CATS = [
+  { v:'all',         l:'Бүгд' },
+  { v:'dress',       l:'Гоёлын' },
+  { v:'traditional', l:'Монгол дэл' },
+  { v:'costume',     l:'Костюм' },
+  { v:'business',    l:'Бизнес' },
+  { v:'casual',      l:'Өдөр тутмын' },
+];
+
+let toastT;
+function toast(msg, type='') {
+  const el = $('toast');
+  el.innerHTML = (type === 'green' ? '✓ ' : type === 'red' ? '✕ ' : '') + msg;
+  el.className = 'toast show ' + type;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.className = 'toast', 3000);
+}
+function nav(p) { window.location.hash = p; }
+function stars(r) {
+  const full = Math.floor(r), half = r % 1 >= .5;
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(5 - full - (half?1:0));
+}
+function imgSrc(src) { return '../json/' + src; }
+
+/* ═══ LOAD PRODUCTS FROM JSON ═══ */
+async function loadProducts() {
+  if (DB.productsLoaded) return;
+  try {
+    const res = await fetch('../json/product.json');
+    if (!res.ok) throw new Error('fetch failed');
+    const raw = await res.json();
+    DB.products = raw.map((p, i) => ({
+      id: i + 1,
+      brand: p.brand.replace(/_/g, ' '),
+      name: p.item_name.replace(/_/g, ' '),
+      publisher: p.publisher,
+      rating: p.rating,
+      reviews: p.review_count,
+      price: p.price,
+      pricePeriod: p.price_period,
+      status: p.status.toLowerCase(),
+      img: p.img_src,
+      category: guessCategory(p.item_name, p.brand),
+      sizes: ['S','M','L'],
+      approved: true,
+    }));
+    DB.productsLoaded = true;
+  } catch(e) {
+    console.warn('Could not load product.json:', e.message);
+    DB.productsLoaded = true;
+  }
+}
+
+function guessCategory(name, brand) {
+  const n = (name + ' ' + brand).toLowerCase();
+  if (/deel|mongol|queen|olimpic|male_cost/.test(n)) return 'traditional';
+  if (/dress|gown|ballroom|tango|wedding|kimono|violet|evergarden|anna|blue/.test(n)) return 'dress';
+  if (/costume|bear|disney/.test(n)) return 'costume';
+  return 'dress';
+}
 
 /* ═══ ROUTER ═══ */
-window.addEventListener('hashchange',render);
-window.addEventListener('load',render);
-function render(){
-  const hash=(window.location.hash.slice(1)||'login').split('?')[0];
-  const[page,...params]=hash.split('/');
-  if(page==='login'||page===''){ renderAdminLogin(); return; }
-  if(page==='admin'){ renderAdmin(params[0]||'dashboard',params[1]); return; }
-  renderAdminLogin();
-  window.scrollTo(0,0);
+window.addEventListener('hashchange', render);
+window.addEventListener('load', render);
+
+async function render() {
+  const hash = (window.location.hash.slice(1) || 'login');
+  const [page, ...params] = hash.split('/');
+  if (page === 'login' || page === '') { renderLogin(); return; }
+  if (page === 'admin') {
+    await loadProducts();
+    renderAdmin(params[0] || 'dashboard', params[1]);
+    return;
+  }
+  renderLogin();
 }
 
-/* ═══ LOGIN ═══ */
-function renderAdminLogin(){
-  $('app').innerHTML=`<div class="page"><div class="admin-login-wrap"><div class="admin-login-card">
-    <h1>Admin</h1><p class="sub">Удирдагчийн эрх</p>
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div class="form-group"><label>Нэр</label><input id="a_user" value="admin"></div>
-      <div class="form-group"><label>Нууц үг</label><input type="password" id="a_pass" onkeydown="if(event.key==='Enter')doAL()"></div>
-      <div id="adminErr"></div>
-      <button class="btn-g" style="width:100%" onclick="doAL()">Нэвтрэх</button>
+/* ═══ LOGIN PAGE ═══ */
+function renderLogin() {
+  $('app').innerHTML = `
+  <div class="login-page page">
+    <div class="login-bg"></div>
+    <div class="login-grid"></div>
+    <div class="login-card">
+      <div class="login-logo">Rent<em>Fit</em></div>
+      <div class="login-sub">ADMIN PANEL • УДИРДЛАГЫН САМБАР</div>
+      <div id="loginErr"></div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Хэрэглэгчийн нэр</label>
+        <input id="a_user" value="admin" autocomplete="username">
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <label>Нууц үг</label>
+        <input type="password" id="a_pass" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="current-password">
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;padding:13px" onclick="doLogin()">
+        Нэвтрэх →
+      </button>
+      <div class="login-hint"><strong>Туршилт:</strong> admin / rentfit2025</div>
     </div>
-    <div style="margin-top:14px;padding:10px;background:rgba(255,255,255,.03);font-size:.68rem;color:rgba(255,255,255,.2)">admin / rentfit2025</div>
-  </div></div></div>`
+  </div>`;
+  setTimeout(() => { const p = $('a_pass'); if(p) p.focus(); }, 50);
 }
-function doAL(){
-  if($('a_user').value==='admin'&&$('a_pass').value==='rentfit2025'){
-    DB.adminLoggedIn=true;navigate('admin/dashboard')
-  }else{
-    $('adminErr').innerHTML='<div class="error-msg">Буруу нэр эсвэл нууц үг</div>'
+function doLogin() {
+  if ($('a_user').value === 'admin' && $('a_pass').value === 'rentfit2025') {
+    DB.adminLoggedIn = true;
+    nav('admin/dashboard');
+  } else {
+    $('loginErr').innerHTML = '<div class="error-msg">Буруу нэр эсвэл нууц үг</div>';
   }
 }
 
 /* ═══ ADMIN SHELL ═══ */
-function renderAdmin(sub,param){
-  if(!DB.adminLoggedIn){navigate('login');return}
-  const nav=`<div class="admin-side">
-    <div class="admin-side-logo"><span class="nav-logo">Rent<em>Fit</em></span></div>
-    <nav class="admin-nav">
-      <a onclick="navigate('admin/dashboard')" class="${sub==='dashboard'?'active':''}"><span class="ico">📊</span>Dashboard</a>
-      <a onclick="navigate('admin/products')" class="${sub==='products'||sub==='add'||sub==='edit'?'active':''}"><span class="ico">👗</span>Бүтээгдэхүүн</a>
-      <a onclick="navigate('admin/orders')" class="${sub==='orders'?'active':''}"><span class="ico">📦</span>Захиалга</a>
-      <a onclick="navigate('admin/users')" class="${sub==='users'?'active':''}"><span class="ico">👥</span>Хэрэглэгч</a>
-      <a onclick="DB.adminLoggedIn=false;navigate('login');showToast('Гарлаа')" style="margin-top:auto;border-top:1px solid rgba(255,255,255,.04);padding-top:10px"><span class="ico">🚪</span>Гарах</a>
-    </nav>
+function renderAdmin(sub, param) {
+  if (!DB.adminLoggedIn) { nav('login'); return; }
+  const pending = DB.products.filter(p => p.status === 'pending').length;
+  const sidebar = `
+  <div class="admin-side">
+    <div class="side-logo">
+      <div class="wordmark">Rent<em>Fit</em></div>
+      <div class="tagline">Admin Panel</div>
+    </div>
+    <div class="side-section">
+      <div class="side-section-label">Үндсэн</div>
+      <nav class="side-nav">
+        <a onclick="nav('admin/dashboard')" class="${sub==='dashboard'?'active':''}">
+          <span class="ico">◈</span> Dashboard
+        </a>
+        <a onclick="nav('admin/products')" class="${['products','add','edit'].includes(sub)?'active':''}">
+          <span class="ico">◉</span> Бүтээгдэхүүн
+          ${pending ? `<span class="badge">${pending}</span>` : ''}
+        </a>
+        <a onclick="nav('admin/orders')" class="${sub==='orders'?'active':''}">
+          <span class="ico">◌</span> Захиалга
+        </a>
+        <a onclick="nav('admin/users')" class="${sub==='users'?'active':''}">
+          <span class="ico">◎</span> Хэрэглэгч
+        </a>
+      </nav>
+    </div>
+    <div class="side-footer">
+      <nav class="side-nav">
+        <a onclick="DB.adminLoggedIn=false;nav('login');toast('Амжилттай гарлаа')">
+          <span class="ico">⊣</span> Гарах
+        </a>
+      </nav>
+    </div>
   </div>`;
-  let content='';
-  if(sub==='dashboard')content=adminDash();
-  else if(sub==='products')content=adminProds();
-  else if(sub==='add')content=adminAdd();
-  else if(sub==='edit')content=adminEdit(param);
-  else if(sub==='orders')content=adminOrds();
-  else if(sub==='users')content=adminUsrs();
-  else content=adminDash();
-  $('app').innerHTML=`<div class="page"><div class="admin-layout">${nav}<div class="admin-content">${content}</div></div></div>`
+
+  let content = '';
+  if (sub === 'dashboard') content = pageDashboard();
+  else if (sub === 'products') content = pageProducts();
+  else if (sub === 'add') content = pageAdd();
+  else if (sub === 'edit') content = pageEdit(param);
+  else if (sub === 'orders') content = pageOrders();
+  else if (sub === 'users') content = pageUsers();
+  else content = pageDashboard();
+
+  $('app').innerHTML = `<div class="page"><div class="admin-layout">${sidebar}<div class="admin-content">${content}</div></div></div>`;
 }
 
 /* ═══ DASHBOARD ═══ */
-function adminDash(){
-  const ac=DB.products.filter(p=>p.status==='active').length,pe=DB.products.filter(p=>p.status==='pending').length,to=DB.orders.length,rev=DB.orders.reduce((s,o)=>s+o.total,0);
-  const months=['1-р','2-р','3-р','4-р','5-р','6-р'];const bars=[35,55,42,68,82,60];
-  return`<h1>Dashboard</h1><p class="sub">Ерөнхий тойм</p>
-    <div class="admin-stats">
-      <div class="admin-stat"><div class="label">Нийт бараа</div><div class="value">${DB.products.length}</div><div class="delta">+${ac} идэвхтэй</div></div>
-      <div class="admin-stat"><div class="label">Хүлээгдэж буй</div><div class="value" style="color:var(--gold)">${pe}</div><div class="delta">Баталгаажуулалт</div></div>
-      <div class="admin-stat"><div class="label">Захиалга</div><div class="value">${to}</div><div class="delta">${to?'Нийт':'Байхгүй'}</div></div>
-      <div class="admin-stat"><div class="label">Орлого</div><div class="value">${rev?fmt(rev):'—'}</div><div class="delta">${rev?'Нийт':'—'}</div></div>
-    </div>
-    <div class="admin-chart"><h3>Сарын түрээсийн тоо</h3><div class="chart-bars">${bars.map((h,i)=>`<div class="chart-bar" style="height:${h}%"><span class="chart-bar-lbl">${months[i]} сар</span></div>`).join('')}</div></div>
-    <div class="admin-table-wrap"><div class="admin-table-hd"><h3>Хүлээгдэж буй</h3><button class="btn-sm dark" onclick="navigate('admin/products')">Бүгд</button></div>
-    <table class="admin-table"><thead><tr><th>Бараа</th><th>Ангилал</th><th>Үнэ</th><th>Үйлдэл</th></tr></thead><tbody>
-      ${DB.products.filter(p=>p.status==='pending').map(p=>`<tr><td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.2rem">${p.emoji}</span><div><div style="font-weight:600;color:white">${p.name}</div><div style="font-size:.68rem;opacity:.3">${p.brand}</div></div></div></td><td>${CATS.find(c=>c.v===p.category)?.l}</td><td>${fmt(p.prices[1])}</td><td><div class="admin-actions"><button class="btn-sm success" onclick="approveP(${p.id})">✓</button><button class="btn-sm danger" onclick="rejectP(${p.id})">✕</button></div></td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center;padding:28px;opacity:.25">Байхгүй</td></tr>'}
-    </tbody></table></div>
-    ${DB.userListings.length?`<div class="admin-table-wrap" style="margin-top:20px"><div class="admin-table-hd"><h3>👤 Хэрэглэгчдийн зарууд</h3></div>
-    <table class="admin-table"><thead><tr><th>Бараа</th><th>Эзэмшигч</th><th>Үнэ</th><th>Статус</th><th>Үйлдэл</th></tr></thead><tbody>
-      ${DB.userListings.map(l=>`<tr><td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.2rem">${l.emoji}</span><div><div style="font-weight:600;color:white">${l.name}</div><div style="font-size:.68rem;opacity:.3">${l.brand}</div></div></div></td><td>${l.ownerName}</td><td>${fmt(l.prices[1])}/өдөр</td><td><span class="status-badge ${l.status}">${l.status==='active'?'Идэвхтэй':l.status==='pending'?'Хянагдаж':'Татгалзсан'}</span></td><td><div class="admin-actions">${l.status==='pending'?`<button class="btn-sm success" onclick="approveUL(${l.id})">✓ Зөвшөөрөх</button><button class="btn-sm danger" onclick="rejectUL(${l.id})">✕</button>`:''}</div></td></tr>`).join('')}
-    </tbody></table></div>`:''}`
-}
+function pageDashboard() {
+  const total = DB.products.length;
+  const active = DB.products.filter(p => p.status !== 'pending' && p.status !== 'rejected').length;
+  const pending = DB.products.filter(p => p.status === 'pending').length;
+  const premium = DB.products.filter(p => p.status === 'premium').length;
+  const months = ['1-р','2-р','3-р','4-р','5-р','6-р','7-р'];
+  const bars = [28, 45, 38, 62, 74, 55, 80];
+  const maxBar = Math.max(...bars);
 
-/* ═══ PRODUCTS ═══ */
-function adminProds(){
-  let f=DB.products;
-  if(DB.adminSearch){const q=DB.adminSearch.toLowerCase();f=f.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q))}
-  if(DB.adminFilter!=='all')f=f.filter(p=>p.status===DB.adminFilter);
-  return`<h1>Бүтээгдэхүүн</h1><p class="sub">Бүх бараа</p>
-  <div class="admin-table-wrap">
-    <div class="admin-table-hd">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <input class="admin-search" placeholder="🔍 Хайх..." value="${DB.adminSearch}" oninput="DB.adminSearch=this.value;renderAdmin('products')">
-        <select class="admin-filter" onchange="DB.adminFilter=this.value;renderAdmin('products')">
-          <option value="all" ${DB.adminFilter==='all'?'selected':''}>Бүгд</option>
-          <option value="active" ${DB.adminFilter==='active'?'selected':''}>Идэвхтэй</option>
-          <option value="pending" ${DB.adminFilter==='pending'?'selected':''}>Хүлээгдэж</option>
-          <option value="rejected" ${DB.adminFilter==='rejected'?'selected':''}>Татгалзсан</option>
-        </select>
+  const pendingRows = DB.products.filter(p => p.status === 'pending').slice(0,5);
+
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb"><span>RentFit</span> / <span>Dashboard</span></div>
+      <h1>Ерөнхий тойм</h1>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="font-size:.72rem;color:var(--muted)">${new Date().toLocaleDateString('mn-MN', {year:'numeric',month:'long',day:'numeric'})}</span>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">◉</div>
+        <div class="label">Нийт бараа</div>
+        <div class="value">${total}</div>
+        <div class="delta">↑ ${active} идэвхтэй</div>
       </div>
-      <button class="btn-sm dark" onclick="navigate('admin/add')">+ Нэмэх</button>
+      <div class="stat-card">
+        <div class="stat-icon">◈</div>
+        <div class="label">Хүлээгдэж буй</div>
+        <div class="value gold">${pending}</div>
+        <div class="delta warn">⏳ Баталгаажуулах шаардлагатай</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">◌</div>
+        <div class="label">Захиалга</div>
+        <div class="value">${DB.orders.length}</div>
+        <div class="delta">${DB.orders.length ? '↑ Нийт' : '— Байхгүй'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">◎</div>
+        <div class="label">Хэрэглэгч</div>
+        <div class="value">${DB.users.length}</div>
+        <div class="delta">↑ ${DB.users.length} бүртгэлтэй</div>
+      </div>
     </div>
-    <table class="admin-table"><thead><tr><th>Бараа</th><th>Ангилал</th><th>Размер</th><th>Үнэ</th><th>★</th><th>Статус</th><th>Үйлдэл</th></tr></thead><tbody>
-      ${f.map(p=>`<tr><td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.2rem">${p.emoji}</span><div><div style="font-weight:600;color:white">${p.name}</div><div style="font-size:.68rem;opacity:.3">${p.brand}</div></div></div></td><td>${CATS.find(c=>c.v===p.category)?.l}</td><td style="font-size:.72rem">${p.sizes.join(', ')}</td><td>${fmt(p.prices[1])}</td><td><span style="color:var(--gold)">★</span> ${p.rating}</td><td><span class="status-badge ${p.status}">${p.status==='active'?'Идэвхтэй':p.status==='pending'?'Хүлээгдэж':'Татгалзсан'}</span></td><td><div class="admin-actions"><button class="btn-sm outline" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4)" onclick="navigate('admin/edit/${p.id}')">✏️</button>${p.status==='pending'?`<button class="btn-sm success" onclick="approveP(${p.id})">✓</button><button class="btn-sm danger" onclick="rejectP(${p.id})">✕</button>`:''}<button class="btn-sm danger" onclick="deleteP(${p.id})">🗑</button></div></td></tr>`).join('')}
-    </tbody></table>
-  </div>`
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Сарын түрээсийн статистик</h3>
+        <div class="chart-legend"><span>Түрээс</span></div>
+      </div>
+      <div class="chart-bars">
+        ${bars.map((h, i) => `
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:${(h/maxBar)*100}%">
+              <div class="chart-bar-tooltip">${h}</div>
+            </div>
+            <span class="chart-bar-lbl">${months[i]}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-head">
+        <h3>Хүлээгдэж буй бараанууд</h3>
+        <button class="btn btn-ghost btn-sm" onclick="nav('admin/products')">Бүгдийг харах →</button>
+      </div>
+      <table class="data-table">
+        <thead><tr>
+          <th>Бараа</th><th>Ангилал</th><th>Үнэ</th><th>Үйлдэл</th>
+        </tr></thead>
+        <tbody>
+          ${pendingRows.length ? pendingRows.map(p => `
+            <tr>
+              <td><div class="prod-cell">
+                <img class="prod-thumb" src="${imgSrc(p.img)}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
+                <div class="prod-thumb-placeholder" style="display:none">👗</div>
+                <div><div class="prod-name">${p.name}</div><div class="prod-brand">${p.brand}</div></div>
+              </div></td>
+              <td>${CATS.find(c=>c.v===p.category)?.l || p.category}</td>
+              <td><span class="price-cell">${p.price}</span></td>
+              <td><div class="actions">
+                <button class="btn btn-success btn-sm" onclick="approveP(${p.id})">✓ Зөвшөөрөх</button>
+                <button class="btn btn-danger btn-sm" onclick="rejectP(${p.id})">✕</button>
+              </div></td>
+            </tr>`).join('') :
+          `<tr><td colspan="4"><div class="empty-state"><span class="empty-icon">✓</span>Хүлээгдэж буй бараа байхгүй</div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-/* ═══ ADD ═══ */
-function adminAdd(){
-  return`<h1>Нэмэх</h1><p class="sub">Шинэ бараа</p>
-  <div class="admin-form-card"><div class="admin-form-grid">
-    <div class="admin-form-group"><label>Брэнд *</label><input id="af_brand"></div>
-    <div class="admin-form-group"><label>Нэр *</label><input id="af_name"></div>
-    <div class="admin-form-group full"><label>Тайлбар *</label><textarea id="af_desc"></textarea></div>
-    <div class="admin-form-group"><label>Ангилал *</label><select id="af_cat"><option value="">—</option>${CATS.filter(c=>c.v!=='all').map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select></div>
-    <div class="admin-form-group"><label>Emoji</label><input id="af_emoji" placeholder="👗" maxlength="4"></div>
-    <div class="admin-form-group"><label>Үнэ 1 өдөр *</label><input type="number" id="af_p1"></div>
-    <div class="admin-form-group"><label>3 өдөр</label><input type="number" id="af_p3"></div>
-    <div class="admin-form-group"><label>7 өдөр</label><input type="number" id="af_p7"></div>
-    <div class="admin-form-group"><label>Нөөц</label><input type="number" id="af_stock" value="1"></div>
-    <div class="admin-form-group"><label>Шошго</label><input id="af_badge"></div>
-    <div class="admin-form-group full"><label>Размер</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">${SIZES.map(s=>`<label style="display:flex;align-items:center;gap:5px;cursor:pointer;color:rgba(255,255,255,.5);font-size:.8rem"><input type="checkbox" id="sz_${s}" style="accent-color:var(--gold)"> ${s}</label>`).join('')}</div></div>
+/* ═══ PRODUCTS PAGE ═══ */
+function pageProducts() {
+  let filtered = [...DB.products];
+  if (DB.search) {
+    const q = DB.search.toLowerCase();
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q) ||
+      p.publisher?.toLowerCase().includes(q)
+    );
+  }
+  if (DB.filter !== 'all') filtered = filtered.filter(p => p.status === DB.filter);
+
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb"><span>RentFit</span> / <span onclick="nav('admin/products')" style="cursor:pointer">Бүтээгдэхүүн</span></div>
+      <h1>Бүтээгдэхүүн</h1>
+    </div>
+    <button class="btn btn-gold" onclick="nav('admin/add')">+ Нэмэх</button>
   </div>
-  <div style="display:flex;gap:10px;margin-top:20px">
-    <button class="btn-g" onclick="saveNew()">Хадгалах</button>
-    <button class="btn-sm outline" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.3)" onclick="navigate('admin/products')">Болих</button>
-  </div></div>`
-}
-function saveNew(){
-  const b=$('af_brand').value,n=$('af_name').value,d=$('af_desc').value,c=$('af_cat').value,
-    e=$('af_emoji').value||'👗',p1=+$('af_p1').value,p3=+$('af_p3').value||p1*2.2,
-    p7=+$('af_p7').value||p1*4,st=+$('af_stock').value||1,bg=$('af_badge').value,
-    sz=SIZES.filter(s=>$('sz_'+s)?.checked);
-  if(!b||!n||!d||!c||!p1){showToast('Бөглөнө үү','red');return}
-  if(!sz.length){showToast('Размер сонгоно уу','red');return}
-  DB.products.push({id:Math.max(...DB.products.map(p=>p.id))+1,brand:b,name:n,desc:d,category:c,emoji:e,sizes:sz,prices:{1:p1,3:Math.round(p3),7:Math.round(p7)},badge:bg||undefined,rating:0,reviews:0,stock:st,status:'active',dateAdded:new Date().toISOString().split('T')[0]});
-  showToast('Нэмэгдлээ ✓','green');navigate('admin/products')
+  <div class="content-body">
+    <div class="table-card">
+      <div class="table-head">
+        <h3>Бүх бараа <span style="font-size:.72rem;color:var(--muted);font-weight:400">(${filtered.length})</span></h3>
+        <div class="table-toolbar">
+          <div class="search-wrap">
+            <input class="search-input" placeholder="Хайх..." value="${DB.search}"
+              oninput="DB.search=this.value;renderAdmin('products')">
+          </div>
+          <select class="filter-select" onchange="DB.filter=this.value;renderAdmin('products')">
+            <option value="all" ${DB.filter==='all'?'selected':''}>Бүгд</option>
+            <option value="premium" ${DB.filter==='premium'?'selected':''}>Premium</option>
+            <option value="standard" ${DB.filter==='standard'?'selected':''}>Standard</option>
+            <option value="pending" ${DB.filter==='pending'?'selected':''}>Хүлээгдэж</option>
+            <option value="rejected" ${DB.filter==='rejected'?'selected':''}>Татгалзсан</option>
+          </select>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead><tr>
+          <th>Бараа</th>
+          <th>Нийтэлсэн</th>
+          <th>Рэйтинг</th>
+          <th>Үнэ</th>
+          <th>Статус</th>
+          <th>Үйлдэл</th>
+        </tr></thead>
+        <tbody>
+          ${filtered.length ? filtered.map(p => `
+          <tr>
+            <td><div class="prod-cell">
+              <img class="prod-thumb" src="${imgSrc(p.img)}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
+              <div class="prod-thumb-placeholder" style="display:none">👗</div>
+              <div>
+                <div class="prod-name">${p.name}</div>
+                <div class="prod-brand">${p.brand}</div>
+              </div>
+            </div></td>
+            <td style="color:rgba(255,255,255,.5)">${p.publisher || '—'}</td>
+            <td>
+              <div class="rating-row">
+                <span class="stars">${'★'.repeat(Math.floor(p.rating))}</span>
+                <span class="rating-num">${p.rating.toFixed(1)}</span>
+                <span class="review-count">(${p.reviews})</span>
+              </div>
+            </td>
+            <td>
+              <div class="price-cell">${p.price}</div>
+              <div class="price-period">${p.pricePeriod}</div>
+            </td>
+            <td><span class="badge ${p.status}">${p.status === 'premium' ? 'Premium' : p.status === 'standard' ? 'Standard' : p.status === 'pending' ? 'Хүлээгдэж' : 'Татгалзсан'}</span></td>
+            <td><div class="actions">
+              <button class="btn-icon" onclick="nav('admin/edit/${p.id}')" title="Засах">✏️</button>
+              ${p.status === 'pending' ? `
+                <button class="btn btn-success btn-sm" onclick="approveP(${p.id})">✓</button>
+                <button class="btn btn-danger btn-sm" onclick="rejectP(${p.id})">✕</button>` : ''}
+              <button class="btn-icon" onclick="deleteP(${p.id})" title="Устгах">🗑</button>
+            </div></td>
+          </tr>`).join('') :
+          `<tr><td colspan="6"><div class="empty-state"><span class="empty-icon">🔍</span>Тохирох бараа олдсонгүй</div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-/* ═══ EDIT ═══ */
-function adminEdit(id){
-  const p=DB.products.find(x=>x.id==id);if(!p)return'<p style="color:red">Олдсонгүй</p>';
-  return`<h1>Засах</h1><p class="sub">${p.name}</p>
-  <div class="admin-form-card"><div class="admin-form-grid">
-    <div class="admin-form-group"><label>Брэнд</label><input id="ef_brand" value="${p.brand}"></div>
-    <div class="admin-form-group"><label>Нэр</label><input id="ef_name" value="${p.name}"></div>
-    <div class="admin-form-group full"><label>Тайлбар</label><textarea id="ef_desc">${p.desc}</textarea></div>
-    <div class="admin-form-group"><label>Ангилал</label><select id="ef_cat">${CATS.filter(c=>c.v!=='all').map(c=>`<option value="${c.v}" ${p.category===c.v?'selected':''}>${c.l}</option>`).join('')}</select></div>
-    <div class="admin-form-group"><label>Emoji</label><input id="ef_emoji" value="${p.emoji}" maxlength="4"></div>
-    <div class="admin-form-group"><label>1 өдөр</label><input type="number" id="ef_p1" value="${p.prices[1]}"></div>
-    <div class="admin-form-group"><label>3 өдөр</label><input type="number" id="ef_p3" value="${p.prices[3]}"></div>
-    <div class="admin-form-group"><label>7 өдөр</label><input type="number" id="ef_p7" value="${p.prices[7]}"></div>
-    <div class="admin-form-group"><label>Нөөц</label><input type="number" id="ef_stock" value="${p.stock}"></div>
-    <div class="admin-form-group"><label>Статус</label><select id="ef_status"><option value="active" ${p.status==='active'?'selected':''}>Идэвхтэй</option><option value="pending" ${p.status==='pending'?'selected':''}>Хүлээгдэж</option><option value="rejected" ${p.status==='rejected'?'selected':''}>Татгалзсан</option></select></div>
-    <div class="admin-form-group"><label>Шошго</label><input id="ef_badge" value="${p.badge||''}"></div>
-    <div class="admin-form-group full"><label>Размер</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">${SIZES.map(s=>`<label style="display:flex;align-items:center;gap:5px;cursor:pointer;color:rgba(255,255,255,.5);font-size:.8rem"><input type="checkbox" id="esz_${s}" ${p.sizes.includes(s)?'checked':''} style="accent-color:var(--gold)"> ${s}</label>`).join('')}</div></div>
+/* ═══ ADD PRODUCT ═══ */
+function pageAdd() {
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb">
+        <span onclick="nav('admin/products')" style="cursor:pointer">Бүтээгдэхүүн</span> / <span>Нэмэх</span>
+      </div>
+      <h1>Шинэ бараа нэмэх</h1>
+    </div>
   </div>
-  <div style="display:flex;gap:10px;margin-top:20px">
-    <button class="btn-g" onclick="saveEdit(${p.id})">Хадгалах</button>
-    <button class="btn-sm outline" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.3)" onclick="navigate('admin/products')">Болих</button>
-  </div></div>`
+  <div class="content-body">
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="form-group"><label>Брэнд *</label><input id="af_brand"></div>
+        <div class="form-group"><label>Бараанлы нэр *</label><input id="af_name"></div>
+        <div class="form-group full"><label>Тайлбар *</label><textarea id="af_desc"></textarea></div>
+        <div class="form-group"><label>Ангилал *</label>
+          <select id="af_cat"><option value="">— Сонгох —</option>
+            ${CATS.filter(c=>c.v!=='all').map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group"><label>Нийтэлсэн</label><input id="af_publisher"></div>
+        <div class="form-group"><label>Үнэ (1 өдөр) *</label><input id="af_price" placeholder="45,000₮"></div>
+        <div class="form-group"><label>Статус</label>
+          <select id="af_status">
+            <option value="standard">Standard</option>
+            <option value="premium">Premium</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Зургийн нэр</label><input id="af_img" placeholder="filename.jpg"></div>
+        <div class="form-group full"><label>Размер</label>
+          <div class="size-checks">
+            ${SIZES.map(s=>`<input type="checkbox" class="size-check" id="sz_${s}" value="${s}"><label class="size-label" for="sz_${s}">${s}</label>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-gold" onclick="saveNew()">Хадгалах</button>
+        <button class="btn btn-ghost" onclick="nav('admin/products')">Болих</button>
+      </div>
+    </div>
+  </div>`;
 }
-function saveEdit(id){
-  const p=DB.products.find(x=>x.id==id);
-  p.brand=$('ef_brand').value;p.name=$('ef_name').value;p.desc=$('ef_desc').value;
-  p.category=$('ef_cat').value;p.emoji=$('ef_emoji').value||p.emoji;
-  p.prices[1]=+$('ef_p1').value;p.prices[3]=+$('ef_p3').value;p.prices[7]=+$('ef_p7').value;
-  p.stock=+$('ef_stock').value;p.status=$('ef_status').value;p.badge=$('ef_badge').value||undefined;
-  p.sizes=SIZES.filter(s=>$('esz_'+s)?.checked);
-  showToast('Хадгалагдлаа ✓','green');navigate('admin/products')
+function saveNew() {
+  const brand=$('af_brand').value, name=$('af_name').value, desc=$('af_desc').value,
+    cat=$('af_cat').value, pub=$('af_publisher').value, price=$('af_price').value,
+    status=$('af_status').value, img=$('af_img').value;
+  const sz = SIZES.filter(s => document.getElementById('sz_'+s)?.checked);
+  if (!brand||!name||!cat||!price) { toast('Заавал талбаруудыг бөглөнө үү','red'); return; }
+  DB.products.push({
+    id: Math.max(0,...DB.products.map(p=>p.id)) + 1,
+    brand, name, desc, category: cat,
+    publisher: pub, price, pricePeriod: 'өдрөөс',
+    status, img: img || '',
+    sizes: sz.length ? sz : ['S','M','L'],
+    rating: 0, reviews: 0,
+  });
+  toast('Амжилттай нэмэгдлээ ✓','green');
+  nav('admin/products');
+}
+
+/* ═══ EDIT PRODUCT ═══ */
+function pageEdit(id) {
+  const p = DB.products.find(x => x.id == id);
+  if (!p) return '<div class="content-body"><p style="color:var(--muted)">Бараа олдсонгүй</p></div>';
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb">
+        <span onclick="nav('admin/products')" style="cursor:pointer">Бүтээгдэхүүн</span> / <span>Засах</span>
+      </div>
+      <h1>${p.name}</h1>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="form-group"><label>Брэнд</label><input id="ef_brand" value="${p.brand}"></div>
+        <div class="form-group"><label>Нэр</label><input id="ef_name" value="${p.name}"></div>
+        <div class="form-group full"><label>Тайлбар</label><textarea id="ef_desc">${p.desc||''}</textarea></div>
+        <div class="form-group"><label>Ангилал</label>
+          <select id="ef_cat">
+            ${CATS.filter(c=>c.v!=='all').map(c=>`<option value="${c.v}" ${p.category===c.v?'selected':''}>${c.l}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group"><label>Нийтэлсэн</label><input id="ef_publisher" value="${p.publisher||''}"></div>
+        <div class="form-group"><label>Үнэ</label><input id="ef_price" value="${p.price}"></div>
+        <div class="form-group"><label>Статус</label>
+          <select id="ef_status">
+            <option value="standard" ${p.status==='standard'?'selected':''}>Standard</option>
+            <option value="premium"  ${p.status==='premium'?'selected':''}>Premium</option>
+            <option value="pending"  ${p.status==='pending'?'selected':''}>Хүлээгдэж</option>
+            <option value="rejected" ${p.status==='rejected'?'selected':''}>Татгалзсан</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Зургийн нэр</label><input id="ef_img" value="${p.img||''}"></div>
+        <div class="form-group full"><label>Размер</label>
+          <div class="size-checks">
+            ${SIZES.map(s=>`<input type="checkbox" class="size-check" id="esz_${s}" value="${s}" ${(p.sizes||[]).includes(s)?'checked':''}><label class="size-label" for="esz_${s}">${s}</label>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-gold" onclick="saveEdit(${p.id})">Хадгалах</button>
+        <button class="btn btn-ghost" onclick="nav('admin/products')">Болих</button>
+      </div>
+    </div>
+  </div>`;
+}
+function saveEdit(id) {
+  const p = DB.products.find(x => x.id == id);
+  p.brand = $('ef_brand').value;
+  p.name = $('ef_name').value;
+  p.desc = $('ef_desc').value;
+  p.category = $('ef_cat').value;
+  p.publisher = $('ef_publisher').value;
+  p.price = $('ef_price').value;
+  p.status = $('ef_status').value;
+  p.img = $('ef_img').value;
+  p.sizes = SIZES.filter(s => document.getElementById('esz_'+s)?.checked);
+  toast('Хадгалагдлаа ✓','green');
+  nav('admin/products');
 }
 
 /* ═══ ACTIONS ═══ */
-function approveP(id){const p=DB.products.find(x=>x.id==id);p.status='active';showToast(`"${p.name}" ✓`,'green');renderAdmin(location.hash.includes('dashboard')?'dashboard':'products')}
-function rejectP(id){const p=DB.products.find(x=>x.id==id);p.status='rejected';showToast('Татгалзагдлаа','red');renderAdmin(location.hash.includes('dashboard')?'dashboard':'products')}
-function deleteP(id){if(!confirm('Устгах?'))return;DB.products=DB.products.filter(x=>x.id!=id);showToast('Устгагдлаа');renderAdmin('products')}
-function approveUL(lid){const l=DB.userListings.find(x=>x.id===lid);if(!l)return;l.status='active';showToast(`"${l.name}" зөвшөөрөгдлөө ✓`,'green');renderAdmin('dashboard')}
-function rejectUL(lid){const l=DB.userListings.find(x=>x.id===lid);if(!l)return;l.status='rejected';showToast('Татгалзагдлаа','red');renderAdmin('dashboard')}
+function approveP(id) {
+  const p = DB.products.find(x => x.id == id);
+  if (p) { p.status = 'standard'; toast(`"${p.name}" зөвшөөрөгдлөө ✓`,'green'); }
+  renderAdmin(window.location.hash.includes('dashboard') ? 'dashboard' : 'products');
+}
+function rejectP(id) {
+  const p = DB.products.find(x => x.id == id);
+  if (p) { p.status = 'rejected'; toast('Татгалзагдлаа','red'); }
+  renderAdmin(window.location.hash.includes('dashboard') ? 'dashboard' : 'products');
+}
+function deleteP(id) {
+  if (!confirm('Энэ барааг устгах уу?')) return;
+  DB.products = DB.products.filter(x => x.id != id);
+  toast('Устгагдлаа');
+  renderAdmin('products');
+}
 
 /* ═══ ORDERS ═══ */
-function adminOrds(){
-  return`<h1>Захиалга</h1><p class="sub">Нийт ${DB.orders.length}</p>
-  <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Дугаар</th><th>Хэрэглэгч</th><th>Бараа</th><th>Нийт</th><th>Огноо</th><th>Статус</th></tr></thead><tbody>
-    ${DB.orders.length?DB.orders.map(o=>`<tr><td style="font-family:var(--serif);color:var(--gold);font-weight:700">${o.id}</td><td style="font-weight:600;color:white">${o.user}</td><td style="font-size:.75rem">${o.items.map(i=>i.name).join(', ')}</td><td style="font-weight:600">${fmt(o.total)}</td><td>${o.date}</td><td><span class="status-badge active">${o.status}</span></td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:48px;opacity:.25">Байхгүй</td></tr>'}
-  </tbody></table></div>`
+function pageOrders() {
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb"><span>RentFit</span> / <span>Захиалга</span></div>
+      <h1>Захиалга</h1>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="table-card">
+      <div class="table-head"><h3>Нийт захиалга</h3></div>
+      <table class="data-table">
+        <thead><tr><th>Дугаар</th><th>Хэрэглэгч</th><th>Бараа</th><th>Нийт</th><th>Огноо</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td colspan="6"><div class="empty-state"><span class="empty-icon">📦</span>Захиалга байхгүй байна</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
 /* ═══ USERS ═══ */
-function adminUsrs(){
-  return`<h1>Хэрэглэгч</h1><p class="sub">Нийт ${DB.users.length}</p>
-  <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Нэр</th><th>И-мэйл</th><th>Утас</th><th>Захиалга</th><th>Статус</th></tr></thead><tbody>
-    ${DB.users.map(u=>`<tr><td style="font-weight:600;color:white">${u.name}</td><td>${u.email}</td><td>${u.phone}</td><td>${u.orders}</td><td><span class="status-badge active">Идэвхтэй</span></td></tr>`).join('')}
-  </tbody></table></div>`
+function pageUsers() {
+  return `
+  <div class="content-header">
+    <div class="content-header-left">
+      <div class="breadcrumb"><span>RentFit</span> / <span>Хэрэглэгч</span></div>
+      <h1>Хэрэглэгч</h1>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="table-card">
+      <div class="table-head">
+        <h3>Нийт хэрэглэгч <span style="font-size:.72rem;color:var(--muted);font-weight:400">(${DB.users.length})</span></h3>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Нэр</th><th>И-мэйл</th><th>Утас</th><th>Захиалга</th><th>Статус</th></tr></thead>
+        <tbody>
+          ${DB.users.map(u => `
+          <tr>
+            <td><div style="font-weight:600;color:white">${u.name}</div></td>
+            <td style="color:rgba(255,255,255,.5)">${u.email}</td>
+            <td style="color:rgba(255,255,255,.5)">${u.phone}</td>
+            <td>${u.orders}</td>
+            <td><span class="badge active">Идэвхтэй</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 </script>
 </body>
