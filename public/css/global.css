@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
 :root {
 /* Backgrounds */
 --background-primary: #fbf7f4;
@@ -7,7 +9,7 @@
 --background-beige-light: #e5ded2;
 --background-dark:#0e0d0b;
 /* Text */
---text-primary: #232323;
+--text-primary: #1a1714;
 --text-secondary: #685d54;
 --text-tertiary: #a39382;
 --text-review: #e5ded2;
@@ -32,9 +34,20 @@
   --serif: 'Cormorant Garamond', 'Georgia', serif;
 
   /* Colors */
-  --cream: #f5f0e8;
-  --gold:#c9a84c;
-  --gold2:#e8c97a;
+  /* Accent өнгөнүүд */
+  --gold:             #c9a84c;
+  --gold-light:       #e8c97a;
+  --gold-glow:        rgba(201, 168, 76, 0.18);
+  --border:           rgba(0, 0, 0, 0.08);
+
+  /* Фонт */
+  --font-display:     'Playfair Display', Georgia, serif;
+  --font-body:        'DM Sans', sans-serif;
+
+  /* Карт shadow */
+  --shadow-card:      0 2px 20px rgba(0, 0, 0, 0.10);
+  --shadow-hover:     0 16px 48px rgba(0, 0, 0, 0.22);
+
   --gold-hover:#f9f7f2;
   --muted:#7a7060;
   --border:rgba(0,0,0,0.09);
