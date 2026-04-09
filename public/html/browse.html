@@ -163,8 +163,8 @@
                     <label class="cat-sort-wrap" for="sortSel">
                         <select class="cat-sort-sel" id="sortSel">
                             <option value="new">Шинэ эхэнд</option>
-                            <option value="price-asc">Үнэ ↑</option>
-                            <option value="price-desc">Үнэ ↓</option>
+                            <option value="price-asc">Үнэ ↓</option>
+                            <option value="price-desc">Үнэ ↑</option>
                             <option value="rating">Рейтинг ↓</option>
                         </select>
                     </label>
@@ -178,6 +178,14 @@
                         <img class="card-img">
                         <span class="badge badge--new"></span>
                         <button class="card-heart">&#10084;</button>
+
+                        <!-- cart icon — top-left, appears on hover -->
+                        <button class="card-cart" title="Сагсанд нэмэх">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        </button>
+
+                        <!-- quick-buy bar — bottom of image, appears on hover -->
+                        <button class="card-quick-buy">Хурдан авах</button>
                     </div>
 
                     <div class="card-body">

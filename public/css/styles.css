@@ -752,6 +752,84 @@ opacity: 0;
     inset: 0;
     background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.25) 100%);
     pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ── Cart icon — below heart button (top-right), hidden until card hover ── */
+  & .card-cart {
+    position: absolute;
+    top: 54px;
+    right: 12px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    color: var(--text-secondary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+    /* hidden — no pointer events until visible */
+    opacity: 0;
+    transform: scale(0.7);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.18s, color 0.18s;
+  }
+
+  /* show on card hover */
+  .product-card:hover & .card-cart {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  & .card-cart:hover {
+    background: var(--gold);
+    color: #fff;
+  }
+
+  /* gold fill when added — still only visible on hover */
+  & .card-cart.in-cart {
+    background: var(--gold);
+    color: #fff;
+  }
+
+  /* ── Quick-buy bar — bottom, slides up on card hover ── */
+  & .card-quick-buy {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 0.65rem 1rem;
+    background: rgba(26, 23, 20, 0.9);
+    color: #fff;
+    font-family: var(--font-bold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09rem;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    /* hidden below the image edge */
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, background 0.18s;
+  }
+
+  .product-card:hover & .card-quick-buy {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  & .card-quick-buy:hover {
+    background: var(--gold);
+    color: var(--text-primary);
   }
 }
 
@@ -1016,6 +1094,9 @@ opacity: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
+/* ── Hover overlay buttons live inside .card-visual ── */
+/* Managed via .card-visual nesting below — no standalone rules needed */
 
 /* price amount */
 .card-footer > div > strong {

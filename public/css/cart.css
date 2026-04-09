@@ -122,6 +122,46 @@
   font-weight: 700;
 }
 
+/* completed step */
+.cs.done .cs-c {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #fff;
+}
+
+.cs.done .cs-l {
+  color: var(--text-secondary);
+}
+
+/* fill the connector line before the current / done steps */
+.cs.done + .cs::before {
+  background: var(--gold);
+}
+
+/* form validation error */
+.input-error {
+  border-color: var(--red) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(192,57,43,.15);
+}
+
+/* empty cart state */
+.cart-empty {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.cart-empty p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
 
 /* ════════════════════════════════════════════
    CART ITEM LIST
@@ -731,13 +771,23 @@
   color: var(--text-secondary);
 }
 
-/* congrats page */
+/* congrats page — span full grid width */
+#fourth-step.active {
+  position: fixed;
+  inset: 0;
+  top: 66px; /* below header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-primary);
+  z-index: 10;
+}
+
 .order-success {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 66px);
   padding: 4rem 2rem;
   text-align: center;
   gap: 0.5rem;

@@ -11,8 +11,9 @@
     "status": "Premium",
     "category": "Cosplay",
     "description": "Authentic Frozen-inspired Anna adventure dress with intricate embroidery.",
-    "img_src": "anna-costume.jpg"
-
+    "img_src": "anna-costume.jpg",
+    "sizes": ["S", "M", "L"],
+    "date_posted": "2026-04-01"
   },
   {
     "id": 2,
@@ -26,7 +27,9 @@
     "status": "Standard",
     "category": "Costume",
     "description": "Classic black tuxedo designed for professional ballroom dancing and gala events.",
-    "img_src": "ballroom-male-costume.jpg"
+    "img_src": "ballroom-male-costume.jpg",
+    "sizes": ["M", "L", "XL"],
+    "date_posted": "2026-03-28"
   },
   {
     "id": 3,
@@ -40,7 +43,9 @@
     "status": "Standard",
     "category": "Costume",
     "description": "Soft, plush brown bear mascot suit perfect for children's parties and promotions.",
-    "img_src": "bear-costume.jpg"
+    "img_src": "bear-costume.jpg",
+    "sizes": ["One Size"],
+    "date_posted": "2026-04-02"
   },
   {
     "id": 4,
@@ -54,7 +59,9 @@
     "status": "Premium",
     "category": "Evening Wear",
     "description": "A voluminous, royal blue tulle gown designed for debutante balls and stage performances.",
-    "img_src": "big-blue-dress.jpg"
+    "img_src": "big-blue-dress.jpg",
+    "sizes": ["S", "M", "L", "XL"],
+    "date_posted": "2026-03-30"
   },
   {
     "id": 5,
@@ -68,7 +75,9 @@
     "status": "Premium",
     "category": "Evening Wear",
     "description": "Elegant pink silk evening gown with a modern slim-fit silhouette.",
-    "img_src": "dress2.jpg"
+    "img_src": "dress2.jpg",
+    "sizes": ["S", "M", "L"],
+    "date_posted": "2026-03-25"
   },
   {
     "id": 6,
@@ -82,7 +91,9 @@
     "status": "Standard",
     "category": "Cultural",
     "description": "Traditional Japanese Yukata style kimono with floral patterns and obi belt.",
-    "img_src": "kimono.jpg"
+    "img_src": "kimono.jpg",
+    "sizes": ["S", "M", "L"],
+    "date_posted": "2026-03-26"
   },
   {
     "id": 7,
@@ -96,7 +107,9 @@
     "status": "Premium",
     "category": "Cultural",
     "description": "High-quality everyday Mongolian Deel made from durable silk with traditional patterns.",
-    "img_src": "mongol-deel.png"
+    "img_src": "mongol-deel.png",
+    "sizes": ["M", "L", "XL"],
+    "date_posted": "2026-03-27"
   },
   {
     "id": 8,
@@ -110,7 +123,9 @@
     "status": "Standard",
     "category": "Cultural",
     "description": "Rugged yet stylish male Deel suitable for festivals and outdoor Naadam events.",
-    "img_src": "mongolian-male-deel.jpg"
+    "img_src": "mongolian-male-deel.jpg",
+    "sizes": ["M", "L", "XL"],
+    "date_posted": "2026-03-29"
   },
   {
     "id": 9,
@@ -124,7 +139,9 @@
     "status": "Premium",
     "category": "Costume",
     "description": "Authentic replica of the Mongolian National Olympic team ceremonial uniform.",
-    "img_src": "mongolian-olimpian-costume.jpg"
+    "img_src": "mongolian-olimpian-costume.jpg",
+    "sizes": ["M", "L"],
+    "date_posted": "2026-03-31"
   },
   {
     "id": 10,
@@ -138,7 +155,9 @@
     "status": "Premium",
     "category": "Cultural",
     "description": "Exquisite historical queen's ensemble featuring heavy embroidery and ornate headpiece.",
-    "img_src": "mongolian-queen-deel.jpg"
+    "img_src": "mongolian-queen-deel.jpg",
+    "sizes": ["S", "M", "L", "XL"],
+    "date_posted": "2026-03-24"
   },
   {
     "id": 11,
@@ -152,7 +171,9 @@
     "status": "Standard",
     "category": "Dance",
     "description": "Sultry red slit dress designed for Tango and Latin dance performances.",
-    "img_src": "tango-red-dress.jpg"
+    "img_src": "tango-red-dress.jpg",
+    "sizes": ["S", "M", "L"],
+    "date_posted": "2026-04-03"
   },
   {
     "id": 12,
@@ -166,7 +187,9 @@
     "status": "Premium",
     "category": "Cosplay",
     "description": "Highly detailed Violet Evergarden uniform with professional-grade ruffles and accessories.",
-    "img_src": "voiled-evergarden-cos.jpg"
+    "img_src": "voiled-evergarden-cos.jpg",
+    "sizes": ["S", "M", "L"],
+    "date_posted": "2026-04-04"
   },
   {
     "id": 13,
@@ -180,7 +203,9 @@
     "status": "Standard",
     "category": "Wedding",
     "description": "Modern slim-fit groom's suit in charcoal grey.",
-    "img_src": "wedding-cost.jpg"
+    "img_src": "wedding-cost.jpg",
+    "sizes": ["M", "L", "XL"],
+    "date_posted": "2026-03-23"
   },
   {
     "id": 14,
@@ -194,6 +219,8 @@
     "status": "Premium",
     "category": "Wedding",
     "description": "Luxury lace A-line wedding gown with a long cathedral train.",
-    "img_src": "wedding-dress.jpg"
+    "img_src": "wedding-dress.jpg",
+    "sizes": ["S", "M", "L", "XL"],
+    "date_posted": "2026-03-22"
   }
 ]

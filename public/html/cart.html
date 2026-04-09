@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/public/css/layout.css">
   <link rel="stylesheet" href="/public/css/styles.css">
   <link rel="stylesheet" href="/public/css/cart.css">
-  <script src="/public/script.js/cart.js" defer></script>
+  <script src="/public/js/cart.js" defer></script>
 </head>
 
 <body>
@@ -124,84 +124,8 @@
         <div id="first-step" data-tab-content class="active">
           <h1 class="tab-title">Таны сагс</h1>
 
-          <ul class="cart-item-list" aria-label="Сагсны бараанууд">
-
-            <li>
-              <article class="product-card">
-                <figure class="card-visual" style="background: linear-gradient(135deg,#0d1b2a,#1b2838)">
-                  <img src="/public/source/mongol-deel.png" alt="Харанхуй бизнес костюм">
-                </figure>
-
-                <section class="card-body">
-                  <p class="card-brand">Hugo Boss</p>
-                  <h2 class="card-name">Харанхуй бизнес костюм</h2>
-                  <p class="card-meta">Хэмжээ: <strong>S</strong></p>
-
-                  <fieldset class="cart-dur-opts">
-                    <legend class="sr-only">Түрээсийн хугацаа</legend>
-                    <label class="cart-dur-btn">
-                      <input type="radio" name="dur-1" value="1">
-                      <span class="dur-days">1 өдөр</span>
-                      <span class="dur-price">42,000₮</span>
-                    </label>
-                    <label class="cart-dur-btn sel">
-                      <input type="radio" name="dur-1" value="3" checked>
-                      <span class="dur-days">3 өдөр</span>
-                      <span class="dur-price">60,000₮</span>
-                    </label>
-                    <label class="cart-dur-btn">
-                      <input type="radio" name="dur-1" value="7">
-                      <span class="dur-days">7 өдөр</span>
-                      <span class="dur-price">110,000₮</span>
-                    </label>
-                  </fieldset>
-                </section>
-
-                <footer class="card-footer">
-                  <strong class="price price--large">60,000₮</strong>
-                  <a href="#" class="card-remove">Хасах</a>
-                </footer>
-              </article>
-            </li>
-
-            <li>
-              <article class="product-card">
-                <figure class="card-visual" style="background: linear-gradient(135deg,#4a1040,#8b2060)">
-                  <img src="/public/source/mongol-deel.png" alt="Ягаан урт дашинзи">
-                </figure>
-
-                <section class="card-body">
-                  <p class="card-brand">Mango</p>
-                  <h2 class="card-name">Ягаан урт дашинзи</h2>
-                  <p class="card-meta">Хэмжээ: <strong>XS</strong></p>
-
-                  <fieldset class="cart-dur-opts">
-                    <legend class="sr-only">Түрээсийн хугацаа</legend>
-                    <label class="cart-dur-btn">
-                      <input type="radio" name="dur-2" value="1">
-                      <span class="dur-days">1 өдөр</span>
-                      <span class="dur-price">35,000₮</span>
-                    </label>
-                    <label class="cart-dur-btn sel">
-                      <input type="radio" name="dur-2" value="3" checked>
-                      <span class="dur-days">3 өдөр</span>
-                      <span class="dur-price">28,000₮</span>
-                    </label>
-                    <label class="cart-dur-btn">
-                      <input type="radio" name="dur-2" value="7">
-                      <span class="dur-days">7 өдөр</span>
-                      <span class="dur-price">145,000₮</span>
-                    </label>
-                  </fieldset>
-                </section>
-
-                <footer class="card-footer">
-                  <strong class="price price--large">28,000₮</strong>
-                  <a href="#" class="card-remove">Хасах</a>
-                </footer>
-              </article>
-            </li>
-
+          <ul class="cart-item-list" id="cart-item-list" aria-label="Сагсны бараанууд">
+            <!-- JS renders items from localStorage -->
           </ul>
 
 
@@ -266,36 +190,26 @@
             <!-- 1. Order summary -->
             <section class="confirm-card" aria-labelledby="summary-title">
               <h2 id="summary-title">Захиалгын хураангуй</h2>
-
-              <article class="confirm-item">
-                <figure class="confirm-item-fig" style="background: linear-gradient(135deg,#3d0a30,#6b1050)">
-                  <img src="/public/source/mongol-deel.png" alt="Ягаан гоёлын">
-                </figure>
-                <section class="confirm-item-info">
-                  <h3>Ягаан гоёлын</h3>
-                  <p>S · 3 өдөр</p>
-                </section>
-                <strong class="confirm-item-price">80,000₮</strong>
-              </article>
+              <div id="confirm-item-list">
+                <!-- JS renders items here -->
+              </div>
             </section>
 
             <!-- 2. Delivery info -->
             <section class="confirm-card" aria-labelledby="delivery-title">
               <h2 id="delivery-title">Хүргэлтийн мэдээлэл</h2>
 
-              <address class="confirm-address">
-                <p><strong>Нарантуяа</strong> · <span>93802439</span></p>
-                <p>Сүхбаатар дүүрэг</p>
-                <p>📅 2026-04-13 · 15:00–18:00</p>
-                <p>📝 Онцгой хүсэлт байхгүй</p>
+              <address id="confirm-delivery-info" class="confirm-address">
+                <!-- JS renders delivery info here -->
               </address>
 
-              <a href="#delivery-form" class="confirm-edit-btn">Засах</a>
+              <a href="#" class="confirm-edit-btn">Засах</a>
             </section>
 
             <!-- 3. Payment method -->
             <section class="confirm-card" aria-labelledby="payment-title">
               <h2 id="payment-title">Төлбөрийн арга</h2>
+              <p id="confirm-payment" style="font-size:.9rem;color:var(--text-secondary);margin-bottom:.5rem"></p>
 
               <fieldset class="pay-opts">
                 <legend class="sr-only">Төлбөрийн арга сонгох</legend>
@@ -339,7 +253,7 @@
           <section class="order-success">
 
             <h1>Захиалга амжилттай!</h1>
-            <p class="order-success-id">RF-556850</p>
+            <p class="order-success-id" id="order-id">RF-000000</p>
             <p>Таны захиалгыг хүлээн авлаа.</p>
             <p>24 цагийн дотор таны хаягт хүргэнэ.</p>
             <p>Баталгаажуулалтын и-мэйл явуулсан.</p>
@@ -365,17 +279,22 @@
           <tr>
             <td>Дад нийт</td>
             <td class="space"> </td>
-            <td class="receipt-price">160,000₮</td>
+            <td class="receipt-price" id="receipt-subtotal">0₮</td>
           </tr>
           <tr>
             <td>Хүргэлт</td>
             <td> </td>
-            <td class="receipt-price">3,000₮</td>
+            <td class="receipt-price" id="receipt-delivery">0₮</td>
           </tr>
           <tr>
             <td>Урьдчилгаа</td>
             <td> </td>
-            <td class="receipt-price">48,000₮</td>
+            <td class="receipt-price" id="receipt-deposit">0₮</td>
+          </tr>
+          <tr id="receipt-discount-row" style="display:none">
+            <td>Хямдрал</td>
+            <td> </td>
+            <td class="receipt-price" id="receipt-discount" style="color:var(--green)"></td>
           </tr>
         </tbody>
       </table>
@@ -384,7 +303,7 @@
 
       <p class="receipt-total">
         <strong>Нийт</strong>
-        <strong>211,000₮</strong>
+        <strong id="receipt-total-price">0₮</strong>
       </p>
       <ul class="receipt-notes" aria-label="Мэдэгдэл">
         <li>🔒 Баталгааны мөнгийг буцаалтын дараа өгөнө.</li>
@@ -398,6 +317,7 @@
           <input id="promo-code" type="text" placeholder="Код оруулах...">
           <button type="button">Хэрэглэх</button>
         </div>
+        <p id="promo-msg" style="font-size:0.75rem;margin-top:0.4rem;min-height:1rem"></p>
       </section>
 
     </aside>

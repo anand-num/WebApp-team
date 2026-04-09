@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "code": "RENTFIT10",
+    "discount": 0.10,
+    "duration_days": 30,
+    "description": "10% хямдрал — RentFit урамшуулал"
+  },
+  {
+    "id": 2,
+    "code": "WELCOME10",
+    "discount": 0.10,
+    "duration_days": 14,
+    "description": "10% хямдрал — шинэ хэрэглэгчийн урамшуулал"
+  },
+  {
+    "id": 3,
+    "code": "SPRING10",
+    "discount": 0.10,
+    "duration_days": 7,
+    "description": "10% хямдрал — хавар урамшуулал"
+  },
+  {
+    "id": 4,
+    "code": "NAADAM10",
+    "discount": 0.10,
+    "duration_days": 3,
+    "description": "10% хямдрал — Наадам урамшуулал"
+  }
+]
