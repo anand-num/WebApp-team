@@ -13,8 +13,8 @@ tabs.forEach(tab => {
     target.classList.add('active');
 
     // update footer buttons
-    const secondaryBtn = footer.querySelector('.secondary-btn');
-    const primaryBtn = footer.querySelector('.primary-btn');
+    const secondaryBtn = footer.querySelector('.btn-secondary');
+    const primaryBtn = footer.querySelector('.btn-primary');
     const receipt = document.querySelector('.cart-receipt');
 
     if (target.id === "first-step") {

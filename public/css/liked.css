@@ -36,9 +36,7 @@
   background: var(--text-secondary);
 }
 
-.section-title {
-  color: var(--text-primary);
-  font-family: var(--font-heading);
+.liked-wrap .section-title {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -53,184 +51,6 @@
   gap: 24px;
 }
 
-
-/* ════════════════════════════════════════════
-   PRODUCT CARD
-════════════════════════════════════════════ */
-.pc {
-  position: relative;
-  grid-area: auto;
-  box-sizing: border-box;
-  height: auto;
-  width: 240px;
-  background-color: white;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .3s, box-shadow .3s;
-}
-
-.pc:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-
-/* ── Card image ── */
-.pc img {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  object-position: center;
-}
-
-
-/* ── Badge ── */
-.badge-gold {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 4px 8px;
-  background: var(--gold2);
-  border-radius: 6px;
-  font-size: 12px;
-}
-
-
-/* ── Wishlist heart button ── */
-.heart {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: red;
-  background: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: .9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
-  z-index: 2;
-  border: none;
-  transition: transform .2s;
-}
-
-.heart:hover {
-  transform: scale(1.2);
-}
-
-
-/* ── Card body ── */
-.pc-body {
-  padding: 16px;
-  background: white;
-  line-height: 0.8em;
-}
-
-.pc-brand {
-  font-family: var(--font-body), serif;
-  font-size: 0.6rem;
-  margin: 0.5rem 0rem;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 200;
-}
-
-.pc-name {
-  font-family: var(--font-heading), serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  padding-top: 0.5rem;
-}
-
-.pc-meta {
-  padding-top: 0.3rem;
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-}
-
-.pc-av {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-}
-
-
-/* ── Card footer ── */
-.pc-ft {
-  height: 3rem;
-}
-
-.pc-price-group {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 3px;
-}
-
-.pc-price {
-  font-size: 24px;
-  font-weight: bold;
-  padding-top: 0.1rem;
-  font-family: var(--font-body);
-  color: var(--text-primary);
-}
-
-.price {
-  color: var(--text-primary);
-}
-
-.pc-from {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  margin-bottom: 4px;
-}
-
-
-/* ── Rating ── */
-.pc-rating-group dd {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pc-stars {
-  color: var(--gold);
-}
-
-.sr-only {
-  font-size: 0.8rem;
-  font-family: var(--font-body);
-  color: var(--text-secondary);
-  height: auto;
-  padding-top: 2px;
-}
-
-dd {
-  margin: 0;
-  height: 1.5rem;
-}
-
-
-/* ── Legacy catalog heading overrides ── */
-.cat-main h1 {
-  font-family: var(--font-heading), serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-}
-
-.cat-main h2 {
-  font-family: var(--font-body), serif;
-  font-size: 0.6rem;
-  margin: 0.5rem 0rem;
-  text-transform: uppercase;
-}
 
 
 /* ════════════════════════════════════════════
@@ -249,7 +69,7 @@ dd {
     gap: 16px;
   }
 
-  .pc {
+  .product-card {
     width: 100%;
   }
 }
@@ -272,23 +92,19 @@ dd {
     font-size: 1.5rem;
   }
 
-  .pc img {
+  .product-card .card-visual img {
     height: 180px;
   }
 
-  .pc-body {
+  .product-card .card-body {
     padding: 10px 12px;
   }
 
-  .pc-name {
+  .product-card .card-name {
     font-size: 1rem;
   }
 
-  .pc-price {
-    font-size: 1.1rem;
-  }
-
-  .pc-ft {
+  .product-card .card-footer {
     height: 2.5rem;
   }
 }
@@ -301,7 +117,7 @@ dd {
     gap: 10px;
   }
 
-  .pc img {
+  .product-card .card-visual img {
     height: 150px;
   }
 
@@ -317,7 +133,7 @@ dd {
     grid-template-columns: 1fr;
   }
 
-  .pc {
+  .product-card {
     max-width: 100%;
   }
 }
