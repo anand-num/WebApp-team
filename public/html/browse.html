@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="/public/css/browse.css">
+
 </head>
 
 <body class="browse-page">
@@ -86,19 +87,26 @@
             <legend class="flt-ttl">Ангилал</legend>
             <fieldset class="cat-chips">
                 <label class="flt-row">
-                    <input type="radio" name="cat">Бүгд
+                    <input type="radio" name="cat" value="All" checked> Бүгд
                 </label>
                 <label class="flt-row">
-                    <input type="radio" name="cat">
-                    Гоёлын
-                    хувцас</label>
+                    <input type="radio" name="cat" value="Dress"> Даашинз
+                </label>
                 <label class="flt-row">
-                    <input type="radio" name="cat">
-                    Бизнес</label>
+                    <input type="radio" name="cat" value="Cosplay"> Косплей
+                </label>
                 <label class="flt-row">
-                    <input type="radio" name="cat"> Монгол дэл</label>
+                    <input type="radio" name="cat" value="Traditional"> Монгол дээл
+                </label>
                 <label class="flt-row">
-                    <input type="radio" name="cat"> Өдөр тутмын</label>
+                    <input type="radio" name="cat" value="Wedding"> Өдөр тутмын
+                </label>
+                <label class="flt-row">
+                    <input type="radio" name="cat" value="Costume"> Костюм
+                </label>
+                <label class="flt-row">
+                    <input type="radio" name="cat" value="Ballroom"> Бүжигийн
+                </label>
             </fieldset>
             <legend class="flt-ttl">Размер</legend>
             <fieldset class="sz-chips">
@@ -163,167 +171,35 @@
 
                 </form>
             </search>
-            <section class="pg" id="catGrid">
-                <article class="pc">
-                    <img src="/public/source/mongol-deel.png">
-                    <span class="badge-gold">Хит</span>
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Zara</h2>
-                        <h1 class="pc-name">Хар гоёлын хантааз</h1>
-                        <p class="pc-meta">Одоо 5 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★★</div>
-                                    <span class="pc-reviews">4.8 (42)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
+            <section class="pg" id="catGrid"> </section>
+            <template id="product-template">
+                <article class="product-card">
+                    <div class="card-visual">
+                        <img class="card-img">
+                        <span class="badge badge--new"></span>
+                        <button class="card-heart">&#10084;</button>
+                    </div>
 
+                    <div class="card-body">
+                        <p class="card-brand"></p>
+                        <h3 class="card-name"></h3>
+
+                        <div class="rating">
+                            <span class="rating-stars"></span>
+                            <span class="rating-count"></span>
+                        </div>
+
+                        <div class="card-footer">
+                            <div>
+                                <p class="price-lbl">Өдөрт</p>
+                                <strong class="card-price"></strong>
+                            </div>
+                            <a class="card-link" href="/public/html/product.html">Харах →</a>
+                        </div>
                     </div>
                 </article>
-                <article class="pc">
-                    <img src="/public/source/mongolian-queen-deel.jpg">
-                    <span class="badge-gold">Хит</span>
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Yalguun</h2>
-                        <h1 class="pc-name">Монгол хатны дээл</h1>
-                        <p class="pc-meta">Одоо 10 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★★</div>
-                                    <span class="pc-reviews">5 (40)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
+            </template>
 
-                        </summary>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/wedding cost.jpg" alt="Цагаан костюм">
-                    <span class="badge-gold">Онцлох</span>
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Samuel</h2>
-                        <h1 class="pc-name">Цагаан костюм</h1>
-                        <p class="pc-meta">Одоо 6 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★★</div>
-                                    <span class="pc-reviews">4.8 (42)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
-
-                    </div>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Belucci</h2>
-                        <h1 class="pc-name">Цэнхэр даашинз</h1>
-                        <p class="pc-meta">Одоо 4 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★★</div>
-                                    <span class="pc-reviews">4.5(20)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
-
-                    </div>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/kimono.jpg" alt="Kimono">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Kishimori</h2>
-                        <h1 class="pc-name">Хар кимоно</h1>
-                        <p class="pc-meta">Одоо 3 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★</div>
-                                    <span class="pc-reviews">4.8 (15)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
-
-                    </div>
-                </article>
-                <article class="pc">
-                    <img src="/public/source/bear-costume.jpg" alt="bear costume">
-                    <button class="heart">&#10084;</button>
-                    <div class="pc-body">
-                        <h2 class="pc-brand">Temu</h2>
-                        <h1 class="pc-name">Баавгайн маскот</h1>
-                        <p class="pc-meta">Одоо 5 хүний сагсанд байна</p>
-                        <footer class="pc-ft">
-                            <dl class="pc-rating-group">
-                                <dd class="sr-only">
-                                    <div class="pc-stars">★★★★</div>
-                                    <span class="pc-reviews">4.0(25)</span>
-                                </dd>
-                            </dl>
-                            <div class="pc-price-group">
-                            <div class="sr-only">
-                                <p class="price-lbl">өдөрт</p>
-                                <strong class="price">20,000₮</strong>
-                            </div>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Улаан торгон дэл — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                        </footer>
-
-                    </div>
-                </article>
-            </section>
             <div class="pagi">
                 <button class="pgb" disabled>‹</button>
                 <button class="pgb on">1</button>
@@ -408,13 +284,5 @@
 
         <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
     </footer>
-    <script>
-        const hearts = document.querySelectorAll('.heart');
-
-        hearts.forEach(heart => {
-            heart.addEventListener('click', () => {
-                heart.classList.toggle('active');
-            });
-        });
-    </script>
+        <script src="/public/script.js/browse.js" defer></script>
 </body>

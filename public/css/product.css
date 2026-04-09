@@ -41,24 +41,17 @@ a{
 /* ══════════════════════════════
    LEFT — IMAGE
 ══════════════════════════════ */
-.pd-fig {
+.image-container {
   position: sticky;
   top: calc(66px + 20px);   /* below fixed nav */
   align-self: start;
-  aspect-ratio: 3 / 4;
-  border-radius: 4px;
-  overflow: hidden;
   background: linear-gradient(135deg, #1a0a0a, #3a0000);
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.pd-fig img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Portrait variant used on product detail page */
+.image-container--portrait {
+  aspect-ratio: 3 / 4;
 }
 
 /* ══════════════════════════════
@@ -93,7 +86,7 @@ a{
   flex-wrap: wrap;
 }
 
-.pd-stars    { color: var(--gold); letter-spacing: 1px; }
+.rating-stars { color: var(--gold); letter-spacing: 1px; }
 .pd-meta strong { color: var(--ink); }
 .pd-rv-link  { color: var(--muted); text-decoration: underline; transition: color .15s; }
 .pd-rv-link:hover { color: var(--gold); }
@@ -239,39 +232,19 @@ a{
 /* ══════════════════════════════
    CALL-TO-ACTION BUTTONS
 ══════════════════════════════ */
-.cart-button {
-  background-color: var(--button-primary);   
-    color: var(--text-on-dark);
-    font-size: medium;
-    font-weight: bold;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 8px 20px;
-    border-radius: 2px;
-    height:3rem;
-    width:100%;
-    padding: 1px;
-    transition: border-color 0.2s, background 0.2s;
-}
-
-.liked-button {
+/* Product page — full-width button overrides */
+.pd-info .btn-primary {
+  width: 100%;
+  height: 3rem;
   text-align: center;
-  font-size: medium;
-    font-weight: 500;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 1rem 1.5rem;
-    border: 2px solid var(--text-tertiary);
-    color: var(--text-tertiary);
-    width:100%;
-    margin-top:1rem;
-  height:3rem;
-  background-color: transparent;
-  padding: 1px;
-  transition: border-color 0.2s, background 0.2s;
 }
 
-.cart-button:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
-.liked-button:hover {  border-color: var(--text-primary);    color: var(--text-primary);
- }
+.pd-info .btn-secondary {
+  width: 100%;
+  height: 3rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
 
 .btn-wish {
   background: white;
@@ -460,7 +433,7 @@ a{
   }
 
   /* Image — square on mobile, not tall portrait */
-  .pd-fig {
+  .image-container {
     position: static;
     aspect-ratio: 1 / 1;
   }
@@ -534,8 +507,8 @@ a{
   }
 
   /* Buttons full width already — just tighten font */
-  .cart-button,
-  .liked-button {
+  .btn-primary,
+  .btn-secondary {
     font-size: 0.85rem;
   }
 

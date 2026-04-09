@@ -1,61 +1,72 @@
 [
   {
-    "brand": "Disney_collection",
+    "id": 1,
+    "brand": "Disney collection",
     "publisher": "Bataa",
-    "item_name": "Anna_costume",
+    "item_name": "Anna costume",
     "rating": 4.8,
     "review_count": 12,
     "price": "45,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "anna-costume.jpg"
+    "img_src": "/public/source/anna-costume.jpg",
+    "category": "Cosplay"
   },
   {
-    "brand": "Classic_ballroom",
+    "id": 2,
+    "brand": "Classic ballroom",
     "publisher": "Anand",
-    "item_name": "Ballroom_male_costume",
+    "item_name": "Ballroom male costume",
     "rating": 4.5,
     "review_count": 5,
     "price": "55,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "ballroom-male-costume.jpg"
+    "img_src": "/public/source/ballroom-male-costume.jpg",
+    "category": "Ballroom"
   },
   {
-    "brand": "Fun_party",
+    "id": 3,
+    "brand": "Fun party",
     "publisher": "Dulguun",
-    "item_name": "Bear_costume",
+    "item_name": "Bear costume",
     "rating": 4.2,
     "review_count": 20,
     "price": "25,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "bear-costume.jpg"
+    "img_src": "/public/source/bear-costume.jpg",
+    "category": "Cosplay"
   },
   {
-    "brand": "Royal_gala",
+    "id": 4,
+    "brand": "Royal gala",
     "publisher": "Bataa",
-    "item_name": "Big_blue_dress",
+    "item_name": "Big blue dress",
     "rating": 4.9,
     "review_count": 15,
     "price": "65,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "big-blue-dress.jpg"
+    "img_src": "/public/source/big-blue-dress.jpg",
+    "category": "Dress"
   },
   {
+    "id": 5,
     "brand": "Valentino",
     "publisher": "Anand",
-    "item_name": "Ягаан_гоёлын",
+    "item_name": "Ягаан гоёлын",
     "rating": 5.0,
     "review_count": 9,
     "price": "35,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "dress2.jpg"
+    "img_src": "/public/source/dress2.jpg",
+    "category": "Dress"
   },
   {
-    "brand": "Kyoto_style",
+    "id": 6,
+    "brand": "Kyoto style",
     "publisher": "Dulguun",
     "item_name": "Kimono",
     "rating": 4.7,
@@ -63,94 +74,111 @@
     "price": "40,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "kimono.jpg"
+    "img_src": "/public/source/kimono.jpg",
+    "category": "Kimono"
   },
   {
-    "brand": "Traditional_mn",
+    "id": 7,
+    "brand": "Traditional mn",
     "publisher": "Bataa",
-    "item_name": "Mongol_deel",
+    "item_name": "Mongol deel",
     "rating": 5.0,
     "review_count": 32,
     "price": "50,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "mongol-deel.png"
+    "img_src": "/public/source/mongol-deel.png",
+    "category": "Deel"
   },
   {
-    "brand": "Nomad_chic",
+    "id": 8,
+    "brand": "Nomad chic",
     "publisher": "Anand",
-    "item_name": "Mongolian_male_costume",
+    "item_name": "Mongolian male costume",
     "rating": 4.6,
     "review_count": 14,
     "price": "45,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "mongolian-male-costume.jpg"
+    "img_src": "/public/source/mongolian-male-deel.jpg",
+    "category": "Traditional"
   },
   {
-    "brand": "Olympic_pride",
+    "id": 9,
+    "brand": "Olympic pride",
     "publisher": "Dulguun",
-    "item_name": "Mongolian_olimpic",
+    "item_name": "Mongolian olimpic",
     "rating": 4.8,
     "review_count": 50,
     "price": "70,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "mongolian-olimpic.jpg"
+    "img_src": "/public/source/mongolian-olimpian-costume.jpg",
+    "category": "Traditional"
   },
   {
-    "brand": "Heritage_luxury",
+    "id": 10,
+    "brand": "Heritage luxury",
     "publisher": "Bataa",
-    "item_name": "Mongolian_queen",
+    "item_name": "Mongolian queen",
     "rating": 5.0,
     "review_count": 21,
     "price": "120,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "mongolian-queen.jpg"
+    "img_src": "/public/source/mongolian-queen-deel.jpg",
+    "category": "Traditional"
   },
   {
-    "brand": "Passion_dance",
+    "id": 11,
+    "brand": "Passion dance",
     "publisher": "Anand",
-    "item_name": "Tango_red_dress",
+    "item_name": "Tango red dress",
     "rating": 4.9,
     "review_count": 18,
     "price": "48,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "tango-red-dress.jpg"
+    "img_src": "/public/source/tango-red-dress.jpg",
+    "category": "Ballroom"
   },
   {
-    "brand": "Anime_couture",
+    "id": 12,
+    "brand": "Anime couture",
     "publisher": "Dulguun",
-    "item_name": "Voiled_evergarden",
+    "item_name": "Voiled evergarden",
     "rating": 4.9,
     "review_count": 11,
     "price": "85,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "voiled-evergarden.jpg"
+    "img_src": "/public/source/voiled-evergarden-cos.jpg",
+    "category": "Cosplay"
   },
   {
-    "brand": "Bridal_house",
+    "id": 13,
+    "brand": "Bridal house",
     "publisher": "Bataa",
-    "item_name": "Wedding_cost",
+    "item_name": "Wedding cost",
     "rating": 4.4,
     "review_count": 6,
     "price": "95,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "img_src": "wedding cost.jpg"
+    "img_src": "/public/source/wedding-cost.jpg",
+    "category": "Wedding"
   },
   {
-    "brand": "Eternal_love",
+    "id": 14,
+    "brand": "Eternal love",
     "publisher": "Anand",
-    "item_name": "Wedding_dress",
+    "item_name": "Wedding dress",
     "rating": 5.0,
     "review_count": 40,
     "price": "150,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "img_src": "wedding dress.jpg"
+    "img_src": "/public/source/wedding-dress.jpg",
+    "category": "Wedding" 
   }
 ]

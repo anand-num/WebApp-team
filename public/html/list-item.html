@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Зар нэмэх — RentFit</title>
-  <link rel="stylesheet" href="/public/css/color.css">
+  <link rel="stylesheet" href="/public/css/global.css">
   <link rel="stylesheet" href="/public/css/layout.css">
   <link rel="stylesheet" href="/public/css/styles.css">
   <link rel="stylesheet" href="/public/css/list-item.css">
@@ -114,7 +114,7 @@
     <div>
 
       <section class="list-card" aria-labelledby="basic-title">
-        <h2 class="card-title" id="basic-title">Үндсэн мэдээлэл</h2>
+        <h2 class="section-title" id="basic-title">Үндсэн мэдээлэл</h2>
         <fieldset class="form-row">
           <p class="form-field">
             <label for="item-name">Хувцасны нэр <abbr title="Шаардлагатай">*</abbr></label>
@@ -155,7 +155,7 @@
       </section>
 
       <section class="list-card" aria-labelledby="price-title">
-        <h2 class="card-title" id="price-title">Үнэ тогтоох</h2>
+        <h2 class="section-title" id="price-title">Үнэ тогтоох</h2>
         <div class="price-group">
           <p class="form-field">
             <label for="price-1">1 өдрийн үнэ ₮ <abbr title="Шаардлагатай">*</abbr></label>
@@ -177,7 +177,7 @@
       </section>
 
       <section class="list-card" aria-labelledby="size-title">
-        <h2 class="card-title" id="size-title">Боломжит размерууд</h2>
+        <h2 class="section-title" id="size-title">Боломжит размерууд</h2>
         <fieldset class="size-chips" aria-label="Размер сонгох">
           <legend class="sr-only">Боломжит размерууд</legend>
           <input type="checkbox" id="sz-xs"   name="sizes" value="XS">
@@ -198,7 +198,7 @@
       </section>
 
       <section class="list-card" aria-labelledby="photo-title">
-        <h2 class="card-title" id="photo-title">Зураг оруулах</h2>
+        <h2 class="section-title" id="photo-title">Зураг оруулах</h2>
         <label class="upload-zone" for="photo-input">
           <span class="upload-icon" aria-hidden="true">📸</span>
           <p>Зургаа энд дарж оруулах эсвэл чирж оруулна уу</p>
@@ -209,7 +209,7 @@
       </section>
 
       <section class="list-card" aria-labelledby="delivery-title">
-        <h2 class="card-title" id="delivery-title">Хүргэлтийн мэдээлэл</h2>
+        <h2 class="section-title" id="delivery-title">Хүргэлтийн мэдээлэл</h2>
         <fieldset class="form-row">
           <p class="form-field">
             <label for="item-district">Дүүрэг <abbr title="Шаардлагатай">*</abbr></label>
@@ -234,18 +234,18 @@
         </fieldset>
       </section>
 
-      <button type="button" class="list-submit">ЗАР БАЙРШУУЛАХ →</button>
+      <button type="button" id="list-submit-btn" class="btn-primary">ЗАР БАЙРШУУЛАХ →</button>
     </div>
 
     <!-- PREVIEW хэсэг -->
     <aside class="list-preview" aria-label="Зарын урьдчилан харах">
       <div class="preview-card">
-        <div class="preview-img" aria-hidden="true"><span>Зурагны урьдчилан харах</span></div>
+        <div class="card-visual" aria-hidden="true"><span>Зурагны урьдчилан харах</span></div>
         <div class="preview-body">
           <p class="preview-brand" id="prev-brand">Брэнд</p>
           <p class="preview-name"  id="prev-name">Хувцасны нэр</p>
           <p class="preview-price-lbl">өдөрт</p>
-          <p class="preview-price"  id="prev-price">0 ₮</p>
+          <p class="price"  id="prev-price">0 ₮</p>
         </div>
       </div>
       <p class="preview-tip">Мэдээлэл оруулахад урьдчилан харах автоматаар шинэчлэгдэнэ.</p>
@@ -374,7 +374,7 @@
     }
     [nameInp, brandInp, priceInp].forEach(el => el.addEventListener('input', updatePreview));
 
-    document.querySelector('.list-submit').addEventListener('click', function () {
+    document.querySelector('#list-submit-btn').addEventListener('click', function () {
       this.classList.add('submit-success');
       this.addEventListener('animationend', () => this.classList.remove('submit-success'), { once: true });
     });

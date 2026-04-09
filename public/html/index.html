@@ -122,8 +122,8 @@
         <br />
         <br />
         <div class="hero-buttons-cont">
-          <a href="../html/browse.html" class="primary-btn">КАТАЛОГ ҮЗЭХ</a>
-          <a href="#how-it-works" class="secondary-btn">ХЭРХЭН АЖИЛЛАДАГ</a>
+          <a href="../html/browse.html" class="btn-primary">КАТАЛОГ ҮЗЭХ</a>
+          <a href="#how-it-works" class="btn-secondary">ХЭРХЭН АЖИЛЛАДАГ</a>
         </div>
         <div class="hero-info">
           <div>
@@ -250,11 +250,11 @@
       </section>
     </section>
 
-    <section class="featured" aria-labelledby="featured-title">
+    <section class="featured" aria-labelledby="section-title">
       <!-- Гарчиг -->
       <header class="featured-header">
         <p class="section-tag" aria-hidden="true">Онцлох</p>
-        <h2 class="featured-title" id="featured-title">Түгээмэл хувцаснууд</h2>
+        <h2 class="section-title" id="section-title">Түгээмэл хувцаснууд</h2>
       </header>
       <div class="product-grid">
 
@@ -263,7 +263,7 @@
     <div class="card-visual">
       <img src="../source/voiled-evergarden-cos.jpg" alt="Хар гоёлын хантааз">
 
-      <span class="card-badge">Шинэ</span>
+      <span class="badge badge--new">Шинэ</span>
       <button class="card-heart" onclick="this.classList.toggle('liked')">&#10084</button>
     </div>
 
@@ -271,11 +271,12 @@
       <p class="card-brand">COSPLAY</p>
       <h3 class="card-name">Косплей хувцас</h3>
 
-      <div class="card-rating">
-        ★★★★★ <span>4.8 (24)</span>
+      <div class="rating">
+        <span class="rating-stars">★★★★★</span> <span class="rating-count">4.8 (24)</span>
       </div>
 
       <div class="card-footer">
+
         <div>
           <p> Өдөрт</p>
           <strong>15,000₮</strong>
@@ -290,7 +291,7 @@
     <div class="card-visual">
       <img src="../source/mongolian-male-deel.jpg" alt="Бизнес костюм">
 
-      <span class="card-badge">Онцлох</span>
+      <span class="badge badge--new">Онцлох</span>
       <button class="card-heart" onclick="this.classList.toggle('liked')">&#10084</button>
     </div>
 
@@ -298,11 +299,12 @@
       <p class="card-brand">МОНГОЛ УРЛАГ</p>
       <h3 class="card-name">Монгол эрэгтэй дээл</h3>
 
-      <div class="card-rating">
-        ★★★★★ <span>4.9 (41)</span>
+      <div class="rating">
+        <span class="rating-stars">★★★★★</span> <span class="rating-count">4.9 (41)</span>
       </div>
 
       <div class="card-footer">
+
         <div>
           <p>Өдөрт</p>
           <strong>25,000₮</strong>        
@@ -317,7 +319,7 @@
     <div class="card-visual">
       <img src="../source/dress2.jpg" alt="Улаан торгон дээл">
 
-      <span class="card-badge">Тусгай</span>
+      <span class="badge badge--new">Тусгай</span>
       <button class="card-heart liked" onclick="this.classList.toggle('liked')">&#10084</button>
     </div>
 
@@ -325,11 +327,12 @@
       <p class="card-brand">Баяр ёслол</p>
       <h3 class="card-name">Хуримын даашинз</h3>
 
-      <div class="card-rating">
-        ★★★★★ <span>4.9 (18)</span>
+      <div class="rating">
+        <span class="rating-stars">★★★★★</span> <span class="rating-count">4.9 (18)</span>
       </div>
 
       <div class="card-footer">
+
         <div>
           <p>Өдөрт</p>
           <strong>20,000₮</strong>
@@ -344,7 +347,7 @@
     <div class="card-visual">
       <img src="../source/bear-costume.jpg" alt="Улаан торгон дээл">
 
-      <span class="card-badge">Тусгай</span>
+      <span class="badge badge--new">Тусгай</span>
       <button class="card-heart liked" onclick="this.classList.toggle('liked')">&#10084</button>
     </div>
 
@@ -352,11 +355,12 @@
       <p class="card-brand">Cosplay</p>
       <h3 class="card-name">Баавгайн хувцас</h3>
 
-      <div class="card-rating">
-        ★★★★★ <span>4.9 (18)</span>
+      <div class="rating">
+        <span class="rating-stars">★★★★★</span> <span class="rating-count">4.9 (18)</span>
       </div>
 
       <div class="card-footer">
+
         <div>
           <p>Өдөрт</p>
           <strong>12,000₮</strong>
@@ -497,7 +501,7 @@
         </header>
 
         <form class="modal-form" novalidate>
-          <p class="modal-field">
+          <p class="form-field">
             <label for="m-email">И-мэйл</label>
             <input
               id="m-email"
@@ -508,7 +512,7 @@
             />
           </p>
 
-          <p class="modal-field">
+          <p class="form-field">
             <label for="m-pass">Нууц үг</label>
             <input
               id="m-pass"
@@ -549,7 +553,7 @@
         </header>
 
         <form class="modal-form" novalidate>
-          <p class="modal-field">
+          <p class="form-field">
             <label for="r-name">Овог нэр</label>
             <input
               id="r-name"
@@ -560,7 +564,7 @@
             />
           </p>
 
-          <p class="modal-field">
+          <p class="form-field">
             <label for="r-email">И-мэйл</label>
             <input
               id="r-email"
@@ -571,7 +575,7 @@
             />
           </p>
 
-          <p class="modal-field">
+          <p class="form-field">
             <label for="r-phone">Утасны дугаар</label>
             <input
               id="r-phone"
@@ -582,7 +586,7 @@
             />
           </p>
 
-          <p class="modal-field">
+          <p class="form-field">
             <label for="r-pass">Нууц үг</label>
             <input
               id="r-pass"
@@ -593,7 +597,7 @@
             />
           </p>
 
-          <p class="modal-field">
+          <p class="form-field">
             <label for="r-pass2">Нууц үг давтах</label>
             <input
               id="r-pass2"
