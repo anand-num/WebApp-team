@@ -24,7 +24,7 @@
     "price": "55,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "category": "Formal Wear",
+    "category": "Costume",
     "description": "Classic black tuxedo designed for professional ballroom dancing and gala events.",
     "img_src": "ballroom-male-costume.jpg"
   },
@@ -38,7 +38,7 @@
     "price": "25,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
-    "category": "Mascot",
+    "category": "Costume",
     "description": "Soft, plush brown bear mascot suit perfect for children's parties and promotions.",
     "img_src": "bear-costume.jpg"
   },
@@ -110,7 +110,7 @@
     "status": "Standard",
     "category": "Cultural",
     "description": "Rugged yet stylish male Deel suitable for festivals and outdoor Naadam events.",
-    "img_src": "mongolian-male-costume.jpg"
+    "img_src": "mongolian-male-deel.jpg"
   },
   {
     "id": 9,
@@ -122,9 +122,9 @@
     "price": "70,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "category": "Sport/Special",
+    "category": "Costume",
     "description": "Authentic replica of the Mongolian National Olympic team ceremonial uniform.",
-    "img_src": "mongolian-olimpic.jpg"
+    "img_src": "mongolian-olimpian-costume.jpg"
   },
   {
     "id": 10,
@@ -136,9 +136,9 @@
     "price": "120,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
-    "category": "Cultural/Luxury",
+    "category": "Cultural",
     "description": "Exquisite historical queen's ensemble featuring heavy embroidery and ornate headpiece.",
-    "img_src": "mongolian-queen.jpg"
+    "img_src": "mongolian-queen-deel.jpg"
   },
   {
     "id": 11,
@@ -166,7 +166,7 @@
     "status": "Premium",
     "category": "Cosplay",
     "description": "Highly detailed Violet Evergarden uniform with professional-grade ruffles and accessories.",
-    "img_src": "voiled-evergarden.jpg"
+    "img_src": "voiled-evergarden-cos.jpg"
   },
   {
     "id": 13,
@@ -180,7 +180,7 @@
     "status": "Standard",
     "category": "Wedding",
     "description": "Modern slim-fit groom's suit in charcoal grey.",
-    "img_src": "wedding cost.jpg"
+    "img_src": "wedding-cost.jpg"
   },
   {
     "id": 14,
@@ -194,6 +194,6 @@
     "status": "Premium",
     "category": "Wedding",
     "description": "Luxury lace A-line wedding gown with a long cathedral train.",
-    "img_src": "wedding dress.jpg"
+    "img_src": "wedding-dress.jpg"
   }
 ]

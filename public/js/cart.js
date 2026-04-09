@@ -20,7 +20,7 @@ tabs.forEach(tab => {
     if (target.id === "first-step") {
       secondaryBtn.textContent = "← КАТАЛОГ";
       secondaryBtn.removeAttribute("data-tab-target");
-      secondaryBtn.onclick = () => location.href = "/product/html/browse.html";
+      secondaryBtn.onclick = () => location.href = "/public/html/browse.html";
 
       primaryBtn.style.display = "inline-block";
       primaryBtn.dataset.tabTarget = "#second-step";

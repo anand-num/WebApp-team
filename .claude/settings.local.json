@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"script src\" /c/Users/Owner/WebApp-team/public/html/*.html)"
+    ]
+  }
+}
