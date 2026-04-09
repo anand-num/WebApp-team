@@ -1,0 +1,97 @@
+[
+  {
+    "user_id": "u001",
+    "username": "Bataa",
+    "full_name": "б. бат",
+    "email": "bataa.p@gmail.com",
+    "phone": "9911_xxxx",
+    "membership": "premium",
+    "published_items": [
+      "anna_costume",
+      "big_blue_dress",
+      "mongol_deel",
+      "mongolian_queen",
+      "wedding_cost"
+    ],
+    "rented_items": [
+      "ballroom_male_costume",
+      "tango_red_dress"
+    ]
+  },
+  {
+    "user_id": "u002",
+    "username": "Anand",
+    "full_name": "г. ананд",
+    "email": "anand.g@gmail.com",
+    "phone": "8811_xxxx",
+    "membership": "standard",
+    "published_items": [
+      "ballroom_male_costume",
+      "ягаан_гоёлын",
+      "mongolian_male_costume",
+      "tango_red_dress",
+      "wedding_dress"
+    ],
+    "rented_items": [
+      "anna_costume",
+      "bear_costume"
+    ]
+  },
+  {
+    "user_id": "u003",
+    "username": "Dulguun",
+    "full_name": "м. дөлгөөн",
+    "email": "dulguun.m@gmail.com",
+    "phone": "9511_xxxx",
+    "membership": "premium",
+    "published_items": [
+      "bear_costume",
+      "kimono",
+      "mongolian_olimpic",
+      "voiled_evergarden"
+    ],
+    "rented_items": [
+      "mongol_deel",
+      "wedding_dress"
+    ]
+  },
+  {
+    "user_id": "u004",
+    "username": "sarnai_c",
+    "full_name": "г. сарнай",
+    "email": "sarnai.c@gmail.com",
+    "phone": "9411_xxxx",
+    "membership": "standard",
+    "published_items": [],
+    "rented_items": [
+      "kimono",
+      "voiled_evergarden"
+    ]
+  },
+  {
+    "user_id": "u005",
+    "username": "temuulen_b",
+    "full_name": "б. тэмүүлэн",
+    "email": "temuulen.b@gmail.com",
+    "phone": "8011_xxxx",
+    "membership": "premium",
+    "published_items": [],
+    "rented_items": [
+      "mongolian_olimpic",
+      "mongolian_male_costume"
+    ]
+  },
+  {
+    "user_id": "u006",
+    "username": "nomin_e",
+    "full_name": "э. номин",
+    "email": "nomin.e@gmail.com",
+    "phone": "9908_xxxx",
+    "membership": "standard",
+    "published_items": [],
+    "rented_items": [
+      "ягаан_гоёлын",
+      "big_blue_dress"
+    ]
+  }
+]

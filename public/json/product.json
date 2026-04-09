@@ -8,6 +8,8 @@
     "price": "45,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Cosplay",
+    "description": "Authentic Frozen-inspired Anna adventure dress with intricate embroidery.",
     "img_src": "anna-costume.jpg"
   },
   {
@@ -19,6 +21,8 @@
     "price": "55,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Formal Wear",
+    "description": "Classic black tuxedo designed for professional ballroom dancing and gala events.",
     "img_src": "ballroom-male-costume.jpg"
   },
   {
@@ -30,6 +34,8 @@
     "price": "25,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Mascot",
+    "description": "Soft, plush brown bear mascot suit perfect for children's parties and promotions.",
     "img_src": "bear-costume.jpg"
   },
   {
@@ -41,6 +47,8 @@
     "price": "65,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Evening Wear",
+    "description": "A voluminous, royal blue tulle gown designed for debutante balls and stage performances.",
     "img_src": "big-blue-dress.jpg"
   },
   {
@@ -52,6 +60,8 @@
     "price": "35,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Evening Wear",
+    "description": "Elegant pink silk evening gown with a modern slim-fit silhouette.",
     "img_src": "dress2.jpg"
   },
   {
@@ -63,6 +73,8 @@
     "price": "40,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Cultural",
+    "description": "Traditional Japanese Yukata style kimono with floral patterns and obi belt.",
     "img_src": "kimono.jpg"
   },
   {
@@ -74,6 +86,8 @@
     "price": "50,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Cultural",
+    "description": "High-quality everyday Mongolian Deel made from durable silk with traditional patterns.",
     "img_src": "mongol-deel.png"
   },
   {
@@ -85,6 +99,8 @@
     "price": "45,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Cultural",
+    "description": "Rugged yet stylish male Deel suitable for festivals and outdoor Naadam events.",
     "img_src": "mongolian-male-costume.jpg"
   },
   {
@@ -96,6 +112,8 @@
     "price": "70,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Sport/Special",
+    "description": "Authentic replica of the Mongolian National Olympic team ceremonial uniform.",
     "img_src": "mongolian-olimpic.jpg"
   },
   {
@@ -107,6 +125,8 @@
     "price": "120,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Cultural/Luxury",
+    "description": "Exquisite historical queen's ensemble featuring heavy embroidery and ornate headpiece.",
     "img_src": "mongolian-queen.jpg"
   },
   {
@@ -118,6 +138,8 @@
     "price": "48,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Dance",
+    "description": "Sultry red slit dress designed for Tango and Latin dance performances.",
     "img_src": "tango-red-dress.jpg"
   },
   {
@@ -129,6 +151,8 @@
     "price": "85,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Cosplay",
+    "description": "Highly detailed Violet Evergarden uniform with professional-grade ruffles and accessories.",
     "img_src": "voiled-evergarden.jpg"
   },
   {
@@ -140,6 +164,8 @@
     "price": "95,000₮",
     "price_period": "өдрөөс",
     "status": "Standard",
+    "category": "Wedding",
+    "description": "Modern slim-fit groom's suit in charcoal grey.",
     "img_src": "wedding cost.jpg"
   },
   {
@@ -151,6 +177,8 @@
     "price": "150,000₮",
     "price_period": "өдрөөс",
     "status": "Premium",
+    "category": "Wedding",
+    "description": "Luxury lace A-line wedding gown with a long cathedral train.",
     "img_src": "wedding dress.jpg"
   }
 ]
