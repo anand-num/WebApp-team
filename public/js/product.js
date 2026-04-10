@@ -31,11 +31,20 @@ const DURATIONS = [
 async function init() {
   const id = parseInt(new URLSearchParams(location.search).get('id'), 10);
 
+  // Fetch products and reviews in parallel
   let products = null;
+  let allReviews = [];
+
   for (const path of ['/public/json/product.json', '../json/product.json']) {
     try {
       const r = await fetch(path);
       if (r.ok) { products = await r.json(); break; }
+    } catch (_) {}
+  }
+  for (const path of ['/public/json/review.json', '../json/review.json']) {
+    try {
+      const r = await fetch(path);
+      if (r.ok) { allReviews = await r.json(); break; }
     } catch (_) {}
   }
 
@@ -44,6 +53,15 @@ async function init() {
   if (!product) return;
 
   const base = parsePrice(product.price);
+
+  // ── Reviews for this product ─────────────────────────
+  const reviews = allReviews.filter(r => r.product_id === product.id);
+
+  // Calculate rating & count from reviews
+  const reviewCount = reviews.length;
+  const avgRating = reviewCount
+    ? Math.round((reviews.reduce((s, r) => s + r.rating, 0) / reviewCount) * 10) / 10
+    : product.rating;
 
   // ── Page title & breadcrumb ──────────────────────────
   document.title = `${product.item_name} — RentFit`;
@@ -58,11 +76,30 @@ async function init() {
   // ── Text fields ──────────────────────────────────────
   document.getElementById('pd-brand').textContent  = product.brand;
   document.getElementById('pd-name').textContent   = product.item_name;
-  document.getElementById('pd-stars').textContent  = '★'.repeat(Math.round(product.rating));
-  document.getElementById('pd-rating').textContent = product.rating;
-  document.getElementById('pd-review-count').textContent = `(${product.review_count} үнэлгээ)`;
+  document.getElementById('pd-stars').textContent  = '★'.repeat(Math.round(avgRating));
+  document.getElementById('pd-rating').textContent = avgRating;
+  document.getElementById('pd-review-count').textContent = `(${reviewCount} үнэлгээ)`;
   document.getElementById('pd-stock').textContent  = `${product.shirheg} ширхэг бэлэн`;
   document.getElementById('pd-desc').textContent   = product.description;
+
+  // ── Render reviews ───────────────────────────────────
+  const container = document.getElementById('review-container');
+  if (container) {
+    if (reviews.length === 0) {
+      container.innerHTML = '<p style="color:var(--muted);font-size:.9rem;">Үнэлгээ байхгүй байна.</p>';
+    } else {
+      container.innerHTML = reviews.map(rv => `
+        <article class="review-card">
+          <p class="stars">${'★'.repeat(rv.rating)}${'☆'.repeat(5 - rv.rating)}</p>
+          <p>${rv.comment}</p>
+          <hr>
+          <footer>
+            <p class="reviewer-initial">${rv.name.charAt(0)}</p>
+            <strong>${rv.name}</strong>
+          </footer>
+        </article>`).join('');
+    }
+  }
 
   // ── Duration prices ──────────────────────────────────
   DURATIONS.forEach(({ id, mult }) => {
