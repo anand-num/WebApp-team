@@ -346,6 +346,26 @@ function applyPromo() {
   const promo  = promoCodes.find(p => p.code === code);
 
   if (promo) {
+    const today = new Date().toISOString().slice(0, 10);
+    if (promo.starts_at > today) {
+      input.style.borderColor = 'var(--red)';
+      if (msgEl) {
+        msgEl.textContent = 'Промо код идэвхжээгүй байна.';
+        msgEl.style.color = 'var(--red)';
+      }
+      input.focus();
+      return;
+    }
+    if (promo.expires_at < today) {
+      input.style.borderColor = 'var(--red)';
+      if (msgEl) {
+        msgEl.textContent = 'Промо кодын хугацаа дууссан байна.';
+        msgEl.style.color = 'var(--red)';
+      }
+      input.focus();
+      return;
+    }
+
     const sub     = getActiveItems().reduce((s, it) => s + priceFor(it.basePrice, it.selectedDays), 0);
     promoDiscount = Math.round(sub * promo.discount);
 

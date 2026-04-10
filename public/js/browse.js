@@ -129,7 +129,24 @@ function displayProducts() {
     card.querySelector('.rating-count').textContent = `${product.rating} (${product.review_count})`;
     card.querySelector('.card-price').textContent = product.price;
 
-    card.querySelector('.card-heart').addEventListener('click', function () {
+    // Card click → product detail page
+    const cardEl = card.querySelector('.product-card');
+    if (cardEl) {
+      cardEl.style.cursor = 'pointer';
+      cardEl.addEventListener('click', () => {
+        location.href = `/public/html/product.html?id=${product.id}`;
+      });
+    }
+
+    // Fix "Харах →" link — set correct ?id= param and stop propagation
+    const cardLink = card.querySelector('.card-link');
+    if (cardLink) {
+      cardLink.href = `/public/html/product.html?id=${product.id}`;
+      cardLink.addEventListener('click', e => e.stopPropagation());
+    }
+
+    card.querySelector('.card-heart').addEventListener('click', function (e) {
+      e.stopPropagation();
       this.classList.toggle('liked');
     });
 

@@ -68,6 +68,21 @@ async function initCards() {
     const img = visual.querySelector('img');
     const product = img ? matchProduct(img.src) : null;
 
+    // ── Card click → product detail page ─────────────
+    const productCard = visual.closest('.product-card');
+    if (productCard && product) {
+      productCard.style.cursor = 'pointer';
+      productCard.addEventListener('click', () => {
+        location.href = `/public/html/product.html?id=${product.id}`;
+      });
+      // Fix static "Харах →" link if present
+      const viewLink = productCard.querySelector('.card-footer a');
+      if (viewLink) {
+        viewLink.href = `/public/html/product.html?id=${product.id}`;
+        viewLink.addEventListener('click', e => e.stopPropagation());
+      }
+    }
+
     // ── Cart icon button ──────────────────────────────
     const cartBtn = document.createElement('button');
     cartBtn.className = 'card-cart';
