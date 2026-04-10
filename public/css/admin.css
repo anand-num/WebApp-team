@@ -492,6 +492,7 @@ html, body {
   outline: none;
   cursor: pointer;
   transition: border-color 0.15s;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a09070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -751,6 +752,7 @@ html, body {
 }
 .form-group select {
   cursor: pointer;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a09070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -839,3 +841,211 @@ html, body {
 .content-body > *:nth-child(1) { animation-delay: 0.04s; }
 .content-body > *:nth-child(2) { animation-delay: 0.09s; }
 .content-body > *:nth-child(3) { animation-delay: 0.14s; }
+
+/* ════════════════════════════════════
+   SIDEBAR SUB-GROUP (product sub-pages)
+════════════════════════════════════ */
+.side-sub-group {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.18);
+  border-left: 2px solid var(--border2);
+  margin: 0 0 2px 20px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.side-sub-group a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px;
+  color: var(--text2);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.14s;
+  border-left: none;
+  user-select: none;
+}
+.side-sub-group a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.side-sub-group a.sub-active { color: var(--text); font-weight: 600; }
+
+.sub-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text3);
+  flex-shrink: 0;
+  transition: background 0.14s;
+}
+.sub-dot.pending  { background: var(--gold); }
+.sub-dot.rejected { background: var(--red); }
+.side-sub-group a.sub-active .sub-dot { background: var(--text); }
+
+.sub-count {
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.60rem;
+  color: var(--text3);
+  background: rgba(255,255,255,0.07);
+  padding: 1px 6px;
+  border-radius: 99px;
+  min-width: 20px;
+  text-align: center;
+}
+.sub-count.warn {
+  background: rgba(224,184,74,0.18);
+  color: var(--gold2);
+}
+
+/* ════════════════════════════════════
+   COUNT PILLS (table headers)
+════════════════════════════════════ */
+.count-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-left: 8px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text2);
+  vertical-align: middle;
+}
+.pending-pill  { background: rgba(224,184,74,0.18);  color: var(--gold2); }
+.rejected-pill { background: rgba(240,96,96,0.15);   color: var(--red); }
+
+/* ════════════════════════════════════
+   HEADER TAG (top-right of content-header)
+════════════════════════════════════ */
+.header-tag {
+  align-self: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 99px;
+  letter-spacing: 0.04em;
+}
+.pending-tag  { background: rgba(224,184,74,0.15);  color: var(--gold2); border: 1px solid rgba(224,184,74,0.28); }
+.rejected-tag { background: rgba(240,96,96,0.12);   color: var(--red);   border: 1px solid rgba(240,96,96,0.25); }
+
+/* ════════════════════════════════════
+   INFO BANNERS
+════════════════════════════════════ */
+.info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  border: 1px solid;
+}
+.pending-banner  { background: rgba(224,184,74,0.07); border-color: rgba(224,184,74,0.22); }
+.rejected-banner { background: rgba(240,96,96,0.06);  border-color: rgba(240,96,96,0.20); }
+
+.banner-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.pending-banner  .banner-icon { color: var(--gold); }
+.rejected-banner .banner-icon { color: var(--red); }
+
+.banner-title {
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.banner-sub {
+  font-size: 0.76rem;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════
+   PRODUCT NAV CARDS (All Products page)
+════════════════════════════════════ */
+.prod-nav-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.prod-nav-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  transition: border-color 0.18s, transform 0.15s;
+  cursor: default;
+}
+.prod-nav-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+
+.pending-card, .rejected-card { cursor: pointer; }
+
+.pending-card {
+  border-color: rgba(224,184,74,0.20);
+  background: rgba(224,184,74,0.05);
+}
+.pending-card:hover { border-color: rgba(224,184,74,0.40); }
+
+.rejected-card {
+  border-color: rgba(240,96,96,0.18);
+  background: rgba(240,96,96,0.04);
+}
+.rejected-card:hover { border-color: rgba(240,96,96,0.36); }
+
+.pnc-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.pnc-value {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 5px;
+}
+.active-card   .pnc-value { color: var(--text); }
+.pending-card  .pnc-value { color: var(--gold2); }
+.rejected-card .pnc-value { color: var(--red); }
+
+.pnc-sub {
+  font-size: 0.70rem;
+  color: var(--text3);
+}
+.pending-card  .pnc-sub { color: rgba(224,184,74,0.70); }
+.rejected-card .pnc-sub { color: rgba(240,96,96,0.60); }
+
+/* ════════════════════════════════════
+   TABLE ROW TINTS
+════════════════════════════════════ */
+.pending-row  { border-left: 2px solid rgba(224,184,74,0.35); }
+.rejected-row { border-left: 2px solid rgba(240,96,96,0.30); opacity: 0.85; }
+
+/* ════════════════════════════════════
+   RESTORE BUTTON
+════════════════════════════════════ */
+.btn-restore {
+  background: rgba(131,157,255,0.14);
+  color: var(--blue);
+  border: 1px solid rgba(131,157,255,0.28);
+  font-weight: 700;
+}
+.btn-restore:hover { background: rgba(131,157,255,0.24); }
+
+/* ════════════════════════════════════
+   STAT CARD CLICKABLE
+════════════════════════════════════ */
+.stat-card.clickable { cursor: pointer; }
+.stat-card.clickable:hover { border-color: var(--gold); }
