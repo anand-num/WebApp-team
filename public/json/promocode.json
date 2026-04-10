@@ -3,28 +3,32 @@
     "id": 1,
     "code": "RENTFIT10",
     "discount": 0.10,
-    "duration_days": 30,
+    "starts_at": "2026-04-10",
+    "expires_at": "2026-05-10",
     "description": "10% хямдрал — RentFit урамшуулал"
   },
   {
     "id": 2,
     "code": "WELCOME10",
     "discount": 0.10,
-    "duration_days": 14,
+    "starts_at": "2026-04-10",
+    "expires_at": "2026-04-24",
     "description": "10% хямдрал — шинэ хэрэглэгчийн урамшуулал"
   },
   {
     "id": 3,
     "code": "SPRING10",
     "discount": 0.10,
-    "duration_days": 7,
+    "starts_at": "2026-04-10",
+    "expires_at": "2026-04-17",
     "description": "10% хямдрал — хавар урамшуулал"
   },
   {
     "id": 4,
     "code": "NAADAM10",
     "discount": 0.10,
-    "duration_days": 3,
+    "starts_at": "2026-04-10",
+    "expires_at": "2026-04-13",
     "description": "10% хямдрал — Наадам урамшуулал"
   }
 ]

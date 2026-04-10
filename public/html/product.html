@@ -75,92 +75,75 @@
     </header>
   <!-- breadcrumb -->
   <nav class="breadcrumb" aria-label="Хэсгийн зам">
-    <a href="/">Нүүр</a>
+    <a href="/public/html/index.html">Нүүр</a>
     <span aria-hidden="true">›</span>
-    <a href="/catalog">Каталог</a>
+    <a href="/public/html/browse.html">Каталог</a>
     <span aria-hidden="true">›</span>
-    <a href="/catalog?cat=casual">Өдөр тутмын</a>
+    <span id="bc-category">—</span>
     <span aria-hidden="true">›</span>
-    <span aria-current="page">Спорт костюм</span>
+    <span aria-current="page" id="bc-name">—</span>
   </nav>
 
   <main class="pd-layout">
 
     <!-- LEFT: image -->
     <figure class="image-container image-container--portrait">
-      <img src="/public/source/kimono.jpg" alt="Nike Спорт костюм — бүтэн иж бүрдэл">
+      <img id="pd-img" src="" alt="">
     </figure>
 
     <!-- RIGHT: all product info -->
     <article class="pd-info">
 
-      <p class="pd-brand">Nike</p>
-      <h1 class="pd-name">Япон кимоно</h1>
+      <p class="pd-brand" id="pd-brand"></p>
+      <h1 class="pd-name" id="pd-name"></h1>
 
       <p class="pd-meta">
-        <span class="rating-stars" aria-label="4.5 одтой үнэлгээ">★★★★★</span>
-        <strong>4.5</strong>
-        <a href="#reviews" class="pd-rv-link">(56 үнэлгээ)</a>
+        <span class="rating-stars" id="pd-stars"></span>
+        <strong id="pd-rating"></strong>
+        <a href="#reviews" class="pd-rv-link" id="pd-review-count"></a>
         <span class="pd-sep" aria-hidden="true">·</span>
-        <span class="pd-stock">8 ширхэг бэлэн</span>
+        <span class="pd-stock" id="pd-stock"></span>
       </p>
 
-      <p class="pd-desc">
-         Япон кимоно нь төрөл бүрийн арга хэмжээнд, тухайлбал хурим, ёслол, баяр ёслол зэрэгт өмсөхөд тохиромжтой. Энэ кимоно нь таныг онцгой харагдуулах төгс сонголт юм.
-      </p>
+      <p class="pd-desc" id="pd-desc"></p>
 
       <!-- Duration picker — pure CSS :checked trick -->
       <fieldset class="dur-opts">
         <legend>Түрээсийн хугацаа</legend>
 
-        <input type="radio" name="dur" id="d1">
+        <input type="radio" name="dur" id="d1" value="1">
         <label for="d1">
           <span class="d-days">1 өдөр</span>
-          <span class="d-price">7,000₮</span>
+          <span class="d-price" id="price-d1">—</span>
         </label>
 
-        <input type="radio" name="dur" id="d3" checked>
+        <input type="radio" name="dur" id="d3" value="3" checked>
         <label for="d3">
           <span class="d-days">3 өдөр</span>
-          <span class="d-price">16,000₮</span>
+          <span class="d-price" id="price-d3">—</span>
         </label>
 
-        <input type="radio" name="dur" id="d7">
+        <input type="radio" name="dur" id="d7" value="7">
         <label for="d7">
           <span class="d-days">7 өдөр</span>
-          <span class="d-price">27,000₮</span>
+          <span class="d-price" id="price-d7">—</span>
         </label>
       </fieldset>
 
-      <!-- Size picker -->
-      <fieldset class="sz-opts">
+      <!-- Size picker — populated by JS -->
+      <fieldset class="sz-opts" id="sz-opts">
         <legend>Размер</legend>
-
-        <input type="radio" name="sz" id="szS">
-        <label for="szS">S</label>
-
-        <input type="radio" name="sz" id="szM">
-        <label for="szM">M</label>
-
-        <input type="radio" name="sz" id="szL" checked>
-        <label for="szL">L</label>
-
-        <input type="radio" name="sz" id="szXL">
-        <label for="szXL">XL</label>
-
-        <input type="radio" name="sz" id="szXXL">
-        <label for="szXXL">XXL</label>
       </fieldset>
 
       <!-- Total -->
       <p class="pd-total">
         <span class="pd-total-lbl">Нийт дүн</span>
-        <strong class="pd-total-price">16,000₮</strong>
+        <strong class="pd-total-price" id="pd-total-price">—</strong>
       </p>
 
       <!-- CTAs -->
-      <button class="btn-primary" type="button">Сагсанд нэмэх</button>
-      <button class="btn-secondary" type="button">Дуртайд нэмэх</button>
+      <button class="btn-primary" id="btn-cart" type="button">Сагсанд нэмэх</button>
+      <button class="btn-secondary" id="btn-wish" type="button">Дуртайд нэмэх</button>
 
       <!-- Trust signals -->
       <ul class="pd-perks">
@@ -181,39 +164,7 @@
     <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
   </header>
 
-  <section class="review-container">
-
-    <article class="review-card">
-      <p class="stars">★★★★★</p>
-      <p>Найзынхаа хуримд өмсөх даашинз үнэхээр гайхалтай байсан. Чанар өндөр бөгөөд түрээсийн үйл явц маш хялбар байсан!</p>
-      <hr>
-      <footer>
-        <p class="reviewer-initial">С</p>
-        <strong>Сарнай Батбаяр</strong>
-      </footer>
-    </article>
-
-    <article class="review-card">
-      <p class="stars">★★★★★</p>
-      <p>Бизнесийн арга хэмжээнд төгс шийдэл. Үргэлж сайн ажиллагаатай, цаг хугацаандаа хүргэдэг. Мэргэжилтнүүдэд зөвлөж байна.</p>
-      <hr>
-      <footer>
-        <p class="reviewer-initial">Б</p>
-        <strong>Болд-Эрдэнэ</strong>
-      </footer>
-    </article>
-
-    <article class="review-card">
-      <p class="stars">★★★★★</p>
-      <p>Гэрлэлтийнхээ өмнөх үйл явдлуудад түрээслэсэн. Бүх зүйл төгс байлаа! Үйлчилгээ маань гайхалтай, хувцаснууд нь үнэхээр гоё байв.</p>
-      <hr>
-      <footer>
-        <p class="reviewer-initial">А</p>
-        <strong>Алтанцэцэг Ганбаатар</strong>
-      </footer>
-    </article>
-
-  </section>
+  <section class="review-container" id="review-container"></section>
 
 </section>
     <footer class="footer">
@@ -324,5 +275,7 @@
         © 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.
       </p>
     </footer>
+  <script type="module" src="/public/js/product.js"></script>
+  <script type="module" src="/public/js/auth.js"></script>
 </body>
 </html>

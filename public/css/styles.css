@@ -638,6 +638,94 @@ opacity: 0;
   max-height: 90vh;
 }
 
+/* ── Field error labels ─────────────────────────────── */
+.field-error {
+  font-size: 0.75rem;
+  color: #e74c3c;
+  margin-top: 3px;
+  display: block;
+}
+
+/* ── User avatar in nav ─────────────────────────────── */
+.user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--font-bold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* ── User dropdown ──────────────────────────────────── */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--background-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  padding: 14px;
+  z-index: 999;
+}
+
+.user-dropdown-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.user-dropdown-info strong {
+  font-family: var(--font-bold);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.user-dropdown-info span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.membership-badge {
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  color: var(--gold) !important;
+  letter-spacing: 0.5px;
+}
+
+.user-dropdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 8px 0;
+}
+
+#logoutBtn {
+  width: 100%;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #e74c3c;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+#logoutBtn:hover {
+  background: rgba(231,76,60,.08);
+}
+
 /* FEATURED SECTION*/
 .featured {
   padding: 6rem 8vw 5rem;
