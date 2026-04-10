@@ -1,256 +1,222 @@
-// ── Cart helpers (shared key with cart.js) ────────────────
-const CART_KEY = 'rf_cart';
+/* ══════════════════════════════════════════════════════════
+   RENTFIT — browse.js
+   Product catalog with filtering, sorting, and pagination
+══════════════════════════════════════════════════════════ */
 
-function getCart() {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch { return []; }
+import Cart from './modules/Cart.js';
+
+// ── Shared cart instance ─────────────────────────────────
+const cart = new Cart();
+
+function parsePrice(str) {
+  return parseInt(String(str).replace(/[^0-9]/g, ''), 10) || 0;
 }
 
-function addToCart(product) {
-  const cart = getCart();
-  if (cart.some(item => item.id === product.id)) return false;
-  cart.push({
-    id:           product.id,
-    name:         product.item_name,
-    brand:        product.brand,
-    img:          product.img_src,
-    size:         product.sizes[0],
-    basePrice:    parseInt(product.price.replace(/[^0-9]/g, ''), 10) || 0,
-    selectedDays: 1,
-  });
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  return true;
-}
+// ── ProductBrowser class ─────────────────────────────────
+class ProductBrowser {
+  #products  = [];
+  #page      = 1;
+  #pageSize  = 8;
+  #category  = 'All';
+  #size      = 'All';
+  #search    = '';
+  #sort      = 'new';
+  #maxPrice  = 500000;
 
-function removeFromCart(productId) {
-  const cart = getCart().filter(i => i.id !== productId);
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-const catGrid = document.getElementById('catGrid');
-const template = document.getElementById('product-template');
-const categoryRadios = document.querySelectorAll('input[name="cat"]');
-const sizeRadios = document.querySelectorAll('input[name="size"]');
-const priceRange = document.querySelector('.price-range');
-const priceLabel = document.querySelector('.pr-inputs span');
-const resetBtn = document.querySelector('.flt-reset');
-const searchInput = document.getElementById('srchInp');
-const sortSelect = document.getElementById('sortSel');
-const catInfo = document.getElementById('catInfo');
-
-const PAGE_SIZE = 8;
-let allProducts = [];
-let activeCategory = 'All';
-let activeSearch = '';
-let activeSort = 'new';
-let activeMaxPrice = 500000;
-let activeSize = 'All';
-let currentPage = 1;
-
-function parsePrice(priceStr) {
-  return parseInt(priceStr.replace(/[^0-9]/g, ''), 10);
-}
-
-function getFiltered() {
-  let filtered = allProducts;
-
-  if (activeCategory !== 'All') {
-    filtered = filtered.filter(p => p.category === activeCategory);
+  constructor() {
+    this.grid     = document.getElementById('catGrid');
+    this.template = document.getElementById('product-template');
+    this.catInfo  = document.getElementById('catInfo');
   }
 
-  if (activeSearch) {
-    const q = activeSearch.toLowerCase();
-    filtered = filtered.filter(p =>
-      p.item_name.toLowerCase().includes(q) ||
-      p.brand.toLowerCase().includes(q) ||
-      (p.description && p.description.toLowerCase().includes(q))
-    );
+  // ── Data loading ───────────────────────────────────────
+  async load() {
+    const r = await fetch('/public/json/product.json');
+    this.#products = await r.json();
   }
 
-  if (activeSize !== 'All') {
-    filtered = filtered.filter(p => p.sizes && p.sizes.includes(activeSize));
+  // ── Filtering & sorting ────────────────────────────────
+  getFiltered() {
+    let list = this.#products;
+
+    if (this.#category !== 'All')
+      list = list.filter(p => p.category === this.#category);
+
+    if (this.#search) {
+      const q = this.#search.toLowerCase();
+      list = list.filter(p =>
+        p.item_name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        (p.description || '').toLowerCase().includes(q)
+      );
+    }
+
+    if (this.#size !== 'All')
+      list = list.filter(p => Array.isArray(p.sizes) && p.sizes.includes(this.#size));
+
+    list = list.filter(p => parsePrice(p.price) <= this.#maxPrice);
+
+    if (this.#sort === 'price-asc')
+      list = [...list].sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+    else if (this.#sort === 'price-desc')
+      list = [...list].sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+    else if (this.#sort === 'rating')
+      list = [...list].sort((a, b) => b.rating - a.rating);
+
+    return list;
   }
 
-  filtered = filtered.filter(p => parsePrice(p.price) <= activeMaxPrice);
+  // ── Rendering ──────────────────────────────────────────
+  display() {
+    const filtered   = this.getFiltered();
+    const totalPages = Math.ceil(filtered.length / this.#pageSize);
 
-  if (activeSort === 'price-asc') {
-    filtered = [...filtered].sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-  } else if (activeSort === 'price-desc') {
-    filtered = [...filtered].sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-  } else if (activeSort === 'rating') {
-    filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+    if (this.#page > totalPages) this.#page = Math.max(1, totalPages);
+
+    const start = (this.#page - 1) * this.#pageSize;
+    const page  = filtered.slice(start, start + this.#pageSize);
+
+    this.grid.innerHTML = '';
+    this.catInfo.textContent = `${filtered.length} бараа олдлоо`;
+
+    page.forEach(product => this.#renderCard(product));
+    this.#updatePagination(filtered.length);
   }
 
-  return filtered;
-}
+  #renderCard(product) {
+    const card    = this.template.content.cloneNode(true);
+    const cardEl  = card.querySelector('.product-card');
+    const cartBtn = card.querySelector('.card-cart');
 
-function renderPagination(total) {
-  const totalPages = Math.ceil(total / PAGE_SIZE);
-  const buttons = document.querySelectorAll('.pgb');
-
-  // prev
-  buttons[0].disabled = currentPage === 1;
-
-  // page 1
-  buttons[1].textContent = '1';
-  buttons[1].classList.toggle('on', currentPage === 1);
-  buttons[1].style.display = totalPages >= 1 ? '' : 'none';
-
-  // page 2
-  buttons[2].textContent = '2';
-  buttons[2].classList.toggle('on', currentPage === 2);
-  buttons[2].style.display = totalPages >= 2 ? '' : 'none';
-
-  // next
-  buttons[3].disabled = currentPage >= totalPages;
-}
-
-function displayProducts() {
-  const filtered = getFiltered();
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-
-  if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const page = filtered.slice(start, start + PAGE_SIZE);
-
-  catGrid.innerHTML = '';
-  catInfo.textContent = `${filtered.length} бараа олдлоо`;
-
-  page.forEach(product => {
-    const card = template.content.cloneNode(true);
-
-    card.querySelector('.card-img').src = `/public/source/${product.img_src}`;
-    card.querySelector('.card-img').alt = product.item_name;
-    card.querySelector('.badge').textContent = product.status || '';
-    card.querySelector('.card-brand').textContent = product.brand;
-    card.querySelector('.card-name').textContent = product.item_name;
+    card.querySelector('.card-img').src            = `/public/source/${product.img_src}`;
+    card.querySelector('.card-img').alt            = product.item_name;
+    card.querySelector('.badge').textContent       = product.status || '';
+    card.querySelector('.card-brand').textContent  = product.brand;
+    card.querySelector('.card-name').textContent   = product.item_name;
     card.querySelector('.rating-stars').textContent = '★'.repeat(Math.round(product.rating));
     card.querySelector('.rating-count').textContent = `${product.rating} (${product.review_count})`;
-    card.querySelector('.card-price').textContent = product.price;
+    card.querySelector('.card-price').textContent  = product.price;
 
-    // Card click → product detail page
-    const cardEl = card.querySelector('.product-card');
-    if (cardEl) {
-      cardEl.style.cursor = 'pointer';
-      cardEl.addEventListener('click', () => {
-        location.href = `/public/html/product.html?id=${product.id}`;
-      });
+    // Card → product detail
+    cardEl.style.cursor = 'pointer';
+    cardEl.addEventListener('click', () => {
+      location.href = `/public/html/product.html?id=${product.id}`;
+    });
+
+    // "Харах →" link
+    const link = card.querySelector('.card-link');
+    if (link) {
+      link.href = `/public/html/product.html?id=${product.id}`;
+      link.addEventListener('click', e => e.stopPropagation());
     }
 
-    // Fix "Харах →" link — set correct ?id= param and stop propagation
-    const cardLink = card.querySelector('.card-link');
-    if (cardLink) {
-      cardLink.href = `/public/html/product.html?id=${product.id}`;
-      cardLink.addEventListener('click', e => e.stopPropagation());
-    }
-
+    // Heart toggle
     card.querySelector('.card-heart').addEventListener('click', function (e) {
       e.stopPropagation();
       this.classList.toggle('liked');
     });
 
-    const cartBtn = card.querySelector('.card-cart');
+    // Cart toggle
+    if (cart.has(product.id)) {
+      cartBtn.classList.add('in-cart');
+      cartBtn.title = 'Сагснаас хасах';
+    }
     cartBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       if (this.classList.contains('in-cart')) {
-        removeFromCart(product.id);
+        cart.remove(product.id);
         this.classList.remove('in-cart');
         this.title = 'Сагсанд нэмэх';
       } else {
-        addToCart(product);
+        cart.addProduct(product);
         this.classList.add('in-cart');
         this.title = 'Сагснаас хасах';
       }
     });
 
-    // Quick-buy: add to cart then navigate showing only this product
+    // Quick-buy
     card.querySelector('.card-quick-buy').addEventListener('click', (e) => {
       e.stopPropagation();
-      addToCart(product);
+      cart.addProduct(product);
       location.href = `/public/html/cart.html?quick=${product.id}`;
     });
 
-    // Mark already-carted items on render
-    if (getCart().some(i => i.id === product.id)) {
-      cartBtn.classList.add('in-cart');
-      cartBtn.title = 'Сагснаас хасах';
-    }
+    this.grid.appendChild(card);
+  }
 
-    catGrid.appendChild(card);
-  });
+  #updatePagination(total) {
+    const totalPages = Math.ceil(total / this.#pageSize);
+    const btns = document.querySelectorAll('.pgb');
+    btns[0].disabled = this.#page === 1;
+    btns[1].textContent = '1';
+    btns[1].classList.toggle('on', this.#page === 1);
+    btns[1].style.display = totalPages >= 1 ? '' : 'none';
+    btns[2].textContent = '2';
+    btns[2].classList.toggle('on', this.#page === 2);
+    btns[2].style.display = totalPages >= 2 ? '' : 'none';
+    btns[3].disabled = this.#page >= totalPages;
+  }
 
-  renderPagination(filtered.length);
-}
+  // ── Filter setters (each triggers re-display) ──────────
+  setCategory(v)  { this.#category = v; this.#page = 1; this.display(); }
+  setSize(v)      { this.#size = v;     this.#page = 1; this.display(); }
+  setSearch(v)    { this.#search = v;   this.#page = 1; this.display(); }
+  setSort(v)      { this.#sort = v;                     this.display(); }
+  setMaxPrice(v)  { this.#maxPrice = v; this.#page = 1; this.display(); }
+  setPage(v)      { this.#page = v;                     this.display(); }
 
-fetch('../json/product.json')
-  .then(res => res.json())
-  .then(data => {
-    allProducts = data;
-    displayProducts();
+  reset() {
+    this.#category = 'All'; this.#size = 'All'; this.#search = '';
+    this.#sort = 'new'; this.#maxPrice = 500000; this.#page = 1;
+    document.querySelector('input[name="cat"][value="All"]').checked  = true;
+    document.querySelector('input[name="size"][value="All"]').checked = true;
+    const priceRange = document.querySelector('.price-range');
+    const priceLabel = document.querySelector('.pr-inputs span');
+    priceRange.value = 500000;
+    priceLabel.textContent = '≤ 500,000₮';
+    document.getElementById('srchInp').value = '';
+    document.getElementById('sortSel').value = 'new';
+    this.display();
+  }
 
-    categoryRadios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        activeCategory = radio.value;
-        currentPage = 1;
-        displayProducts();
-      });
-    });
+  // ── Wire up all controls ───────────────────────────────
+  setupListeners() {
+    document.querySelectorAll('input[name="cat"]').forEach(r =>
+      r.addEventListener('change', () => this.setCategory(r.value)));
 
-    sizeRadios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        activeSize = radio.value;
-        currentPage = 1;
-        displayProducts();
-      });
-    });
+    document.querySelectorAll('input[name="size"]').forEach(r =>
+      r.addEventListener('change', () => this.setSize(r.value)));
 
-    searchInput.addEventListener('input', () => {
-      activeSearch = searchInput.value.trim();
-      currentPage = 1;
-      displayProducts();
-    });
+    document.getElementById('srchInp').addEventListener('input', e =>
+      this.setSearch(e.target.value.trim()));
 
-    sortSelect.addEventListener('change', () => {
-      activeSort = sortSelect.value;
-      displayProducts();
-    });
+    document.getElementById('sortSel').addEventListener('change', e =>
+      this.setSort(e.target.value));
 
+    const priceRange = document.querySelector('.price-range');
+    const priceLabel = document.querySelector('.pr-inputs span');
     priceRange.addEventListener('input', () => {
-      activeMaxPrice = parseInt(priceRange.value, 10);
-      priceLabel.textContent = `≤ ${activeMaxPrice.toLocaleString()}₮`;
-      currentPage = 1;
-      displayProducts();
+      priceLabel.textContent = `≤ ${parseInt(priceRange.value).toLocaleString()}₮`;
+      this.setMaxPrice(parseInt(priceRange.value, 10));
     });
 
-    resetBtn.addEventListener('click', () => {
-      activeCategory = 'All';
-      activeSize = 'All';
-      activeSearch = '';
-      activeSort = 'new';
-      activeMaxPrice = 500000;
-      currentPage = 1;
-
-      document.querySelector('input[name="cat"][value="All"]').checked = true;
-      document.querySelector('input[name="size"][value="All"]').checked = true;
-      priceRange.value = 500000;
-      priceLabel.textContent = '≤ 500,000₮';
-      searchInput.value = '';
-      sortSelect.value = 'new';
-
-      displayProducts();
-    });
+    document.querySelector('.flt-reset').addEventListener('click', () => this.reset());
 
     document.querySelectorAll('.pgb').forEach((btn, i) => {
       btn.addEventListener('click', () => {
-        const filtered = getFiltered();
-        const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-        if (i === 0 && currentPage > 1) currentPage--;
-        else if (i === 1) currentPage = 1;
-        else if (i === 2) currentPage = 2;
-        else if (i === 3 && currentPage < totalPages) currentPage++;
-        displayProducts();
+        const total = Math.ceil(this.getFiltered().length / this.#pageSize);
+        if (i === 0 && this.#page > 1)      this.setPage(this.#page - 1);
+        else if (i === 1)                   this.setPage(1);
+        else if (i === 2)                   this.setPage(2);
+        else if (i === 3 && this.#page < total) this.setPage(this.#page + 1);
       });
     });
-  })
-  .catch(err => console.error(err));
+  }
+}
+
+// ── Boot ─────────────────────────────────────────────────
+const browser = new ProductBrowser();
+browser.load().then(() => {
+  browser.display();
+  browser.setupListeners();
+});
