@@ -29,7 +29,19 @@ export default class Cart {
       name:         product.item_name,
       brand:        product.brand,
       img:          product.img_src,
-      size:         Array.isArray(product.sizes) ? product.sizes[0] : product.sizes,
+      // product.sizes нь хоёр өөр хэлбэрээр ирж болно:
+      //   1) Массив хэлбэрээр — жш: ["S", "M", "L"]
+      //   2) Нэг утга хэлбэрээр — жш: "M"
+      // Array.isArray() — массив мөн эсэхийг шалгана, үнэн/худал буцаана
+      // Массив бол эхний хэмжээг авна (product.sizes[0])
+      // Массив биш бол шууд ашиглана (product.sizes)
+      size: (function() {
+        if (Array.isArray(product.sizes)) {
+          return product.sizes[0]; // жш: ["S","M","L"] → "S"
+        } else {
+          return product.sizes;    // жш: "M" → "M"
+        }
+      })(),
       basePrice:    parseInt(String(product.price).replace(/[^0-9]/g, ''), 10) || 0,
       selectedDays: 1,
     });
