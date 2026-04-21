@@ -94,6 +94,7 @@ export function getProductStats() {
     (acc, p) => {
       acc.total++;
       if (p.status === 'pending')  acc.pending++;
+      if (p.status === 'pending')  acc.pending++;
       if (p.status === 'rejected') acc.rejected++;
       if (p.status === 'standard' || p.status === 'premium') acc.active++;
       return acc;
