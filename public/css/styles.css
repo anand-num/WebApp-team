@@ -885,8 +885,8 @@ opacity: 0;
     color: #fff;
   }
 
-  /* ── Quick-buy bar — bottom, slides up on card hover ── */
-  & .card-quick-buy {
+  /* ── Request button — bottom, slides up on card hover ── */
+  & .card-request-btn {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -909,13 +909,13 @@ opacity: 0;
     transition: opacity 0.22s ease, transform 0.22s ease, background 0.18s;
   }
 
-  .product-card:hover & .card-quick-buy {
+  .product-card:hover & .card-request-btn {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
 
-  & .card-quick-buy:hover {
+  & .card-request-btn:hover {
     background: var(--gold);
     color: var(--text-primary);
   }
@@ -1208,4 +1208,156 @@ opacity: 0;
 /* overlay бага харагдуулах */
 .card-visual::after {
   background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+}
+
+/* ════════════════════════════════════════════
+   RENTAL REQUEST MODAL
+   browse.html болон product.html-д ашиглагдана
+════════════════════════════════════════════ */
+
+.modal-ov {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(4px);
+  z-index: 400;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.modal-ov.open { opacity: 1; pointer-events: all; }
+.modal-card {
+  background: #fff; padding: 32px;
+  max-width: 420px; width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  transform: scale(.92); transition: transform .25s; position: relative;
+  overflow-y: auto; max-height: 90vh;
+}
+.modal-ov.open .modal-card { transform: scale(1); }
+.modal-card h3 {
+  font-size: 1.15rem; font-weight: 700; margin-bottom: 18px;
+}
+.modal-x {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.1rem; color: #888;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .2s;
+}
+.modal-x:hover { color: var(--gold, #b8963e); }
+
+/* Product preview inside modal */
+.rm-product {
+  display: flex; gap: 12px; align-items: center;
+  padding: 12px; background: var(--background-beige-light, #f5f2ed);
+  margin-bottom: 18px;
+}
+.rm-product-fig {
+  width: 52px; height: 66px; flex-shrink: 0;
+  background: linear-gradient(135deg,#4a1040,#8b2060);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; margin: 0;
+}
+.rm-brand {
+  font-size: .6rem; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold, #b8963e); margin-bottom: 2px;
+}
+.rm-name { font-size: .95rem; font-weight: 700; margin-bottom: 2px; }
+.rm-price { font-size: .75rem; color: #777; }
+
+/* Size picker */
+.rm-field, .rm-dates {
+  border: none; padding: 0; margin-bottom: 14px;
+}
+.rm-field legend, .rm-dates legend {
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: #888;
+  margin-bottom: 6px; display: block;
+}
+.rm-size-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+.rm-size-btns button {
+  padding: 6px 14px; border: 1px solid var(--background-beige-medium, #ddd);
+  background: #fff; cursor: pointer; font-size: .82rem; transition: all .2s;
+}
+.rm-size-btns button.sel,
+.rm-size-btns button:hover {
+  border-color: var(--gold, #b8963e);
+  background: rgba(184,150,62,.08);
+}
+.rm-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Date total row */
+.rm-total {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--background-beige-light, #f5f2ed);
+  margin-bottom: 14px;
+  font-size: .88rem;
+}
+.rm-total strong { font-size: 1rem; color: var(--gold, #b8963e); }
+
+/* Form group (shared with my-rentals) */
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; color: #888;
+}
+.form-group input[type="date"],
+.form-group textarea {
+  border: 1px solid var(--background-beige-medium, #ddd);
+  padding: 10px 13px; font-size: .85rem; background: #fff;
+  transition: border-color .2s; color: var(--text-primary, #111);
+  outline: none;
+}
+.form-group input[type="date"]:focus,
+.form-group textarea:focus {
+  border-color: var(--gold, #b8963e);
+}
+.form-group textarea { resize: vertical; min-height: 70px; }
+
+/* Gold submit button */
+.btn-g {
+  width: 100%; padding: 13px; margin-top: 4px;
+  background: var(--gold, #b8963e); color: #fff;
+  border: none; cursor: pointer;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  transition: background .2s;
+}
+.btn-g:hover { background: #9e7e32; }
+
+/* Product page date picker layout */
+.pd-dates {
+  border: 1px solid var(--background-beige-medium, #ddd);
+  border-radius: 0.25rem; padding: 1.25rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-bottom: 1rem;
+}
+.pd-dates legend {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-secondary, #666);
+  padding: 0 4px;
+}
+
+/* Emoji thumbnail (my-rentals fallback) */
+.p-order-emoji {
+  width: 52px; height: 52px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  background: var(--background-beige-light, #f5f2ed);
+  border-radius: 0.25rem;
+}
+
+/* Toast notification */
+.req-toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #222; color: #fff;
+  padding: 12px 24px; font-size: .85rem;
+  border-radius: 4px; z-index: 500;
+  opacity: 0; pointer-events: none;
+  transition: transform .3s, opacity .3s;
+}
+.req-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
 }

@@ -3,10 +3,20 @@
    Бүтээгдэхүүний каталог — шүүлтүүр, эрэмбэлэлт, хуудасжилт
 ══════════════════════════════════════════════════════════ */
 
-import Cart from './modules/Cart.js';
+// ── Liked localStorage helpers ───────────────────────────
+var LIKED_KEY = 'rf_liked';
 
-// Cart.js-ийн нэг instance үүсгэнэ — сагстай ажиллах бүх үйлдэлд ашиглана
-const cart = new Cart();
+function getLikedIds() {
+  try { return JSON.parse(localStorage.getItem(LIKED_KEY)) || []; } catch (_) { return []; }
+}
+
+function toggleLiked(id) {
+  var ids = getLikedIds();
+  var idx = ids.indexOf(id);
+  if (idx === -1) { ids.push(id); } else { ids.splice(idx, 1); }
+  localStorage.setItem(LIKED_KEY, JSON.stringify(ids));
+  return idx === -1;
+}
 
 // ── Үнийн string-ийг тоо болгох ─────────────────────────
 // жш: "3,000₮" → 3000
@@ -33,9 +43,9 @@ class ProductBrowser {
 
   // Хуудасны DOM элементүүдийг олж хадгална
   constructor() {
-    this.grid     = document.getElementById('catGrid');           // Бараануудын grid блок
-    this.template = document.getElementById('product-template'); // Карт бүрийн HTML загвар
-    this.catInfo  = document.getElementById('catInfo');          // "N бараа олдлоо" текст
+    this.grid     = document.getElementById('catGrid');
+    this.template = document.getElementById('product-template');
+    this.catInfo  = document.getElementById('catInfo');
   }
 
   // ── Серверээс бараануудын мэдээллийг ачаална ────────────
@@ -146,10 +156,8 @@ class ProductBrowser {
   // ── Нэг бүтээгдэхүүний картыг үүсгэж grid-д нэмнэ ──────
   #renderCard(product) {
     // template.content.cloneNode(true) — HTML <template> тагийн агуулгыг бүрэн хуулбарлана
-    // true = дотоод элементүүдийг бүгдийг хамт хуулна (deep clone)
-    const card    = this.template.content.cloneNode(true);
-    const cardEl  = card.querySelector('.product-card');
-    const cartBtn = card.querySelector('.card-cart');
+    const card   = this.template.content.cloneNode(true);
+    const cardEl = card.querySelector('.product-card');
 
     // ── Картын мэдээллийг дүүргэнэ ──────────────────────
     card.querySelector('.card-img').src           = `/public/source/${product.img_src}`;
@@ -157,9 +165,6 @@ class ProductBrowser {
     card.querySelector('.badge').textContent      = product.status || '';
     card.querySelector('.card-brand').textContent = product.brand;
     card.querySelector('.card-name').textContent  = product.item_name;
-
-    // '★'.repeat(N) — N удаа давтана (жш: repeat(4) → '★★★★')
-    // Math.round(product.rating) — 4.3 → 4, 4.6 → 5
     card.querySelector('.rating-stars').textContent = '★'.repeat(Math.round(product.rating));
     card.querySelector('.rating-count').textContent = `${product.rating} (${product.review_count})`;
     card.querySelector('.card-price').textContent   = product.price;
@@ -174,50 +179,25 @@ class ProductBrowser {
     const link = card.querySelector('.card-link');
     if (link) {
       link.href = `/public/html/product.html?id=${product.id}`;
-      // e.stopPropagation() — холбоос дарахад картын click дахин ажиллахаас сэргийлнэ
-      link.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
+      link.addEventListener('click', function(e) { e.stopPropagation(); });
     }
 
     // ── Зүрхний товч — дуртай/дургүй тэмдэглэнэ ────────
-    card.querySelector('.card-heart').addEventListener('click', function(e) {
-      // Картын click ажиллахаас сэргийлнэ
+    var heartBtn = card.querySelector('.card-heart');
+    if (getLikedIds().indexOf(product.id) !== -1) { heartBtn.classList.add('liked'); }
+    heartBtn.addEventListener('click', function(e) {
       e.stopPropagation();
-      // classList.toggle() — 'liked' класс байвал хасна, байхгүй бол нэмнэ
-      this.classList.toggle('liked');
+      var nowLiked = toggleLiked(product.id);
+      this.classList.toggle('liked', nowLiked);
     });
 
-    // ── Сагсны товч — нэмэх/хасах ───────────────────────
-    // cart.has() — тухайн бараа сагсанд аль хэдийн байгаа эсэхийг шалгана
-    if (cart.has(product.id)) {
-      cartBtn.classList.add('in-cart');    // Сагсанд байвал 'in-cart' класс нэмнэ
-      cartBtn.title = 'Сагснаас хасах';   // Tooltip текст
-    }
-
-    cartBtn.addEventListener('click', function(e) {
+    // ── "Хүсэлт илгээх" товч — rental request modal нээнэ ──
+    // Сагс руу шууд нэмэхгүй — хүсэлт зөвшөөрөгдсөний дараа автоматаар нэмэгдэнэ
+    card.querySelector('.card-request-btn').addEventListener('click', function(e) {
       e.stopPropagation();
-
-      // classList.contains() — 'in-cart' класс байгаа эсэхийг шалгана
-      if (this.classList.contains('in-cart')) {
-        // Аль хэдийн сагсанд байвал хасна
-        cart.remove(product.id);
-        this.classList.remove('in-cart');
-        this.title = 'Сагсанд нэмэх';
-      } else {
-        // Сагсанд байхгүй бол нэмнэ
-        cart.addProduct(product);
-        this.classList.add('in-cart');
-        this.title = 'Сагснаас хасах';
+      if (typeof window.openRequestModal === 'function') {
+        window.openRequestModal(product);
       }
-    });
-
-    // ── "Шуурхай худалдаа" товч — сагсанд нэмж cart.html руу шилжинэ ──
-    card.querySelector('.card-quick-buy').addEventListener('click', function(e) {
-      e.stopPropagation();
-      cart.addProduct(product);
-      // ?quick=ID — cart.js-д зөвхөн энэ барааг харуулахыг хэлнэ
-      location.href = `/public/html/cart.html?quick=${product.id}`;
     });
 
     // Картыг grid-д нэмнэ
@@ -352,6 +332,15 @@ const browser = new ProductBrowser();
 
 // load() дуусмагц .then() ажиллана — JSON ачаалагдаагүй байхад дэлгэцийг зурахгүй
 browser.load().then(function() {
-  browser.display();          // Бараануудыг дэлгэцэнд харуулна
   browser.setupListeners();   // Бүх товч болон контролуудыг холбоно
+
+  // URL-ийн ?cat= параметрийг уншина — sub-nav-аас ирэхэд ангиллын шүүлтүүр хэрэглэнэ
+  var urlCat = new URLSearchParams(location.search).get('cat');
+  if (urlCat) {
+    var radio = document.querySelector('input[name="cat"][value="' + urlCat + '"]');
+    if (radio) { radio.checked = true; }
+    browser.setCategory(urlCat);
+  } else {
+    browser.display();
+  }
 });

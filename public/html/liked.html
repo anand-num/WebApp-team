@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="/public/css/liked.css">
+    <link rel="stylesheet" href="/public/css/cart-side.css">
     <script type="module" src="/public/js/card-actions.js"></script>
 </head>
 
@@ -48,6 +49,7 @@
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 0 1-8 0" />
                     </svg>
+                    <span id="cartBadge" class="cart-badge"></span>
                 </a>
                 <a href="../html/liked.html" class="like-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -77,74 +79,7 @@
 
         <p class="sec-tag">Хадгалсан</p>
         <h2 class="section-title">Дуртай хувцас</h2>
-        <main class="wishlist">
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Belucci</p>
-                    <h2 class="card-name">Цэнхэр даашинз</h2>
-                    <p class="card-meta">Одоо 4 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★★</span>
-                            <span class="rating-count">4.5 (20)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Цэнхэр даашинз — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/kimono.jpg" alt="Kimono">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Kishimori</p>
-                    <h2 class="card-name">Хар кимоно</h2>
-                    <p class="card-meta">Одоо 3 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★</span>
-                            <span class="rating-count">4.8 (15)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Хар кимоно — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/bear-costume.jpg" alt="bear costume">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Temu</p>
-                    <h2 class="card-name">Баавгайн маскот</h2>
-                    <p class="card-meta">Одоо 5 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★</span>
-                            <span class="rating-count">4.0 (25)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Баавгайн маскот — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-        </main>
+        <main class="wishlist"></main>
     </section>
 
     <footer class="footer">
@@ -255,7 +190,18 @@
         © 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.
       </p>
     </footer>
+    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
+      <header class="cart-side-hd">
+        <h2>Таны сагс</h2>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+      </header>
+      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
+      <div id="cartFoot"></div>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <script type="module" src="/public/js/auth.js"></script>
+    <script type="module" src="/public/js/liked.js"></script>
+    <script src="/public/js/cart-side.js"></script>
 </body>
 
 </html>

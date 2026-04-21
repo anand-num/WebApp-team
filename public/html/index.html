@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script type="module" src="../js/home.js"></script>
+    <link rel="stylesheet" href="../css/cart-side.css">
   </head>
 
   <body>
@@ -58,6 +59,7 @@
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
+            <span id="cartBadge" class="cart-badge"></span>
           </a>
           <a href="../html/liked.html" class="like-btn">
             <svg
@@ -413,6 +415,16 @@
         </svg>
       </button>
     </nav>
+    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
+      <header class="cart-side-hd">
+        <h2>Таны сагс</h2>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+      </header>
+      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
+      <div id="cartFoot"></div>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <script type="module" src="/public/js/auth.js"></script>
+    <script src="/public/js/cart-side.js"></script>
   </body>
 </html>

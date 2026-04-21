@@ -5,6 +5,19 @@
 
 import Cart from './modules/Cart.js';
 
+// ── Liked helpers ────────────────────────────────────────
+const LIKED_KEY = 'rf_liked';
+function getLikedIds() {
+  try { return JSON.parse(localStorage.getItem(LIKED_KEY)) || []; } catch (_) { return []; }
+}
+function toggleLiked(id) {
+  const ids = getLikedIds();
+  const idx = ids.indexOf(id);
+  if (idx === -1) { ids.push(id); } else { ids.splice(idx, 1); }
+  localStorage.setItem(LIKED_KEY, JSON.stringify(ids));
+  return idx === -1;
+}
+
 // Cart.js-ийн нэг instance үүсгэнэ — сагстай ажиллах бүх үйлдэлд ашиглана
 const cart = new Cart();
 
@@ -193,10 +206,12 @@ class HomePage {
       }
 
       // Зүрхний товч — дарах бүрт 'liked' классыг нэмж/хасна
-      card.querySelector('.card-heart').addEventListener('click', function(e) {
+      const heartBtn = card.querySelector('.card-heart');
+      if (getLikedIds().indexOf(id) !== -1) { heartBtn.classList.add('liked'); }
+      heartBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        // classList.toggle() — класс байвал хасна, байхгүй бол нэмнэ
-        this.classList.toggle('liked');
+        const nowLiked = toggleLiked(id);
+        this.classList.toggle('liked', nowLiked);
       });
 
       // Сагсны товч — нэмэх/хасах

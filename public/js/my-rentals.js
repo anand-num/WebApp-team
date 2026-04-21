@@ -118,6 +118,7 @@ function statusLabel(status) {
 function statusColor(status) {
   if (status === 'delivery')  { return 'green'; }
   if (status === 'pending')   { return 'yellow'; }
+  if (status === 'accepted')  { return 'green'; }
   if (status === 'active')    { return 'green'; }
   if (status === 'overdue')   { return 'red'; }
   if (status === 'done')      { return 'gray'; }
@@ -190,6 +191,9 @@ function renderActiveRentals() {
 
     /* Аль товч харуулахыг статусаас тодорхойлно */
     var actionBtn = '';
+    if (r.status === 'pending') {
+      actionBtn = '<button class="btn-sm success btn-accept" data-id="' + r.id + '">✓ Хүсэлт зөвшөөрөх</button>';
+    }
     if (r.status === 'delivery') {
       actionBtn = '<button class="btn-sm success btn-confirm" data-id="' + r.id + '">Хүргэлт баталгаажуулах ✓</button>';
     }
@@ -197,9 +201,14 @@ function renderActiveRentals() {
       actionBtn = '<button class="btn-sm danger btn-return" data-id="' + r.id + '">Буцааж өгсөн ✓</button>';
     }
 
+    /* Зураг байвал img таг, байхгүй бол emoji харуулна */
+    var thumbHtml = r.img
+      ? '<img class="p-order-img" src="' + r.img + '" alt="' + r.name + '">'
+      : '<div class="p-order-emoji">' + (r.emoji || '👗') + '</div>';
+
     return (
       '<div class="p-order">' +
-        '<img class="p-order-img" src="' + r.img + '" alt="' + r.name + '">' +
+        thumbHtml +
         '<div class="p-order-info">' +
           '<p class="p-order-name">' + r.name + '</p>' +
           '<p class="p-order-meta">' + r.brand + ' · ' + r.size + ' · ' + r.startDate + ' – ' + r.endDate + ' · ' + r.days + ' өдөр</p>' +
@@ -214,6 +223,12 @@ function renderActiveRentals() {
   }).join('');
 
   /* Товчнуудад click холбоно */
+  document.querySelectorAll('.btn-accept').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      acceptRequest(parseInt(btn.getAttribute('data-id')));
+    });
+  });
+
   document.querySelectorAll('.btn-confirm').forEach(function(btn) {
     btn.addEventListener('click', function() {
       confirmDelivery(parseInt(btn.getAttribute('data-id')));
@@ -225,6 +240,58 @@ function renderActiveRentals() {
       markReturned(parseInt(btn.getAttribute('data-id')));
     });
   });
+}
+
+
+/* ══════════════════════════════════════════
+   ХҮСЭЛТ ЗӨВШӨӨРӨХ (нөгөө хэрэглэгч зөвшөөрнө)
+   "pending" → "delivery", сагсанд автоматаар нэмнэ
+══════════════════════════════════════════ */
+
+function acceptRequest(id) {
+  var rental = rentals.find(function(r) { return r.id === id; });
+  if (!rental) { return; }
+
+  /* Статусыг delivery болгоно — хүргэлтэнд явж байна */
+  rental.status = 'delivery';
+  saveRentals(rentals);
+
+  /* Сагсанд автоматаар нэмнэ */
+  addRentalToCart(rental);
+
+  renderActiveRentals();
+  updateStats();
+  showToast('Хүсэлт зөвшөөрөгдлөө! Бараа сагсанд нэмэгдлээ. 🛍', 'green');
+}
+
+/* Rental объектыг rf_cart localStorage-д нэмнэ */
+function addRentalToCart(rental) {
+  var cartKey  = 'rf_cart';
+  var cartItems;
+
+  /* Одоо байгаа сагсыг уншина */
+  try { cartItems = JSON.parse(localStorage.getItem(cartKey)) || []; }
+  catch (e) { cartItems = []; }
+
+  /* Аль хэдийн байгаа бол дахин нэмэхгүй */
+  var alreadyIn = cartItems.some(function(i) { return i.id === rental.id; });
+  if (alreadyIn) { return; }
+
+  /* Rental-ийн мэдээллийг cart item хэлбэрт хөрвүүлнэ */
+  cartItems.push({
+    id          : rental.id,
+    name        : rental.name,
+    brand       : rental.brand,
+    img         : rental.img || '',
+    emoji       : rental.emoji || '👗',
+    size        : rental.size,
+    basePrice   : rental.price / (rental.days || 1),   /* өдрийн үнэ */
+    selectedDays: rental.days || 1,
+    startDate   : rental.startDate,
+    endDate     : rental.endDate,
+  });
+
+  localStorage.setItem(cartKey, JSON.stringify(cartItems));
 }
 
 
