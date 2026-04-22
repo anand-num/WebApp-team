@@ -160,6 +160,19 @@ a{
     height: 22px;
   }
 
+  #mobileLoginBtn .prof-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  #mobileLoginBtn:has(.prof-avatar) {
+    border-radius: 50%;
+    padding: 4px;
+    width: 44px;
+    height: 44px;
+  }
+
   .bottom-nav .active {
     background: var(--gold-hover);
     color: var(--button-primary-hover);
@@ -362,7 +375,7 @@ strong{
     text-align: center;
     }
 
-#how-it-works header h2{
+#how-it-works header h1{
     color: var(--text-primary);
     font-family: var(--font-heading),serif;
     font-size: 2.5rem;
@@ -646,84 +659,98 @@ opacity: 0;
   display: block;
 }
 
-/* ── User avatar in nav ─────────────────────────────── */
-.user-avatar {
+/* ── Profile avatar button ──────────────────────────── */
+.prof-avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--gold);
   color: #fff;
   font-family: var(--font-bold);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   pointer-events: none;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.35);
 }
 
-/* ── User dropdown ──────────────────────────────────── */
-.user-dropdown {
+/* Button resets to a tight circle when showing avatar */
+#loginBtn:has(.prof-avatar),
+#mobileLoginBtn:has(.prof-avatar) {
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--gold);
+}
+
+#mobileLoginBtn:has(.prof-avatar) {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* ── Profile dropdown ───────────────────────────────── */
+.prof-dropdown {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 200px;
-  background: var(--background-primary);
+  background: var(--background-secondary);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  padding: 14px;
-  z-index: 999;
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 210;
 }
 
-.user-dropdown-info {
+.prof-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.prof-dropdown a {
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-bottom: 10px;
-}
-
-.user-dropdown-info strong {
-  font-family: var(--font-bold);
-  font-size: 0.9rem;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: .82rem;
+  font-family: var(--font-body);
   color: var(--text-primary);
-  text-transform: capitalize;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background .15s, color .15s;
 }
 
-.user-dropdown-info span {
-  font-size: 0.75rem;
-  color: var(--muted);
+.prof-dropdown a:hover {
+  background: var(--gold-hover);
+  color: var(--gold);
 }
 
-.membership-badge {
-  font-size: 0.7rem !important;
-  font-weight: 700;
-  color: var(--gold) !important;
-  letter-spacing: 0.5px;
+.prof-dropdown a.logout-link {
+  color: #e74c3c;
 }
 
-.user-dropdown hr {
+.prof-dropdown a.logout-link:hover {
+  background: rgba(231,76,60,.08);
+  color: #c0392b;
+}
+
+.prof-dropdown hr {
   border: none;
   border-top: 1px solid var(--border);
-  margin: 8px 0;
-}
-
-#logoutBtn {
-  width: 100%;
-  padding: 8px 0;
-  background: none;
-  border: none;
-  text-align: left;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: #e74c3c;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.15s;
-}
-
-#logoutBtn:hover {
-  background: rgba(231,76,60,.08);
+  margin: 4px 0;
 }
 
 /* FEATURED SECTION*/

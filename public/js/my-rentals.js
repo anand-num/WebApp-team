@@ -577,4 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
   setupStarButtons();       /* Одны товчнуудыг тохируулна */
   setupModalClose();        /* Modal backdrop хаах */
   setupListingForm();       /* Зар нэмэх форм */
+
+  /* Hash-аар шууд таб нээх — dropdown линкүүдээс ирсэн үед */
+  var hash = location.hash.replace('#', '');
+  var hashMap = {
+    info: 'tab-info', active: 'tab-active', history: 'tab-history',
+    listings: 'tab-listings', incoming: 'tab-active', notifications: 'tab-info'
+  };
+  if (hashMap[hash]) { switchToTab(hashMap[hash]); }
 });
