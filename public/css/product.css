@@ -246,14 +246,14 @@ a{
   margin-top: 1rem;
 }
 
-.btn-wish {
+#btn-wish {
   background: white;
   color: var(--ink);
   border: 1.5px solid var(--ink);
   margin-bottom: 20px;
 }
 
-.btn-wish:hover { background: var(--ink); color: white; }
+#btn-wish:hover { background: var(--ink); color: white; }
 
 /* ══════════════════════════════
    PERKS / TRUST SIGNALS
@@ -410,8 +410,8 @@ a{
     height: 64px;
   }
 
-  .middle-nav {
-    display: none;        /* hide nav links on mobile */
+  .mid-nav {
+    display: none;
   }
 
   .right-nav {

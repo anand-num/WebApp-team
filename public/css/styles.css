@@ -369,6 +369,10 @@ strong{
     ;}
 
 /*how it works section*/
+.visually-hidden{
+  position: absolute;
+  left: -9999px;
+}
 #how-it-works{
     border-top:1px solid var(--background-beige-medium);
     padding: 3.5rem 0rem 0rem 0rem;
