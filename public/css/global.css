@@ -53,6 +53,119 @@
   --gray: #9a9a9a;
   --dark-gray: #484848;
   --shadow-lifted: 0 0.2rem 1rem #fce6a7;
+
+  /* Surface vars — white card/nav backgrounds */
+  --surface:      #ffffff;
+  --surface-input:#ffffff;
+  --border-line:  #e7e7e7;
+}
+
+/* ════════════════════════════════════════════
+   DARK MODE — "Deep Night" palette
+   Applied via html[data-theme="dark"]
+════════════════════════════════════════════ */
+[data-theme="dark"] {
+  /* Backgrounds — warm dark charcoal, not blue-gray */
+  --background-primary:      #141210;
+  --background-secondary:    #1c1916;
+  --background-beige-medium: #2d2820;
+  --background-beige-dark:   #362f25;
+  --background-beige-light:  #221e17;
+  --background-dark:         #090807;   /* top-nav / footer stays deep */
+
+  /* Text */
+  --text-primary:   #f0ece6;
+  --text-secondary: #a89e94;
+  --text-tertiary:  #6b6055;
+  --text-review:    #f0ece6;
+  --text-on-dark:   #f0ece6;
+  --text-footer:    #8a8278;
+
+  /* Buttons */
+  --button-primary:          #e8e4de;
+  --button-primary-hover:    #c9a84c;
+  --button-primary-text:     #141210;
+  --button-secondary:        #2d2820;
+  --button-secondary-hover:  #a39382;
+  --button-secondary-text:   #f0ece6;
+
+  /* Gold — accent stays vibrant */
+  --gold:       #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-glow:  rgba(201, 168, 76, 0.25);
+  --gold-hover: #1f1c14;   /* dark tint for hover backgrounds */
+
+  /* Borders & misc */
+  --border:      rgba(255, 255, 255, 0.08);
+  --ligh-gray:   #2d2820;
+  --gray:        #6b6055;
+  --dark-gray:   #a89e94;
+  --muted:       #7a7060;
+  --red:         #e05c4a;
+  --green:       #3ab06e;
+
+  /* Shadows — deeper in dark mode */
+  --shadow-card:    0 2px 20px rgba(0, 0, 0, 0.50);
+  --shadow-hover:   0 16px 48px rgba(0, 0, 0, 0.70);
+  --shadow-lifted:  0 0.2rem 1rem rgba(201, 168, 76, 0.12);
+
+  /* Surface vars */
+  --surface:        #1e1b16;
+  --surface-input:  #262118;
+  --border-line:    #2d2820;
+}
+
+/* ════════════════════════════════════════════
+   THEME TOGGLE BUTTON
+════════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18), 0 0 0 1px var(--border-line);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.2s;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--gold);
+  color: var(--gold);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  pointer-events: none;
+  transition: transform 0.4s ease;
+}
+
+.theme-toggle:active svg {
+  transform: rotate(30deg);
+}
+
+/* Move toggle above bottom-nav on mobile */
+@media (max-width: 600px) {
+  .theme-toggle {
+    bottom: 76px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+  }
 }
 
 

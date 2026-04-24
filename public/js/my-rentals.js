@@ -568,7 +568,45 @@ function showToast(msg, type) {
    ЭХЛҮҮЛЭХ
 ══════════════════════════════════════════ */
 
+/* ══════════════════════════════════════════
+   LOGED-IN ХЭРЭГЛЭГЧИЙН МЭДЭЭЛЛИЙГ АЧААЛАХ
+   rf_user (localStorage) -оос уншиж профайл
+   болон формын утгуудыг бөглөнө.
+══════════════════════════════════════════ */
+function loadUserProfile() {
+  var raw = localStorage.getItem('rf_user');
+  if (!raw) return;
+  var u;
+  try { u = JSON.parse(raw); } catch (_) { return; }
+  if (!u) return;
+
+  var name  = u.full_name || u.username || 'Хэрэглэгч';
+  var email = u.email || '';
+  var phone = u.phone || '';
+  var city  = u.city  || 'Улаанбаатар';
+
+  var av = document.getElementById('profile-av');
+  if (av) av.textContent = (name.charAt(0) || '?').toUpperCase();
+
+  var nameEl  = document.getElementById('profile-name');
+  var emailEl = document.getElementById('profile-email');
+  var metaEl  = document.getElementById('profile-meta');
+  if (nameEl)  nameEl.textContent  = name;
+  if (emailEl) emailEl.textContent = email;
+  if (metaEl)  metaEl.textContent  = '📞 ' + (phone || '—') + ' · 📍 ' + city;
+
+  var inpName  = document.getElementById('inp-name');
+  var inpEmail = document.getElementById('inp-email');
+  var inpPhone = document.getElementById('inp-phone');
+  var inpCity  = document.getElementById('inp-city');
+  if (inpName)  inpName.value  = name;
+  if (inpEmail) inpEmail.value = email;
+  if (inpPhone) inpPhone.value = phone;
+  if (inpCity)  inpCity.value  = city;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  loadUserProfile();        /* Нэвтэрсэн хэрэглэгчийн мэдээллийг бөглөнө */
   checkOverdue();           /* Хугацаа дууссан захиалгуудыг шалгана */
   setupTabs();              /* Таб товчнуудыг тохируулна */
   renderActiveRentals();    /* Идэвхтэй захиалгуудыг зурна */

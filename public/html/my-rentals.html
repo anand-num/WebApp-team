@@ -69,11 +69,11 @@
 
       <!-- Профайлын дээд хэсэг: avatar + нэр + имэйл -->
       <div class="profile-hd">
-        <div class="profile-av">Н</div>
+        <div class="profile-av" id="profile-av">?</div>
         <div class="profile-info">
-          <h1>Нарантуяа</h1>
-          <p class="email">narantuya@example.com</p>
-          <p class="meta">📞 99001122 · 📍 Улаанбаатар</p>
+          <h1 id="profile-name">Зочин</h1>
+          <p class="email" id="profile-email">—</p>
+          <p class="meta" id="profile-meta">📞 — · 📍 Улаанбаатар</p>
         </div>
       </div>
 
@@ -113,19 +113,19 @@
           <div class="profile-form">
             <div class="form-group">
               <label>Нэр</label>
-              <input type="text" value="Нарантуяа">
+              <input type="text" id="inp-name">
             </div>
             <div class="form-group">
               <label>Имэйл</label>
-              <input type="email" value="narantuya@example.com">
+              <input type="email" id="inp-email">
             </div>
             <div class="form-group">
               <label>Утас</label>
-              <input type="tel" value="99001122">
+              <input type="tel" id="inp-phone">
             </div>
             <div class="form-group">
               <label>Хот</label>
-              <input type="text" value="Улаанбаатар">
+              <input type="text" id="inp-city" value="Улаанбаатар">
             </div>
             <div class="form-group full">
               <label>Хүргэлтийн хаяг</label>
