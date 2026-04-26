@@ -71,7 +71,11 @@ A self-contained hash-routed SPA, separate from the storefront:
 Admin routes are independent of the storefront's multi-page structure. Do not cross-import between `admin/` and top-level JS.
 
 ### CSS organization
-Loaded in this order on most pages: `global.css` → `layout.css` → `styles.css` → page-specific (e.g. `browse.css`). CSS variables live in `global.css` (colors, fonts) except `--ink` which is only defined in `my-rentals.css:root` and is a known quirk when referenced elsewhere.
+Loaded in this order on most pages: `global.css` → `layout.css` → `styles.css` → page-specific (e.g. `browse.css`).
+
+**All design tokens (colors, fonts, shadows, easing, radius) live in `global.css` `:root`.** Never define new design tokens in a page-specific stylesheet — add them to `global.css` and provide a dark-mode override in the `[data-theme="dark"]` block if needed.
+
+`my-rentals.css` defines short local aliases (`--ink`, `--cream`, `--warm`, `--paper`, `--sans`) that point at global tokens via `var(--text-primary)` etc. This is the only permitted exception — aliases for readability within a single file, not new token values.
 
 `cart-side.css` duplicates the cart-sidebar rules from `browse.css` because `browse.html` loads `browse.css` only, while other pages load `cart-side.css` only. Keep them in sync.
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentFit</title>
-
+    <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
     <link rel="stylesheet" href="/public/css/global.css">
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
@@ -227,9 +227,55 @@
         </svg>
       </button>
     </nav>
+    <!-- Toast notification -->
+    <div id="req-toast" class="req-toast"></div>
+
+    <!-- Rental request modal -->
+    <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
+      <article class="modal-card" id="qmCard">
+        <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
+        <h3>📩 Түрээсийн хүсэлт</h3>
+        <section class="rm-product">
+          <figure class="rm-product-fig"><span id="rm-emoji">👗</span></figure>
+          <div class="rm-product-info">
+            <p class="rm-brand" id="rm-brand">—</p>
+            <p class="rm-name"  id="rm-name">—</p>
+            <p class="rm-price" id="rm-price">—</p>
+          </div>
+        </section>
+        <fieldset class="rm-field">
+          <legend>Размер *</legend>
+          <div id="rmSizes" class="rm-size-btns"></div>
+          <input type="hidden" id="rmSize">
+        </fieldset>
+        <fieldset class="rm-dates">
+          <legend>Хугацаа *</legend>
+          <div class="form-group">
+            <label for="rmFrom">Эхлэх огноо</label>
+            <input type="date" id="rmFrom" onchange="calcRmTotal()">
+          </div>
+          <div class="form-group">
+            <label for="rmTo">Дуусах огноо</label>
+            <input type="date" id="rmTo" onchange="calcRmTotal()">
+          </div>
+        </fieldset>
+        <div class="rm-total">
+          <span id="rmDays">0 өдөр</span>
+          <strong id="rmTotal">0₮</strong>
+        </div>
+        <div class="form-group">
+          <label for="rmComment">Нэмэлт тайлбар</label>
+          <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
+        </div>
+        <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
+      </article>
+    </div>
+
     <script type="module" src="/public/js/auth.js"></script>
     <script type="module" src="/public/js/liked.js"></script>
     <script src="/public/js/cart-side.js"></script>
+    <script src="/public/js/request-modal.js"></script>
+    <script src="/public/js/theme.js"></script>
 </body>
 
 </html>

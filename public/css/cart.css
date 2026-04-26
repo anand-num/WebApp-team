@@ -180,7 +180,7 @@
   display: flex;
   gap: 0;
   height: 160px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--background-beige-medium);
   border-radius: 0.25rem;
   overflow: hidden;
@@ -337,7 +337,7 @@
 .cart-receipt {
   grid-area: cart-receipt;
   padding: 2rem 1.75rem;
-  background: white;
+  background: var(--surface);
   border: 0.0625rem solid var(--background-beige-medium);
   border-radius: 0.25rem;
   margin:9rem 4rem 2.5rem 0;
@@ -440,7 +440,7 @@
 }
 
 .receipt-cta:hover {
-  background: var(--button-primary-hover);
+  background: var(--gold);
   color: var(--text-primary);
 }
 
@@ -519,7 +519,7 @@
 }
 
 .receipt-promo-row button:hover {
-  background: var(--button-primary-hover);
+  background: var(--gold);
   color: var(--text-primary);
 }
 
@@ -530,7 +530,7 @@
 ════════════════════════════════════════════ */
 .delivery-form-wrap,
 .confirm-card {
-  background: white;
+  background: var(--surface);
   border: 0.0625rem solid var(--background-beige-medium);
   border-radius: 0.25rem;
 }
@@ -578,7 +578,7 @@
 
 /* Wrapper card */
 .checkout-card {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--background-beige-medium);
   border-radius: 0.25rem;
   padding: 2rem 2.25rem;

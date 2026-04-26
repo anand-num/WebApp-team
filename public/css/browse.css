@@ -219,7 +219,7 @@ hr {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: white;
+    background: var(--surface);
     border: 0.0625rem solid var(--background-beige-medium);
     border-radius: 6.25rem;
     padding: 0.5rem 1rem;
@@ -277,7 +277,7 @@ hr {
     font-family: var(--font-body);
     font-size: 0.875rem;
     color: var(--text-tertiary);
-    background: white;
+    background: var(--surface);
     border: 0.0625rem solid var(--background-beige-medium);
     border-radius: 6.25rem;
     padding: 0.5rem 2.25rem 0.5rem 1rem;

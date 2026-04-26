@@ -4,12 +4,7 @@
    дэлгэрэнгүй хуудсыг динамикаар дүүргэнэ
 ══════════════════════════════════════════════════════════ */
 
-import Cart from './modules/Cart.js';
-
-// Cart.js-ийн нэг instance үүсгэнэ — сагстай ажиллах бүх үйлдэлд ашиглана
-const cart = new Cart();
-
-// Тоог Монгол мөнгөний форматад хөрвүүлнэ — жш: 3000 → "3,000₮"
+//Тоог Монгол мөнгөний форматад хөрвүүлнэ — жш: 3000 → "3,000₮"
 function fmt(n) {
   return Number(n).toLocaleString() + '₮';
 }
@@ -160,12 +155,6 @@ class ProductPage {
     }
   }
 
-  // ── Сагсны товчны текстийг синхрончилна ────────────────
-  syncCartBtn(btn) {
-    // cart.has() — бараа сагсанд байвал "Сагснаас хасах", байхгүй бол "Сагсанд нэмэх"
-    btn.textContent = cart.has(this.#product.id) ? 'Сагснаас хасах' : 'Сагсанд нэмэх';
-  }
-
   // ── Товчнуудын үйлдлүүдийг холбоно ─────────────────────
   setupListeners() {
     const p = this.#product;
@@ -182,53 +171,11 @@ class ProductPage {
     const requestBtn = document.getElementById('btn-request');
     if (requestBtn) {
       requestBtn.addEventListener('click', function() {
-        // Бүтээгдэхүүний мэдээллийг глобал request-modal.js-д дамжуулна
         if (typeof window.openRequestModal === 'function') {
           window.openRequestModal(p);
         }
       });
     }
-
-    // ── Сагсны товч ────────────────────────────────────
-    const cartBtn = document.getElementById('btn-cart');
-
-    // Товчны текстийг одоогийн сагсны төлөвтэй синхрончилна
-    this.syncCartBtn(cartBtn);
-
-    cartBtn.addEventListener('click', function() {
-      if (cart.has(p.id)) {
-        // Аль хэдийн сагсанд байвал хасна
-        cart.remove(p.id);
-      } else {
-        // Сагсанд байхгүй бол нэмнэ
-
-        // Сонгогдсон хэмжээг олно
-        // ?.value — элемент байвал .value авна, null байвал undefined
-        const selectedSizeEl = document.querySelector('input[name="sz"]:checked');
-        const size = selectedSizeEl
-          ? selectedSizeEl.value
-          : (Array.isArray(p.sizes) ? p.sizes[0] : p.sizes); // Байхгүй бол эхний хэмжээ
-
-        // Огнооноос хугацааг тооцно — огноо сонгоогүй бол 1 өдөр
-        const fromEl = document.getElementById('pd-from');
-        const toEl   = document.getElementById('pd-to');
-        const days   = daysBetween(fromEl ? fromEl.value : '', toEl ? toEl.value : '') || 1;
-
-        // Сагсанд нэмэх объект үүсгэнэ
-        cart.addItem({
-          id         : p.id,
-          name       : p.item_name,
-          brand      : p.brand,
-          img        : p.img_src,
-          size       : size,
-          basePrice  : this.#base,
-          selectedDays: days,
-        });
-      }
-
-      // Товчны текстийг шинэ төлөвтэй синхрончилна
-      this.syncCartBtn(cartBtn);
-    }.bind(this));
 
     // ── Дуртайд нэмэх товч ─────────────────────────────
     const wishBtn = document.getElementById('btn-wish');

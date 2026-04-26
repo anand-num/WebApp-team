@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RentFit</title>
-
+  <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="/public/css/global.css">
   <link rel="stylesheet" href="/public/css/product.css">
   <link rel="stylesheet" href="/public/css/layout.css">
@@ -135,7 +135,6 @@
 
       <!-- CTAs -->
       <button class="btn-primary" id="btn-request" type="button">📩 Хүсэлт илгээх</button>
-      <button class="btn-secondary" id="btn-cart" type="button">Сагсанд нэмэх</button>
       <button class="btn-secondary" id="btn-wish" type="button">Дуртайд нэмэх</button>
 
       <!-- Trust signals -->
@@ -281,6 +280,7 @@
   <script type="module" src="/public/js/auth.js"></script>
   <script src="/public/js/request-modal.js"></script>
   <script src="/public/js/cart-side.js"></script>
+  <script src="/public/js/theme.js"></script>
 
   <!-- Toast notification -->
   <div id="req-toast" class="req-toast"></div>

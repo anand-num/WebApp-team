@@ -23,8 +23,8 @@ a{
 }
 
 .breadcrumb a { color: var(--muted); transition: color .15s; }
-.breadcrumb a:hover { color: var(--ink); }
-.breadcrumb [aria-current="page"] { color: var(--ink); font-weight: 500; }
+.breadcrumb a:hover { color: var(--text-primary); }
+.breadcrumb [aria-current="page"] { color: var(--text-primary); font-weight: 500; }
 
 /* ══════════════════════════════
    TWO-COLUMN LAYOUT
@@ -87,7 +87,7 @@ a{
 }
 
 .rating-stars { color: var(--gold); letter-spacing: 1px; }
-.pd-meta strong { color: var(--ink); }
+.pd-meta strong { color: var(--text-primary); }
 .pd-rv-link  { color: var(--muted); text-decoration: underline; transition: color .15s; }
 .pd-rv-link:hover { color: var(--gold); }
 .pd-sep      { opacity: .4; }
@@ -145,13 +145,13 @@ a{
   cursor: pointer;
   transition: all .2s;
   margin-right: 8px;
-  background: white;
+  background: var(--surface);
   min-width: 88px;
 }
 
 .dur-opts label:hover { border-color: var(--gold); }
 
-.d-days { font-size: .88rem; font-weight: 700; color: var(--ink); }
+.d-days { font-size: .88rem; font-weight: 700; color: var(--text-primary); }
 .d-price { font-size: .72rem; color: var(--muted); }
 
 /* checked state */
@@ -190,7 +190,7 @@ a{
 }
 
 .sz-opts label:hover { 
-  border-color: var(--ink);
+  border-color: var(--text-primary);
   color: var(--text-primary)
  }
 
@@ -247,13 +247,17 @@ a{
 }
 
 #btn-wish {
-  background: white;
-  color: var(--ink);
-  border: 1.5px solid var(--ink);
+  background: var(--surface);
+  color: var(--text-tertiary);
+  border: 1.5px solid var(--text-tertiary);
   margin-bottom: 20px;
 }
 
-#btn-wish:hover { background: var(--ink); color: white; }
+#btn-wish:hover {
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  transform: translateY(-0.05rem);
+}
 
 /* ══════════════════════════════
    PERKS / TRUST SIGNALS

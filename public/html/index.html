@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentFit</title>
-
+    <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -259,7 +259,7 @@
       </div>
       <!-- "БҮХ КАТАЛОГ" товч -->
       <div class="featured-cta">
-        <a href="/public/html/browse.html" class="catalog-btn">
+        <a href="/public/html/browse.html" class="btn-secondary">
           Бүх каталог →
         </a>
       </div>
@@ -504,5 +504,6 @@
     <script type="module" src="/public/js/auth.js"></script>
     <script src="/public/js/cart-side.js"></script>
     <script src="/public/js/request-modal.js"></script>
+    <script src="/public/js/theme.js"></script>
   </body>
 </html>

@@ -1,63 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-/* Backgrounds */
---background-primary: #fbf7f4;
---background-secondary: #f5f0e8;
---background-beige-medium: #e5d5c5;
---background-beige-dark: #d8c5b0;
---background-beige-light: #e5ded2;
---background-dark:#0e0d0b;
-/* Text */
---text-primary: #1a1714;
---text-secondary: #685d54;
---text-tertiary: #a39382;
---text-review: #e5ded2;
---text-on-dark: #fbf7f4;
---text-footer: #c6c6c6;
+  /* Backgrounds */
+  --background-primary:      #fbf7f4;
+  --background-secondary:    #f5f0e8;
+  --background-beige-medium: #e5d5c5;
+  --background-beige-dark:   #d8c5b0;
+  --background-beige-light:  #e5ded2;
+  --background-dark:         #0e0d0b;
 
-/* Interactive */
-  --button-primary: #232323;
-  --button-primary-hover: #c9a84c;
-  --button-primary-text: #232323;
-  
+  /* Text */
+  --text-primary:   #1a1714;
+  --text-secondary: #685d54;
+  --text-tertiary:  #a39382;
+  --text-on-dark:   #fbf7f4;
+  --text-footer:    #c6c6c6;
 
-  --button-secondary: #e5d5c5;
-  --button-secondary-hover: #7a7060;
-  --button-secondary-text: #232323;
+  /* Interactive */
+  --button-primary:          #232323;
+  --button-primary-text:     #fbf7f4;
+  --button-secondary-hover:  #7a7060;
+  --button-secondary-text:   #232323;
 
   /* Fonts */
-  --font-heading: 'Playfair Display', serif;  /* for headings */
-  --font-body: 'Inter', sans-serif;  /* for body and general text */
-  --font-bold:'DM Sans',sans-serif;
-  --font_system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-body:    'Inter', sans-serif;
+  --font-bold:    'DM Sans', sans-serif;
+  --serif:        'Cormorant Garamond', 'Georgia', serif;
 
-  /* Colors */
-  /* Accent өнгөнүүд */
-  --gold:             #c9a84c;
-  --gold-light:       #e8c97a;
-  --gold-glow:        rgba(201, 168, 76, 0.18);
-  --border:           rgba(0, 0, 0, 0.08);
+  /* Gold */
+  --gold:      #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-glow:  rgba(201, 168, 76, 0.18);
+  --gold-hover: #f9f7f2;
 
-  /* Карт shadow */
-  --shadow-card:      0 2px 20px rgba(0, 0, 0, 0.10);
-  --shadow-hover:     0 16px 48px rgba(0, 0, 0, 0.22);
+  /* Misc colors */
+  --muted:      #7a7060;
+  --red:        #c0392b;
+  --green:      #27ae60;
+  --ligh-gray:  #e2d8d1;
+  --gray:       #9a9a9a;
+  --dark-gray:  #484848;
 
-  --gold-hover:#f9f7f2;
-  --muted:#7a7060;
-  --border:rgba(0,0,0,0.09);
-  --red:#c0392b;
-  --green:#27ae60;
-  --ligh-gray: #e2d8d1;
-  --gray: #9a9a9a;
-  --dark-gray: #484848;
+  /* Shadows */
+  --shadow-card:   0 2px 20px rgba(0, 0, 0, 0.10);
+  --shadow-hover:  0 16px 48px rgba(0, 0, 0, 0.22);
   --shadow-lifted: 0 0.2rem 1rem #fce6a7;
+  --border:        rgba(0, 0, 0, 0.09);
 
   /* Surface vars — white card/nav backgrounds */
   --surface:      #ffffff;
   --surface-input:#ffffff;
   --border-line:  #e7e7e7;
+
+  /* Secondary border */
+  --border2: #d5d0c8;
+
+  /* Secondary muted text */
+  --muted2: #b0a89e;
+
+  /* Additional gold variants */
+  --gold2:     #d4af5a;
+  --gold-soft: rgba(201, 168, 76, 0.08);
+
+  /* Border-radius shortcuts */
+  --r:  3px;
+  --r2: 8px;
+
+  /* Easing curves */
+  --ease:  cubic-bezier(.25, .46, .45, .94);
+  --ease2: cubic-bezier(.4,  0,   .2,  1);
+
+  /* Shadow scale */
+  --shadow-xs: 0 1px 3px  rgba(0, 0, 0, .04);
+  --shadow-sm: 0 2px 8px  rgba(0, 0, 0, .06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, .08);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, .12);
+  --shadow-xl: 0 32px 64px rgba(0, 0, 0, .16);
 }
 
 /* ════════════════════════════════════════════
@@ -73,36 +92,36 @@
   --background-beige-light:  #221e17;
   --background-dark:         #090807;   /* top-nav / footer stays deep */
 
-  /* Text */
-  --text-primary:   #f0ece6;
-  --text-secondary: #a89e94;
-  --text-tertiary:  #6b6055;
-  --text-review:    #f0ece6;
+  /* Tells browser this is a dark context — affects scrollbars, form controls */
+  color-scheme: dark;
+
+  /* Text — all values verified to meet WCAG 2.1 AA (≥4.5:1) on dark backgrounds */
+  --text-primary:   #f0ece6;   /* 15.9:1 on bg-primary */
+  --text-secondary: #a89e94;   /*  7.1:1 on bg-primary */
+  --text-tertiary:  #938b83;   /*  5.6:1 on bg-primary, 5.1:1 on surface — was #6b6055 (3.05:1 FAIL) */
   --text-on-dark:   #f0ece6;
-  --text-footer:    #8a8278;
+  --text-footer:    #8a8278;   /*  5.3:1 on footer bg #090807 */
 
   /* Buttons */
   --button-primary:          #e8e4de;
-  --button-primary-hover:    #c9a84c;
   --button-primary-text:     #141210;
-  --button-secondary:        #2d2820;
   --button-secondary-hover:  #a39382;
   --button-secondary-text:   #f0ece6;
 
   /* Gold — accent stays vibrant */
-  --gold:       #c9a84c;
+  --gold:       #c9a84c;   /* 8.2:1 on bg-primary */
   --gold-light: #e8c97a;
   --gold-glow:  rgba(201, 168, 76, 0.25);
-  --gold-hover: #1f1c14;   /* dark tint for hover backgrounds */
+  --gold-hover: #1f1c14;
 
-  /* Borders & misc */
+  /* Borders & misc — tertiary/muted raised to meet 4.5:1 */
   --border:      rgba(255, 255, 255, 0.08);
   --ligh-gray:   #2d2820;
-  --gray:        #6b6055;
-  --dark-gray:   #a89e94;
-  --muted:       #7a7060;
-  --red:         #e05c4a;
-  --green:       #3ab06e;
+  --gray:        #938b83;   /* was #6b6055 (3.05:1 FAIL) */
+  --dark-gray:   #c0b8b0;
+  --muted:       #938b83;   /* was #7a7060 (3.84:1 FAIL) */
+  --red:         #e05c4a;   /* 5.2:1 on bg-primary */
+  --green:       #3ab06e;   /* 6.8:1 on bg-primary */
 
   /* Shadows — deeper in dark mode */
   --shadow-card:    0 2px 20px rgba(0, 0, 0, 0.50);
@@ -113,6 +132,45 @@
   --surface:        #1e1b16;
   --surface-input:  #262118;
   --border-line:    #2d2820;
+
+  /* Secondary border & muted */
+  --border2: rgba(255, 255, 255, 0.13);
+  --muted2:  #938b83;
+
+  /* Additional gold variants */
+  --gold2:     #e8c97a;
+  --gold-soft: rgba(201, 168, 76, 0.08);
+
+  /* Shadow scale — deeper in dark mode */
+  --shadow-xs: 0 1px 3px   rgba(0, 0, 0, .30);
+  --shadow-sm: 0 2px 8px   rgba(0, 0, 0, .45);
+  --shadow-md: 0 8px 24px  rgba(0, 0, 0, .55);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, .65);
+  --shadow-xl: 0 32px 64px rgba(0, 0, 0, .75);
+}
+
+/* ════════════════════════════════════════════
+   DARK MODE BUTTON OVERRIDES
+════════════════════════════════════════════ */
+[data-theme="dark"] .btn-primary {
+  background: var(--gold);
+  color: var(--background-primary);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--gold-light);
+  box-shadow: var(--shadow-lifted);
+  transform: translateY(-0.05rem);
+}
+
+[data-theme="dark"] .btn-secondary {
+  border-color: var(--text-tertiary);
+  color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* ════════════════════════════════════════════
@@ -171,6 +229,11 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+body {
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
 
 
 /* ════════════════════════════════════════════
@@ -272,7 +335,7 @@ html { scroll-behavior: smooth; }
 ════════════════════════════════════════════ */
 .btn-primary {
   background: var(--button-primary);
-  color: var(--text-on-dark);
+  color: var(--button-primary-text);
   font-family: var(--font-bold);
   font-size: 0.9375rem;
   font-weight: 700;
@@ -280,13 +343,13 @@ html { scroll-behavior: smooth; }
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
   text-decoration: none;
   display: inline-block;
 }
 
 .btn-primary:hover {
-  background: var(--button-primary-hover);
+  background: var(--gold);
   box-shadow: var(--shadow-lifted);
   transform: translateY(-0.05rem);
 }
@@ -308,8 +371,8 @@ html { scroll-behavior: smooth; }
 }
 
 .btn-secondary:hover {
-  border-color: var(--button-primary-hover);
-  color: var(--button-primary-hover);
+  border-color: var(--gold);
+  color: var(--gold);
   transform: translateY(-0.05rem);
 }
 

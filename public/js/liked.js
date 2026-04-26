@@ -1,6 +1,7 @@
 /* ══════════════════════════════════════════════════════════
    RENTFIT — liked.js
-   Дуртай бараануудыг product.json-с динамикаар харуулна
+   Дуртай бараануудыг product.json-с динамикаар харуулна.
+   Картын HTML бүтэц browse.js-тэй яг адилхан байна.
 ══════════════════════════════════════════════════════════ */
 
 const LIKED_KEY = 'rf_liked';
@@ -18,16 +19,76 @@ function toggleLike(id) {
   return idx === -1;
 }
 
-function fmt(n) {
-  return Number(n).toLocaleString() + '₮';
+function renderCard(product, products) {
+  const article = document.createElement('article');
+  article.className = 'product-card';
+  article.style.cursor = 'pointer';
+  article.dataset.id = product.id;
+
+  article.innerHTML = `
+    <div class="card-visual">
+      <img class="card-img" src="/public/source/${product.img_src}" alt="${product.item_name}" loading="lazy">
+      <span class="badge badge--new">${product.status || ''}</span>
+      <button class="card-heart liked" data-id="${product.id}" aria-label="Дуртайгаас хасах">&#10084;</button>
+      <button class="card-request-btn" data-id="${product.id}">📩 Хүсэлт илгээх</button>
+    </div>
+    <div class="card-body">
+      <p class="card-brand">${product.brand}</p>
+      <h3 class="card-name">${product.item_name}</h3>
+      <div class="rating">
+        <span class="rating-stars">${'★'.repeat(Math.round(product.rating))}</span>
+        <span class="rating-count">${product.rating} (${product.review_count})</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <p class="price-lbl">Өдөрт</p>
+          <strong class="card-price">${product.price}</strong>
+        </div>
+        <a class="card-link" href="/public/html/product.html?id=${product.id}">Харах →</a>
+      </div>
+    </div>`;
+
+  /* Navigate to product page on card click */
+  article.addEventListener('click', function(e) {
+    if (e.target.closest('button, a')) return;
+    location.href = '/public/html/product.html?id=' + product.id;
+  });
+
+  /* Prevent link from also triggering card click */
+  const link = article.querySelector('.card-link');
+  if (link) link.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  /* Heart — unlike and fade out */
+  const heart = article.querySelector('.card-heart');
+  heart.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const stillLiked = toggleLike(product.id);
+    this.classList.toggle('liked', stillLiked);
+    if (!stillLiked) {
+      article.style.transition = 'opacity 0.3s';
+      article.style.opacity = '0';
+      setTimeout(function() { renderLiked(products); }, 300);
+    }
+  });
+
+  /* Request modal */
+  const reqBtn = article.querySelector('.card-request-btn');
+  reqBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (typeof window.openRequestModal === 'function') {
+      window.openRequestModal(product);
+    }
+  });
+
+  return article;
 }
 
 function renderLiked(products) {
-  const grid   = document.querySelector('.wishlist');
-  const ids    = getLikedIds();
-  const liked  = ids.length
+  const grid  = document.querySelector('.wishlist');
+  const ids   = getLikedIds();
+  const liked = ids.length
     ? products.filter(function(p) { return ids.includes(p.id); })
-    : products.slice(0, 3); // demo fallback — show first 3 if nothing liked
+    : products.slice(0, 3); // demo fallback — first 3 if nothing liked
 
   if (!grid) return;
 
@@ -36,55 +97,9 @@ function renderLiked(products) {
     return;
   }
 
-  grid.innerHTML = liked.map(function(p) {
-    return `
-    <article class="product-card" style="cursor:pointer" data-id="${p.id}">
-      <figure class="card-visual">
-        <img src="/public/source/${p.img_src}" alt="${p.item_name}" loading="lazy">
-        <button class="card-heart liked" data-id="${p.id}" title="Дуртайгаас хасах">&#10084;</button>
-      </figure>
-      <div class="card-body">
-        <p class="card-brand">${p.brand}</p>
-        <h2 class="card-name">${p.item_name}</h2>
-        <p class="card-meta">${p.category} · ${p.status}</p>
-        <footer class="card-footer">
-          <div class="rating">
-            <span class="rating-stars">${'★'.repeat(Math.round(p.rating))}</span>
-            <span class="rating-count">${p.rating} (${p.review_count})</span>
-          </div>
-          <div class="card-price-group">
-            <strong class="price price--small">${p.price}</strong>
-            <a href="/public/html/product.html?id=${p.id}" class="card-link">Харах →</a>
-          </div>
-        </footer>
-      </div>
-    </article>`;
-  }).join('');
-
-  /* Wire interactions */
-  grid.querySelectorAll('.product-card').forEach(function(card) {
-    const id = parseInt(card.dataset.id, 10);
-
-    card.addEventListener('click', function(e) {
-      if (e.target.closest('button, a')) return;
-      location.href = '/public/html/product.html?id=' + id;
-    });
-
-    const link = card.querySelector('.card-link');
-    if (link) { link.addEventListener('click', function(e) { e.stopPropagation(); }); }
-
-    const heart = card.querySelector('.card-heart');
-    if (heart) {
-      heart.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const stillLiked = toggleLike(id);
-        if (!stillLiked) {
-          card.style.transition = 'opacity 0.3s';
-          card.style.opacity = '0';
-          setTimeout(function() { renderLiked(products); }, 300);
-        }
-      });
-    }
+  grid.innerHTML = '';
+  liked.forEach(function(p) {
+    grid.appendChild(renderCard(p, products));
   });
 }
 
