@@ -49,10 +49,12 @@ export default class Auth {
   // ── User lookup (merges JSON users + registered) ─────────
   async getAllUsers() {
     let base = [];
-    try {
-      const r = await fetch('/public/json/user.json');
-      if (r.ok) base = await r.json();
-    } catch (_) {}
+    for (const path of ['/public/json/users.json', '../json/users.json']) {
+      try {
+        const r = await fetch(path);
+        if (r.ok) { base = await r.json(); break; }
+      } catch (_) {}
+    }
     return [...base, ...this.getRegistered()];
   }
   // async-- ene uildel udaj magadgui uchir huleelgui busad uildliig hiih

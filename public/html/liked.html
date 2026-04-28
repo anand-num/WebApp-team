@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentFit</title>
-
+    <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
     <link rel="stylesheet" href="/public/css/global.css">
     <link rel="stylesheet" href="/public/css/layout.css">
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="/public/css/liked.css">
+    <link rel="stylesheet" href="/public/css/cart-side.css">
     <script type="module" src="/public/js/card-actions.js"></script>
 </head>
 
@@ -35,8 +36,8 @@
                 <div class="search-bar">
                     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                         stroke-linecap="round">
-                        <circle cx="11" cy="11" r="7" />
-                        <path d="m20 20-4-4" />
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-4-4"></path>
                     </svg>
                     <input type="text" placeholder="хайх.." />
                 </div>
@@ -48,6 +49,7 @@
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 0 1-8 0" />
                     </svg>
+                    <span id="cartBadge" class="cart-badge"></span>
                 </a>
                 <a href="../html/liked.html" class="like-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -77,74 +79,7 @@
 
         <p class="sec-tag">Хадгалсан</p>
         <h2 class="section-title">Дуртай хувцас</h2>
-        <main class="wishlist">
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Belucci</p>
-                    <h2 class="card-name">Цэнхэр даашинз</h2>
-                    <p class="card-meta">Одоо 4 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★★</span>
-                            <span class="rating-count">4.5 (20)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Цэнхэр даашинз — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/kimono.jpg" alt="Kimono">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Kishimori</p>
-                    <h2 class="card-name">Хар кимоно</h2>
-                    <p class="card-meta">Одоо 3 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★</span>
-                            <span class="rating-count">4.8 (15)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Хар кимоно — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-            <article class="product-card">
-                <figure class="card-visual">
-                    <img src="/public/source/bear-costume.jpg" alt="bear costume">
-                    <button class="card-heart active">&#10084;</button>
-                </figure>
-                <div class="card-body">
-                    <p class="card-brand">Temu</p>
-                    <h2 class="card-name">Баавгайн маскот</h2>
-                    <p class="card-meta">Одоо 5 хүний сагсанд байна</p>
-                    <footer class="card-footer">
-                        <div class="rating">
-                            <span class="rating-stars">★★★★</span>
-                            <span class="rating-count">4.0 (25)</span>
-                        </div>
-                        <div class="card-price-group">
-                            <strong class="price price--small">20,000₮</strong>
-                            <a href="/public/html/product.html" class="card-link"
-                                aria-label="Баавгайн маскот — дэлгэрэнгүй харах">Харах →</a>
-                        </div>
-                    </footer>
-                </div>
-            </article>
-        </main>
+        <main class="wishlist"></main>
     </section>
 
     <footer class="footer">
@@ -255,7 +190,92 @@
         © 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.
       </p>
     </footer>
+    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
+      <header class="cart-side-hd">
+        <h2>Таны сагс</h2>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+      </header>
+      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
+      <div id="cartFoot"></div>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <nav class="bottom-nav">
+      <a href="/public/html/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Нүүр
+      </a>
+      <a href="/public/html/browse.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+        </svg>
+      </a>
+      <a href="/public/html/browse.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </a>
+      <a href="/public/html/liked.html" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"/>
+        </svg>
+      </a>
+      <button id="mobileLoginBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </button>
+    </nav>
+    <!-- Toast notification -->
+    <div id="req-toast" class="req-toast"></div>
+
+    <!-- Rental request modal -->
+    <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
+      <article class="modal-card" id="qmCard">
+        <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
+        <h3>📩 Түрээсийн хүсэлт</h3>
+        <section class="rm-product">
+          <figure class="rm-product-fig"><span id="rm-emoji">👗</span></figure>
+          <div class="rm-product-info">
+            <p class="rm-brand" id="rm-brand">—</p>
+            <p class="rm-name"  id="rm-name">—</p>
+            <p class="rm-price" id="rm-price">—</p>
+          </div>
+        </section>
+        <fieldset class="rm-field">
+          <legend>Размер *</legend>
+          <div id="rmSizes" class="rm-size-btns"></div>
+          <input type="hidden" id="rmSize">
+        </fieldset>
+        <fieldset class="rm-dates">
+          <legend>Хугацаа *</legend>
+          <div class="form-group">
+            <label for="rmFrom">Эхлэх огноо</label>
+            <input type="date" id="rmFrom" onchange="calcRmTotal()">
+          </div>
+          <div class="form-group">
+            <label for="rmTo">Дуусах огноо</label>
+            <input type="date" id="rmTo" onchange="calcRmTotal()">
+          </div>
+        </fieldset>
+        <div class="rm-total">
+          <span id="rmDays">0 өдөр</span>
+          <strong id="rmTotal">0₮</strong>
+        </div>
+        <div class="form-group">
+          <label for="rmComment">Нэмэлт тайлбар</label>
+          <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
+        </div>
+        <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
+      </article>
+    </div>
+
     <script type="module" src="/public/js/auth.js"></script>
+    <script type="module" src="/public/js/liked.js"></script>
+    <script src="/public/js/cart-side.js"></script>
+    <script src="/public/js/request-modal.js"></script>
+    <script src="/public/js/theme.js"></script>
 </body>
 
 </html>

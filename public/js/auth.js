@@ -132,101 +132,76 @@ class AuthUI {
     const loginBtn  = document.getElementById('loginBtn');
     const mobileBtn = document.getElementById('mobileLoginBtn');
 
-    // Энэ хуудсанд loginBtn байхгүй бол зогсоно
-    if (!loginBtn) return;
+    // Хуудсанд дэскоп болон мобайл хоёулаа байхгүй бол зогсоно
+    if (!loginBtn && !mobileBtn) return;
 
     if (user) {
-      // ── Хэрэглэгч нэвтэрсэн үед ─────────────────────
-
-      // Нэрийн эхний үсгийг авна: full_name → username → '?' дарааллаар
-      // .trim() хоосон зай арилгана, .charAt(0) эхний үсэг, .toUpperCase() томоор болгоно
       const initial = (user.full_name || user.username || '?').trim().charAt(0).toUpperCase();
+      const avatar  = `<span class="prof-avatar">${initial}</span>`;
+      const onLogin = function(e) { e.stopPropagation(); this.toggleDropdown(user); }.bind(this);
 
-      // Тухайн үсгийг агуулсан дугуй аватар HTML үүсгэнэ
-      const avatar = `<span class="user-avatar">${initial}</span>`;
-
-      // Товчлуурын дотоорхыг аватараар солино
-      loginBtn.innerHTML = avatar;
-
-      // hover хийэд хэрэглэгчийн нэр харуулна
-      loginBtn.title = user.full_name || user.username;
-
-      // Аватар дарахад dropdown нээгдэнэ
-      // e.stopPropagation() — дарах үйлдэл хуудас руу дамжихгүй байхад хэрэглэнэ
-      loginBtn.onclick = function(e) {
-        e.stopPropagation();
-        this.toggleDropdown(user);
-      }.bind(this);
-
-      // Мобайл товчлуурт мөн адил аватар болон үйлдлийг хэрэглэнэ
-      if (mobileBtn) {
-        mobileBtn.innerHTML = avatar;
-        mobileBtn.onclick   = loginBtn.onclick;
-      }
+      if (loginBtn) { loginBtn.innerHTML = avatar; loginBtn.title = user.full_name || user.username; loginBtn.onclick = onLogin; }
+      if (mobileBtn){ mobileBtn.innerHTML = avatar; mobileBtn.onclick = onLogin; }
 
     } else {
-      // ── Хэрэглэгч нэвтрээгүй үед ────────────────────
+      const icon    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+      const onLogin = () => { const m = document.getElementById('loginModal'); this.openModal(m); };
 
-      // Хүний дүрс SVG икон (дугуй = толгой, муруй зам = мөр)
-      const icon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
-
-      // Товчлуурт хүний дүрс иконыг харуулна
-      loginBtn.innerHTML = icon;
-
-      // Хулганаар дээгүүр байхад "Нэвтрэх" tooltip харуулна
-      loginBtn.title = 'Нэвтрэх';
-
-      // Икон дарахад нэвтрэх modal нээгдэнэ
-      loginBtn.onclick = () => {
-        const loginModal = document.getElementById('loginModal');
-        this.openModal(loginModal);
-      };
-
-      // Мобайл товчлуурт мөн адил икон болон үйлдлийг хэрэглэнэ
-      if (mobileBtn) {
-        mobileBtn.innerHTML = icon;
-        mobileBtn.onclick   = loginBtn.onclick;
-      }
+      if (loginBtn) { loginBtn.innerHTML = icon; loginBtn.title = 'Нэвтрэх'; loginBtn.onclick = onLogin; }
+      if (mobileBtn){ mobileBtn.innerHTML = icon; mobileBtn.onclick = onLogin; }
     }
   }
 
-  // ── User dropdown ─────────────────────────────────────
+  // ── Profile dropdown ──────────────────────────────────
   toggleDropdown(user) {
-    // Dropdown аль хэдийн нээлттэй байвал хаана (toggle зарчим)
-    const existing = document.getElementById('user-dropdown');
-    if (existing) { existing.remove(); return; }
+    const existing = document.getElementById('profDD');
 
-    // Шинэ dropdown div элемент үүсгэж id болон класс оноона
-    const drop = document.createElement('div');
-    drop.id = 'user-dropdown';
-    drop.className = 'user-dropdown';
+    // Already open — close it
+    if (existing) {
+      existing.classList.remove('open');
+      setTimeout(() => existing.remove(), 200);
+      return;
+    }
 
-    // Хэрэглэгчийн нэр, имэйл, membership мэдээллийг dropdown дотор харуулна
+    const base = '/public/html/my-rentals.html';
+
+    // Use <nav> — semantic navigation landmark
+    const drop = document.createElement('nav');
+    drop.id        = 'profDD';
+    drop.className = 'prof-dropdown';
+    drop.setAttribute('aria-label', 'Хэрэглэгчийн цэс');
+
     drop.innerHTML = `
-      <div class="user-dropdown-info">
-        <strong>${user.full_name || user.username}</strong>
-        <span>${user.email}</span>
-        <span class="membership-badge">${user.membership === 'premium' ? '★ Premium' : 'Standard'}</span>
-      </div>
+      <a href="${base}#info"><span>👤</span> Профайл</a>
+      <a href="${base}#active"><span>📦</span> Миний түрээс</a>
+      <a href="${base}#incoming"><span>📩</span> Ирсэн хүсэлт</a>
+      <a href="${base}#listings"><span>👗</span> Миний зар</a>
+      <a href="${base}#notifications"><span>🔔</span> Мэдэгдэл</a>
       <hr>
-      <button id="logoutBtn">Гарах</button>`;
+      <a class="logout-link" id="logoutLink"><span>🚪</span> Гарах</a>`;
 
-    // Dropdown-ийг loginBtn-ийн яг ард байрлуулна
     const loginBtn = document.getElementById('loginBtn');
     loginBtn.parentElement.style.position = 'relative';
     loginBtn.insertAdjacentElement('afterend', drop);
 
-    // "Гарах" дарахад session устгаж nav товчлуурыг шинэчилнэ
-    document.getElementById('logoutBtn').onclick = () => {
+    // Animate open on next frame
+    requestAnimationFrame(() => drop.classList.add('open'));
+
+    drop.querySelector('#logoutLink').onclick = (e) => {
+      e.preventDefault();
       this.#auth.clearSession();
       drop.remove();
       this.updateNavBtn();
     };
 
-    // Dropdown-оос гадна хаана ч дарвал автоматаар хаагдана
+    // Close on outside click
     setTimeout(() => {
       document.addEventListener('click', function handler(e) {
-        if (!drop.contains(e.target)) { drop.remove(); document.removeEventListener('click', handler); }
+        if (!drop.contains(e.target)) {
+          drop.classList.remove('open');
+          setTimeout(() => drop.remove(), 200);
+          document.removeEventListener('click', handler);
+        }
       });
     }, 0);
   }

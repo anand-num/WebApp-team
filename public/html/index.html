@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="mn">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentFit</title>
-
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/layout.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <script type="module" src="../js/home.js"></script>
+    <link rel="stylesheet" href="../css/cart-side.css">
   </head>
 
   <body>
@@ -39,10 +40,10 @@
               stroke-width="1.5"
               stroke-linecap="round"
             >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-4-4" />
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-4-4"/>
             </svg>
-            <input type="text" placeholder="хайх.." />
+            <input type="text" placeholder="хайх..">
           </div>
 
           <a href="../html/cart.html" class="cart-icon">
@@ -58,6 +59,7 @@
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
+            <span id="cartBadge" class="cart-badge"></span>
           </a>
           <a href="../html/liked.html" class="like-btn">
             <svg
@@ -91,10 +93,10 @@
       </div>
       <div class="sub-nav">
         <a href="../html/browse.html">Шинэ</a>
-        <a href="../html/browse.html">Гоёлын</a>
-        <a href="../html/browse.html">Өдөр тутмын</a>
-        <a href="../html/browse.html">Бизнес</a>
-        <a href="../html/browse.html">Монгол Үндэсний</a>
+        <a href="../html/browse.html?cat=Evening+Wear">Гоёлын</a>
+        <a href="../html/browse.html?cat=Dance">Өдөр тутмын</a>
+        <a href="../html/browse.html?cat=Costume">Бизнес</a>
+        <a href="../html/browse.html?cat=Cultural">Монгол Үндэсний</a>
       </div>
     </header>
     <section class="hero-section">
@@ -115,13 +117,12 @@
         <h1>Загварлаг</h1>
         <h1>харагд,</h1>
         <h1 class="highlight">хямдаар</h1>
-        <br />
+        <br>
         <article>
           Брэндийн хувцас өдрөөр, долоо хоногоор хэрэглэж, худалдан авах
           шаардлагагүй. Захиал, хэрэглэ, буцаа, захиал.
         </article>
-        <br />
-        <br />
+        <br>
         <div class="hero-buttons-cont">
           <a href="../html/browse.html" class="btn-primary">КАТАЛОГ ҮЗЭХ</a>
           <a href="#how-it-works" class="btn-secondary">ХЭРХЭН АЖИЛЛАДАГ</a>
@@ -154,9 +155,9 @@
       </div>
       <div class="hero-right">
         <div class="hero-img-grid">
-          <img src="../source/dress2.jpg" alt="Wedding Dress" />
-          <img src="../source/mongolian-male-deel.jpg" alt="Kimono" />
-          <img src="../source/big-blue-dress.jpg" alt="Blue Dress" />
+          <img src="../source/dress2.jpg" alt="Wedding Dress">
+          <img src="../source/mongolian-male-deel.jpg" alt="Kimono">
+          <img src="../source/big-blue-dress.jpg" alt="Blue Dress">
         </div>
       </div>
     </section>
@@ -171,15 +172,49 @@
       </header>
 
       <section class="review-container" id="home-review-container">
+        <h2 class="visually-hidden">Review container</h2>
       </section>
     </section>
 
     <section id="how-it-works">
+       <h2 class="visually-hidden">How it wokrs</h2>
       <header style="text-align: center">
-        <h2>Хэрхэн ажилладаг</h2>
-        <p style="font-size: larger">Дөрвөн хялбар алхамаар түрээслээрэй!</p>
+        <h2 class="section-tag">Хэрхэн ажилладаг</h2>
+        <h1>Хувцасаа түрээслүүлэх 3 алхам </h1>
       </header>
+
       <section class="work-steps-container">
+        <h2 class="visually-hidden">Work steps</h2>
+        <article class="steps">
+          <h2>01</h2>
+          <h3>Бүртгэх</h3>
+          <p>
+            Хувцасаа нэмж, үнэ тогтоож, нэр болон тайлбар ширхэгийг бичнэ.
+          </p>
+        </article>
+
+        <article class="steps">
+          <h2>02</h2>
+          <h3>Хүсэлт авах</h3>
+          <p>
+            Түрээслэгчийн гаргасан хүсэлтийг харж зөвшөөрөх эсвэл татгалзана.
+          </p>
+        </article>
+
+        <article class="steps">
+          <h2>03</h2>
+          <h3>Орлого олох</h3>
+          <p>Хувцас буцаагдмагц 15% хураамж хасч таны данс руу шилжүүлнэ.</p>
+        </article>
+
+      </section>
+      <header style="text-align: center">
+        <h2 class="section-tag">Орлого олох</h2>
+        <h1>Хувцас түрээслэх 4 алхам</h1>
+      </header>
+
+      <section class="work-steps-container">
+        <h2 class="visually-hidden">Work steps</h2>
         <article class="steps">
           <h2>01</h2>
           <h3>Үзэж сонгох</h3>
@@ -193,7 +228,7 @@
           <h2>02</h2>
           <h3>Огноо сонгох</h3>
           <p>
-            Түрээслэх хугацаагаа сонгоно уу. Стандарт 4 1 1 Өдөрт түрээс нь
+            Түрээслэх хугацаагаа сонгоно уу. Өдөрт түрээс нь
             хүргэлт, буцаалтыг багтаасан.
           </p>
         </article>
@@ -203,7 +238,7 @@
           <h3>Хүлээн авч өмсөх</h3>
           <p>Таны арга хэмжээний өмнө цэвэрхэн хувцсыг хаалганы урд хүргэнэ.</p>
         </article>
-        <article class="steps">
+                <article class="steps">
           <h2>04</h2>
           <h3>Буцаах</h3>
           <p>
@@ -224,7 +259,7 @@
       </div>
       <!-- "БҮХ КАТАЛОГ" товч -->
       <div class="featured-cta">
-        <a href="/public/html/browse.html" class="catalog-btn">
+        <a href="/public/html/browse.html" class="btn-secondary">
           Бүх каталог →
         </a>
       </div>
@@ -233,6 +268,7 @@
 
     <footer class="footer">
       <section class="footer-about">
+        <h2 class="visually-hidden">Footer</h2>
         <p class="logo">Rent<em>Fit</em></p>
         <p>
           Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой
@@ -384,7 +420,7 @@
         </svg>
       </a>
 
-      <a href="#">
+      <a href="/public/html/liked.html">
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -413,6 +449,61 @@
         </svg>
       </button>
     </nav>
+    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
+      <header class="cart-side-hd">
+        <h2>Таны сагс</h2>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+      </header>
+      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
+      <div id="cartFoot"></div>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <!-- Toast notification -->
+    <div id="req-toast" class="req-toast"></div>
+
+    <!-- Rental request modal -->
+    <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
+      <article class="modal-card" id="qmCard">
+        <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
+        <h3>📩 Түрээсийн хүсэлт</h3>
+        <section class="rm-product">
+          <figure class="rm-product-fig"><span id="rm-emoji">👗</span></figure>
+          <div class="rm-product-info">
+            <p class="rm-brand" id="rm-brand">—</p>
+            <p class="rm-name"  id="rm-name">—</p>
+            <p class="rm-price" id="rm-price">—</p>
+          </div>
+        </section>
+        <fieldset class="rm-field">
+          <legend>Размер *</legend>
+          <div id="rmSizes" class="rm-size-btns"></div>
+          <input type="hidden" id="rmSize">
+        </fieldset>
+        <fieldset class="rm-dates">
+          <legend>Хугацаа *</legend>
+          <div class="form-group">
+            <label for="rmFrom">Эхлэх огноо</label>
+            <input type="date" id="rmFrom" onchange="calcRmTotal()">
+          </div>
+          <div class="form-group">
+            <label for="rmTo">Дуусах огноо</label>
+            <input type="date" id="rmTo" onchange="calcRmTotal()">
+          </div>
+        </fieldset>
+        <div class="rm-total">
+          <span id="rmDays">0 өдөр</span>
+          <strong id="rmTotal">0₮</strong>
+        </div>
+        <div class="form-group">
+          <label for="rmComment">Нэмэлт тайлбар</label>
+          <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
+        </div>
+        <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
+      </article>
+    </div>
     <script type="module" src="/public/js/auth.js"></script>
+    <script src="/public/js/cart-side.js"></script>
+    <script src="/public/js/request-modal.js"></script>
+    <script src="/public/js/theme.js"></script>
   </body>
 </html>

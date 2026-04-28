@@ -3,390 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Миний түрээс — RentFit</title>
+  <title>Миний профайл — RentFit</title>
+  <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="/public/css/global.css">
   <link rel="stylesheet" href="/public/css/layout.css">
   <link rel="stylesheet" href="/public/css/styles.css">
   <link rel="stylesheet" href="/public/css/my-rentals.css">
 </head>
-<body class="rentals-page">
+<body>
 
-       <header class="nav-header">
-      <div class="top-nav">
-        <div class="top-left-nav">
-          <p style="color: var(--gray);font-size: 0.7rem; font-weight: 550;">Монголын №1 Хувцас Түрээс</p>
-        </div>
-        <div class="top-right-nav">
-          <a href="" >MN</a>
-          <div class="line-vertical"></div>
-          <a href="">admin</a>
-        </div>
+  <!-- ══ НАВИГАЦИ ══ -->
+  <header class="nav-header">
+    <div class="top-nav">
+      <div class="top-left-nav">
+        <p style="color:var(--gray);font-size:.7rem;font-weight:550;">Монголын №1 Хувцас Түрээс</p>
       </div>
-      <div class="mid-nav">
-        <div class="left-nav">
-          <a href="../html/index.html" class="logo">
-            <p>Rent<span class="highlight">Fit</span></p>
-          </a>
-        </div>
-        <div class="right-nav">
-          <div class="search-bar">
-            <svg
-              class="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-4-4" />
-            </svg>
-            <input type="text" placeholder="хайх.." />
-          </div>
-
-          <a href="../html/cart.html" class="cart-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>
-          </a>
-          <a href="../html/liked.html" class="like-btn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
-              />
-            </svg>
-          </a>
-
-          <button id="loginBtn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-          </button>
-        </div>
+      <div class="top-right-nav">
+        <a href="">MN</a>
+        <div class="line-vertical"></div>
+        <a href="">admin</a>
       </div>
-      <div class="sub-nav">
-        <a href="">Шинэ</a>
-        <a href="">Гоёлын</a>
-        <a href="">Өдөр тутмын</a>
-        <a href="">Бизнес</a>
-        <a href="">Монгол Үндэсний</a>
-      </div>
-    </header>
-
-  <!-- Хэрэглэгч + гарчиг -->
-  <section class="rentals-hero">
-    <div class="rentals-avatar" aria-hidden="true">Н</div>
-    <div class="rentals-hero-text">
-      <p>Сайн уу,</p>
-      <h1>Нарантуяа</h1>
     </div>
-  </section>
+    <div class="mid-nav">
+      <div class="left-nav">
+        <a href="../html/index.html" class="logo"><p>Rent<span class="highlight">Fit</span></p></a>
+      </div>
+      <div class="right-nav">
+        <div class="search-bar">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+          </svg>
+          <input type="text" placeholder="хайх.."/>
+        </div>
+        <a href="../html/cart.html" class="cart-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </a>
+        <a href="../html/liked.html" class="like-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"/>
+          </svg>
+        </a>
+        <button id="loginBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- sub-nav: "Түрээслэх" онцлох холбоосоор нэмэгдсэн -->
+    <div class="sub-nav">
+      <a href="/public/html/browse.html">Шинэ</a>
+      <a href="/public/html/browse.html?cat=Evening+Wear">Гоёлын</a>
+      <a href="/public/html/browse.html?cat=Dance">Өдөр тутмын</a>
+      <a href="/public/html/browse.html?cat=Costume">Бизнес</a>
+      <a href="/public/html/browse.html?cat=Cultural">Монгол Үндэсний</a>
+      <a href="/public/html/my-rentals.html" class="sub-nav-gold">Түрээслэх</a>
+    </div>
+  </header>
 
-  <!-- Tab шүүлт -->
-  <div class="rentals-tabs" role="tablist" aria-label="Түрээсийн статус">
-    <button class="tab-btn active" role="tab" aria-selected="true"  id="tab-active"   aria-controls="panel-active">Идэвхтэй (2)</button>
-    <button class="tab-btn"        role="tab" aria-selected="false" id="tab-history"  aria-controls="panel-history">Түүх (5)</button>
-    <button class="tab-btn"        role="tab" aria-selected="false" id="tab-listings" aria-controls="panel-listings">Миний зар (3)</button>
+  <!-- ══ ПРОФАЙЛ ХУУДАС ══ -->
+  <main class="page">
+    <div class="profile-wrap">
+
+      <!-- Профайлын дээд хэсэг: avatar + нэр + имэйл -->
+      <div class="profile-hd">
+        <div class="profile-av" id="profile-av">?</div>
+        <div class="profile-info">
+          <h1 id="profile-name">Зочин</h1>
+          <p class="email" id="profile-email">—</p>
+          <p class="meta" id="profile-meta">📞 — · 📍 Улаанбаатар</p>
+        </div>
+      </div>
+
+      <!-- 4 статистик хайрцаг -->
+      <div class="profile-stats">
+        <div class="p-stat">
+          <div class="val" id="stat-active">2</div>
+          <div class="lbl">Идэвхтэй</div>
+        </div>
+        <div class="p-stat">
+          <div class="val" id="stat-total">5</div>
+          <div class="lbl">Захиалга</div>
+        </div>
+        <div class="p-stat">
+          <div class="val">2</div>
+          <div class="lbl">Миний зар</div>
+        </div>
+        <div class="p-stat">
+          <div class="val">75к₮</div>
+          <div class="lbl">Орлого</div>
+        </div>
+      </div>
+
+      <!-- Таб товчнуудын мөр -->
+      <div class="profile-tabs">
+        <button class="ptab active" id="tab-info"     aria-controls="panel-info">Мэдээлэл</button>
+        <button class="ptab"        id="tab-active"   aria-controls="panel-active">Миний түрээс</button>
+        <button class="ptab"        id="tab-history"  aria-controls="panel-history">Түүх</button>
+        <button class="ptab"        id="tab-listings" aria-controls="panel-listings">Миний зарууд</button>
+      </div>
+
+      <!-- ══ МЭДЭЭЛЭЛ ТАБ ══ -->
+      <div id="panel-info">
+
+        <div class="profile-card">
+          <h3>👤 Хувийн мэдээлэл</h3>
+          <div class="profile-form">
+            <div class="form-group">
+              <label>Нэр</label>
+              <input type="text" id="inp-name">
+            </div>
+            <div class="form-group">
+              <label>Имэйл</label>
+              <input type="email" id="inp-email">
+            </div>
+            <div class="form-group">
+              <label>Утас</label>
+              <input type="tel" id="inp-phone">
+            </div>
+            <div class="form-group">
+              <label>Хот</label>
+              <input type="text" id="inp-city" value="Улаанбаатар">
+            </div>
+            <div class="form-group full">
+              <label>Хүргэлтийн хаяг</label>
+              <input type="text" placeholder="Дүүрэг, хороо, байр, орц, давхар...">
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <button class="btn-sm dark" onclick="showToast('Мэдээлэл хадгалагдлаа ✓','green')">Хадгалах</button>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <h3>🔒 Нууц үг солих</h3>
+          <div class="profile-form">
+            <div class="form-group">
+              <label>Одоогийн нууц үг</label>
+              <input type="password" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label>Шинэ нууц үг</label>
+              <input type="password" placeholder="••••••••">
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <button class="btn-sm outline" onclick="showToast('Нууц үг солигдлоо ✓','green')">Солих</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ ИДЭВХТЭЙ ТҮРЭЭС ТАБ ══ -->
+      <!-- JS-ийн renderActiveRentals() энэ хэсгийг дүүргэнэ -->
+      <div id="panel-active" hidden>
+        <div class="profile-card">
+          <h3>📦 Одоо түрээслэж байна</h3>
+          <div id="active-list"></div>
+        </div>
+      </div>
+
+      <!-- ══ ЗАХИАЛГЫН ТҮҮХ ТАБ ══ -->
+      <!-- JS-ийн renderHistoryRentals() энэ хэсгийг дүүргэнэ -->
+      <div id="panel-history" hidden>
+        <div class="profile-card">
+          <h3>🕐 Өмнөх захиалгууд</h3>
+          <div id="history-list"></div>
+        </div>
+      </div>
+
+      <!-- ══ МИНИЙ ЗАРУУД ТАБ ══ -->
+      <div id="panel-listings" hidden>
+
+        <!-- Зарын жагсаалт -->
+        <div class="profile-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <h3 style="margin-bottom:0">👗 Миний түрээсийн зарууд</h3>
+            <button class="btn-sm dark" id="btn-add-listing">+ Хувцас нэмэх</button>
+          </div>
+          <!-- Зар 1 -->
+          <div class="p-order">
+            <img class="p-order-img" src="/public/source/tango-red-dress.jpg" alt="Улаан танго даашинз">
+            <div class="p-order-info">
+              <p class="p-order-name">Улаан танго даашинз</p>
+              <p class="p-order-meta">25,000₮/өдөр · S, M · 👁 42 үзэлт</p>
+            </div>
+            <div class="p-order-right">
+              <span class="p-order-status green">Нийтлэгдсэн</span>
+              <button class="btn-sm outline">Засах</button>
+            </div>
+          </div>
+          <!-- Зар 2 -->
+          <div class="p-order" style="border-bottom:none">
+            <img class="p-order-img" src="/public/source/wedding dress.jpg" alt="Хурим даашинз">
+            <div class="p-order-info">
+              <p class="p-order-name">Хурим даашинз</p>
+              <p class="p-order-meta">50,000₮/өдөр · S · 👁 89 үзэлт</p>
+            </div>
+            <div class="p-order-right">
+              <span class="p-order-status green">Нийтлэгдсэн</span>
+              <button class="btn-sm outline">Засах</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шинэ зар нэмэх форм — анхдагчаар нуугдсан -->
+        <div class="listing-add-card" id="listing-form-wrap" hidden>
+          <h3>✨ Шинэ хувцас түрээслүүлэх</h3>
+          <p style="font-size:.8rem;color:var(--muted);margin-bottom:18px">
+            Admin баталгаажуулсны дараа каталогт харагдана.
+          </p>
+          <div class="profile-form">
+            <div class="form-group">
+              <label>Хувцасны нэр *</label>
+              <input type="text" id="l-name" placeholder="жш: Улаан танго даашинз">
+            </div>
+            <div class="form-group">
+              <label>Брэнд *</label>
+              <input type="text" id="l-brand" placeholder="жш: Zara, H&amp;M">
+            </div>
+            <div class="form-group">
+              <label>Өдөрт үнэ (₮) *</label>
+              <input type="number" id="l-price" placeholder="жш: 25000">
+            </div>
+            <div class="form-group">
+              <label>Хэмжээ</label>
+              <input type="text" placeholder="жш: S/M/L">
+            </div>
+            <div class="form-group full">
+              <label>Тайлбар</label>
+              <textarea placeholder="Хувцасны тухай дэлгэрэнгүй..."></textarea>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:18px">
+            <button class="btn-g" id="btn-submit-listing">Илгээх</button>
+            <button class="btn-sm outline" id="btn-cancel-listing">Болих</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ══ СЭТГЭГДЭЛ БИЧИХ MODAL ══ -->
+  <!-- .modal-ov.open классыг JS нэмдэг — нэмэгдэхэд харагдана -->
+  <div class="modal-ov" id="review-modal">
+    <div class="modal-card">
+      <!-- X хаах товч -->
+      <button class="modal-x" onclick="closeReviewModal()">✕</button>
+      <h3>★ Сэтгэгдэл бичих</h3>
+
+      <!-- 5 одны үнэлгээ -->
+      <p style="font-size:.66rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Үнэлгээ</p>
+      <div class="star-row">
+        <button class="star-btn">★</button>
+        <button class="star-btn">★</button>
+        <button class="star-btn">★</button>
+        <button class="star-btn">★</button>
+        <button class="star-btn">★</button>
+      </div>
+
+      <!-- Коммент талбар -->
+      <div class="form-group" style="margin-bottom:0">
+        <label>Сэтгэгдэл</label>
+        <textarea id="review-comment" placeholder="Хувцасны чанар, загвар, үйлчилгээний тухай..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:18px">
+        <button class="btn-g" onclick="submitReview()">Илгээх</button>
+        <button class="btn-sm outline" onclick="closeReviewModal()">Болих</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Tab агуулга -->
-  <div class="rentals-content">
+  <!-- ══ TOAST — JS харуулна ══ -->
+  <div class="toast" id="toast"></div>
 
-    <!-- ── Идэвхтэй ── -->
-    <section id="panel-active" role="tabpanel" aria-labelledby="tab-active">
-
-      <article class="product-card">
-        <figure class="card-visual" style="background:linear-gradient(135deg,#0d1b2a,#1b2838)">
-          <img src="/public/source/mongol-deel.png" alt="Харанхуй бизнес костюм">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Hugo Boss</p>
-          <h2 class="card-name">Харанхуй бизнес костюм</h2>
-          <p class="card-meta">
-            <span> 2026-04-05 – 2026-04-08</span>
-            <span> Размер S</span>
-            <span>3 өдөр</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <strong class="price price--medium">60,000₮</strong>
-          <span class="badge badge--success">Хүргэлтэнд</span>
-        </footer>
-      </article>
-
-      <article class="product-card">
-        <figure class="card-visual" style="background:linear-gradient(135deg,#4a1040,#8b2060)">
-          <img src="/public/source/big-blue-dress.jpg" alt="Цэнхэр даашинз">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Belucci</p>
-          <h2 class="card-name">Цэнхэр даашинз</h2>
-          <p class="card-meta">
-            <span> 2026-04-10 - 2026-04-13</span>
-            <span> Размер XS</span>
-            <span>3 өдөр</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <strong class="price price--medium">28,000₮</strong>
-          <span class="badge badge--pending">Хүлээгдэж буй</span>
-        </footer>
-      </article>
-
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <section class="footer-about">
+      <p class="logo">Rent<em>Fit</em></p>
+      <p>Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой сонголт.</p>
+      <div class="social-icons">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg></a>
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg></a>
+      </div>
     </section>
+    <nav class="footer-nav">
+      <ul>
+        <li><h3>Цэс</h3></li>
+        <li><a href="/public/html/index.html">Нүүр</a></li>
+        <li><a href="/public/html/browse.html">Цуглуулга</a></li>
+        <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
+        <li><a href="/public/html/my-rentals.html">Миний түрээс</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-policies">
+      <ul>
+        <li><h3>Бодлого</h3></li>
+        <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        <li><a href="#">Нууцлалын бодлого</a></li>
+        <li><a href="#">Cookie бодлого</a></li>
+        <li><a href="#">Бидний тухай</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-contact">
+      <ul>
+        <li><h3>Холбоо барих</h3></li>
+        <li><a href="#">Холбоо барих</a></li>
+        <li><a href="#">Тусламж</a></li>
+        <li><a href="#">Санал хүсэлт</a></li>
+      </ul>
+    </nav>
+    <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
+  </footer>
 
-    <!-- ── Түүх ── -->
-    <section id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
-
-      <article class="product-card">
-        <figure class="card-visual">
-          <img src="/public/source/kimono.jpg" alt="Хар кимоно">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Kishimori</p>
-          <h2 class="card-name">Хар кимоно</h2>
-          <p class="card-meta">
-            <span> 2026-03-15 – 2026-03-18</span>
-            <span> Размер M</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <strong class="price price--medium">45,000₮</strong>
-          <span class="badge badge--muted">Дууссан</span>
-        </footer>
-      </article>
-
-      <article class="product-card">
-        <figure class="card-visual">
-          <img src="/public/source/mongolian-queen-deel.jpg" alt="Монгол хатны дээл">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Yalguun</p>
-          <h2 class="card-name">Монгол хатны дээл</h2>
-          <p class="card-meta">
-            <span> 2026-03-01 - 2026-03-04</span>
-            <span> Размер M</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <strong class="price price--medium">90,000₮</strong>
-          <span class="badge badge--muted">Дууссан</span>
-        </footer>
-      </article>
-
-      <article class="product-card">
-        <figure class="card-visual">
-          <img src="/public/source/bear-costume.jpg" alt="Баавгайн маскот">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Temu</p>
-          <h2 class="card-name">Баавгайн маскот</h2>
-          <p class="card-meta">
-            <span> 2026-02-14 – 2026-02-15</span>
-            <span> Нэг хэмжээ</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <strong class="price price--medium">10,000₮</strong>
-          <span class="badge badge--danger">Цуцалсан</span>
-        </footer>
-      </article>
-
-    </section>
-
-    <!-- ── Миний зар ── -->
-    <section id="panel-listings" role="tabpanel" aria-labelledby="tab-listings" hidden>
-
-      <article class="product-card">
-        <figure class="card-visual">
-          <img src="/public/source/tango-red-dress.jpg" alt="Улаан танго даашинз">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Өөрийн зар</p>
-          <h2 class="card-name">Улаан танго даашинз</h2>
-          <p class="card-meta">
-            <span> 25,000₮ / өдөр</span>
-            <span> S, M</span>
-            <span>👁 42 үзэлт</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <span class="badge badge--success">Нийтлэгдсэн</span>
-          <a href="/public/html/list-item.html" class="btn-primary" style="font-size:0.75rem;padding:6px 12px;">Засах</a>
-        </footer>
-      </article>
-
-      <article class="product-card">
-        <figure class="card-visual">
-          <img src="/public/source/wedding dress.jpg" alt="Хурим даашинз">
-        </figure>
-        <div class="card-body">
-          <p class="card-brand">Өөрийн зар</p>
-          <h2 class="card-name">Хурим даашинз</h2>
-          <p class="card-meta">
-            <span> 50,000₮ / өдөр</span>
-            <span> S</span>
-            <span>👁 89 үзэлт</span>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <span class="badge badge--success">Нийтлэгдсэн</span>
-          <a href="/public/html/list-item.html" class="btn-primary" style="font-size:0.75rem;padding:6px 12px;">Засах</a>
-        </footer>
-      </article>
-
-    </section>
-
-  </div>
-
-    <footer class="footer">
-      <section class="footer-about">
-        <p class="logo">Rent<em>Fit</em></p>
-        <p>
-          Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой
-          сонголт.
-        </p>
-        <div class="social-icons">
-          <a href="#"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-instagram"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-facebook"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-twitter-x"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-envelope-at"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"
-              />
-              <path
-                d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"
-              />
-            </svg>
-          </a>
-        </div>
-      </section>
-
-      <nav class="footer-nav">
-        <ul>
-          <li>
-            <h3>Цэс</h3>
-          </li>
-          <li><a href="/public/html/index.html">Нүүр</a></li>
-          <li><a href="/public/html/browse.html">Цуглуулга</a></li>
-          <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
-          <li><a href="/public/html/my-rentals.html">Миний түрээс</a></li>
-        </ul>
-      </nav>
-
-      <nav class="footer-policies">
-        <ul>
-          <li>
-            <h3>Бодлого</h3>
-          </li>
-          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
-          <li><a href="#">Нууцлалын бодлого</a></li>
-          <li><a href="#">Cookie бодлого</a></li>
-          <li><a href="#">Бидний тухай</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-contact">
-        <ul>
-          <li>
-            <h3>Холбоо барих</h3>
-          </li>
-          <li><a href="#">Холбоо барих</a></li>
-          <li><a href="#">Тусламж</a></li>
-          <li><a href="#">Санал хүсэлт</a></li>
-        </ul>
-      </nav>
-
-      <p class="footer-bottom">
-        © 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.
-      </p>
-    </footer>
-  <script>
-    /* ── Tab харилцан солих ── */
-    const tabs   = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('[role="tabpanel"]');
-
-    tabs.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-        panels.forEach(p => p.setAttribute('hidden', ''));
-
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-        const target = document.getElementById(btn.getAttribute('aria-controls'));
-        target.removeAttribute('hidden');
-      });
-    });
-  </script>
+  <script src="/public/js/my-rentals.js"></script>
+  <script src="/public/js/theme.js"></script>
 </body>
 </html>

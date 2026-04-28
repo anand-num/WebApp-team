@@ -4,12 +4,7 @@
    дэлгэрэнгүй хуудсыг динамикаар дүүргэнэ
 ══════════════════════════════════════════════════════════ */
 
-import Cart from './modules/Cart.js';
-
-// Cart.js-ийн нэг instance үүсгэнэ — сагстай ажиллах бүх үйлдэлд ашиглана
-const cart = new Cart();
-
-// Тоог Монгол мөнгөний форматад хөрвүүлнэ — жш: 3000 → "3,000₮"
+//Тоог Монгол мөнгөний форматад хөрвүүлнэ — жш: 3000 → "3,000₮"
 function fmt(n) {
   return Number(n).toLocaleString() + '₮';
 }
@@ -19,12 +14,12 @@ function parsePrice(s) {
   return parseInt(String(s).replace(/[^0-9]/g, ''), 10) || 0;
 }
 
-// Түрээсийн хугацааны сонголтууд — id, өдрийн тоо, үнийн үржигч
-const DURATIONS = [
-  { id: 'd1', days: 1, mult: 1   }, // 1 өдөр — үндсэн үнэ
-  { id: 'd3', days: 3, mult: 1.5 }, // 3 өдөр — үндсэн үнийн 1.5 дахин
-  { id: 'd7', days: 7, mult: 2.5 }, // 7 өдөр — үндсэн үнийн 2.5 дахин
-];
+// Огнооноос өдрийн тоо тооцох туслах функц
+function daysBetween(from, to) {
+  if (!from || !to) { return 0; }
+  var diff = new Date(to) - new Date(from);
+  return Math.max(1, Math.round(diff / 86400000));
+}
 
 // ── ProductPage класс ────────────────────────────────────
 class ProductPage {
@@ -85,15 +80,8 @@ class ProductPage {
     document.getElementById('pd-stock').textContent        = `${p.shirheg} ширхэг бэлэн`;
     document.getElementById('pd-desc').textContent         = p.description;
 
-    // ── Хугацааны үнийг тооцоолж харуулна ────────────────
-    // Destructuring { id, mult } — объектоос зөвхөн id болон mult-ийг авна
-    DURATIONS.forEach(function(duration) {
-      const el = document.getElementById(`price-${duration.id}`);
-      if (el) {
-        // Math.round() — бүхэл тоо болгоно, fmt() — мөнгөний формат
-        el.textContent = fmt(Math.round(this.#base * duration.mult));
-      }
-    }.bind(this));
+    // Анхдагч нийт үнийг харуулна (огноо сонгоогүй үед 0)
+    document.getElementById('pd-total-price').textContent = '—';
 
     // ── Хэмжээний сонголт (radio товчнуудыг) үүсгэнэ ────
     const szOpts = document.getElementById('sz-opts');
@@ -154,80 +142,40 @@ class ProductPage {
     }).join('');
   }
 
-  // ── Сонгосон хугацааны нийт үнийг шинэчилнэ ────────────
+  // ── Огнооноос нийт үнийг тооцоолж харуулна ────────────
   updateTotal() {
-    // Сонгогдсон хугацааны radio товчийг олно
-    const checked = document.querySelector('input[name="dur"]:checked');
+    const from = document.getElementById('pd-from');
+    const to   = document.getElementById('pd-to');
+    const days = from && to ? daysBetween(from.value, to.value) : 0;
 
-    // checked байвал утгыг авна, байхгүй бол 3 өдрийг анхдагч болгоно
-    const days = checked ? parseInt(checked.value, 10) : 3;
-
-    // DURATIONS-аас тохирох объектийг хайна, олдохгүй бол 3 өдрийн (индекс 1) ашиглана
-    const dur = DURATIONS.find(function(d) { return d.days === days; }) || DURATIONS[1];
-
-    // Нийт үнийг тооцоолж харуулна
-    document.getElementById('pd-total-price').textContent = fmt(Math.round(this.#base * dur.mult));
-  }
-
-  // ── Сагсны товчны текстийг синхрончилна ────────────────
-  syncCartBtn(btn) {
-    // cart.has() — бараа сагсанд байвал "Сагснаас хасах", байхгүй бол "Сагсанд нэмэх"
-    btn.textContent = cart.has(this.#product.id) ? 'Сагснаас хасах' : 'Сагсанд нэмэх';
+    if (days > 0) {
+      document.getElementById('pd-total-price').textContent = fmt(this.#base * days);
+    } else {
+      document.getElementById('pd-total-price').textContent = '—';
+    }
   }
 
   // ── Товчнуудын үйлдлүүдийг холбоно ─────────────────────
   setupListeners() {
     const p = this.#product;
 
-    // Хугацааны radio товч өөрчлөгдөх бүрт нийт үнийг шинэчилнэ
-    document.querySelectorAll('input[name="dur"]').forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        this.updateTotal();
-      }.bind(this));
-    }.bind(this));
-
-    // Хуудас нээгдэхэд нийт үнийг анхны утгаар тооцоолно
-    this.updateTotal();
-
-    // ── Сагсны товч ────────────────────────────────────
-    const cartBtn = document.getElementById('btn-cart');
-
-    // Товчны текстийг одоогийн сагсны төлөвтэй синхрончилна
-    this.syncCartBtn(cartBtn);
-
-    cartBtn.addEventListener('click', function() {
-      if (cart.has(p.id)) {
-        // Аль хэдийн сагсанд байвал хасна
-        cart.remove(p.id);
-      } else {
-        // Сагсанд байхгүй бол нэмнэ
-
-        // Сонгогдсон хэмжээг олно
-        // ?.value — элемент байвал .value авна, null байвал undefined
-        const selectedSizeEl = document.querySelector('input[name="sz"]:checked');
-        const size = selectedSizeEl
-          ? selectedSizeEl.value
-          : (Array.isArray(p.sizes) ? p.sizes[0] : p.sizes); // Байхгүй бол эхний хэмжээ
-
-        // Сонгогдсон хугацааг олно — байхгүй бол '3' анхдагч
-        const selectedDurEl = document.querySelector('input[name="dur"]:checked');
-        const days = parseInt(selectedDurEl ? selectedDurEl.value : '3', 10);
-
-        // Сагсанд нэмэх объект үүсгэнэ
-        cart.addItem({
-          id         : p.id,
-          name       : p.item_name,
-          brand      : p.brand,
-          img        : p.img_src,
-          size       : size,
-          basePrice  : this.#base,
-          selectedDays: days,
-        });
+    // Огноо өөрчлөгдөх бүрт нийт үнийг шинэчилнэ
+    ['pd-from', 'pd-to'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', function() { this.updateTotal(); }.bind(this));
       }
-
-      // Товчны текстийг шинэ төлөвтэй синхрончилна
-      this.syncCartBtn(cartBtn);
     }.bind(this));
+
+    // ── "Хүсэлт илгээх" товч ───────────────────────────
+    const requestBtn = document.getElementById('btn-request');
+    if (requestBtn) {
+      requestBtn.addEventListener('click', function() {
+        if (typeof window.openRequestModal === 'function') {
+          window.openRequestModal(p);
+        }
+      });
+    }
 
     // ── Дуртайд нэмэх товч ─────────────────────────────
     const wishBtn = document.getElementById('btn-wish');

@@ -3,23 +3,19 @@
    Нүүр хуудасны динамик хэсгүүд: онцлох бараа, сэтгэгдэл, статистик
 ══════════════════════════════════════════════════════════ */
 
-import Cart from './modules/Cart.js';
-
-// Cart.js-ийн нэг instance үүсгэнэ — сагстай ажиллах бүх үйлдэлд ашиглана
-const cart = new Cart();
-
-// Тоог Монгол мөнгөний форматад хөрвүүлнэ — жш: 3000 → "3,000₮"
-function fmt(n) {
-  return Number(n).toLocaleString() + '₮';
+// ── Liked helpers ────────────────────────────────────────
+const LIKED_KEY = 'rf_liked';
+function getLikedIds() {
+  try { return JSON.parse(localStorage.getItem(LIKED_KEY)) || []; } catch (_) { return []; }
+}
+function toggleLiked(id) {
+  const ids = getLikedIds();
+  const idx = ids.indexOf(id);
+  if (idx === -1) { ids.push(id); } else { ids.splice(idx, 1); }
+  localStorage.setItem(LIKED_KEY, JSON.stringify(ids));
+  return idx === -1;
 }
 
-// Сагсны SVG икон — товч бүр дээр харуулах дүрс
-const CART_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-  <line x1="3" y1="6" x2="21" y2="6"/>
-  <path d="M16 10a4 4 0 0 1-8 0"/>
-</svg>`;
 
 // ── Stats класс — бараа болон сэтгэгдлийн JSON-оос тоон мэдээлэл тооцно ──
 class Stats {
@@ -133,8 +129,7 @@ class HomePage {
           <img src="/public/source/${p.img_src}" alt="${p.item_name}">
           <span class="badge badge--new">${p.status}</span>
           <button class="card-heart" data-id="${p.id}">&#10084;</button>
-          <button class="card-cart" data-id="${p.id}" title="Сагсанд нэмэх">${CART_SVG}</button>
-          <button class="card-quick-buy" data-id="${p.id}">Хурдан авах</button>
+          <button class="card-request-btn" data-id="${p.id}">📩 Хүсэлт илгээх</button>
         </div>
         <div class="card-body">
           <p class="card-brand">${p.brand.toUpperCase()}</p>
@@ -145,10 +140,10 @@ class HomePage {
           </div>
           <div class="card-footer">
             <div>
-              <p>Өдөрт</p>
-              <strong>${p.price}</strong>
+              <p class="price-lbl">Өдөрт</p>
+              <strong class="card-price">${p.price}</strong>
             </div>
-            <a class="card-detail-link" href="/public/html/product.html?id=${p.id}">Харах →</a>
+            <a class="card-link" href="/public/html/product.html?id=${p.id}">Харах →</a>
           </div>
         </div>
       </article>`;
@@ -185,50 +180,26 @@ class HomePage {
       });
 
       // "Харах →" холбоос — картын click дахин ажиллахаас сэргийлнэ
-      const detailLink = card.querySelector('.card-detail-link');
+      const detailLink = card.querySelector('.card-link');
       if (detailLink) {
-        detailLink.addEventListener('click', function(e) {
-          e.stopPropagation();
-        });
+        detailLink.addEventListener('click', function(e) { e.stopPropagation(); });
       }
 
       // Зүрхний товч — дарах бүрт 'liked' классыг нэмж/хасна
-      card.querySelector('.card-heart').addEventListener('click', function(e) {
+      const heartBtn = card.querySelector('.card-heart');
+      if (getLikedIds().indexOf(id) !== -1) { heartBtn.classList.add('liked'); }
+      heartBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        // classList.toggle() — класс байвал хасна, байхгүй бол нэмнэ
-        this.classList.toggle('liked');
+        const nowLiked = toggleLiked(id);
+        this.classList.toggle('liked', nowLiked);
       });
 
-      // Сагсны товч — нэмэх/хасах
-      const cartBtn = card.querySelector('.card-cart');
-
-      // Тухайн бараа аль хэдийн сагсанд байвал 'in-cart' класс нэмнэ
-      if (cart.has(id)) {
-        cartBtn.classList.add('in-cart');
-        cartBtn.title = 'Сагснаас хасах';
-      }
-
-      cartBtn.addEventListener('click', function(e) {
+      // "Хүсэлт илгээх" товч — rental request modal нээнэ
+      card.querySelector('.card-request-btn').addEventListener('click', function(e) {
         e.stopPropagation();
-        if (this.classList.contains('in-cart')) {
-          // Сагсанд байвал хасна
-          cart.remove(id);
-          this.classList.remove('in-cart');
-          this.title = 'Сагсанд нэмэх';
-        } else {
-          // Сагсанд байхгүй бол нэмнэ
-          if (product) { cart.addProduct(product); }
-          this.classList.add('in-cart');
-          this.title = 'Сагснаас хасах';
+        if (typeof window.openRequestModal === 'function') {
+          window.openRequestModal(product);
         }
-      });
-
-      // Шуурхай худалдааны товч — сагсанд нэмж cart.html руу шилжинэ
-      card.querySelector('.card-quick-buy').addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (product) { cart.addProduct(product); }
-        // ?quick=ID — cart.js-д зөвхөн энэ барааг харуулахыг хэлнэ
-        location.href = `/public/html/cart.html?quick=${id}`;
       });
 
     }.bind(this));
