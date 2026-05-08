@@ -41,7 +41,7 @@
                     <input type="text" placeholder="хайх.." />
                 </div>
 
-                <a href="../html/cart.html" class="cart-icon">
+                <a href="../html/cart.html" class="cart-icon" data-cart-toggle>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -186,22 +186,8 @@
 
     </section>
 
-
-    <!-- Cart sidebar overlay -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-
     <!-- Cart sidebar -->
-    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
-        <header class="cart-side-hd">
-            <h2>Таны сагс</h2>
-            <button class="cart-close" onclick="toggleCart()" aria-label="Хаах">✕</button>
-        </header>
-        <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
-        <div id="cartFoot"></div>
-    </aside>
-
-
-
+    <cart-side></cart-side>
 
     <!-- Toast notification -->
     <div id="req-toast" class="req-toast"></div>
@@ -299,11 +285,11 @@
     </nav>
 
     <script type="module" src="/public/js/auth.js"></script>
-    <script src="/public/js/cart-side.js"></script>
     <script type="module" src="../wc/rent-footer.js"></script>
     <script type="module" src="../wc/browse-product-grid.js"></script>
     <script src="/public/js/request-modal.js"></script>
     <script src="/public/js/theme.js"></script>
+        <script type="module" src="/public/wc/cart-side.js"></script>
 </body>
 
 </html>

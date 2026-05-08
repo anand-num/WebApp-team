@@ -45,7 +45,7 @@
             <input type="text" placeholder="хайх..">
           </div>
 
-          <a href="../html/cart.html" class="cart-icon">
+          <a href="../html/cart.html" class="cart-icon" data-cart-toggle>
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -339,14 +339,7 @@
         </svg>
       </button>
     </nav>
-    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
-      <header class="cart-side-hd">
-        <h2>Таны сагс</h2>
-        <button class="cart-close" onclick="toggleCart()">✕</button>
-      </header>
-      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
-      <div id="cartFoot"></div>
-    </aside>
+<cart-side></cart-side>
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <!-- Toast notification -->
     <div id="req-toast" class="req-toast"></div>
@@ -392,7 +385,7 @@
       </article>
     </div>
     <script type="module" src="/public/js/auth.js"></script>
-    <script src="/public/js/cart-side.js"></script>
+    <script type="module" src="/public/wc/cart-side.js"></script>
     <script src="/public/js/request-modal.js"></script>
     <script src="/public/js/theme.js"></script>
     <script type="module" src="../js/home.js"></script>

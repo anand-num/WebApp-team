@@ -86,84 +86,9 @@
     <span aria-current="page" id="bc-name">—</span>
   </nav>
   <product-page></product-page>
-   <!-- <main class="pd-layout">
-
-    
-    <figure class="image-container image-container--portrait">
-      <product-image id="pd-img" src="" alt=""></product-image>
-       <img id="pd-img" src="" alt=""> 
-    </figure>
-
-   
-    <article class="pd-info">
-
-      <p class="pd-brand" id="pd-brand"></p>
-      <h1 class="pd-name" id="pd-name"></h1>
-
-      <p class="pd-meta">
-        <span class="rating-stars" id="pd-stars"></span>
-        <strong id="pd-rating"></strong>
-        <a href="#reviews" class="pd-rv-link" id="pd-review-count"></a>
-        <span class="pd-sep" aria-hidden="true">·</span>
-        <span class="pd-stock" id="pd-stock"></span>
-      </p>
-
-      <p class="pd-desc" id="pd-desc"></p>
-
-
-      <fieldset class="pd-dates">
-        <legend>Түрээсийн хугацаа</legend>
-        <div class="form-group">
-          <label for="pd-from">Эхлэх огноо *</label>
-          <input type="date" id="pd-from">
-        </div>
-        <div class="form-group">
-          <label for="pd-to">Дуусах огноо *</label>
-          <input type="date" id="pd-to">
-        </div>
-      </fieldset>
-
-      <fieldset class="sz-opts" id="sz-opts">
-        <legend>Размер</legend>
-      </fieldset>
-
-
-
-
-      <div class="price-info">
-        <span class="pd-total-lbl">Өдөрт</span>
-        <strong class="price-value" id="dayPrice">10'000₮</strong>
-        <p class="pd-total">
-          <span class="pd-total-lbl">Нийт дүн</span>
-          <strong class="pd-total-price" id="pd-total-price">—</strong>
-        </p>
-      </div>
-
-
-
-      <button class="btn-primary" id="btn-request" type="button">📩 Хүсэлт илгээх</button>
-      <button class="btn-secondary" id="btn-wish" type="button">Дуртайд нэмэх</button>
-
-      <ul class="pd-perks">
-        <li>&#10003; 24 цагийн дотор хүргэнэ</li>
-        <li>&#10003; Угаалга, цэвэрлэгээ манай хариуцлага</li>
-        <li>&#10003; Хамгаалалтын мөнгө буцаагдана</li>
-        <li>&#10003; Размер таарахгүй бол солиулж болно</li>
-      </ul>
-
-    </article> 
-  </main> -->
 
   <rent-footer></rent-footer>
-  <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
-    <header class="cart-side-hd">
-      <h2>Таны сагс</h2>
-      <button class="cart-close" onclick="toggleCart()">✕</button>
-    </header>
-    <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
-    <div id="cartFoot"></div>
-  </aside>
-  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<cart-side></cart-side>
 
 
   <!-- Toast notification -->
@@ -260,7 +185,7 @@
   <!-- <script type="module" src="/public/js/product.js"></script> -->
   <script type="module" src="/public/js/auth.js"></script>
   <script src="/public/js/request-modal.js"></script>
-  <script src="/public/js/cart-side.js"></script>
+    <script type="module" src="/public/wc/cart-side.js"></script>
   <script src="/public/js/theme.js"></script>
 </body>
 

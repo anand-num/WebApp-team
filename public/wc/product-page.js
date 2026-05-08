@@ -27,7 +27,7 @@ class ProductPage extends HTMLElement {
     // Get ID from URL
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
-    
+
     if (!productId) {
       console.error('No product ID provided');
       return;
@@ -42,10 +42,10 @@ class ProductPage extends HTMLElement {
 
       const products = await productsResponse.json();
       const allReviews = await reviewsResponse.json();
-      
+
       // Find the product
       this.product = products.find(p => p.id == productId);
-      
+
       // Filter reviews for this product
       if (this.product) {
         this.reviews = allReviews.filter(r => r.product_id == this.product.id);
@@ -62,6 +62,12 @@ class ProductPage extends HTMLElement {
     return name ? name.charAt(0).toUpperCase() : '?';
   }
 
+  getavgRating() {
+    if (!this.reviews.length) return this.product.rating;
+    const sum = this.reviews.reduce((s, r) => s + r.rating, 0);
+    return Math.round((sum / this.reviews.length) * 10) / 10;
+  }
+
   // Helper function to calculate days between two dates
   daysBetween(date1, date2) {
     const from = new Date(date1);
@@ -75,7 +81,7 @@ class ProductPage extends HTMLElement {
     const fromInput = this.querySelector('#pd-from');
     const toInput = this.querySelector('#pd-to');
     const totalPriceEl = this.querySelector('#pd-total-price');
-    
+
     if (!fromInput || !toInput || !totalPriceEl) return;
 
     const fromDate = fromInput.value;
@@ -95,12 +101,12 @@ class ProductPage extends HTMLElement {
   }
 
   render() {
-    const stars = '★'.repeat(Math.round(this.product.rating)) + 
-                  '☆'.repeat(5 - Math.round(this.product.rating));
-    
+    const stars = '★'.repeat(Math.round(this.product.rating)) +
+      '☆'.repeat(5 - Math.round(this.product.rating));
+
     const stockStatus = this.product.stock > 0 ? 'Бэлэн' : 'Дууссан';
     const stockColor = this.product.stock > 0 ? '#27ae60' : '#d32f2f';
-    
+
     const sizesHtml = this.product.sizes?.map(size => `
       <label class="sz-opt">
         <input type="radio" name="size" value="${size}">
@@ -114,13 +120,13 @@ class ProductPage extends HTMLElement {
     const wishlistButtonClass = isProductLiked ? 'btn-wish--active' : '';
 
     // Generate reviews HTML with proper review card styling
-    const reviewsHtml = this.reviews.length > 0 
+    const reviewsHtml = this.reviews.length > 0
       ? this.reviews.map(review => {
-          const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-          const authorName = review.author || review.user_name || 'Хэрэглэгч';
-          const initials = this.getInitials(authorName);
-          
-          return `
+        const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const authorName = review.author || review.user_name || 'Хэрэглэгч';
+        const initials = this.getInitials(authorName);
+
+        return `
             <article class="review-card">
               <div class="review-hd">
                 <div class="reviewer-initial">${initials}</div>
@@ -133,7 +139,7 @@ class ProductPage extends HTMLElement {
               <p class="review-text">${review.comment || review.review_text || 'Сэтгэгдэл байхгүй'}</p>
             </article>
           `;
-        }).join('')
+      }).join('')
       : '<p class="no-reviews">Харамсалтай нь энэ бүтээгдэхүүнд сэтгэгдэл байхгүй байна.</p>';
 
     this.innerHTML = `
@@ -243,14 +249,14 @@ class ProductPage extends HTMLElement {
     // Date inputs - update total when changed
     const fromInput = this.querySelector('#pd-from');
     const toInput = this.querySelector('#pd-to');
-    
+
     if (fromInput) {
       fromInput.addEventListener('change', () => {
         this.fromDate = fromInput.value;
         this.updateTotal();
       });
     }
-    
+
     if (toInput) {
       toInput.addEventListener('change', () => {
         this.toDate = toInput.value;
@@ -266,10 +272,10 @@ class ProductPage extends HTMLElement {
           alert('Размер сонгоно уу');
           return;
         }
-        
+
         const fromInput = this.querySelector('#pd-from');
         const toInput = this.querySelector('#pd-to');
-        
+
         if (!fromInput.value || !toInput.value) {
           alert('Түрээсийн огноо сонгоно уу');
           return;
@@ -318,7 +324,7 @@ class ProductPage extends HTMLElement {
   updateWishlistButton(nowLiked) {
     const wishBtn = this.querySelector('#btn-wish');
     if (!wishBtn) return;
-    
+
     if (nowLiked) {
       wishBtn.textContent = '♥ Дуртайд нэмэгдсэн';
       wishBtn.classList.add('btn-wish--active');

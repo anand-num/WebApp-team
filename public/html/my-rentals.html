@@ -35,7 +35,7 @@
           </svg>
           <input type="text" placeholder="хайх.."/>
         </div>
-        <a href="../html/cart.html" class="cart-icon">
+        <a href="../html/cart.html" class="cart-icon" data-cart-toggle>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
             <line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
@@ -282,7 +282,7 @@
 
   <!-- ══ TOAST — JS харуулна ══ -->
   <div class="toast" id="toast"></div>
-
+<cart-side></cart-side>
   <!-- ══ FOOTER ══ -->
   <footer class="footer">
     <section class="footer-about">
@@ -321,7 +321,7 @@
     </nav>
     <p class="footer-bottom">© 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.</p>
   </footer>
-
+  <script type="module" src="/public/wc/cart-side.js"></script>
   <script src="/public/js/my-rentals.js"></script>
   <script src="/public/js/theme.js"></script>
 </body>
