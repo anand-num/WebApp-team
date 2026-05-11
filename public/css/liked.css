@@ -1,8 +1,5 @@
-/* ════════════════════════════════════════════
-   IMPORTS
-════════════════════════════════════════════ */
+/* liked.css */
 @import url('global.css');
-
 
 /* ════════════════════════════════════════════
    PAGE WRAPPER
@@ -12,7 +9,6 @@
   padding: 2rem 4rem;
   background-color: var(--background-primary);
 }
-
 
 /* ════════════════════════════════════════════
    SECTION HEADER
@@ -39,8 +35,45 @@
 .liked-wrap .section-title {
   font-size: 2rem;
   margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-weight: 300;
 }
 
+/* ════════════════════════════════════════════
+   CONTROLS
+════════════════════════════════════════════ */
+.wishlist-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.liked-count {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.clear-all-btn {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+
+.clear-all-btn:hover {
+  border-color: #d32f2f;
+  color: #d32f2f;
+  transform: translateY(-1px);
+}
 
 /* ════════════════════════════════════════════
    WISHLIST GRID
@@ -51,7 +84,36 @@
   gap: 24px;
 }
 
+/* Empty state */
+.empty-wishlist {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+}
 
+.empty-wishlist p {
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Loading state */
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Error state */
+.error {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #d32f2f;
+  font-size: 1rem;
+}
 
 /* ════════════════════════════════════════════
    RESPONSIVE
@@ -59,7 +121,6 @@
 
 /* ── Tablet ── */
 @media (max-width: 64rem) {
-
   .liked-wrap {
     padding: 1.75rem 2.5rem;
   }
@@ -68,15 +129,10 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
   }
-
-  .product-card {
-    width: 100%;
-  }
 }
 
 /* ── Mobile ── */
 @media (max-width: 48rem) {
-
   .liked-wrap {
     padding: 1.25rem 1rem;
     height: auto;
@@ -91,49 +147,41 @@
   .section-title {
     font-size: 1.5rem;
   }
-
-  .product-card .card-visual img {
-    height: 180px;
+  
+  .wishlist-controls {
+    margin-bottom: 1.5rem;
   }
-
-  .product-card .card-body {
-    padding: 10px 12px;
+  
+  .liked-count {
+    font-size: 0.75rem;
   }
-
-  .product-card .card-name {
-    font-size: 1rem;
-  }
-
-  .product-card .card-footer {
-    height: 2.5rem;
+  
+  .clear-all-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
   }
 }
 
 /* ── Small phone ── */
 @media (max-width: 30rem) {
-
   .wishlist {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  .product-card .card-visual img {
-    height: 150px;
-  }
-
   .liked-wrap {
     padding: 1rem 0.75rem;
+  }
+  
+  .wishlist-controls {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
 /* ── Very small ── */
 @media (max-width: 22rem) {
-
   .wishlist {
     grid-template-columns: 1fr;
-  }
-
-  .product-card {
-    max-width: 100%;
   }
 }

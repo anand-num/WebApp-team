@@ -1,509 +1,246 @@
 <!doctype html>
 <html lang="mn">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentFit</title>
-    <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/styles.css">
-    <script type="module" src="../js/home.js"></script>
-    <link rel="stylesheet" href="../css/cart-side.css">
-  </head>
 
-  <body>
-    <header class="nav-header">
-      <div class="top-nav">
-        <div class="top-left-nav">
-          <p style="color: var(--gray);font-size: 0.7rem; font-weight: 550;">Монголын №1 Хувцас Түрээс</p>
-        </div>
-        <div class="top-right-nav">
-          <a href="" >MN</a>
-          <div class="line-vertical"></div>
-          <a href="./admin.html">admin</a>
-        </div>
-      </div>
-      <div class="mid-nav">
-        <div class="left-nav">
-          <a href="../html/index.html" class="logo">
-            <p>Rent<span class="highlight">Fit</span></p>
-          </a>
-        </div>
-        <div class="right-nav">
-          <div class="search-bar">
-            <svg
-              class="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            >
-              <circle cx="11" cy="11" r="7"/>
-              <path d="m20 20-4-4"/>
-            </svg>
-            <input type="text" placeholder="хайх..">
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentFit</title>
+  <script>(function () { var t = localStorage.getItem('rf_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/cart-side.css">
+</head>
 
-          <a href="../html/cart.html" class="cart-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>
-            <span id="cartBadge" class="cart-badge"></span>
-          </a>
-          <a href="../html/liked.html" class="like-btn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
-              />
-            </svg>
-          </a>
-
-          <button id="loginBtn">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-          </button>
+<body>
+  <header class="nav-header">
+    <div class="top-nav">
+      <div class="top-left-nav">
+        <p style="color: var(--gray);font-size: 0.7rem; font-weight: 550;">Монголын №1 Хувцас Түрээс</p>
+      </div>
+      <div class="top-right-nav">
+        <a href="">MN</a>
+        <div class="line-vertical"></div>
+        <a href="./admin.html">admin</a>
+      </div>
+    </div>
+    <div class="mid-nav">
+      <div class="left-nav">
+        <a href="../html/index.html" class="logo">
+          <p>Rent<span class="highlight">Fit</span></p>
+        </a>
+      </div>
+      <div class="right-nav">
+        <div class="search-bar">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+          <input type="text" placeholder="хайх..">
         </div>
+
+        <a href="../html/cart.html" class="cart-icon" data-cart-toggle>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+          <span id="cartBadge" class="cart-badge"></span>
+        </a>
+        <a href="../html/liked.html" class="like-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z" />
+          </svg>
+        </a>
+
+        <button id="loginBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+          </svg>
+        </button>
       </div>
-      <div class="sub-nav">
-        <a href="../html/browse.html">Шинэ</a>
-        <a href="../html/browse.html?cat=Evening+Wear">Гоёлын</a>
-        <a href="../html/browse.html?cat=Dance">Өдөр тутмын</a>
-        <a href="../html/browse.html?cat=Costume">Бизнес</a>
-        <a href="../html/browse.html?cat=Cultural">Монгол Үндэсний</a>
-      </div>
-    </header>
-    <section class="hero-section">
-      <div class="hero-left">
-        <div
-          style="
+    </div>
+    <div class="sub-nav">
+      <a href="../html/browse.html">Шинэ</a>
+      <a href="../html/browse.html?cat=Evening+Wear">Гоёлын</a>
+      <a href="../html/browse.html?cat=Dance">Өдөр тутмын</a>
+      <a href="../html/browse.html?cat=Costume">Бизнес</a>
+      <a href="../html/browse.html?cat=Cultural">Монгол Үндэсний</a>
+    </div>
+  </header>
+  <section class="hero-section">
+    <div class="hero-left">
+      <div style="
             display: flex;
             flex-direction: row;
             align-items: center;
             column-gap: 1.2rem;
             margin-bottom: 2rem;
-          "
-        >
-          <div class="line-horizontal"></div>
-          <p class="highlight" style="letter-spacing: 0.3rem;font-weight: 300;">Хувцас түрээсийн платформ</p>
-        </div>
-
-        <h1>Загварлаг</h1>
-        <h1>харагд,</h1>
-        <h1 class="highlight">хямдаар</h1>
-        <br>
-        <article>
-          Брэндийн хувцас өдрөөр, долоо хоногоор хэрэглэж, худалдан авах
-          шаардлагагүй. Захиал, хэрэглэ, буцаа, захиал.
-        </article>
-        <br>
-        <div class="hero-buttons-cont">
-          <a href="../html/browse.html" class="btn-primary">КАТАЛОГ ҮЗЭХ</a>
-          <a href="#how-it-works" class="btn-secondary">ХЭРХЭН АЖИЛЛАДАГ</a>
-        </div>
-        <div class="hero-info">
-          <div>
-            <h2 id="stat-items">500+</h2>
-            <br>
-            <p>хувцас</p>
-          </div>
-          <div class="line-vertical"></div>
-          <div>
-            <h2 id="stat-brands">500+</h2>
-            <br>
-            <p>Брэнд</p>
-          </div>
-          <div class="line-vertical"></div>
-          <div>
-            <h2>10k+</h2>
-            <br>
-            <p>үйлчлүүлэгч</p>
-          </div>
-          <div class="line-vertical"></div>
-          <div>
-            <h2 id="stat-rating">4.9</h2>
-            <br>
-            <p>Дундаж үнэлгээ</p>
-          </div>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-img-grid">
-          <img src="../source/dress2.jpg" alt="Wedding Dress">
-          <img src="../source/mongolian-male-deel.jpg" alt="Kimono">
-          <img src="../source/big-blue-dress.jpg" alt="Blue Dress">
-        </div>
-      </div>
-    </section>
-
-    <section class="reviews-home">
-      <header class="review-header" style="text-align: center">
-        <h2>Үйлчлүүлэгчдийн сэтгэгдэл</h2>
-        <p style="font-size: larger">
-          Онцгой үйл явдлуудад бидэнд итгэдэг олон мянган сэтгэл хангалуун
-          үйлчлүүлэгчид.
-        </p>
-      </header>
-
-      <section class="review-container" id="home-review-container">
-        <h2 class="visually-hidden">Review container</h2>
-      </section>
-    </section>
-
-    <section id="how-it-works">
-       <h2 class="visually-hidden">How it wokrs</h2>
-      <header style="text-align: center">
-        <h2 class="section-tag">Хэрхэн ажилладаг</h2>
-        <h1>Хувцасаа түрээслүүлэх 3 алхам </h1>
-      </header>
-
-      <section class="work-steps-container">
-        <h2 class="visually-hidden">Work steps</h2>
-        <article class="steps">
-          <h2>01</h2>
-          <h3>Бүртгэх</h3>
-          <p>
-            Хувцасаа нэмж, үнэ тогтоож, нэр болон тайлбар ширхэгийг бичнэ.
-          </p>
-        </article>
-
-        <article class="steps">
-          <h2>02</h2>
-          <h3>Хүсэлт авах</h3>
-          <p>
-            Түрээслэгчийн гаргасан хүсэлтийг харж зөвшөөрөх эсвэл татгалзана.
-          </p>
-        </article>
-
-        <article class="steps">
-          <h2>03</h2>
-          <h3>Орлого олох</h3>
-          <p>Хувцас буцаагдмагц 15% хураамж хасч таны данс руу шилжүүлнэ.</p>
-        </article>
-
-      </section>
-      <header style="text-align: center">
-        <h2 class="section-tag">Орлого олох</h2>
-        <h1>Хувцас түрээслэх 4 алхам</h1>
-      </header>
-
-      <section class="work-steps-container">
-        <h2 class="visually-hidden">Work steps</h2>
-        <article class="steps">
-          <h2>01</h2>
-          <h3>Үзэж сонгох</h3>
-          <p>
-            Загварын хувцасны бидний цуглуулгыг үзнэ үү. Арга хэмжээ, загвар
-            эсвэл загварын дагуу шүүнэ үү.
-          </p>
-        </article>
-
-        <article class="steps">
-          <h2>02</h2>
-          <h3>Огноо сонгох</h3>
-          <p>
-            Түрээслэх хугацаагаа сонгоно уу. Өдөрт түрээс нь
-            хүргэлт, буцаалтыг багтаасан.
-          </p>
-        </article>
-
-        <article class="steps">
-          <h2>03</h2>
-          <h3>Хүлээн авч өмсөх</h3>
-          <p>Таны арга хэмжээний өмнө цэвэрхэн хувцсыг хаалганы урд хүргэнэ.</p>
-        </article>
-                <article class="steps">
-          <h2>04</h2>
-          <h3>Буцаах</h3>
-          <p>
-            Хугацаа дуусмагц хувцасыг буцааж өгнө. Угаалга манай үйлчилгээнд
-            багтана.
-          </p>
-        </article>
-      </section>
-    </section>
-
-    <section class="featured" aria-labelledby="section-title">
-      <!-- Гарчиг -->
-      <header class="featured-header">
-        <p class="section-tag" aria-hidden="true">Онцлох</p>
-        <h2 class="section-title" id="section-title">Түгээмэл хувцаснууд</h2>
-      </header>
-      <div class="product-grid" id="featured-grid">
-      </div>
-      <!-- "БҮХ КАТАЛОГ" товч -->
-      <div class="featured-cta">
-        <a href="/public/html/browse.html" class="btn-secondary">
-          Бүх каталог →
-        </a>
+          ">
+        <div class="line-horizontal"></div>
+        <p class="highlight" style="letter-spacing: 0.3rem;font-weight: 300;">Хувцас түрээсийн платформ</p>
       </div>
 
-    </section>
-
-    <footer class="footer">
-      <section class="footer-about">
-        <h2 class="visually-hidden">Footer</h2>
-        <p class="logo">Rent<em>Fit</em></p>
-        <p>
-          Монголын анхны хувцас түрээсийн платформ. Загварлаг, хямд, тогтвортой
-          сонголт.
-        </p>
-        <div class="social-icons">
-          <a href="#"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-instagram"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-facebook"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-twitter-x"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"
-              />
-            </svg>
-          </a>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-envelope-at"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"
-              />
-              <path
-                d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"
-              />
-            </svg>
-          </a>
+      <h1>Загварлаг</h1>
+      <h1>харагд,</h1>
+      <h1 class="highlight">хямдаар</h1>
+      <br>
+      <article>
+        Брэндийн хувцас өдрөөр, долоо хоногоор хэрэглэж, худалдан авах
+        шаардлагагүй. Захиал, хэрэглэ, буцаа, захиал.
+      </article>
+      <br>
+      <div class="hero-buttons-cont">
+        <a href="../html/browse.html" class="btn-primary">КАТАЛОГ ҮЗЭХ</a>
+        <a href="#how-it-works" class="btn-secondary">ХЭРХЭН АЖИЛЛАДАГ</a>
+      </div>
+      <div class="hero-info">
+        <div>
+          <h2 id="stat-items">500+</h2>
+          <br>
+          <p>хувцас</p>
         </div>
-      </section>
+        <div class="line-vertical"></div>
+        <div>
+          <h2 id="stat-brands">500+</h2>
+          <br>
+          <p>Брэнд</p>
+        </div>
+        <div class="line-vertical"></div>
+        <div>
+          <h2>10k+</h2>
+          <br>
+          <p>үйлчлүүлэгч</p>
+        </div>
+        <div class="line-vertical"></div>
+        <div>
+          <h2 id="stat-rating">4.9</h2>
+          <br>
+          <p>Дундаж үнэлгээ</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-grid">
+        <img src="../source/dress2.jpg" alt="Wedding Dress">
+        <img src="../source/mongolian-male-deel.jpg" alt="Kimono">
+        <img src="../source/big-blue-dress.jpg" alt="Blue Dress">
+      </div>
+    </div>
+  </section>
 
-      <nav class="footer-nav">
-        <ul>
-          <li>
-            <h3>Цэс</h3>
-          </li>
-          <li><a href="/public/html/index.html">Нүүр</a></li>
-          <li><a href="/public/html/browse.html">Цуглуулга</a></li>
-          <li><a href="/public/html/list-item.html">Зар нэмэх</a></li>
-          <li><a href="/public/html/my-rentals.html">Миний түрээс</a></li>
-        </ul>
-      </nav>
-
-      <nav class="footer-policies">
-        <ul>
-          <li>
-            <h3>Бодлого</h3>
-          </li>
-          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
-          <li><a href="#">Нууцлалын бодлого</a></li>
-          <li><a href="#">Cookie бодлого</a></li>
-          <li><a href="#">Бидний тухай</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-contact">
-        <ul>
-          <li>
-            <h3>Холбоо барих</h3>
-          </li>
-          <li><a href="#">Холбоо барих</a></li>
-          <li><a href="#">Тусламж</a></li>
-          <li><a href="#">Санал хүсэлт</a></li>
-        </ul>
-      </nav>
-
-      <p class="footer-bottom">
-        © 2026 RentFit. Бүх эрх хуулиар хамгаалагдсан.
+  <section class="reviews-home">
+    <header class="review-header" style="text-align: center">
+      <h2>Үйлчлүүлэгчдийн сэтгэгдэл</h2>
+      <p style="font-size: larger">
+        Онцгой үйл явдлуудад бидэнд итгэдэг олон мянган сэтгэл хангалуун
+        үйлчлүүлэгчид.
       </p>
-    </footer>
+    </header>
+    <home-reviews></home-reviews>
+  </section>
 
-    <nav class="bottom-nav">
-      <a href="/public/html/index.html" class="active">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
-          <path d="M9 21V12h6v9" />
-        </svg>
-        Нүүр
-      </a>
+  <how-it-works></how-it-works>
+  
+  <section class="featured" aria-labelledby="section-title">
+    <featured-products></featured-products>
+  </section>
+  <rent-footer></rent-footer>
 
-      <a href="/public/html/browse.html">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-4-4" />
-        </svg>
-      </a>
+  <nav class="bottom-nav">
+    <a href="/public/html/index.html" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+        <path d="M9 21V12h6v9" />
+      </svg>
+      Нүүр
+    </a>
 
-      <a href="/public/html/browse.html">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </a>
+    <a href="/public/html/browse.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </svg>
+    </a>
 
-      <a href="/public/html/liked.html">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z"
-          />
-        </svg>
-      </a>
+    <a href="/public/html/browse.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </a>
 
-      <button id="mobileLoginBtn">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-        </svg>
-      </button>
-    </nav>
-    <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
-      <header class="cart-side-hd">
-        <h2>Таны сагс</h2>
-        <button class="cart-close" onclick="toggleCart()">✕</button>
-      </header>
-      <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
-      <div id="cartFoot"></div>
-    </aside>
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-    <!-- Toast notification -->
-    <div id="req-toast" class="req-toast"></div>
+    <a href="/public/html/liked.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z" />
+      </svg>
+    </a>
 
-    <!-- Rental request modal -->
-    <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
-      <article class="modal-card" id="qmCard">
-        <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
-        <h3>📩 Түрээсийн хүсэлт</h3>
-        <section class="rm-product">
-          <figure class="rm-product-fig"><span id="rm-emoji">👗</span></figure>
-          <div class="rm-product-info">
-            <p class="rm-brand" id="rm-brand">—</p>
-            <p class="rm-name"  id="rm-name">—</p>
-            <p class="rm-price" id="rm-price">—</p>
-          </div>
-        </section>
-        <fieldset class="rm-field">
-          <legend>Размер *</legend>
-          <div id="rmSizes" class="rm-size-btns"></div>
-          <input type="hidden" id="rmSize">
-        </fieldset>
-        <fieldset class="rm-dates">
-          <legend>Хугацаа *</legend>
-          <div class="form-group">
-            <label for="rmFrom">Эхлэх огноо</label>
-            <input type="date" id="rmFrom" onchange="calcRmTotal()">
-          </div>
-          <div class="form-group">
-            <label for="rmTo">Дуусах огноо</label>
-            <input type="date" id="rmTo" onchange="calcRmTotal()">
-          </div>
-        </fieldset>
-        <div class="rm-total">
-          <span id="rmDays">0 өдөр</span>
-          <strong id="rmTotal">0₮</strong>
+    <button id="mobileLoginBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+      </svg>
+    </button>
+  </nav>
+  <cart-side></cart-side>
+  <!-- Toast notification -->
+  <div id="req-toast" class="req-toast"></div>
+
+  <!-- Rental request modal -->
+  <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
+    <article class="modal-card" id="qmCard">
+      <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
+      <h3>📩 Түрээсийн хүсэлт</h3>
+      <section class="rm-product">
+        <figure class="rm-product-fig"><span id="rm-emoji">👗</span></figure>
+        <div class="rm-product-info">
+          <p class="rm-brand" id="rm-brand">—</p>
+          <p class="rm-name" id="rm-name">—</p>
+          <p class="rm-price" id="rm-price">—</p>
+        </div>
+      </section>
+      <fieldset class="rm-field">
+        <legend>Размер *</legend>
+        <div id="rmSizes" class="rm-size-btns"></div>
+        <input type="hidden" id="rmSize">
+      </fieldset>
+      <fieldset class="rm-dates">
+        <legend>Хугацаа *</legend>
+        <div class="form-group">
+          <label for="rmFrom">Эхлэх огноо</label>
+          <input type="date" id="rmFrom" onchange="calcRmTotal()">
         </div>
         <div class="form-group">
-          <label for="rmComment">Нэмэлт тайлбар</label>
-          <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
+          <label for="rmTo">Дуусах огноо</label>
+          <input type="date" id="rmTo" onchange="calcRmTotal()">
         </div>
-        <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
-      </article>
-    </div>
-    <script type="module" src="/public/js/auth.js"></script>
-    <script src="/public/js/cart-side.js"></script>
-    <script src="/public/js/request-modal.js"></script>
-    <script src="/public/js/theme.js"></script>
-  </body>
+      </fieldset>
+      <div class="rm-total">
+        <span id="rmDays">0 өдөр</span>
+        <strong id="rmTotal">0₮</strong>
+      </div>
+      <div class="form-group">
+        <label for="rmComment">Нэмэлт тайлбар</label>
+        <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
+      </div>
+      <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
+    </article>
+  </div>
+  <script type="module" src="/public/js/auth.js"></script>
+  <script src="/public/js/request-modal.js"></script>
+  <script src="/public/js/theme.js"></script>
+  <script type="module" src="/public/wc/index.js"></script>
+</body>
+
 </html>
