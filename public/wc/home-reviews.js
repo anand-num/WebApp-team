@@ -53,6 +53,7 @@ class HomeReviews extends HTMLElement {
       reviewsList.setReviews(this.reviews);
     }
   }
+  
 }
 
 customElements.define('home-reviews', HomeReviews);

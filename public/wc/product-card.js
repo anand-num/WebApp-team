@@ -1,10 +1,3 @@
-/* ════════════════════════════════════════════════════════════
-   RENTFIT — browse-components.js
-   Simple product card components for browse/catalog pages
-   
-   Uses existing HTML template structure from browse.html
-   No Shadow DOM, no complexity, just straightforward JS
-════════════════════════════════════════════════════════════ */
 
 // ─────────────────────────────────────────────────────────
 // UTILITY FUNCTIONS
@@ -67,22 +60,6 @@ export function isLiked(productId) {
 // BROWSE PRODUCT CARD COMPONENT
 // ─────────────────────────────────────────────────────────
 
-/**
- * Simple product card for browse page
- * 
- * Usage:
- * <product-card
- *   id="1"
- *   brand="Valentino"
- *   name="Evening Gown"
- *   price="150,000₮"
- *   rating="4.5"
- *   review-count="12"
- *   image="/public/source/dress.jpg"
- *   status="NEW"
- *   sizes='["S", "M", "L"]'
- * ></product-card>
- */
 export class ProductCard extends HTMLElement {
     constructor() {
         super();

@@ -163,9 +163,6 @@ customElements.define('browse-product-grid', BrowseProductGrid);
 
 /**
  * Connect filter controls to browse grid
- * 
- * Usage:
- * wireBrowseFilters('browse-product-grid')
  */
 function wireBrowseFilters(gridSelector) {
   const grid = document.querySelector(gridSelector);

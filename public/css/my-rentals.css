@@ -382,7 +382,7 @@ img {
   gap: 8px
 }
 
-/* Мэдээлэл формын 2 баганат grid */
+/* Мэдээлэл формын 2 баганат grid */s
 .profile-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
