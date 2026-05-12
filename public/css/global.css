@@ -215,6 +215,54 @@
 .theme-toggle:active svg {
   transform: rotate(30deg);
 }
+/*like*/
+/* 1. The Container */
+.card-visual {
+    position: relative; /* Anchor for the absolute button */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* 2. The Button Layering */
+.card-heart {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10; /* Ensures it is ABOVE the image */
+    
+    background: rgba(255, 255, 255, 0.168);
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+
+.card-heart:hover {
+    transform: scale(1.1);
+    background: #ffffff47;
+}
+
+/* 3. The SVG Styling */
+.heart-icon {
+    width: 20px;
+    height: 20px;
+    fill: none;           /* Empty heart by default */
+    stroke: #444;        /* Dark outline */
+    stroke-width: 2px;
+    transition: all 0.2s ease;
+}
+
+/* 4. The "Liked" State */
+.card-heart.liked .heart-icon {
+    fill: #ff4757;       /* Red fill when liked */
+    stroke: #ff4757;     /* Red outline when liked */
+}
 
 /* Move toggle above bottom-nav on mobile */
 @media (max-width: 600px) {

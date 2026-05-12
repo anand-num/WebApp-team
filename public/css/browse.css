@@ -12,7 +12,7 @@
 .browse-page {
     display: grid;
     grid-template-areas:
-        "header header"
+        "app-navigation app-navigation"
         "breadcrumb breadcrumb"
         "cat-wrap cat-wrap"
         "footer footer";

@@ -374,6 +374,13 @@ a{
   color: var(--text-primary);
 }
 
+
+/* State: LIKED (Toggled via JS) */
+.card-heart.liked .heart-icon {
+    fill: #ff4b4b;        /* Red fill */
+    stroke: #ff4b4b;      /* Red outline */
+}
+
 /* ════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════ */
