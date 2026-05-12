@@ -1,9 +1,104 @@
-// product-page.js (updated version using the extracted components)
+// product-page.js
 import { parsePrice, formatPrice, toggleLiked, isLiked } from './product-card.js';
-import './review-list.js';  // Import the reviews component
 
 class ProductPage extends HTMLElement {
-  // ... existing code ...
+  constructor() {
+    super();
+    this.product = null;
+    this.reviews = [];
+    this.selectedSize = null;
+    this.fromDate = null;
+    this.toDate = null;
+    this.basePrice = 0;
+  }
+
+  async connectedCallback() {
+    await this.loadData();
+    if (this.product) {
+      this.render();
+      this.setupListeners();
+      this.updateTotal();
+    } else {
+      this.innerHTML = '<div class="error">Бүтээгдэхүүн олдсонгүй</div>';
+    }
+  }
+
+  async loadData() {
+    // Get ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    if (!productId) {
+      console.error('No product ID provided');
+      return;
+    }
+
+    try {
+      // Load both products and reviews in parallel
+      const [productsResponse, reviewsResponse] = await Promise.all([
+        fetch('/public/json/product.json'),
+        fetch('/public/json/review.json')
+      ]);
+
+      const products = await productsResponse.json();
+      const allReviews = await reviewsResponse.json();
+
+      // Find the product
+      this.product = products.find(p => p.id == productId);
+
+      // Filter reviews for this product
+      if (this.product) {
+        this.reviews = allReviews.filter(r => r.product_id == this.product.id);
+        // Parse base price from product price string
+        this.basePrice = parsePrice(this.product.price);
+      }
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    }
+  }
+
+  // Helper function to get initials from name
+  getInitials(name) {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getavgRating() {
+    if (!this.reviews.length) return this.product.rating;
+    const sum = this.reviews.reduce((s, r) => s + r.rating, 0);
+    return Math.round((sum / this.reviews.length) * 10) / 10;
+  }
+
+  // Helper function to calculate days between two dates
+  daysBetween(date1, date2) {
+    const from = new Date(date1);
+    const to = new Date(date2);
+    if (!from || !to || to <= from) return 0;
+    return Math.ceil((to - from) / (1000 * 60 * 60 * 24));
+  }
+
+  // Update total price based on selected dates
+  updateTotal() {
+    const fromInput = this.querySelector('#pd-from');
+    const toInput = this.querySelector('#pd-to');
+    const totalPriceEl = this.querySelector('#pd-total-price');
+
+    if (!fromInput || !toInput || !totalPriceEl) return;
+
+    const fromDate = fromInput.value;
+    const toDate = toInput.value;
+
+    if (fromDate && toDate) {
+      const days = this.daysBetween(fromDate, toDate);
+      if (days > 0) {
+        const total = this.basePrice * days;
+        totalPriceEl.textContent = formatPrice(total);
+      } else {
+        totalPriceEl.textContent = 'Буруу огноо';
+      }
+    } else {
+      totalPriceEl.textContent = '—';
+    }
+  }
 
   render() {
     const stars = '★'.repeat(Math.round(this.product.rating)) +
@@ -19,9 +114,33 @@ class ProductPage extends HTMLElement {
       </label>
     `).join('') || '<p>Размер байхгүй</p>';
 
+    // Check if product is liked using imported function
     const isProductLiked = isLiked(this.product.id);
     const wishlistButtonText = isProductLiked ? '♥ Дуртайд нэмэгдсэн' : '♡ Дуртайд нэмэх';
     const wishlistButtonClass = isProductLiked ? 'btn-wish--active' : '';
+
+    // Generate reviews HTML with proper review card styling
+    const reviewsHtml = this.reviews.length > 0
+      ? this.reviews.map(review => {
+        const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const authorName = review.author || review.user_name || 'Хэрэглэгч';
+        const initials = this.getInitials(authorName);
+
+        return `
+            <article class="review-card">
+              <div class="review-hd">
+                <div class="reviewer-initial">${initials}</div>
+                <div class="reviewer-info">
+                  <strong class="reviewer-name">${authorName}</strong>
+                  <div class="stars">${reviewStars}</div>
+                </div>
+                <time class="review-date">${review.date || review.created_at || '2025-01-01'}</time>
+              </div>
+              <p class="review-text">${review.comment || review.review_text || 'Сэтгэгдэл байхгүй'}</p>
+            </article>
+          `;
+      }).join('')
+      : '<p class="no-reviews">Харамсалтай нь энэ бүтээгдэхүүнд сэтгэгдэл байхгүй байна.</p>';
 
     this.innerHTML = `
       <!-- Breadcrumb -->
@@ -93,9 +212,18 @@ class ProductPage extends HTMLElement {
         </article>
       </main>
 
-      <!-- Use the extracted reviews-list component -->
-      <review-list id="reviews-list"></review-list>
+      <!-- Reviews Section -->
+      <section class="reviews pd-reviews" id="reviews">
+        <div class="review-header">
+          <p>Сэтгэгдэл</p>
+          <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
+        </div>
+        <div class="review-container" id="review-container">
+          ${reviewsHtml}
+        </div>
+      </section>
 
+      
       <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
         <header class="cart-side-hd">
           <h2>Таны сагс</h2>
@@ -109,54 +237,103 @@ class ProductPage extends HTMLElement {
     `;
   }
 
-  async loadData() {
-    // Get ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+  setupListeners() {
+    // Size selection
+    const sizeRadios = this.querySelectorAll('input[name="size"]');
+    sizeRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        this.selectedSize = e.target.value;
+      });
+    });
 
-    if (!productId) {
-      console.error('No product ID provided');
-      return;
+    // Date inputs - update total when changed
+    const fromInput = this.querySelector('#pd-from');
+    const toInput = this.querySelector('#pd-to');
+
+    if (fromInput) {
+      fromInput.addEventListener('change', () => {
+        this.fromDate = fromInput.value;
+        this.updateTotal();
+      });
     }
 
-    try {
-      // Load both products and reviews in parallel
-      const [productsResponse, reviewsResponse] = await Promise.all([
-        fetch('/public/json/product.json'),
-        fetch('/public/json/review.json')
-      ]);
+    if (toInput) {
+      toInput.addEventListener('change', () => {
+        this.toDate = toInput.value;
+        this.updateTotal();
+      });
+    }
 
-      const products = await productsResponse.json();
-      const allReviews = await reviewsResponse.json();
+    // Request button
+    const requestBtn = this.querySelector('#btn-request');
+    if (requestBtn) {
+      requestBtn.addEventListener('click', () => {
+        if (!this.selectedSize) {
+          alert('Размер сонгоно уу');
+          return;
+        }
 
-      // Find the product
-      this.product = products.find(p => p.id == productId);
+        const fromInput = this.querySelector('#pd-from');
+        const toInput = this.querySelector('#pd-to');
 
-      // Filter reviews for this product
-      if (this.product) {
-        this.reviews = allReviews.filter(r => r.product_id == this.product.id);
-        this.basePrice = parsePrice(this.product.price);
-        
-        // After rendering, set the reviews in the reviews-list component
-        setTimeout(() => {
-          const reviewsList = this.querySelector('#reviews-list');
-          if (reviewsList && reviewsList.setReviews) {
-            reviewsList.setReviews(this.reviews);
-          }
-        }, 0);
-      }
-    } catch (error) {
-      console.error('Failed to load data:', error);
+        if (!fromInput.value || !toInput.value) {
+          alert('Түрээсийн огноо сонгоно уу');
+          return;
+        }
+
+        const days = this.daysBetween(fromInput.value, toInput.value);
+        if (days <= 0) {
+          alert('Дуусах огноо эхлэх огнооноос хойш байх ёстой');
+          return;
+        }
+
+        const requestProduct = {
+          id: this.product.id,
+          brand: this.product.brand,
+          item_name: this.product.item_name,
+          price: this.product.price,
+          img_src: this.product.img_src,
+          sizes: this.product.sizes,
+          selectedSize: this.selectedSize,
+          fromDate: fromInput.value,
+          toDate: toInput.value,
+          rentalDays: days,
+          totalPrice: formatPrice(this.basePrice * days),
+          rating: this.product.rating,
+          review_count: this.reviews.length
+        };
+
+        if (typeof window.openRequestModal === 'function') {
+          window.openRequestModal(requestProduct);
+        } else {
+          alert(`Хүсэлт илгээгдлээ!\n\nБараа: ${this.product.item_name}\nРазмер: ${this.selectedSize}\nОгноо: ${fromInput.value} - ${toInput.value}\nХоног: ${days}\nНийт: ${formatPrice(this.basePrice * days)}`);
+        }
+      });
+    }
+
+
+    const wishBtn = this.querySelector('#btn-wish');
+    if (wishBtn) {
+      wishBtn.addEventListener('click', () => {
+        const nowLiked = toggleLiked(this.product.id);
+        this.updateWishlistButton(nowLiked);
+      });
     }
   }
 
-  getavgRating() {
-    if (!this.reviews.length) return this.product.rating;
-    const sum = this.reviews.reduce((s, r) => s + r.rating, 0);
-    return Math.round((sum / this.reviews.length) * 10) / 10;
+  updateWishlistButton(nowLiked) {
+    const wishBtn = this.querySelector('#btn-wish');
+    if (!wishBtn) return;
+
+    if (nowLiked) {
+      wishBtn.textContent = '♥ Дуртайд нэмэгдсэн';
+      wishBtn.classList.add('btn-wish--active');
+    } else {
+      wishBtn.textContent = '♡ Дуртайд нэмэх';
+      wishBtn.classList.remove('btn-wish--active');
+    }
   }
-  
-  // ... rest of your existing code ...
 }
 
+// Register the component
 customElements.define('product-page', ProductPage);
