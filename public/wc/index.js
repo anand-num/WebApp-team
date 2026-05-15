@@ -9,5 +9,5 @@ import './cart-side.js';
 import './product-page.js';
 import './product-card.js';
 import './browse-product-grid.js';
-
+import './navigation.js';
 console.log('All web components loaded successfully');

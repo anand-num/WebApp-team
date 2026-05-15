@@ -171,8 +171,8 @@ export class ProductCard extends HTMLElement {
 
             // In product-card.js - inside the heart button click handler
             heartBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e.preventDefault();// Browseriinh default behavior iig zogsoono. Jishee n a tag deer click hiisen bol link ruu yavahgui bolgono.
+                e.stopPropagation();// ooriinhoo ymr negen eventiig gadnah buyu parent ru damjuulahgui bailgana.
 
                 const nowLiked = toggleLiked(this.productId);
                 heartBtn.classList.toggle('liked', nowLiked);
