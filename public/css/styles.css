@@ -140,6 +140,9 @@ a {
   header.nav-header {
     display: none;
   }
+  body{
+    margin-top: 4rem;
+  }
   .mobile-top-nav{
     display: flex;
     position: fixed;
