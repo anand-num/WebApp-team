@@ -1,3 +1,4 @@
+
 export class navigation extends HTMLElement{
     constructor() {
         super();
@@ -5,8 +6,25 @@ export class navigation extends HTMLElement{
 
     connectedCallback(){
         this.render();
+        this.highlightActiveFromUrl();
     }
 
+        highlightActiveFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCategory = urlParams.get('cat');
+        
+        const categoryLinks = this.querySelectorAll('.sub-nav a');
+        categoryLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (currentCategory && href.includes(`cat=${currentCategory}`)) {
+                link.classList.add('active-category');
+            } else if (!currentCategory && href === '/public/html/browse.html') {
+                link.classList.add('active-category');
+            } else {
+                link.classList.remove('active-category');
+            }
+        });
+    }
     render() {
         this.innerHTML = `
         <header class="nav-header">
