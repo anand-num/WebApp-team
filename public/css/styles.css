@@ -140,10 +140,15 @@ a {
   header.nav-header {
     display: none;
   }
+  body{
+    margin-top: 4rem;
+  }
   .mobile-top-nav{
     display: flex;
     position: fixed;
     width: 100%;
+    height: 4rem;
+    z-index: 1;
     justify-content: space-between;
     padding: 1rem;
     background-color: var(--surface);
