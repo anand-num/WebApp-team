@@ -1,7 +1,7 @@
 // reviews-list.js
 import './review-card.js';
 
-export class ReviewsList extends HTMLElement {
+export class ReviewList extends HTMLElement {
   constructor() {
     super();
     this.reviews = [];
@@ -26,26 +26,28 @@ export class ReviewsList extends HTMLElement {
       this.renderReviews();
     } catch (error) {
       console.error('Failed to load reviews:', error);
-      this.innerHTML = '<p class="error">Сэтгэгдэлүүдийг ачааллаж чадсангүй</p>';
+      const container = this.querySelector('#review-container');
+      if (container) {
+        container.innerHTML = '<p class="error">Сэтгэгдэлүүдийг ачааллаж чадсангүй</p>';
+      }
     }
   }
 
-  // Set reviews directly (if you already have the data)
+  // Set reviews directly 
   setReviews(reviews) {
     this.reviews = reviews;
     this.renderReviews();
   }
 
   render() {
-    this.innerHTML = `
-      <section class="reviews pd-reviews">
-        <div class="review-header">
-          <p>Сэтгэгдэл</p>
-          <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
-        </div>
-        <div class="review-container" id="review-container"></div>
-      </section>
-    `;
+    // Main wrapper structure - only create once
+    if (!this.innerHTML) {
+      this.innerHTML = `
+        <div id="review-container"></div>
+      `;
+
+      console.log('ReviewList component rendered');
+    }
   }
 
   renderReviews() {
@@ -67,7 +69,6 @@ export class ReviewsList extends HTMLElement {
       // Set attributes for the review card
       reviewCard.setAttribute('rating', review.rating);
       reviewCard.setAttribute('author', review.author || review.user_name || 'Хэрэглэгч');
-      reviewCard.setAttribute('date', review.date || review.created_at || '2025-01-01');
       reviewCard.setAttribute('comment', review.comment || review.review_text || 'Сэтгэгдэл байхгүй');
       reviewCard.setAttribute('user-name', review.user_name || review.author);
       
@@ -90,8 +91,8 @@ export class ReviewsList extends HTMLElement {
 }
 
 // Register the component
-if (!customElements.get('reviews-list')) {
-  customElements.define('reviews-list', ReviewsList);
+if (!customElements.get('review-list')) {
+  customElements.define('review-list', ReviewList);
 }
 
-export default ReviewsList;
+export default ReviewList;

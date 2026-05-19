@@ -40,9 +40,6 @@ class HomeReviews extends HTMLElement {
     if (!this.reviews || this.reviews.length === 0) {
       this.innerHTML = `
         <section class="reviews-home">
-          <div class="review-header">
-            <h2>Үйлчлүүлэгчдийн сэтгэгдэл</h2>
-          </div>
           <p class="no-reviews">Сэтгэгдэл байхгүй байна.</p>
         </section>
       `;
@@ -50,16 +47,13 @@ class HomeReviews extends HTMLElement {
     }
 
     this.innerHTML = `
-      <section class="reviews-home">
-        <div class="review-header">
-          <h2>Топ сэтгэгдэл</h2>
-        </div>
-        <reviews-list id="home-reviews-list" class="reviews-list"></reviews-list>
-      </section>
+
+        <review-list id="home-review-list" class="review-list"></review-list>
+
     `;
 
     // Pass the reviews to the child reviews-list component using its public API
-    const reviewsList = this.querySelector('#home-reviews-list');
+    const reviewsList = this.querySelector('#home-review-list');
     if (reviewsList) {
       if (typeof reviewsList.setReviews === 'function') {
         reviewsList.setReviews(this.reviews);
