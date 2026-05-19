@@ -1,3 +1,4 @@
+// home-reviews.js
 import './review-card.js';
 import './review-list.js';
 
@@ -17,10 +18,10 @@ class HomeReviews extends HTMLElement {
       const response = await fetch('/public/json/review.json');
       const allReviews = await response.json();
 
-      // Get top 3 unique reviews (rating 4, one per product)
+      // Get unique reviews (one per product) with rating >= 4
       const seen = new Set();
       this.reviews = allReviews
-        .filter(r => r.rating === 4)
+        .filter(r => r.rating >= 4)
         .reduce((acc, r) => {
           if (!seen.has(r.product_id)) {
             seen.add(r.product_id);
@@ -28,7 +29,9 @@ class HomeReviews extends HTMLElement {
           }
           return acc;
         }, [])
-        .slice(0, 3);
+        .slice(0, 3);  // Show top 3 reviews
+      
+      console.log('🏠 Home reviews loaded:', this.reviews.length);
     } catch (error) {
       console.error('Failed to load reviews:', error);
       this.reviews = [];
@@ -36,7 +39,6 @@ class HomeReviews extends HTMLElement {
   }
 
   render() {
-    // Use your global class names so provided CSS applies (light DOM)
     if (!this.reviews || this.reviews.length === 0) {
       this.innerHTML = `
         <section class="reviews-home">
@@ -47,25 +49,20 @@ class HomeReviews extends HTMLElement {
     }
 
     this.innerHTML = `
-
-        <review-list id="home-reviews-list" class="review-list"></review-list>
-
+      <section class="reviews-home">
+        <review-list id="home-reviews-list" data-manual></review-list>
+      </section>
     `;
 
-    // Pass the reviews to the child reviews-list component using its public API
+    // Pass the filtered reviews to review-list component
     const reviewsList = this.querySelector('#home-reviews-list');
-    if (reviewsList) {
-      if (typeof reviewsList.setReviews === 'function') {
-        reviewsList.setReviews(this.reviews);
-      } else {
-        // Fallback: set property and dispatch event; reviews-list listens to setReviews normally
-        reviewsList.reviews = this.reviews;
-        reviewsList.dispatchEvent(new CustomEvent('reviews-updated', { bubbles: true }));
-      }
+    if (reviewsList && typeof reviewsList.setReviews === 'function') {
+      reviewsList.setReviews(this.reviews);
     }
   }
 }
 
+// Register the component
 if (!customElements.get('home-reviews')) {
   customElements.define('home-reviews', HomeReviews);
 }

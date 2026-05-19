@@ -7,7 +7,7 @@ export class ReviewCard extends HTMLElement {
   }
 
   connectedCallback() {
-    // Get review data from attributes or properties
+    // Get review data from attributes
     this.review = {
       rating: parseInt(this.getAttribute('rating')) || 0,
       author: this.getAttribute('author') || 'Хэрэглэгч',
@@ -25,15 +25,35 @@ export class ReviewCard extends HTMLElement {
 
   // Generate star rating HTML
   getStars(rating) {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    let starsHtml = '';
+    
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+      starsHtml += '★';
+    }
+    
+    // Half star
+    if (hasHalfStar) {
+      starsHtml += '½';
+    }
+    
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+      starsHtml += '☆';
+    }
+    
+    return starsHtml;
   }
 
   render() {
     const authorName = this.review.author || this.review.user_name || 'Хэрэглэгч';
     const initials = this.getInitials(authorName);
     const stars = this.getStars(this.review.rating);
-    const comment = this.review.comment || this.review.review_text || 'Сэтгэгдэл байхгүй';
-    // const date = this.review.date || this.review.created_at || '2025-01-01';
+    const comment = this.review.comment || 'Сэтгэгдэл байхгүй';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -122,7 +142,6 @@ export class ReviewCard extends HTMLElement {
           padding: 0;
         }
 
-
         .review-text {
           color: var(--text-secondary);
           font-family: var(--font-body), sans-serif;
@@ -191,7 +210,7 @@ export class ReviewCard extends HTMLElement {
 
       <article class="review-card">
         <div class="review-hd">
-          <div class="reviewer-initial">${initials}</div>
+          <div class="reviewer-initial">${this.escapeHtml(initials)}</div>
           <div class="reviewer-info">
             <strong class="reviewer-name">${this.escapeHtml(authorName)}</strong>
             <div class="stars">${stars}</div>
