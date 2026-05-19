@@ -1,6 +1,7 @@
 // product-page.js
 import { parsePrice, formatPrice, toggleLiked, isLiked } from './product-card.js';
 import './review-list.js';  
+import './review-card.js';  
 
 class ProductPage extends HTMLElement {
   constructor() {

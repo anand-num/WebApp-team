@@ -90,9 +90,8 @@ export class ReviewList extends HTMLElement {
   }
 }
 
-// Register the component
-if (!customElements.get('review-list')) {
+
   customElements.define('review-list', ReviewList);
-}
+
 
 export default ReviewList;
