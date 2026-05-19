@@ -3,7 +3,7 @@ import { parsePrice, formatPrice, toggleLiked, isLiked } from './product-card.js
 
 class ProductPage extends HTMLElement {
   constructor() {
-    super();
+    super(); //note
     this.product = null;
     this.reviews = [];
     this.selectedSize = null;
@@ -171,26 +171,7 @@ class ProductPage extends HTMLElement {
 
           <p class="pd-desc">${this.product.description || 'Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл байхгүй байна.'}</p>
 
-          <!-- Calendar Date Picker -->
-          <fieldset class="pd-dates" style="border: none; padding: 0; margin: 0 0 28px;">
-            <legend>ТҮРЭЭСИЙН ХУГАЦАА</legend>
-            <div class="form-group" style="display: flex; gap: 16px; margin-top: 12px;">
-              <div style="flex: 1;">
-                <label for="pd-from" style="font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 6px;">Эхлэх огноо *</label>
-                <input type="date" id="pd-from" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface);">
-              </div>
-              <div style="flex: 1;">
-                <label for="pd-to" style="font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 6px;">Дуусах огноо *</label>
-                <input type="date" id="pd-to" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface);">
-              </div>
-            </div>
-          </fieldset>
 
-          <!-- Size Picker -->
-          <fieldset class="sz-opts" id="sz-opts">
-            <legend>РАЗМЕР</legend>
-            ${sizesHtml}
-          </fieldset>
 
           <!-- Total Price -->
           <div class="pd-total">
@@ -268,24 +249,7 @@ class ProductPage extends HTMLElement {
     const requestBtn = this.querySelector('#btn-request');
     if (requestBtn) {
       requestBtn.addEventListener('click', () => {
-        if (!this.selectedSize) {
-          alert('Размер сонгоно уу');
-          return;
-        }
 
-        const fromInput = this.querySelector('#pd-from');
-        const toInput = this.querySelector('#pd-to');
-
-        if (!fromInput.value || !toInput.value) {
-          alert('Түрээсийн огноо сонгоно уу');
-          return;
-        }
-
-        const days = this.daysBetween(fromInput.value, toInput.value);
-        if (days <= 0) {
-          alert('Дуусах огноо эхлэх огнооноос хойш байх ёстой');
-          return;
-        }
 
         const requestProduct = {
           id: this.product.id,
@@ -295,10 +259,7 @@ class ProductPage extends HTMLElement {
           img_src: this.product.img_src,
           sizes: this.product.sizes,
           selectedSize: this.selectedSize,
-          fromDate: fromInput.value,
-          toDate: toInput.value,
-          rentalDays: days,
-          totalPrice: formatPrice(this.basePrice * days),
+
           rating: this.product.rating,
           review_count: this.reviews.length
         };
