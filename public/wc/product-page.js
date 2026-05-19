@@ -1,9 +1,10 @@
 // product-page.js
 import { parsePrice, formatPrice, toggleLiked, isLiked } from './product-card.js';
+import './review-list.js';  
 
 class ProductPage extends HTMLElement {
   constructor() {
-    super(); //note
+    super();
     this.product = null;
     this.reviews = [];
     this.selectedSize = null;
@@ -17,6 +18,7 @@ class ProductPage extends HTMLElement {
     if (this.product) {
       this.render();
       this.setupListeners();
+      this.populateReviews();
       this.updateTotal();
     } else {
       this.innerHTML = '<div class="error">Бүтээгдэхүүн олдсонгүй</div>';
@@ -119,28 +121,25 @@ class ProductPage extends HTMLElement {
     const wishlistButtonText = isProductLiked ? '♥ Дуртайд нэмэгдсэн' : '♡ Дуртайд нэмэх';
     const wishlistButtonClass = isProductLiked ? 'btn-wish--active' : '';
 
-    // Generate reviews HTML with proper review card styling
-    const reviewsHtml = this.reviews.length > 0
-      ? this.reviews.map(review => {
-        const reviewStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-        const authorName = review.author || review.user_name || 'Хэрэглэгч';
-        const initials = this.getInitials(authorName);
-
-        return `
-            <article class="review-card">
-              <div class="review-hd">
-                <div class="reviewer-initial">${initials}</div>
-                <div class="reviewer-info">
-                  <strong class="reviewer-name">${authorName}</strong>
-                  <div class="stars">${reviewStars}</div>
-                </div>
-                <time class="review-date">${review.date || review.created_at || '2025-01-01'}</time>
-              </div>
-              <p class="review-text">${review.comment || review.review_text || 'Сэтгэгдэл байхгүй'}</p>
-            </article>
-          `;
-      }).join('')
-      : '<p class="no-reviews">Харамсалтай нь энэ бүтээгдэхүүнд сэтгэгдэл байхгүй байна.</p>';
+    // Build reviews section with web component
+    // No more inline review card HTML!
+    const reviewsSection = this.reviews.length > 0 ? `
+      <section class="pd-reviews" id="reviews">
+        <div class="review-header">
+          <p>Сэтгэгдэл</p>
+          <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
+        </div>
+        <review-list id="review-list"></review-list>
+      </section>
+    ` : `
+      <section class="pd-reviews" id="reviews">
+        <div class="review-header">
+          <p>Сэтгэгдэл</p>
+          <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
+        </div>
+        <p class="no-reviews">Харамсалтай нь энэ бүтээгдэхүүнд сэтгэгдэл байхгүй байна.</p>
+      </section>
+    `;
 
     this.innerHTML = `
       <!-- Breadcrumb -->
@@ -171,8 +170,6 @@ class ProductPage extends HTMLElement {
 
           <p class="pd-desc">${this.product.description || 'Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл байхгүй байна.'}</p>
 
-
-
           <!-- Total Price -->
           <div class="pd-total">
             <span class="pd-total-lbl">НИЙТ ДҮН</span>
@@ -193,18 +190,9 @@ class ProductPage extends HTMLElement {
         </article>
       </main>
 
-      <!-- Reviews Section -->
-      <section class="reviews pd-reviews" id="reviews">
-        <div class="review-header">
-          <p>Сэтгэгдэл</p>
-          <h2>Үйлчлүүлэгчдийн үнэлгээ</h2>
-        </div>
-        <div class="review-container" id="review-container">
-          ${reviewsHtml}
-        </div>
-      </section>
+      <!-- Reviews Section with Web Component -->
+      ${reviewsSection}
 
-      
       <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
         <header class="cart-side-hd">
           <h2>Таны сагс</h2>
@@ -213,10 +201,25 @@ class ProductPage extends HTMLElement {
         <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
         <div id="cartFoot"></div>
       </aside>
-      
+
       <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     `;
   }
+
+  /**
+   * Populate the reviews list component with review data
+   * This method is called after render() to populate the <reviews-list> element
+   */
+populateReviews() {
+  const reviewsList = this.querySelector('#review-list');
+  if (!reviewsList) return;
+
+  customElements.whenDefined('reviews-list').then(() => {
+    if (this.reviews.length > 0) {
+      reviewsList.setReviews(this.reviews);
+    }
+  });
+}
 
   setupListeners() {
     // Size selection
@@ -249,8 +252,6 @@ class ProductPage extends HTMLElement {
     const requestBtn = this.querySelector('#btn-request');
     if (requestBtn) {
       requestBtn.addEventListener('click', () => {
-
-
         const requestProduct = {
           id: this.product.id,
           brand: this.product.brand,
@@ -259,7 +260,6 @@ class ProductPage extends HTMLElement {
           img_src: this.product.img_src,
           sizes: this.product.sizes,
           selectedSize: this.selectedSize,
-
           rating: this.product.rating,
           review_count: this.reviews.length
         };
@@ -267,17 +267,36 @@ class ProductPage extends HTMLElement {
         if (typeof window.openRequestModal === 'function') {
           window.openRequestModal(requestProduct);
         } else {
-          alert(`Хүсэлт илгээгдлээ!\n\nБараа: ${this.product.item_name}\nРазмер: ${this.selectedSize}\nОгноо: ${fromInput.value} - ${toInput.value}\nХоног: ${days}\nНийт: ${formatPrice(this.basePrice * days)}`);
+          const fromInput = this.querySelector('#pd-from');
+          const toInput = this.querySelector('#pd-to');
+          const days = this.daysBetween(
+            fromInput?.value || '',
+            toInput?.value || ''
+          );
+          alert(`Хүсэлт илгээгдлээ!\n\nБараа: ${this.product.item_name}\nРазмер: ${this.selectedSize}\nОгноо: ${fromInput?.value || ''} - ${toInput?.value || ''}\nХоног: ${days}\nНийт: ${formatPrice(this.basePrice * days)}`);
         }
       });
     }
 
-
+    // Wishlist button
     const wishBtn = this.querySelector('#btn-wish');
     if (wishBtn) {
-      wishBtn.addEventListener('click', () => {
+      // Set initial state - already done in render() but this ensures consistency
+      if (isLiked(this.product.id)) {
+        wishBtn.classList.add('btn-wish--active');
+      }
+
+      wishBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
         const nowLiked = toggleLiked(this.product.id);
         this.updateWishlistButton(nowLiked);
+
+        // Dispatch event to notify other pages (like product cards on browse page)
+        window.dispatchEvent(new CustomEvent('likedUpdated', {
+          detail: { productId: this.product.id, liked: nowLiked }
+        }));
       });
     }
   }
