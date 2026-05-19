@@ -17,7 +17,7 @@ export class navigation extends HTMLElement{
             <div class="top-right-nav">
                 <a href="">MN</a>
                 <div class="line-vertical"></div>
-                <a href="">admin</a>
+                <a href="../html/admin.html">admin</a>  
             </div>
         </div>
         <div class="mid-nav">
