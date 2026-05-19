@@ -125,16 +125,35 @@ a {
 }
 
 /*bottom nav*/
-.bottom-nav {
+.mobile-bottom-nav {
   display: none;
+}
+.mobile-top-nav{
+  display: none;
+}
+.mobile-right-top-nav{
+  display: flex;
+
 }
 
 @media screen and (max-width: 600px) {
   header.nav-header {
     display: none;
   }
-
-  .bottom-nav {
+  .mobile-top-nav{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--surface);
+    box-shadow: 0 1px 0px var(--border-line);
+    top: 0;
+    left: 0;
+    right: 0;
+    
+  }
+  .mobile-bottom-nav {
     display: flex;
     position: fixed;
     bottom: 0;
@@ -149,8 +168,8 @@ a {
     z-index: 999;
   }
 
-  .bottom-nav a,
-  .bottom-nav button {
+  .mobile-bottom-nav a,
+  .mobile-bottom-nav button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,8 +185,8 @@ a {
     text-decoration: none;
   }
 
-  .bottom-nav a svg,
-  .bottom-nav button svg {
+  .mobile-bottom-nav a svg,
+  .mobile-bottom-nav button svg {
     width: 22px;
     height: 22px;
   }
@@ -185,7 +204,7 @@ a {
     height: 44px;
   }
 
-  .bottom-nav .active {
+  .mobile-bottom-nav .active {
     background: var(--gold-hover);
     color: var(--gold);
     padding: 6px 16px;

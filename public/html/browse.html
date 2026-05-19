@@ -1,239 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="mn">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RentFit</title>
-    <script>(function () { var t = localStorage.getItem('rf_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
-    <link rel="stylesheet" href="/public/css/global.css">
-    <link rel="stylesheet" href="/public/css/layout.css">
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/browse.css">
+    <script>
+      (function () {
+        var t =
+          localStorage.getItem("rf_theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/layout.css" />
+    <link rel="stylesheet" href="/public/css/styles.css" />
+    <link rel="stylesheet" href="/public/css/browse.css" />
+  </head>
 
-</head>
+  <body>
+    <!--<app-navigation></app-navigation> -->
 
-<body>
-    <app-navigation></app-navigation>
-    
     <div class="browse-page">
-        <nav class="breadcrumb">
-            <ol>
-                <li><a href="/public/html/index.html">Нүүр</a></li>
-                <li><a href="/public/html/browse.html">Каталог</a></li>
-            </ol>
-        </nav>
-        <section class="cat-wrap">
-            <!-- SIDE FILTER SECTION -->
-            <aside class="flt-sb">
-    
-                <h1>Шүүлт</h1>
-                <legend class="flt-ttl">Ангилал</legend>
-                <fieldset class="cat-chips">
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="All" checked> Бүгд
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Evening Wear"> Даашинз
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Cosplay"> Косплей
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Cultural"> Монгол дээл
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Wedding"> Хурим
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Costume"> Костюм
-                    </label>
-                    <label class="flt-row">
-                        <input type="radio" name="cat" value="Dance"> Бүжигийн
-                    </label>
-                </fieldset>
-                <legend class="flt-ttl">Размер</legend>
-                <fieldset class="sz-chips">
-                    <label>
-                        <input type="radio" name="size" value="All" checked>Бүгд
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="XS"> XS
-                    </label>
-    
-                    <label>
-                        <input type="radio" name="size" value="S"> S
-                    </label>
-    
-                    <label>
-                        <input type="radio" name="size" value="M"> M
-                    </label>
-    
-                    <label>
-                        <input type="radio" name="size" value="L"> L
-                    </label>
-    
-                    <label>
-                        <input type="radio" name="size" value="XL"> XL
-                    </label>
-    
-                    <label>
-                        <input type="radio" name="size" value="XXL"> XXL
-                    </label>
-                </fieldset>
-                <legend class="flt-ttl">Үнэ (1 өдөр)</legend>
-                <div class="pr-inputs">
-                    <input type="range" class="price-range" min="5000" max="500000" step="1000" value="500000">
-                    <br>
-                    <span>≤ 500,000₮</span>
-                </div>
-                <hr>
-                <button class="flt-reset">Шүүлт цэвэрлэх</button>
-            </aside>
-    
-            <!-- MAIN BROWSE SECTION -->
-            <main class="cat-main">
-                <search class="cat-bar">
-                    <form class="cat-bar-form" role="search">
-    
-                        <label class="cat-search-wrap" for="srchInp">
-                            <span class="si" aria-hidden="true">🔍</span>
-                            <input class="cat-search-inp" id="srchInp" type="search"
-                                placeholder="Нэр, тайлбар, брэндээр хайх..." autocomplete="off">
-                        </label>
-    
-                        <p class="cat-info" id="catInfo" aria-live="polite">15 бараа олдлоо</p>
-    
-                        <label class="cat-sort-wrap" for="sortSel">
-                            <select class="cat-sort-sel" id="sortSel">
-                                <option value="new">Шинэ эхэнд</option>
-                                <option value="price-asc">Үнэ ↓</option>
-                                <option value="price-desc">Үнэ ↑</option>
-                                <option value="rating">Рейтинг ↓</option>
-                            </select>
-                        </label>
-    
-                    </form>
-                </search>
-    
-    
-                <browse-product-grid json-url="/public/json/product.json"></browse-product-grid>
-    
-                <div class="pagi">
-                    <button class="pgb" disabled>‹</button>
-                    <button class="pgb on">1</button>
-                    <button class="pgb">2</button>
-                    <button class="pgb">›</button>
-                </div>
-            </main>
-    
-        </section>
-    
-        <!-- Cart sidebar -->
-        <cart-side></cart-side>
-    
-        <!-- Toast notification -->
-        <div id="req-toast" class="req-toast"></div>
-    
-        <!-- Rental request modal overlay -->
-        <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
-            <article class="modal-card" id="qmCard">
-                <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
-                <h3>📩 Түрээсийн хүсэлт</h3>
-    
-                <!-- Бүтээгдэхүүний товч мэдээлэл -->
-                <section class="rm-product">
-                    <figure class="rm-product-fig">
-                        <span id="rm-emoji">👗</span>
-                    </figure>
-                    <div class="rm-product-info">
-                        <p class="rm-brand" id="rm-brand">—</p>
-                        <p class="rm-name" id="rm-name">—</p>
-                        <p class="rm-price" id="rm-price">—</p>
-                    </div>
-                </section>
-    
-                <!-- Хэмжээ сонгох -->
-                <fieldset class="rm-field">
-                    <legend>Размер *</legend>
-                    <div id="rmSizes" class="rm-size-btns"></div>
-                    <input type="hidden" id="rmSize">
-                </fieldset>
-    
-                <!-- Огноо сонгох -->
-                <fieldset class="rm-dates">
-                    <legend>Хугацаа *</legend>
-                    <div class="form-group">
-                        <label for="rmFrom">Эхлэх огноо</label>
-                        <input type="date" id="rmFrom" onchange="calcRmTotal()">
-                    </div>
-                    <div class="form-group">
-                        <label for="rmTo">Дуусах огноо</label>
-                        <input type="date" id="rmTo" onchange="calcRmTotal()">
-                    </div>
-                </fieldset>
-    
-                <!-- Нийт дүн харуулах мөр -->
-                <div class="rm-total">
-                    <span id="rmDays">0 өдөр</span>
-                    <strong id="rmTotal">0₮</strong>
-                </div>
-    
-                <!-- Нэмэлт тайлбар -->
-                <div class="form-group">
-                    <label for="rmComment">Нэмэлт тайлбар</label>
-                    <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
-                </div>
-    
-                <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
-            </article>
-        </div>
-    
-        <nav class="bottom-nav">
-            <a href="/public/html/index.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
-                    <path d="M9 21V12h6v9" />
-                </svg>
-                Нүүр
-            </a>
-            <a href="/public/html/browse.html" class="active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="m20 20-4-4" />
-                </svg>
-            </a>
-            <a href="/public/html/browse.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </a>
-            <a href="/public/html/liked.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M12 21C12 21 3 14 3 8.5A5 5 0 0 1 12 6a5 5 0 0 1 9 2.5C21 14 12 21 12 21z" />
-                </svg>
-            </a>
-            <button id="mobileLoginBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg>
-            </button>
-        </nav>
-    
-        <script type="module" src="/public/js/auth.js"></script>
-        <script src="/public/js/request-modal.js"></script>
-        <script src="/public/js/theme.js"></script>
-        <script type="module" src="/public/wc/index.js"></script>
-        <script type="module" src="../wc/navigation.js"></script>
-    </div>
-    
-</body>
+      <nav class="breadcrumb">
+        <ol>
+          <li><a href="/public/html/index.html">Нүүр</a></li>
+          <li><a href="/public/html/browse.html">Каталог</a></li>
+        </ol>
+      </nav>
+      <section class="cat-wrap">
+        <!-- SIDE FILTER SECTION -->
+        <aside class="flt-sb">
+          <h1>Шүүлт</h1>
+          <legend class="flt-ttl">Ангилал</legend>
+          <fieldset class="cat-chips">
+            <label class="flt-row">
+              <input type="radio" name="cat" value="All" checked /> Бүгд
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Evening Wear" /> Даашинз
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Cosplay" /> Косплей
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Cultural" /> Монгол дээл
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Wedding" /> Хурим
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Costume" /> Костюм
+            </label>
+            <label class="flt-row">
+              <input type="radio" name="cat" value="Dance" /> Бүжигийн
+            </label>
+          </fieldset>
+          <legend class="flt-ttl">Размер</legend>
+          <fieldset class="sz-chips">
+            <label>
+              <input type="radio" name="size" value="All" checked />Бүгд
+            </label>
+            <label> <input type="radio" name="size" value="XS" /> XS </label>
 
+            <label> <input type="radio" name="size" value="S" /> S </label>
+
+            <label> <input type="radio" name="size" value="M" /> M </label>
+
+            <label> <input type="radio" name="size" value="L" /> L </label>
+
+            <label> <input type="radio" name="size" value="XL" /> XL </label>
+
+            <label> <input type="radio" name="size" value="XXL" /> XXL </label>
+          </fieldset>
+          <legend class="flt-ttl">Үнэ (1 өдөр)</legend>
+          <div class="pr-inputs">
+            <input
+              type="range"
+              class="price-range"
+              min="5000"
+              max="500000"
+              step="1000"
+              value="500000"
+            />
+            <br />
+            <span>≤ 500,000₮</span>
+          </div>
+          <hr />
+          <button class="flt-reset">Шүүлт цэвэрлэх</button>
+        </aside>
+
+        <!-- MAIN BROWSE SECTION -->
+        <main class="cat-main">
+          <search class="cat-bar">
+            <form class="cat-bar-form" role="search">
+              <label class="cat-search-wrap" for="srchInp">
+                <span class="si" aria-hidden="true">🔍</span>
+                <input
+                  class="cat-search-inp"
+                  id="srchInp"
+                  type="search"
+                  placeholder="Нэр, тайлбар, брэндээр хайх..."
+                  autocomplete="off"
+                />
+              </label>
+
+              <p class="cat-info" id="catInfo" aria-live="polite">
+                15 бараа олдлоо
+              </p>
+
+              <label class="cat-sort-wrap" for="sortSel">
+                <select class="cat-sort-sel" id="sortSel">
+                  <option value="new">Шинэ эхэнд</option>
+                  <option value="price-asc">Үнэ ↓</option>
+                  <option value="price-desc">Үнэ ↑</option>
+                  <option value="rating">Рейтинг ↓</option>
+                </select>
+              </label>
+            </form>
+          </search>
+
+          <browse-product-grid
+            json-url="/public/json/product.json"
+          ></browse-product-grid>
+
+          <div class="pagi">
+            <button class="pgb" disabled>‹</button>
+            <button class="pgb on">1</button>
+            <button class="pgb">2</button>
+            <button class="pgb">›</button>
+          </div>
+        </main>
+      </section>
+
+      <!-- Cart sidebar -->
+      <cart-side></cart-side>
+
+      <!-- Toast notification -->
+      <div id="req-toast" class="req-toast"></div>
+
+      <!-- Rental request modal overlay -->
+      <div
+        class="modal-ov"
+        id="reqModal"
+        onclick="if (event.target === this) closeQM();"
+      >
+        <article class="modal-card" id="qmCard">
+          <button
+            class="modal-x"
+            onclick="closeQM()"
+            aria-label="Хаах"
+            type="button"
+          >
+            ✕
+          </button>
+          <h3>📩 Түрээсийн хүсэлт</h3>
+
+          <!-- Бүтээгдэхүүний товч мэдээлэл -->
+          <section class="rm-product">
+            <figure class="rm-product-fig">
+              <span id="rm-emoji">👗</span>
+            </figure>
+            <div class="rm-product-info">
+              <p class="rm-brand" id="rm-brand">—</p>
+              <p class="rm-name" id="rm-name">—</p>
+              <p class="rm-price" id="rm-price">—</p>
+            </div>
+          </section>
+
+          <!-- Хэмжээ сонгох -->
+          <fieldset class="rm-field">
+            <legend>Размер *</legend>
+            <div id="rmSizes" class="rm-size-btns"></div>
+            <input type="hidden" id="rmSize" />
+          </fieldset>
+
+          <!-- Огноо сонгох -->
+          <fieldset class="rm-dates">
+            <legend>Хугацаа *</legend>
+            <div class="form-group">
+              <label for="rmFrom">Эхлэх огноо</label>
+              <input type="date" id="rmFrom" onchange="calcRmTotal()" />
+            </div>
+            <div class="form-group">
+              <label for="rmTo">Дуусах огноо</label>
+              <input type="date" id="rmTo" onchange="calcRmTotal()" />
+            </div>
+          </fieldset>
+
+          <!-- Нийт дүн харуулах мөр -->
+          <div class="rm-total">
+            <span id="rmDays">0 өдөр</span>
+            <strong id="rmTotal">0₮</strong>
+          </div>
+
+          <!-- Нэмэлт тайлбар -->
+          <div class="form-group">
+            <label for="rmComment">Нэмэлт тайлбар</label>
+            <textarea
+              id="rmComment"
+              rows="3"
+              placeholder="Онцгой хүсэлт..."
+            ></textarea>
+          </div>
+
+          <button class="btn-g" type="button" onclick="submitRequest()">
+            📩 Хүсэлт илгээх
+          </button>
+        </article>
+      </div>
+
+      <script type="module" src="/public/js/auth.js"></script>
+      <script src="/public/js/request-modal.js"></script>
+      <script src="/public/js/theme.js"></script>
+      <script type="module" src="/public/wc/index.js"></script>
+      <script type="module" src="../wc/navigation.js"></script>
+    </div>
+  </body>
 </html>
