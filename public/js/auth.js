@@ -30,8 +30,8 @@ class AuthUI {
         </header>
         <form class="modal-form" id="loginForm" novalidate>
           <p class="form-field">
-            <label for="m-email">И-мэйл</label>
-            <input id="m-email" type="email" placeholder="email@example.com" autocomplete="email" required />
+            <label for="m-email">И-мэйл эсвэл хэрэглэгчийн нэр</label>
+            <input id="m-email" type="text" placeholder="email@example.com эсвэл username" autocomplete="username" required />
             <span class="field-error" id="login-email-err"></span>
           </p>
           <p class="form-field">
