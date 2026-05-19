@@ -64,11 +64,13 @@ export default class Auth {
   // return [...base, ...this.getRegistered()] -- base bolon localStorage-d bga useruudiig negtgeh operator
 
   async findUser(email, password) {
-    const users = await this.getAllUsers();
-    return users.find(u =>
-      u.email.toLowerCase() === email.toLowerCase() && u.password === password
-    ) || null;
-  }
+  const users = await this.getAllUsers();
+  return users.find(u =>
+    (u.email.toLowerCase() === email.toLowerCase() ||
+     u.username.toLowerCase() === email.toLowerCase()) &&
+    u.password === password
+  ) || null;
+}
   // users.find(u => -- getAllUsers buyu user.json oos avsan buh usereer guilgeh uildel
   // u.email.toLowerCase() === email.toLowerCase() -- herev useriin email ogson emailtei tentsuu bol true butsaana
   // u.password === password -- herev useriin password ogson passwordtei tentsuu bol true butsaana
