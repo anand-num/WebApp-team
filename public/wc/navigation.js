@@ -25,6 +25,41 @@ export class navigation extends HTMLElement{
             }
         });
     }
+    // navigation.js - Add this to prevent reload
+attachEventListeners() {
+  const categoryLinks = this.querySelectorAll('.sub-nav a');
+  
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent page reload
+      
+      const href = link.getAttribute('href');
+      const urlParams = new URLSearchParams(href.split('?')[1]);
+      let category = urlParams.get('cat');
+      
+      if (link.textContent.trim() === 'Шинэ') {
+        category = 'All';
+      }
+      
+      // Use filter manager to update without reload
+      if (window.filterManager) {
+        window.filterManager.setCategory(category);
+      }
+      
+      // Update URL without reload
+      const url = new URL(window.location.href);
+      if (category && category !== 'All') {
+        url.searchParams.set('cat', category);
+      } else {
+        url.searchParams.delete('cat');
+      }
+      window.history.pushState({}, '', url);
+      
+      // Update active state
+      this.highlightActiveCategory(category);
+    });
+  });
+}
     render() {
         this.innerHTML = `
         <header class="nav-header">
@@ -81,11 +116,11 @@ export class navigation extends HTMLElement{
             </div>
         </div>
         <div class="sub-nav">
-            <a href="/public/html/browse.html">Шинэ</a>
+            <a href="/public/html/browse.html">Бүгд</a>
             <a href="/public/html/browse.html?cat=Evening+Wear">Гоёлын</a>
-            <a href="/public/html/browse.html?cat=Dance">Өдөр тутмын</a>
+            <a href="/public/html/browse.html?cat=Dance">Бүжиг</a>
             <a href="/public/html/browse.html?cat=Costume">Бизнес</a>
-            <a href="/public/html/browse.html?cat=Cultural">Монгол Үндэсний</a>
+            <a href="/public/html/browse.html?cat=Cultural">Монгол үндэсний</a>
         </div>
     </header>
     <div class="mobile-top-nav">
