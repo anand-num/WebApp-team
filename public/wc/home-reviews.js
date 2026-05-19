@@ -48,12 +48,12 @@ class HomeReviews extends HTMLElement {
 
     this.innerHTML = `
 
-        <review-list id="home-review-list" class="review-list"></review-list>
+        <review-list id="home-reviews-list" class="review-list"></review-list>
 
     `;
 
     // Pass the reviews to the child reviews-list component using its public API
-    const reviewsList = this.querySelector('#home-review-list');
+    const reviewsList = this.querySelector('#home-reviews-list');
     if (reviewsList) {
       if (typeof reviewsList.setReviews === 'function') {
         reviewsList.setReviews(this.reviews);
