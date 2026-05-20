@@ -74,10 +74,15 @@ export class ReviewCard extends HTMLElement {
         * {
           box-sizing: border-box;
         }
-
+        .review-container{
+        display:flex;
+        flex-direction:row;
+        height:16rem;
+        }
         .review-card {
           background: var(--background-primary);
-          border: 1px solid var(--background-beige-dark);
+          border: 1px solid var(--text-primary);
+          width:15rem;
           border-radius: 4px;
           padding: 1.5rem;
           display: flex;
