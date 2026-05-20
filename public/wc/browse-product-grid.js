@@ -264,3 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
     wireBrowseFilters('browse-product-grid');
   }
 });
+
+document.querySelectorAll(".flt-ttl").forEach((targetFilter) => {
+targetFilter.addEventListener("toggle",()=>{
+    if(targetFilter.open){
+      document.querySelectorAll("ttl").forEach((filter)=>{
+        if(filter!==targetFilter) filter.removeAttribute("open");
+      })
+    }
+  });
+});

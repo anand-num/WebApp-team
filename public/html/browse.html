@@ -34,7 +34,9 @@
         <!-- SIDE FILTER SECTION -->
         <aside class="flt-sb">
           <h1>Шүүлт</h1>
-          <legend class="flt-ttl">Ангилал</legend>
+        <details>
+          <summary class="flt-ttl">Ангилал</summary>
+
           <fieldset class="cat-chips">
             <label class="flt-row">
               <input type="radio" name="cat" value="All" checked /> Бүгд
@@ -58,7 +60,11 @@
               <input type="radio" name="cat" value="Dance" /> Бүжигийн
             </label>
           </fieldset>
-          <legend class="flt-ttl">Размер</legend>
+
+        </details>
+        <details class="filter-types">
+          <summary class="flt-ttl">Размер</summary>
+
           <fieldset class="sz-chips">
             <label>
               <input type="radio" name="size" value="All" checked />Бүгд
@@ -75,6 +81,9 @@
 
             <label> <input type="radio" name="size" value="XXL" /> XXL </label>
           </fieldset>
+        </details>
+
+          <div class="filter-types">         
           <legend class="flt-ttl">Үнэ (1 өдөр)</legend>
           <div class="pr-inputs">
             <input
@@ -88,6 +97,7 @@
             <br />
             <span>≤ 500,000₮</span>
           </div>
+          </div> 
           <hr />
           <button class="flt-reset">Шүүлт цэвэрлэх</button>
         </aside>

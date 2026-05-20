@@ -55,6 +55,7 @@ class CartPage {
     this.$discRow  = document.getElementById('receipt-discount-row');
     this.$discAmt  = document.getElementById('receipt-discount');
     this.$total    = document.getElementById('receipt-total-price');
+    this.tabTitle  = document.querySelector('.tab-title');
   }
 
   // ── Идэвхтэй бараануудыг авах ────────────────────────
@@ -107,9 +108,20 @@ class CartPage {
       if (i === idx) { el.classList.add('on'); }
     });
   }
-
+// ── Toggle success mode CSS class ───────────────────
+toggleSuccessMode(isSuccess) {
+    const cartContainer = document.querySelector('.cart');
+    if (cartContainer) {
+        if (isSuccess) {
+            cartContainer.classList.add('success-mode');
+        } else {
+            cartContainer.classList.remove('success-mode');
+        }
+    }
+}
   // ── Алхам харуулах ───────────────────────────────────
-  showStep(idx) {
+// ── Алхам харуулах ───────────────────────────────────
+showStep(idx) {
     this.#currentStep = idx;
     const ALL_IDS = ['first-step', 'second-step', 'third-step', 'fourth-step'];
 
@@ -118,46 +130,51 @@ class CartPage {
     // Зөвхөн сонгосон алхмыг харуулна
     document.getElementById(ALL_IDS[idx]).classList.add('active');
 
+    //  Toggle success mode based on step
+    this.toggleSuccessMode(idx === 3);
+
     if (idx < 3) {
-      this.updateStepper(idx);
-      this.stepperEl.style.display = '';
-      this.receiptEl.style.display = '';
+        this.updateStepper(idx);
+        this.stepperEl.style.display = '';
+        this.receiptEl.style.display = '';
+        this.tabTitle.style.display = '';
     }
 
     switch (idx) {
-      case 0: // Сагсны алхам
-        this.backBtn.style.display = '';
-        this.backBtn.textContent   = '← КАТАЛОГ';
-        this.backBtn.onclick = function() { location.href = '/public/html/browse.html'; };
-        this.nextBtn.style.display = '';
-        this.nextBtn.textContent   = 'ҮРГЭЛЖЛҮҮЛЭХ →';
-        break;
+        case 0: // Сагсны алхам
+            this.backBtn.style.display = '';
+            this.backBtn.textContent   = '← КАТАЛОГ';
+            this.backBtn.onclick = function() { location.href = '/public/html/browse.html'; };
+            this.nextBtn.style.display = '';
+            this.nextBtn.textContent   = 'ҮРГЭЛЖЛҮҮЛЭХ →';
+            break;
 
-      case 1: // Хүргэлтийн алхам
-        this.backBtn.style.display = '';
-        this.backBtn.textContent   = '← БУЦАХ';
-        this.backBtn.onclick = function() { this.showStep(0); }.bind(this);
-        this.nextBtn.style.display = '';
-        this.nextBtn.textContent   = 'ҮРГЭЛЖЛҮҮЛЭХ →';
-        break;
+        case 1: // Хүргэлтийн алхам
+            this.backBtn.style.display = '';
+            this.backBtn.textContent   = '← БУЦАХ';
+            this.backBtn.onclick = function() { this.showStep(0); }.bind(this);
+            this.nextBtn.style.display = '';
+            this.nextBtn.textContent   = 'ҮРГЭЛЖЛҮҮЛЭХ →';
+            break;
 
-      case 2: // Баталгаажуулах алхам
-        this.backBtn.style.display = '';
-        this.backBtn.textContent   = '← БУЦАХ';
-        this.backBtn.onclick = function() { this.showStep(1); }.bind(this);
-        this.nextBtn.style.display = '';
-        this.nextBtn.textContent   = 'ЗАХИАЛАХ →';
-        break;
+        case 2: // Баталгаажуулах алхам
+            this.backBtn.style.display = '';
+            this.backBtn.textContent   = '← БУЦАХ';
+            this.backBtn.onclick = function() { this.showStep(1); }.bind(this);
+            this.nextBtn.style.display = '';
+            this.nextBtn.textContent   = 'ЗАХИАЛАХ →';
+            break;
 
-      case 3: // Амжилттай захиалгын алхам
-        this.backBtn.style.display   = 'none';
-        this.nextBtn.style.display   = 'none';
-        this.receiptEl.style.display = 'none';
-        this.stepperEl.style.display = 'none';
-        break;
+        case 3: // Амжилттай захиалгын алхам
+            this.backBtn.style.display   = 'none';
+            this.nextBtn.style.display   = 'none';
+            this.receiptEl.style.display = 'none';
+            this.stepperEl.style.display = 'none';
+            this.tabTitle.style.display = 'none';
+            // Success mode is already toggled by toggleSuccessMode(true)
+            break;
     }
-  }
-
+}
   // ── Баримтыг шинэчлэх ───────────────────────────────
   updateReceipt(items) {
     // Нийт дүн = бараа бүрийн үнэ × өдрийн тооны нийлбэр

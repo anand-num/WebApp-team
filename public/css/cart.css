@@ -842,15 +842,17 @@
 
 /* congrats page — span full grid width */
 #fourth-step.active {
-  position: fixed;
+  position: sticky;
   inset: 0;
   top: 66px; /* below header */
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--background-primary);
-  z-index: 10;
+
 }
+
+
 
 .order-success {
   display: flex;
@@ -891,6 +893,116 @@
   color: var(--text-tertiary);
   line-height: 1.8;
 }
+
+/* ════════════════════════════════════════════
+   SUCCESS MODE - Centers the success page
+   (Added for cart.js dynamic class toggling)
+════════════════════════════════════════════ */
+
+/* Success mode - overrides grid layout */
+.cart.success-mode {
+  grid-template-columns: 1fr;
+  grid-template-areas: "cart-tab";
+}
+
+.cart.success-mode .cart-receipt {
+  display: none;
+}
+
+.cart.success-mode .cart-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.cart.success-mode .tab-content {
+  width: 100%;
+}
+
+.cart.success-mode #fourth-step.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: static;
+}
+
+/* Success message enhanced styling for success mode */
+.cart.success-mode .order-success {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--background-secondary);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+}
+
+.cart.success-mode .order-success h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+}
+
+.cart.success-mode .order-success-id {
+  font-size: 1.25rem;
+  background: var(--background-beige-medium);
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.cart.success-mode .order-success .btn-primary {
+  margin-top: 2rem;
+}
+
+/* Animation for success mode */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart.success-mode .order-success {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Responsive for success mode */
+@media (max-width: 768px) {
+  .cart.success-mode .cart-tab {
+    min-height: 50vh;
+    padding: 1rem;
+  }
+  
+  .cart.success-mode .order-success {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+  
+  .cart.success-mode .order-success h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart.success-mode .order-success {
+    padding: 1.5rem 1rem;
+  }
+  
+  .cart.success-mode .order-success h1 {
+    font-size: 1.25rem;
+  }
+  
+  .cart.success-mode .order-success-id {
+    font-size: 1rem;
+  }
+}
+
 /* ════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════ */
