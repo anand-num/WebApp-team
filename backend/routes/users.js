@@ -25,9 +25,12 @@ router.get('/', async (req, res) => {
 });
 
 // POST /api/users/login — нэвтрэх
+// POST /api/users/login
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    console.log('Login attempt:', { email, password }); // debug
 
     await client.connect();
     const db = client.db('webapp-team');
@@ -36,21 +39,24 @@ router.post('/login', async (req, res) => {
     // Email эсвэл username-р хайх
     const user = await collection.findOne({
       $or: [
-        { email:    { $regex: new RegExp(`^${email}$`, 'i') } },
-        { username: { $regex: new RegExp(`^${email}$`, 'i') } }
+        { email:    email    },
+        { username: email    }  // email field-д username ч орж болно
       ],
       password: password
     });
+
+    console.log('Found user:', user); // debug
 
     if (!user) {
       return res.status(401).json({ error: 'Имэйл эсвэл нууц үг буруу байна' });
     }
 
-    // Password-г хасаад буцаах
+    // Password хасаад буцаах
     const { password: _, ...userWithoutPassword } = user;
     res.json(userWithoutPassword);
 
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: error.message });
   }
 });

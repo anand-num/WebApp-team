@@ -12,6 +12,7 @@ export class navigation extends HTMLElement {
   highlightActiveFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const currentCategory = urlParams.get('cat');
+    
 
     const categoryLinks = this.querySelectorAll('.sub-nav a');
     categoryLinks.forEach(link => {

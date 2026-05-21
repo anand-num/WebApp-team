@@ -27,7 +27,7 @@ class CartSide extends HTMLElement {
   }
 
   loadProducts() {
-    fetch('/http://localhost:5000/api/products')
+    fetch('/http://localhost:3000/api/products')
       .then(r => r.json())
       .then(data => { this.products = data; })
       .catch(() => {});
