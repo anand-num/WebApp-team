@@ -1,4 +1,4 @@
-import './product-card.js';
+import "./product-card.js";
 
 // ─────────────────────────────────────────────────────────
 // BROWSE PRODUCT GRID COMPONENT
@@ -12,70 +12,72 @@ class BrowseProductGrid extends HTMLElement {
   }
 
   connectedCallback() {
-    const jsonUrl = this.getAttribute('json-url') || '/public/json/product.json';
+    const jsonUrl =
+      this.getAttribute("json-url") || "/public/json/product.json";
     this.loadProducts(jsonUrl);
   }
 
-async loadProducts() {
-  try {
-    // JSON файлаас биш API-с авах
-    const response = await fetch('http://localhost:3000/api/products');
-    
-    if (!response.ok) throw new Error('API error');
-    
-    this.products = await response.json();
-    // status filter хийхгүй — API-с аль хэдийн шүүгдсэн өгөгдөл ирнэ
-    this.filteredProducts = [...this.products];
-    this.render();
-    this.applyFiltersFromUrl();
+  async loadProducts() {
+    try {
+      // JSON файлаас биш API-с авах
+      const response = await fetch("http://localhost:3000/api/products");
 
-  } catch (error) {
-    console.error('Failed to load products:', error);
-    this.innerHTML = '<p style="color: red;">Failed to load products</p>';
+      if (!response.ok) throw new Error("API error");
+
+      this.products = await response.json();
+      // status filter хийхгүй — API-с аль хэдийн шүүгдсэн өгөгдөл ирнэ
+      this.filteredProducts = [...this.products];
+      this.render();
+      this.applyFiltersFromUrl();
+    } catch (error) {
+      console.error("Failed to load products:", error);
+      this.innerHTML = '<p style="color: red;">Failed to load products</p>';
+    }
   }
-}
 
   // ✅ NEW METHOD: Read filters from URL
   applyFiltersFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('cat');
-    
-    console.log('Applying filter from URL. Category:', category);
-    
-    if (category && category !== 'All') {
-      this.filterByCategory(category);
-      
-      // Also update the sidebar radio button to match
-      setTimeout(() => {
-        const radio = document.querySelector(`input[name="cat"][value="${category}"]`);
-        if (radio) {
-          radio.checked = true;
-          console.log('Updated sidebar radio for:', category);
-        }
-      }, 100);
-    } else {
-      console.log('No category filter in URL, showing all products');
+    const category = urlParams.get("cat");
+    const search = urlParams.get("search");
+
+    if (search) {
+      const searchInput = document.getElementById("srchInp");
+      if (searchInput) {
+        searchInput.value = search;
+      }
+      this.search(search);
     }
-  }
+
+    if (category && category !== "All") {
+      this.filterByCategory(category);
+      setTimeout(() => {
+        const radio = document.querySelector(
+          `input[name="cat"][value="${category}"]`,
+        );
+        if (radio) radio.checked = true;
+      }, 100);
+    }
+  } // ← энэ хаалт дутуу байсан
 
   render() {
-    this.innerHTML = '';
-    const grid = document.createElement('div');
-    grid.className = 'pg';
+    this.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "pg";
 
     this.filteredProducts.forEach((product) => {
-      const card = document.createElement('product-card');
-      card.setAttribute('id', product.id);
-      card.setAttribute('brand', product.brand);
-      card.setAttribute('name', product.item_name);
-      card.setAttribute('price', product.price);
-      card.setAttribute('rating', product.rating);
-      card.setAttribute('review-count', product.review_count);
-      card.setAttribute('image', `/public/source/${product.img_src}`);
-      card.setAttribute('status', product.status || '');
-      
+      const card = document.createElement("product-card");
+      card.setAttribute("id", product.id);
+      card.setAttribute("brand", product.brand);
+      card.setAttribute("name", product.item_name);
+      card.setAttribute("price", product.price);
+      card.setAttribute("rating", product.rating);
+      card.setAttribute("review-count", product.review_count);
+      card.setAttribute("image", `/public/source/${product.img_src}`);
+      card.setAttribute("status", product.status || "");
+
       if (product.sizes) {
-        card.setAttribute('sizes', JSON.stringify(product.sizes));
+        card.setAttribute("sizes", JSON.stringify(product.sizes));
       }
 
       grid.appendChild(card);
@@ -85,28 +87,28 @@ async loadProducts() {
   }
 
   filterByCategory(category) {
-    console.log('Filtering by category:', category);
-    
-    if (category === 'All' || !category) {
+    console.log("Filtering by category:", category);
+
+    if (category === "All" || !category) {
       this.filteredProducts = [...this.products];
     } else {
-      this.filteredProducts = this.products.filter(p => {
-        console.log('Product category:', p.category, 'Looking for:', category);
+      this.filteredProducts = this.products.filter((p) => {
+        console.log("Product category:", p.category, "Looking for:", category);
         return p.category === category;
       });
     }
-    
-    console.log('Filtered products count:', this.filteredProducts.length);
+
+    console.log("Filtered products count:", this.filteredProducts.length);
     this.render();
     this.updateProductCount();
   }
 
   filterBySize(size) {
-    if (size === 'All' || !size) {
+    if (size === "All" || !size) {
       this.filteredProducts = [...this.products];
     } else {
-      this.filteredProducts = this.products.filter(p => 
-        Array.isArray(p.sizes) && p.sizes.includes(size)
+      this.filteredProducts = this.products.filter(
+        (p) => Array.isArray(p.sizes) && p.sizes.includes(size),
       );
     }
     this.render();
@@ -114,8 +116,8 @@ async loadProducts() {
   }
 
   filterByPrice(maxPrice) {
-    this.filteredProducts = this.products.filter(p => 
-      this.parsePrice(p.price) <= maxPrice
+    this.filteredProducts = this.products.filter(
+      (p) => this.parsePrice(p.price) <= maxPrice,
     );
     this.render();
     this.updateProductCount();
@@ -126,10 +128,11 @@ async loadProducts() {
       this.filteredProducts = [...this.products];
     } else {
       const q = query.toLowerCase();
-      this.filteredProducts = this.products.filter(p => 
-        p.item_name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        (p.description || '').toLowerCase().includes(q)
+      this.filteredProducts = this.products.filter(
+        (p) =>
+          p.item_name.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
+          (p.description || "").toLowerCase().includes(q),
       );
     }
     this.render();
@@ -137,15 +140,15 @@ async loadProducts() {
   }
 
   sort(sortType) {
-    if (sortType === 'price-asc') {
-      this.filteredProducts.sort((a, b) => 
-        this.parsePrice(a.price) - this.parsePrice(b.price)
+    if (sortType === "price-asc") {
+      this.filteredProducts.sort(
+        (a, b) => this.parsePrice(a.price) - this.parsePrice(b.price),
       );
-    } else if (sortType === 'price-desc') {
-      this.filteredProducts.sort((a, b) => 
-        this.parsePrice(b.price) - this.parsePrice(a.price)
+    } else if (sortType === "price-desc") {
+      this.filteredProducts.sort(
+        (a, b) => this.parsePrice(b.price) - this.parsePrice(a.price),
       );
-    } else if (sortType === 'rating') {
+    } else if (sortType === "rating") {
       this.filteredProducts.sort((a, b) => b.rating - a.rating);
     } else {
       this.filteredProducts = [...this.products];
@@ -158,19 +161,19 @@ async loadProducts() {
   }
 
   updateProductCount() {
-    const countEl = document.getElementById('catInfo');
+    const countEl = document.getElementById("catInfo");
     if (countEl) {
       countEl.textContent = `${this.getCount()} бараа олдлоо`;
     }
   }
 
   parsePrice(price) {
-    if (typeof price === 'number') return price;
-    return parseInt(String(price).replace(/[^0-9]/g, ''), 10) || 0;
+    if (typeof price === "number") return price;
+    return parseInt(String(price).replace(/[^0-9]/g, ""), 10) || 0;
   }
 }
 
-customElements.define('browse-product-grid', BrowseProductGrid);
+customElements.define("browse-product-grid", BrowseProductGrid);
 
 // ─────────────────────────────────────────────────────────
 // WIRE UP SIDEBAR FILTERS
@@ -181,76 +184,78 @@ function wireBrowseFilters(gridSelector) {
   if (!grid) return;
 
   // Category filter
-  document.querySelectorAll('input[name="cat"]').forEach(radio => {
-    radio.addEventListener('change', (e) => {
+  document.querySelectorAll('input[name="cat"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
       const category = e.target.value;
       grid.filterByCategory(category);
-      
+
       // Update URL without page reload
       const url = new URL(window.location.href);
-      if (category && category !== 'All') {
-        url.searchParams.set('cat', category);
+      if (category && category !== "All") {
+        url.searchParams.set("cat", category);
       } else {
-        url.searchParams.delete('cat');
+        url.searchParams.delete("cat");
       }
-      window.history.pushState({}, '', url);
+      window.history.pushState({}, "", url);
     });
   });
 
   // Size filter
-  document.querySelectorAll('input[name="size"]').forEach(radio => {
-    radio.addEventListener('change', (e) => {
+  document.querySelectorAll('input[name="size"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
       grid.filterBySize(e.target.value);
     });
   });
 
   // Price filter
-  const priceRange = document.querySelector('.price-range');
+  const priceRange = document.querySelector(".price-range");
   if (priceRange) {
-    priceRange.addEventListener('input', (e) => {
+    priceRange.addEventListener("input", (e) => {
       grid.filterByPrice(parseInt(e.target.value, 10));
     });
   }
 
   // Search
-  const searchInput = document.getElementById('srchInp');
+  const searchInput = document.getElementById("srchInp");
   if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener("input", (e) => {
       grid.search(e.target.value.trim());
     });
   }
 
   // Sort
-  const sortSelect = document.getElementById('sortSel');
+  const sortSelect = document.getElementById("sortSel");
   if (sortSelect) {
-    sortSelect.addEventListener('change', (e) => {
+    sortSelect.addEventListener("change", (e) => {
       grid.sort(e.target.value);
     });
   }
 
   // Reset filters
-  const resetBtn = document.querySelector('.flt-reset');
+  const resetBtn = document.querySelector(".flt-reset");
   if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
+    resetBtn.addEventListener("click", () => {
       grid.filteredProducts = [...grid.products];
       grid.render();
       grid.updateProductCount();
-      
+
       // Reset all inputs
       const allRadio = document.querySelector('input[name="cat"][value="All"]');
       if (allRadio) allRadio.checked = true;
-      
-      const allSizeRadio = document.querySelector('input[name="size"][value="All"]');
+
+      const allSizeRadio = document.querySelector(
+        'input[name="size"][value="All"]',
+      );
       if (allSizeRadio) allSizeRadio.checked = true;
-      
-      if (searchInput) searchInput.value = '';
-      if (sortSelect) sortSelect.value = 'new';
+
+      if (searchInput) searchInput.value = "";
+      if (sortSelect) sortSelect.value = "new";
       if (priceRange) priceRange.value = 500000;
-      
+
       // Clear URL
       const url = new URL(window.location.href);
-      url.searchParams.delete('cat');
-      window.history.pushState({}, '', url);
+      url.searchParams.delete("cat");
+      window.history.pushState({}, "", url);
     });
   }
 }
@@ -259,21 +264,21 @@ function wireBrowseFilters(gridSelector) {
 // INITIALIZE
 // ─────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Browse components loaded');
-  
-  const grid = document.querySelector('browse-product-grid');
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Browse components loaded");
+
+  const grid = document.querySelector("browse-product-grid");
   if (grid) {
-    wireBrowseFilters('browse-product-grid');
+    wireBrowseFilters("browse-product-grid");
   }
 });
 
 document.querySelectorAll(".flt-ttl").forEach((targetFilter) => {
-targetFilter.addEventListener("toggle",()=>{
-    if(targetFilter.open){
-      document.querySelectorAll("ttl").forEach((filter)=>{
-        if(filter!==targetFilter) filter.removeAttribute("open");
-      })
+  targetFilter.addEventListener("toggle", () => {
+    if (targetFilter.open) {
+      document.querySelectorAll("ttl").forEach((filter) => {
+        if (filter !== targetFilter) filter.removeAttribute("open");
+      });
     }
   });
 });
