@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
+const cors    = require('cors');
+const path    = require('path');
 
 const app = express();
 
@@ -8,18 +9,17 @@ const app = express();
 // MIDDLEWARE
 // ─────────────────────────────────────────────────────────
 
+app.use(cors({
+  origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS — frontend-с API дуудах боломжтой болгох
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
-// Static файлууд — public folder-г serve хийх
+// Static файлууд
 app.use('/public', express.static(path.join(__dirname, '../public')));
 
 // ─────────────────────────────────────────────────────────
@@ -28,9 +28,11 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 
 const productRoutes = require('./routes/products');
 const reviewRoutes  = require('./routes/review');
+const userRoutes    = require('./routes/users');
 
 app.use('/api/products', productRoutes);
 app.use('/api/reviews',  reviewRoutes);
+app.use('/api/users',    userRoutes);
 
 // ─────────────────────────────────────────────────────────
 // HTML PAGES
