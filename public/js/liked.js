@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         
         // Fetch all products and filter by liked IDs
-        const response = await fetch('/public/json/product.json');
+        const response = await fetch('http://localhost:3000/api/products');
         const allProducts = await response.json();
         const likedProducts = allProducts.filter(p => likedIds.includes(String(p.id)));
         
