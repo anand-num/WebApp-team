@@ -11,7 +11,7 @@
     "status": "Premium",
     "category": "Cosplay",
     "description": "Authentic Frozen-inspired Anna adventure dress with intricate embroidery.",
-    "img_src": "anna-costume.jpg",
+    "img_src": "anna-costume.webp",
     "sizes": ["S", "M", "L"],
     "in_stock": 5,
     "date_posted": "2026-04-01"
@@ -28,7 +28,7 @@
     "status": "Popular",
     "category": "Costume",
     "description": "Classic black tuxedo designed for professional ballroom dancing and gala events.",
-    "img_src": "ballroom-male-costume.jpg",
+    "img_src": "ballroom-male-costume.webp",
     "sizes": ["M", "L", "XL"],
     "in_stock": 3,
     "date_posted": "2026-03-28"
@@ -45,7 +45,7 @@
     "status": "Best Seller",
     "category": "Costume",
     "description": "Soft, plush brown bear mascot suit perfect for children's parties and promotions.",
-    "img_src": "bear-costume.jpg",
+    "img_src": "bear-costume.webp",
     "sizes": ["XL"],
     "in_stock": 8,
     "date_posted": "2026-04-02"
@@ -62,7 +62,7 @@
     "status": "Pending",
     "category": "Evening Wear",
     "description": "A voluminous, royal blue tulle gown designed for debutante balls and stage performances.",
-    "img_src": "big-blue-dress.jpg",
+    "img_src": "big-blue-dress.webp",
     "sizes": ["S", "M", "L", "XL"],
     "in_stock": 2,
     "date_posted": "2026-03-30"
@@ -79,7 +79,7 @@
     "status": "Pending",
     "category": "Evening Wear",
     "description": "Elegant pink silk evening gown with a modern slim-fit silhouette.",
-    "img_src": "dress2.jpg",
+    "img_src": "dress2.webp",
     "sizes": ["S", "M", "L"],
     "in_stock": 6,
     "date_posted": "2026-03-25"
@@ -96,7 +96,7 @@
     "status": "Standard",
     "category": "Cultural",
     "description": "Traditional Japanese Yukata style kimono with floral patterns and obi belt.",
-    "img_src": "kimono.jpg",
+    "img_src": "kimono.webp",
     "sizes": ["S", "M", "L"],
     "in_stock": 4,
     "date_posted": "2026-03-26"
@@ -130,7 +130,7 @@
     "status": "Standard",
     "category": "Cultural",
     "description": "Rugged yet stylish male Deel suitable for festivals and outdoor Naadam events.",
-    "img_src": "mongolian-male-deel.jpg",
+    "img_src": "mongolian-male-deel.webp",
     "sizes": ["M", "L", "XL"],
     "in_stock": 5,
     "date_posted": "2026-03-29"
@@ -147,7 +147,7 @@
     "status": "Premium",
     "category": "Costume",
     "description": "Authentic replica of the Mongolian National Olympic team ceremonial uniform.",
-    "img_src": "mongolian-olimpian-costume.jpg",
+    "img_src": "mongolian-olimpian-costume.webp",
     "sizes": ["M", "L"],
     "in_stock": 3,
     "date_posted": "2026-03-31"
@@ -164,7 +164,7 @@
     "status": "Premium",
     "category": "Cultural",
     "description": "Exquisite historical queen's ensemble featuring heavy embroidery and ornate headpiece.",
-    "img_src": "mongolian-queen-deel.jpg",
+    "img_src": "mongolian-queen-deel.webp",
     "sizes": ["S", "M", "L", "XL"],
     "in_stock": 2,
     "date_posted": "2026-03-24"
@@ -181,7 +181,7 @@
     "status": "Standard",
     "category": "Dance",
     "description": "Sultry red slit dress designed for Tango and Latin dance performances.",
-    "img_src": "tango-red-dress.jpg",
+    "img_src": "tango-red-dress.webp",
     "sizes": ["S", "M", "L"],
     "in_stock": 6,
     "date_posted": "2026-04-03"
@@ -198,7 +198,7 @@
     "status": "Premium",
     "category": "Cosplay",
     "description": "Highly detailed Violet Evergarden uniform with professional-grade ruffles and accessories.",
-    "img_src": "voiled-evergarden-cos.jpg",
+    "img_src": "voiled-evergarden-cos.webp",
     "sizes": ["S", "M", "L"],
     "in_stock": 4,
     "date_posted": "2026-04-04"
@@ -215,7 +215,7 @@
     "status": "Standard",
     "category": "Wedding",
     "description": "Modern slim-fit groom's suit in charcoal grey.",
-    "img_src": "wedding-cost.jpg",
+    "img_src": "wedding-cost.webp",
     "sizes": ["M", "L", "XL"],
     "in_stock": 9,
     "date_posted": "2026-03-23"
@@ -232,7 +232,7 @@
     "status": "Premium",
     "category": "Wedding",
     "description": "Luxury lace A-line wedding gown with a long cathedral train.",
-    "img_src": "wedding-dress.jpg",
+    "img_src": "wedding-dress.webp",
     "sizes": ["S", "M", "L", "XL"],
     "in_stock": 1,
     "date_posted": "2026-03-22"

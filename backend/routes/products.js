@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
     // status нь "rejected" эсвэл "pending" биш өгөгдлийг авах
     const result = await products.find({
-      status: { $nin: ['rejected', 'pending'] }
+      status: { $nin: ['Rejected', 'Pending'] }
       //       ↑ $nin = "not in" гэсэн утга
     }).toArray();
 
