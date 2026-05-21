@@ -292,6 +292,7 @@ a{
 .pd-reviews {
   background: var(--background-secondary);
   border-top: 1px solid var(--background-beige-medium);
+  padding: 2vh 10vw;
 }
 
 /* Header tag — gold line + label */
