@@ -42,11 +42,12 @@ async loadReviews() {
       // Product page — тухайн product-ийн review-үүд
       this.reviews = allReviews.filter(r => r.product_id == this.productId);
       console.log(`📦 Product reviews: ${this.reviews.length}`);
-    } else {
-      // Home page — хамгийн ихдээ 6
-      this.reviews = allReviews.slice(0, 6);
-      console.log(`🏠 Home reviews: ${this.reviews.length}`);
-    }
+    } 
+    // else {
+    //   // Home page — хамгийн ихдээ 6
+    //   this.reviews = allReviews.slice(0, 3);
+    //   console.log(`🏠 Home reviews: ${this.reviews.length}`);
+    // }
     
     this.renderReviews();
   } catch (error) {
