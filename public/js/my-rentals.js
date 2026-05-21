@@ -55,32 +55,7 @@ var defaultRentals = [
     status: "done" /* done = дууссан */,
     reviewed: false,
   },
-  {
-    id: 4,
-    name: "Монгол хатны дээл",
-    brand: "Yalguun",
-    size: "M",
-    img: "/public/source/mongolian-queen-deel.jpg",
-    startDate: "2026-03-01",
-    endDate: "2026-03-04",
-    days: 3,
-    price: 90000,
-    status: "done",
-    reviewed: true /* reviewed = сэтгэгдэл бичигдсэн */,
-  },
-  {
-    id: 5,
-    name: "Баавгайн маскот",
-    brand: "Temu",
-    size: "Нэг хэмжээ",
-    img: "/public/source/bear-costume.jpg",
-    startDate: "2026-02-14",
-    endDate: "2026-02-15",
-    days: 1,
-    price: 10000,
-    status: "cancelled" /* cancelled = цуцалсан */,
-    reviewed: false,
-  },
+
 ];
 
 /* localStorage-аас дата унших */
