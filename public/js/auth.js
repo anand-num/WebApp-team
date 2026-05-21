@@ -399,16 +399,16 @@ class AuthUI {
           rented_items   : [],
         };
 
-        // Auth.js-ийн register() — localStorage-д хадгална
-        this.#auth.register(newUser);
-
-        // Auth.js-ийн setSession() — бүртгүүлсний дараа автоматаар нэвтрүүлнэ
-        this.#auth.setSession(newUser);
-
-        // Modal хаагдаж nav товчлуур шинэчлэгдэнэ, форм цэвэрлэгдэнэ
-        this.closeModal(registerModal);
-        this.updateNavBtn();
-        registerForm.reset();
+        // Энэ болгох
+        try {
+          const savedUser = await this.#auth.register(newUser);
+          this.#auth.setSession(savedUser);
+          this.closeModal(registerModal);
+          this.updateNavBtn();
+          registerForm.reset();
+        } catch (error) {
+          this.showError('reg-general-err', error.message || 'Бүртгэл амжилтгүй боллоо');
+        }
       });
     }
   }

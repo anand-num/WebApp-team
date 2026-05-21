@@ -1,83 +1,69 @@
-/* ══════════════════════════════════════════════════════════
-   MODULE — Auth
-   Session management and user lookup class
-══════════════════════════════════════════════════════════ */
-
 export default class Auth {
   #sessionKey = 'rf_user';
-  #regKey     = 'rf_registered';
 
-  // ── Session ─────────────────────────────────────────────
+
   getSession() {
     try { return JSON.parse(localStorage.getItem(this.#sessionKey)); }
-    catch { console.error('Failed to parse session data'); return null;  }
+    catch { return null; }
   }
-  // localStorage.getItem(this.#sessionKey) -- web deer bairlah storagoos sessionKey buyu 
-  // buyu rf_user-gi utgaig avna. 
-  // JSON.parse() -- avsan stringiig JSON object bolgono.
-  // try- todorhoigui orolltoi ued ashiglana
-  // catch cannot exist without try 
-  // finally also cannot exist without try 
-  // return null -- hen ch log in hiiggu gsen ug
 
   setSession(user) {
     localStorage.setItem(this.#sessionKey, JSON.stringify(user));
-    //JSON.stringify(user)-- localstorage string l hadgalj chadddag uchraas javascriot ogogdliig string bolgono
-    // Example: { name: "John" } → '{"name":"John"}'
   }
 
   clearSession() {
     localStorage.removeItem(this.#sessionKey);
   }
 
-  // ── Registered users (localStorage) ─────────────────────
-  getRegistered() {
-    try { return JSON.parse(localStorage.getItem(this.#regKey)) || []; }
-    catch { console.error('Failed to parse registered users'); return [];  }
-  }
-  // ||[] -- herev json.parse() null utga butsaaval orond hooson massiv butsaana
-
-  register(userData) {
-    const list = this.getRegistered();
-    list.push(userData);
-    localStorage.setItem(this.#regKey, JSON.stringify(list));
-  }
-  // herev getRegistered() null buyu register hiiggu bol listed buyu [] dotor hereglechiin utgiig ogno
-  // localStorage.setItem(this.#regKey, JSON.stringify(list))--getRegistered() javascript ogogdol bolgosnoo butsaagd string bolgoj localstoraged hadgalna
-
-
-  // ── User lookup (merges JSON users + registered) ─────────
-  async getAllUsers() {
-    let base = [];
-    for (const path of ['/public/json/users.json', '../json/users.json']) {
-      try {
-        const r = await fetch(path);
-        if (r.ok) { base = await r.json(); break; }
-      } catch (_) {}
-    }
-    return [...base, ...this.getRegistered()];
-  }
-  // async-- ene uildel udaj magadgui uchir huleelgui busad uildliig hiih
-  //await-- asynctai hamt zaaval ashiglagddag ba ene uildel duusahiig huleene gsen ug
-  // r.jsom-- irsen jsoniig javascript ogogdol bolgono
-  // catch(_){}-- erroriig toohgui buyu baese ni [] hvre uldene
-  // return [...base, ...this.getRegistered()] -- base bolon localStorage-d bga useruudiig negtgeh operator
-
+  // ── Login ────────────────────────────────────────────
   async findUser(email, password) {
-  const users = await this.getAllUsers();
-  return users.find(u =>
-    (u.email.toLowerCase() === email.toLowerCase() ||
-     u.username.toLowerCase() === email.toLowerCase()) &&
-    u.password === password
-  ) || null;
-}
-  // users.find(u => -- getAllUsers buyu user.json oos avsan buh usereer guilgeh uildel
-  // u.email.toLowerCase() === email.toLowerCase() -- herev useriin email ogson emailtei tentsuu bol true butsaana
-  // u.password === password -- herev useriin password ogson passwordtei tentsuu bol true butsaana
-  // || null -- herev find() null buyu user oldohgui bol orond null butsaana
+    try {
+      const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (error) {
+      console.error('Login error:', error);
+      return null;
+    }
+  }
+
+  // ── Register ─────────────────────────────────────────
+  async register(userData) {
+    try {
+      const response = await fetch('http://localhost:3000/api/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Register error:', error);
+      throw error;
+    }
+  }
+
+  // ── Email шалгах ─────────────────────────────────────
   async emailExists(email) {
-    const users = await this.getAllUsers();
-    return users.some(u => u.email.toLowerCase() === email.toLowerCase());
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/check-email?email=${encodeURIComponent(email)}`
+      );
+      const data = await response.json();
+      return data.exists;
+    } catch (error) {
+      console.error('Email check error:', error);
+      return false;
+    }
   }
 }
