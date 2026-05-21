@@ -13,7 +13,7 @@ class FeaturedProducts extends HTMLElement {
 
   async loadProducts() {
     try {
-      const response = await fetch('http://localhost:5000/api/products');
+      const response = await fetch('http://localhost:3000/api/products');
       const allProducts = await response.json();
       
       // Get top 4 rated products
