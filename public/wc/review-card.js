@@ -65,7 +65,7 @@ export class ReviewCard extends HTMLElement {
           --text-primary: var(--text-primary, #1a1a1a);
           --text-secondary: var(--text-secondary, #666666);
           --text-tertiary: var(--text-tertiary, #999999);
-          --gold: var(--gold, #c9a84c);
+
           --font-heading: var(--font-heading, 'Georgia', serif);
           --font-body: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
           --font-bold: var(--font-bold, 'Helvetica Neue', sans-serif);

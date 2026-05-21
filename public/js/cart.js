@@ -72,7 +72,7 @@ class CartPage {
     if (cart.getItems().length) return;
 
     try {
-      const r = await fetch('/public/json/product.json');
+      const r = await fetch('http://localhost:3000/api/products');
       const products = await r.json();
       const seeds = [products[6], products[4]];
       const today = new Date().toISOString().slice(0, 10);
@@ -342,7 +342,7 @@ showStep(idx) {
   // ── Промо кодуудыг серверээс ачаалах ────────────────
   async loadPromoCodes() {
     try {
-      const r = await fetch('/public/json/promocode.json');
+      const r = await fetch('http://localhost:3000/api/promocode');
       if (r.ok) { this.#promoCodes = await r.json(); }
     } catch (_) {}
   }
@@ -438,7 +438,7 @@ showStep(idx) {
   // ── product.json ачаалах ─────────────────────────────
   async loadProducts() {
     try {
-      const r = await fetch('/public/json/product.json');
+      const r = await fetch('http://localhost:3000/api/products');
       if (r.ok) { this.#products = await r.json(); }
     } catch (_) {}
   }
