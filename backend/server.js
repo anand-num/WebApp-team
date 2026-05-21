@@ -1,104 +1,41 @@
+require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
 
-app.use(cors());
+// ─────────────────────────────────────────────────────────
+// MIDDLEWARE
+// ─────────────────────────────────────────────────────────
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// ─────────────────────────────────────────────────────────
-// ФАЙЛУУДЫН ЗАМЫГ ТОХИРУУЛАХ (ЗАМЫГ BACKEND-Д ТААРУУЛАВ)
-// ─────────────────────────────────────────────────────────
-// JSON өгөгдлүүд сервертэй нэг хавтас (backend/) дотор байгаа үед:
-const PRODUCTS_PATH = path.join(__dirname, 'product.json');
-const REVIEWS_PATH = path.join(__dirname, 'review.json');
-const USERS_PATH = path.join(__dirname, 'user.json');
-const REQUESTS_PATH = path.join(__dirname, 'rental-requests.json');
-
-// ─────────────────────────────────────────────────────────
-// ТУСЛАХ ФУНКЦҮҮД (JSON-ТОЙ ХАРЬЦАХ)
-// ─────────────────────────────────────────────────────────
-
-async function readDataFile(filePath) {
-  try {
-    const data = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error(`Файл уншихад алдаа гарлаа (${filePath}):`, error);
-    return []; // Файл олдохгүй эсвэл алдаа гарвал хоосон массив буцаана (сервер унахгүй)
-  }
-}
-
-async function writeDataFile(filePath, data) {
-  try {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
-    return true;
-  } catch (error) {
-    console.error(`Файл руу бичихэд алдаа гарлаа (${filePath}):`, error);
-    return false;
-  }
-}
-
-function parsePrice(price) {
-  if (typeof price === 'number') return price;
-  return parseInt(String(price).replace(/[^0-9]/g, ''), 10) || 0;
-}
-
-// ─────────────────────────────────────────────────────────
-// API ЗАМУУД (ROUTES)
-// ─────────────────────────────────────────────────────────
-
-// 1. ХЭРЭГЛЭГЧ НЭВТРЭХ (LOGIN API)
-app.post('/api/auth/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Имэйл болон нууц үгээ оруулна уу.' });
-  }
-
-  const users = await readDataFile(USERS_PATH);
-  const user = users.find(u => u.email === email && u.password === password);
-
-  if (!user) {
-    return res.status(401).json({ message: 'Имэйл эсвэл нууц үг буруу байна.' });
-  }
-
-  // Аюулгүй байдлын үүднээс нууц үгийг хасаж фронтенд рүү буцаана
-  const { password: _, ...userWithoutPassword } = user;
-
-  res.json({
-    success: true,
-    message: 'Амжилттай нэвтэрлээ.',
-    user: userWithoutPassword
-  });
+// CORS — frontend-с API дуудах боломжтой болгох
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 });
 
-// 2. ТҮРЭЭСЛЭХ ХҮСЭЛТ ХҮЛЭЭЖ АВАХ БА ХЭРЭГЛЭГЧИЙГ ХОЛБОХ
-app.post('/api/rental-requests', async (req, res) => {
-  const { productId, selectedSize, fromDate, toDate, userId } = req.body;
+// Static файлууд — public folder-г serve хийх
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
-  if (!productId || !selectedSize || !fromDate || !toDate || !userId) {
-    return res.status(400).json({ message: 'Мэдээлэл дутуу байна. (Бараа, размер, огноо, хэрэглэгчийн ID шаардлагатай)' });
-  }
+// ─────────────────────────────────────────────────────────
+// ROUTES
+// ─────────────────────────────────────────────────────────
 
-  // а. Хэрэглэгч (Түрээслэгч) байгаа эсэхийг шалгах
-  const users = await readDataFile(USERS_PATH);
-  const tenant = users.find(u => u.user_id === userId);
-  if (!tenant) {
-    return res.status(404).json({ message: 'Хүсэлт илгээгч хэрэглэгч олдсонгүй.' });
-  }
+const productRoutes = require('./routes/products');
+const reviewRoutes  = require('./routes/review');
 
-  // б. Бараа байгаа эсэхийг шалгах
-  const products = await readDataFile(PRODUCTS_PATH);
-  const product = products.find(p => p.id == productId);
-  if (!product) {
-    return res.status(404).json({ message: 'Түрээслэх бараа олдсонгүй.' });
-  }
+app.use('/api/products', productRoutes);
+app.use('/api/reviews',  reviewRoutes);
 
-  // в. Энэ барааг анх нийтэлсэн эзнийг (Owner) хайж олох
-  const owner = users.find(u => u.published_items.includes(productId) || u.published_items.includes(product.img_src.split('.')[0]));
+// ─────────────────────────────────────────────────────────
+// HTML PAGES
+// ─────────────────────────────────────────────────────────
+
 
   // Огноо болон хоног тооцоолох логик
   const start = new Date(fromDate);
@@ -154,20 +91,16 @@ app.post('/api/rental-requests', async (req, res) => {
     message: 'Түрээсийн хүсэлт амжилттай бүртгэгдлээ.',
     data: newRequest
   });
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/index.html'));
+
 });
 
-// 3. БҮХ БҮТЭЭГДЭХҮҮНИЙГ АВАХ (ШҮҮЛТҮҮРТЭЙ)
-app.get('/api/products', async (req, res) => {
-  const { cat, size, maxPrice } = req.query;
-  const products = await readDataFile(PRODUCTS_PATH);
-  let results = [...products];
-
-  if (cat && cat !== 'All') results = results.filter(p => p.category === cat);
-  if (size && size !== 'All') results = results.filter(p => p.sizes && p.sizes.includes(size));
-  if (maxPrice) results = results.filter(p => parsePrice(p.price) <= parseInt(maxPrice, 10));
-
-  res.json(results);
+app.get('/browse', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/browse.html'));
 });
+
 
 // 4. НЭГ БҮТЭЭГДЭХҮҮНИЙГ ID-ААР НЬ АВАХ
 app.get('/api/products/:id', async (req, res) => {
@@ -191,10 +124,15 @@ app.get('/api/reviews', async (req, res) => {
   res.json(reviews);
 });
 
+app.get('/product', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/product.html'));
+});
+
 // ─────────────────────────────────────────────────────────
-// СЕРВЕРИЙГ АСААХ
+// SERVER START
 // ─────────────────────────────────────────────────────────
-const PORT = 5000;
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

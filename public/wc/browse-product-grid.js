@@ -16,21 +16,24 @@ class BrowseProductGrid extends HTMLElement {
     this.loadProducts(jsonUrl);
   }
 
-  async loadProducts(jsonUrl) {
-    try {
-      const response = await fetch(jsonUrl);
-      this.products = await response.json();
-      this.filteredProducts = [...this.products];
-      this.render();
-      
-      // ✅ READ CATEGORY FROM URL AFTER PRODUCTS LOAD
-      this.applyFiltersFromUrl();
-      
-    } catch (error) {
-      console.error('Failed to load products:', error);
-      this.innerHTML = '<p style="color: red;">Failed to load products</p>';
-    }
+async loadProducts() {
+  try {
+    // JSON файлаас биш API-с авах
+    const response = await fetch('http://localhost:3000/api/products');
+    
+    if (!response.ok) throw new Error('API error');
+    
+    this.products = await response.json();
+    // status filter хийхгүй — API-с аль хэдийн шүүгдсэн өгөгдөл ирнэ
+    this.filteredProducts = [...this.products];
+    this.render();
+    this.applyFiltersFromUrl();
+
+  } catch (error) {
+    console.error('Failed to load products:', error);
+    this.innerHTML = '<p style="color: red;">Failed to load products</p>';
   }
+}
 
   // ✅ NEW METHOD: Read filters from URL
   applyFiltersFromUrl() {

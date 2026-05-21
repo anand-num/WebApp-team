@@ -15,22 +15,18 @@ class HomeReviews extends HTMLElement {
 
   async loadReviews() {
     try {
-      const response = await fetch('/public/json/review.json');
-      const allReviews = await response.json();
+      // JSON файлаас биш API-с авах
+      const response = await fetch('http://localhost:3000/api/reviews');
 
-      // Get unique reviews (one per product) with rating >= 4
-      const seen = new Set();
-      this.reviews = allReviews
-        .filter(r => r.rating >= 4)
-        .reduce((acc, r) => {
-          if (!seen.has(r.product_id)) {
-            seen.add(r.product_id);
-            acc.push(r);
-          }
-          return acc;
-        }, [])
-        .slice(0, 3);  // Show top 3 reviews
+      if (!response.ok) throw new Error('API error');
+
+      // API-с аль хэдийн шүүгдсэн өгөгдөл ирнэ
+      const data = await response.json();
       
+      this.reviews = data.slice(0,3);
+    
+      
+
       console.log('🏠 Home reviews loaded:', this.reviews.length);
     } catch (error) {
       console.error('Failed to load reviews:', error);
