@@ -142,7 +142,7 @@ app.post('/api/rental-requests', async (req, res) => {
 
   const currentRequests = await readDataFile(REQUESTS_PATH);
   currentRequests.push(newRequest);
-  
+
   const success = await writeDataFile(REQUESTS_PATH, currentRequests);
 
   if (!success) {
@@ -177,14 +177,18 @@ app.get('/api/products/:id', async (req, res) => {
   res.json(product);
 });
 
-// 5. СЭТГЭГДЛҮҮДИЙГ БҮТЭЭГДЭХҮҮНИЙ ID-ААР ДИНАМИКААР ШҮҮЖ АВАХ
+// 5. СЭТГЭГДЛҮҮДИЙГ АВАХ (ДИНАМИК БА БҮГД)
 app.get('/api/reviews', async (req, res) => {
-  const { productId } = req.query; // Фронтендээс ирэх ?productId=X утгыг барьж авна
-  if (!productId) return res.status(400).json({ message: 'productId параметр шаардлагатай.' });
-  
+  const { productId } = req.query;
   const reviews = await readDataFile(REVIEWS_PATH);
-  const filteredReviews = reviews.filter(r => r.product_id == productId);
-  res.json(filteredReviews);
+  
+  // Хэрэв productId ирсэн байвал шүүнэ, ирээгүй бол бүх сэтгэгдлийг буцаана
+  if (productId) {
+    const filteredReviews = reviews.filter(r => r.product_id == productId);
+    return res.json(filteredReviews);
+  }
+  
+  res.json(reviews);
 });
 
 // ─────────────────────────────────────────────────────────
