@@ -18,6 +18,6 @@ export const STATUS_LABEL = {
 
 /* JSON файлуудын зам */
 export const JSON_PATHS = {
-  products: '../json/product.json',
-  users:    '../json/users.json',
+  products: 'http://localhost:3000/api/products/all',
+  users:    'http://localhost:3000/api/user',
 };

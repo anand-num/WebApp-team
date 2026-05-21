@@ -25,4 +25,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+//all product
+router.get('/all', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('webapp-team');
+    const products = db.collection('product');
+
+    
+    const result = await products.find({}).toArray();
+
+    res.json(result);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
