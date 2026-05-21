@@ -358,7 +358,11 @@ a {
 .reviews-home {
   background-color: var(--background-secondary);
 }
-
+.reviews-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .review-card {
   background: var(--surface);
   border: 1px solid var(--background-beige-medium);

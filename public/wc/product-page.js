@@ -26,39 +26,39 @@ class ProductPage extends HTMLElement {
     }
   }
 
-  async loadData() {
-    // Get ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+async loadData() {
+  // URL-с product ID авах
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
 
-    if (!productId) {
-      console.error('No product ID provided');
-      return;
-    }
-
-    try {
-      // Load both products and reviews in parallel
-      const [productsResponse, reviewsResponse] = await Promise.all([
-        fetch('/public/json/product.json'),
-        fetch('/public/json/review.json')
-      ]);
-
-      const products = await productsResponse.json();
-      const allReviews = await reviewsResponse.json();
-
-      // Find the product
-      this.product = products.find(p => p.id == productId);
-
-      // Filter reviews for this product
-      if (this.product) {
-        this.reviews = allReviews.filter(r => r.product_id == this.product.id);
-        // Parse base price from product price string
-        this.basePrice = parsePrice(this.product.price);
-      }
-    } catch (error) {
-      console.error('Failed to load data:', error);
-    }
+  if (!productId) {
+    console.error('No product ID provided');
+    return;
   }
+
+  try {
+    // API-с product болон review хамт авах
+    const [productsResponse, reviewsResponse] = await Promise.all([
+      fetch(`http://localhost:3000/api/products`),
+      fetch(`http://localhost:3000/api/reviews`)
+    ]);
+
+    const products = await productsResponse.json();
+    const allReviews = await reviewsResponse.json();
+
+    // ID-гаар product олох
+    this.product = products.find(p => p.id == productId);
+
+    // Тухайн product-ийн review-үүдийг шүүх
+    if (this.product) {
+      this.reviews = allReviews.filter(r => r.product_id == this.product.id);
+      this.basePrice = parsePrice(this.product.price);
+    }
+
+  } catch (error) {
+    console.error('Failed to load data:', error);
+  }
+}
 
   // Helper function to get initials from name
   getInitials(name) {

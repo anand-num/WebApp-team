@@ -24,36 +24,36 @@ export class ReviewList extends HTMLElement {
     }
   }
 
-  async loadReviews() {
-    if (this.useManualReviews) {
-      console.log('⚠️ Skipping auto-load, using manual reviews');
-      return;
+async loadReviews() {
+  if (this.useManualReviews) {
+    console.log('⚠️ Skipping auto-load, using manual reviews');
+    return;
+  }
+  
+  try {
+    // JSON файлаас биш API-с авах
+    const urlParams = new URLSearchParams(window.location.search);
+    this.productId = urlParams.get('id');
+
+    const response = await fetch('http://localhost:3000/api/reviews');
+    const allReviews = await response.json();
+    
+    if (this.productId) {
+      // Product page — тухайн product-ийн review-үүд
+      this.reviews = allReviews.filter(r => r.product_id == this.productId);
+      console.log(`📦 Product reviews: ${this.reviews.length}`);
+    } else {
+      // Home page — хамгийн ихдээ 6
+      this.reviews = allReviews.slice(0, 6);
+      console.log(`🏠 Home reviews: ${this.reviews.length}`);
     }
     
-    try {
-      const response = await fetch('/public/json/review.json');
-      const allReviews = await response.json();
-      
-      // Check if we're on a product page (has id parameter in URL)
-      const urlParams = new URLSearchParams(window.location.search);
-      this.productId = urlParams.get('id');
-      
-      if (this.productId) {
-        // Product page mode - filter reviews by product_id
-        this.reviews = allReviews.filter(review => review.product_id == this.productId);
-        console.log(`📦 Product page mode: ${this.reviews.length} reviews for product ${this.productId}`);
-      } else {
-        // Home page mode but no manual reviews set - show limited reviews
-        this.reviews = allReviews.slice(0, 6); // Show only 6 reviews max
-        console.log(`🏠 Home page mode: ${this.reviews.length} reviews loaded`);
-      }
-      
-      this.renderReviews();
-    } catch (error) {
-      console.error('Failed to load reviews:', error);
-      this.showError();
-    }
+    this.renderReviews();
+  } catch (error) {
+    console.error('Failed to load reviews:', error);
+    this.showError();
   }
+}
 
   /**
    * Public API: Manually set reviews (used by home-reviews component)
