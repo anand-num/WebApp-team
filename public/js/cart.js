@@ -1,6 +1,7 @@
 /* ══════════════════════════════════════════════════════════
    RENTFIT — cart.js
    Олон алхамт захиалгын хуудас
+   Updated for async MongoDB Cart class
 ══════════════════════════════════════════════════════════ */
 
 import Cart from './modules/Cart.js';
@@ -46,40 +47,37 @@ class CartPage {
     this.tabTitle  = document.querySelector('.tab-title');
   }
 
-  getActiveItems() {
-    const items = cart.getItems();
+  // ── Идэвхтэй бараануудыг авах (ASYNC) ─────────────────
+  async getActiveItems() {
+    const items = await cart.getItems();
     return this.#quickId
-      ? items.filter(function(i) { return i.id === this.#quickId; }.bind(this))
+      ? items.filter(i => i.id == this.#quickId)
       : items;
   }
 
+  // ── Сагс хоосон бол туршилтын мэдээлэл нэмэх (ASYNC) ──
   async seedIfEmpty() {
-    if (cart.getItems().length) return;
+    const items = await cart.getItems();
+    if (items.length) return;
 
     try {
       const r = await fetch('http://localhost:3000/api/products');
       const products = await r.json();
-      const seeds = [products[6], products[4]];
+      const seeds = products.slice(0, 2);
       const today = new Date().toISOString().slice(0, 10);
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + 3);
 
-      cart.save(seeds.map(function(p) {
-        const days = 3;
-        const endDate = new Date();
-        endDate.setDate(endDate.getDate() + days);
-
-        return {
-          id          : p.id,
-          name        : p.item_name,
-          brand       : p.brand,
-          img         : p.img_src,
-          emoji       : p.emoji || '👗',
-          size        : Array.isArray(p.sizes) ? p.sizes[0] : p.sizes,
-          basePrice   : parseInt(String(p.price).replace(/[^0-9]/g, ''), 10) || 0,
-          selectedDays: days,
-          startDate   : today,
-          endDate     : endDate.toISOString().slice(0, 10),
-        };
-      }));
+      for (const p of seeds) {
+        await cart.addProduct(
+          p,
+          today,
+          endDate.toISOString().slice(0, 10),
+          Array.isArray(p.sizes) ? p.sizes[0] : (p.sizes || 'M')
+        );
+      }
+      
+      console.log('Seed products added to cart');
     } catch (e) {
       console.warn('[cart] seed failed', e);
     }
@@ -156,15 +154,11 @@ class CartPage {
   }
 
   updateReceipt(items) {
-    // Нийт дүн = бараа бүрийн үнэ × өдрийн тооны нийлбэр
     const sub = items.reduce(function(s, it) {
       return s + (it.basePrice * (it.selectedDays || 1));
     }, 0);
 
-    // Хүргэлтийн үнэ
     const del = items.length ? getDeliveryCost() : 0;
-
-    // Нийт дүн = барааны дүн + хүргэлт (барьцаа байхгүй)
     const total = sub + del;
 
     if (this.$subtotal) { this.$subtotal.textContent = fmt(sub); }
@@ -180,7 +174,7 @@ class CartPage {
       'linear-gradient(135deg,#0a1020,#1a2040)',
       'linear-gradient(135deg,#10200a,#204010)',
     ];
-    const grad      = gradients[item.id % gradients.length] || gradients[0];
+    const grad      = gradients[(item.id || 0) % gradients.length] || gradients[0];
     const emoji     = item.emoji || '👗';
     const days      = item.selectedDays || 1;
     const total     = item.basePrice * days;
@@ -198,15 +192,15 @@ class CartPage {
       <section class="card-body">
         <header class="card-header">
           <div class="card-title">
-            <p class="card-brand">${item.brand}</p>
+            <p class="card-brand">${item.brand || ''}</p>
             <h2 class="card-name">${item.name}</h2>
           </div>
           <button class="card-remove"
-            onclick="rmCart(${item.id});renderBooking('cart')"
+            onclick="rmCart('${item.cart_id || item.id}');renderBooking('cart')"
             title="Хасах">✕</button>
         </header>
         <p class="card-meta">
-          <span>Размер: <strong>${item.size}</strong></span>
+          <span>Размер: <strong>${item.size || 'M'}</strong></span>
           <span>Хугацаа: <strong>${days} өдөр</strong></span>
         </p>
         <p class="card-dates">📅 <span>${startDate}</span> → <span>${endDate}</span></p>
@@ -218,8 +212,9 @@ class CartPage {
     </article>`;
   }
 
-  renderCart() {
-    const items = this.getActiveItems();
+  // ── Сагсыг дэлгэцэнд харуулах (ASYNC) ─────────────────
+  async renderCart() {
+    const items = await this.getActiveItems();
     this.cartList.innerHTML = '';
 
     if (!items.length) {
@@ -232,11 +227,11 @@ class CartPage {
       return;
     }
 
-    items.forEach(function(item) {
+    items.forEach(item => {
       const li = document.createElement('li');
-      li.innerHTML = this.#buildItemHTML(this.#enrich(item));
+      li.innerHTML = this.#buildItemHTML(item);
       this.cartList.appendChild(li);
-    }.bind(this));
+    });
 
     this.updateReceipt(items);
   }
@@ -245,8 +240,9 @@ class CartPage {
     return true;
   }
 
-  buildConfirmation() {
-    const items = this.getActiveItems();
+  // ── Баталгаажуулах алхамын агуулгыг үүсгэх (ASYNC) ──
+  async buildConfirmation() {
+    const items = await this.getActiveItems();
     const gradients = [
       'linear-gradient(135deg,#0a2010,#1a4020)',
       'linear-gradient(135deg,#1a0a20,#2d1040)',
@@ -275,9 +271,9 @@ class CartPage {
 
     const itemList = document.getElementById('sum-item-list');
     if (itemList) {
-      itemList.innerHTML = items.map(this.#enrich.bind(this)).map(function(it) {
+      itemList.innerHTML = items.map(it => {
         const days = it.selectedDays || 1;
-        const grad = gradients[it.id % gradients.length] || gradients[0];
+        const grad = gradients[(it.id || 0) % gradients.length] || gradients[0];
         const dateHtml = it.startDate
           ? `<p class="sum-item-dates">📅 ${it.startDate} → ${it.endDate}</p>` : '';
         return `
@@ -285,7 +281,7 @@ class CartPage {
             <figure class="sum-item-fig" style="background:${grad}">${it.emoji || '👗'}</figure>
             <div class="sum-item-info">
               <p class="sum-item-name">${it.name}</p>
-              <p class="sum-item-meta">${it.brand} · ${it.size} · ${days} өдөр</p>
+              <p class="sum-item-meta">${it.brand || ''} · ${it.size || 'M'} · ${days} өдөр</p>
               ${dateHtml}
             </div>
             <strong class="sum-item-price">${fmt(it.basePrice * days)}</strong>
@@ -294,43 +290,45 @@ class CartPage {
     }
   }
 
-  placeOrder() {
+  // ── Захиалга өгөх (ASYNC) ────────────────────────────
+  async placeOrder() {
     const orderId = 'RF-' + Math.floor(100000 + Math.random() * 900000);
     const el = document.getElementById('order-id');
     if (el) { el.textContent = orderId; }
 
     if (this.#quickId) {
-      cart.remove(this.#quickId);
+      await cart.removeByProductId(this.#quickId);
     } else {
-      cart.clear();
+      await cart.checkout();
     }
   }
 
   setupListeners() {
-    this.nextBtn.addEventListener('click', function() {
+    this.nextBtn.addEventListener('click', async () => {
       if (this.#currentStep === 0) {
-        if (!this.getActiveItems().length) return;
+        const items = await this.getActiveItems();
+        if (!items.length) return;
         this.showStep(1);
       } else if (this.#currentStep === 1) {
-        this.buildConfirmation();
+        await this.buildConfirmation();
         this.showStep(2);
       } else if (this.#currentStep === 2) {
-        this.placeOrder();
+        await this.placeOrder();
         this.showStep(3);
       }
-    }.bind(this));
+    });
 
     const confirmEditBtn = document.querySelector('.confirm-edit-btn');
     if (confirmEditBtn) {
-      confirmEditBtn.addEventListener('click', function(e) {
+      confirmEditBtn.addEventListener('click', (e) => {
         e.preventDefault();
         this.showStep(1);
-      }.bind(this));
+      });
     }
 
     const successBtn = document.querySelector('.order-success .btn-primary');
     if (successBtn) {
-      successBtn.addEventListener('click', function() {
+      successBtn.addEventListener('click', () => {
         location.href = '/public/html/browse.html';
       });
     }
@@ -343,31 +341,26 @@ class CartPage {
     } catch (_) {}
   }
 
-  #enrich(item) {
-    const p = this.#products.find(function(p) { return p.id === item.id; });
-    if (!p) return item;
-    return Object.assign({}, item, {
-      name  : p.item_name,
-      brand : p.brand,
-      emoji : p.emoji  || item.emoji || '👗',
-      img   : p.img_src || item.img,
-    });
-  }
-
   async init() {
     await Promise.all([this.seedIfEmpty(), this.loadProducts()]);
     this.setupListeners();
     this.showStep(0);
-    this.renderCart();
+    await this.renderCart();
   }
 }
 
 const page = new CartPage();
 
 window.bookState     = bookState;
-window.rmCart        = function(id) { cart.remove(id); };
-window.renderBooking = function(type) {
-  if (type === 'cart') { page.renderCart(); }
+window.rmCart        = async (id) => { 
+  const success = await cart.remove(id);
+  if (!success) {
+    await cart.removeByProductId(id);
+  }
+  await page.renderCart(); 
+};
+window.renderBooking = async (type) => {
+  if (type === 'cart') { await page.renderCart(); }
 };
 
 page.init();
