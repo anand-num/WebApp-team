@@ -143,7 +143,7 @@ get stock() {
           </button>
 
         <button class="card-request-btn ${this.stock <= 0 ? 'disabled' : ''}" ${this.stock <= 0 ? 'disabled' : ''}>
-            ${this.stock <= 0 ? '❌ Дуссан байна' : '📩 Хүсэлт илгээх'}
+            ${this.stock <= 0 ? '❌ Дуссан байна' : '📩 Сагслах'}
         </button>
         </div>
 

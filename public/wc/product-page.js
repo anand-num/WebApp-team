@@ -180,7 +180,7 @@ class ProductPage extends HTMLElement {
 
           <!-- Action Buttons - Add disabled and change text -->
               <button class="btn-primary" id="btn-request" type="button" ${isOutOfStock ? 'disabled' : ''}>
-                ${isOutOfStock ? '❌ Дуссан байна' : '📩 Хүсэлт илгээх'}
+                ${isOutOfStock ? '❌ Дуссан байна' : '📩 Сагслах'}
               </button>
               <button class="btn-secondary ${wishlistButtonClass}" id="btn-wish" type="button">${wishlistButtonText}</button>
           <!-- Perks -->
