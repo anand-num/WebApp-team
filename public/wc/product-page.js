@@ -173,8 +173,8 @@ async loadData() {
 
           <!-- Total Price -->
           <div class="pd-total">
-            <span class="pd-total-lbl">НИЙТ ДҮН</span>
-            <strong class="pd-total-price" id="pd-total-price">—</strong>
+            <span class="pd-total-lbl">1 ӨДРИЙН ҮНЭ</span>
+            <strong class="pd-total-price" id="pd-total-price">${this.product.price}</strong>
           </div>
 
           <!-- Action Buttons -->
