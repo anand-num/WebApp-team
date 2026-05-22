@@ -31,10 +31,10 @@ export function toggleLiked(productId) {
     } catch (e) {
         likedIds = [];
     }
-
+    const idStr = String(productId);
     const index = likedIds.indexOf(productId);
     if (index === -1) {
-        likedIds.push(productId);
+        likedIds.push(idStr);
     } else {
         likedIds.splice(index, 1);
     }
@@ -50,7 +50,7 @@ export function isLiked(productId) {
     const LIKED_KEY = 'rf_liked';
     try {
         const likedIds = JSON.parse(localStorage.getItem(LIKED_KEY)) || [];
-        return likedIds.indexOf(productId) !== -1;
+        return likedIds.indexOf(String(productId)) !== -1;
     } catch (e) {
         return false;
     }
@@ -110,6 +110,13 @@ export class ProductCard extends HTMLElement {
             return [];
         }
     }
+get stock() {
+    const stockValue = this.getAttribute('stock');
+    if (stockValue === null || stockValue === undefined || stockValue === '') {
+        return 1; // Default to in stock
+    }
+    return parseInt(stockValue) || 0;
+}
 
     // ── Render card ──
     render() {
@@ -135,7 +142,9 @@ export class ProductCard extends HTMLElement {
             </svg>
           </button>
 
-          <button class="card-request-btn">📩 Хүсэлт илгээх</button>
+        <button class="card-request-btn ${this.stock <= 0 ? 'disabled' : ''}" ${this.stock <= 0 ? 'disabled' : ''}>
+            ${this.stock <= 0 ? '❌ Бэлэн бус' : '📩 Хүсэлт илгээх'}
+        </button>
         </div>
 
         <div class="card-body">
@@ -206,6 +215,10 @@ export class ProductCard extends HTMLElement {
                 e.preventDefault();
                 e.stopPropagation();
 
+                if (this.stock <= 0) {
+                    alert('Уучлаарай, энэ бүтээгдэхүүн бэлэн биш байна.');
+                    return;
+                }
                 // Build product object for modal
                 const product = {
                     id: this.productId,
@@ -215,7 +228,8 @@ export class ProductCard extends HTMLElement {
                     img_src: this.image.replace('/public/source/', ''),
                     sizes: this.sizes,
                     rating: this.rating,
-                    review_count: this.reviewCount
+                    review_count: this.reviewCount,
+                    stock: this.stock
                 };
 
                 // Open request modal if function exists

@@ -75,6 +75,7 @@ class BrowseProductGrid extends HTMLElement {
       card.setAttribute("review-count", product.review_count);
       card.setAttribute("image", `/public/source/${product.img_src}`);
       card.setAttribute("status", product.status || "");
+      card.setAttribute("stock",product.in_stock);
 
       if (product.sizes) {
         card.setAttribute("sizes", JSON.stringify(product.sizes));

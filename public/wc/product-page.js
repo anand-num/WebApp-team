@@ -1,7 +1,7 @@
 // product-page.js
 import { parsePrice, formatPrice, toggleLiked, isLiked } from './product-card.js';
-import './review-list.js';  
-import './review-card.js';  
+import './review-list.js';
+import './review-card.js';
 
 class ProductPage extends HTMLElement {
   constructor() {
@@ -26,39 +26,39 @@ class ProductPage extends HTMLElement {
     }
   }
 
-async loadData() {
-  // URL-с product ID авах
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
+  async loadData() {
+    // URL-с product ID авах
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-  if (!productId) {
-    console.error('No product ID provided');
-    return;
-  }
-
-  try {
-    // API-с product болон review хамт авах
-    const [productsResponse, reviewsResponse] = await Promise.all([
-      fetch(`http://localhost:3000/api/products`),
-      fetch(`http://localhost:3000/api/reviews`)
-    ]);
-
-    const products = await productsResponse.json();
-    const allReviews = await reviewsResponse.json();
-
-    // ID-гаар product олох
-    this.product = products.find(p => p.id == productId);
-
-    // Тухайн product-ийн review-үүдийг шүүх
-    if (this.product) {
-      this.reviews = allReviews.filter(r => r.product_id == this.product.id);
-      this.basePrice = parsePrice(this.product.price);
+    if (!productId) {
+      console.error('No product ID provided');
+      return;
     }
 
-  } catch (error) {
-    console.error('Failed to load data:', error);
+    try {
+      // API-с product болон review хамт авах
+      const [productsResponse, reviewsResponse] = await Promise.all([
+        fetch(`http://localhost:3000/api/products`),
+        fetch(`http://localhost:3000/api/reviews`)
+      ]);
+
+      const products = await productsResponse.json();
+      const allReviews = await reviewsResponse.json();
+
+      // ID-гаар product олох
+      this.product = products.find(p => p.id == productId);
+
+      // Тухайн product-ийн review-үүдийг шүүх
+      if (this.product) {
+        this.reviews = allReviews.filter(r => r.product_id == this.product.id);
+        this.basePrice = parsePrice(this.product.price);
+      }
+
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    }
   }
-}
 
   // Helper function to get initials from name
   getInitials(name) {
@@ -107,8 +107,9 @@ async loadData() {
     const stars = '★'.repeat(Math.round(this.product.rating)) +
       '☆'.repeat(5 - Math.round(this.product.rating));
 
-    const stockStatus = this.product.stock > 0 ? 'Бэлэн' : 'Дууссан';
-    const stockColor = this.product.stock > 0 ? '#27ae60' : '#d32f2f';
+    const isOutOfStock = this.product.in_stock <= 0 || this.product.stock <= 0;
+    const stockStatus = !isOutOfStock ? 'Бэлэн' : 'Дууссан';
+    const stockColor = !isOutOfStock ? '#27ae60' : '#d32f2f';
 
     const sizesHtml = this.product.sizes?.map(size => `
       <label class="sz-opt">
@@ -118,7 +119,7 @@ async loadData() {
     `).join('') || '<p>Размер байхгүй</p>';
 
     // Check if product is liked using imported function
-    const isProductLiked = isLiked(this.product.id);
+    const isProductLiked = isLiked(String(this.product.id));
     const wishlistButtonText = isProductLiked ? '♥ Дуртайд нэмэгдсэн' : '♡ Дуртайд нэмэх';
     const wishlistButtonClass = isProductLiked ? 'btn-wish--active' : '';
 
@@ -177,10 +178,11 @@ async loadData() {
             <strong class="pd-total-price" id="pd-total-price">${this.product.price}</strong>
           </div>
 
-          <!-- Action Buttons -->
-          <button class="btn-primary" id="btn-request" type="button">📩 Хүсэлт илгээх</button>
-          <button class="btn-secondary ${wishlistButtonClass}" id="btn-wish" type="button">${wishlistButtonText}</button>
-
+          <!-- Action Buttons - Add disabled and change text -->
+              <button class="btn-primary" id="btn-request" type="button" ${isOutOfStock ? 'disabled' : ''}>
+                ${isOutOfStock ? '❌ Дуссан байна' : '📩 Хүсэлт илгээх'}
+              </button>
+              <button class="btn-secondary ${wishlistButtonClass}" id="btn-wish" type="button">${wishlistButtonText}</button>
           <!-- Perks -->
           <ul class="pd-perks">
             <li>✓ 24 цагийн дотор хүргэнэ</li>
@@ -194,16 +196,7 @@ async loadData() {
       <!-- Reviews Section with Web Component -->
       ${reviewsSection}
 
-      <aside class="cart-side" id="cartSide" aria-label="Таны сагс">
-        <header class="cart-side-hd">
-          <h2>Таны сагс</h2>
-          <button class="cart-close" onclick="toggleCart()">✕</button>
-        </header>
-        <section class="cart-items-wrap" id="cartItemsWrap" aria-live="polite"></section>
-        <div id="cartFoot"></div>
-      </aside>
 
-      <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     `;
   }
 
@@ -211,18 +204,19 @@ async loadData() {
    * Populate the reviews list component with review data
    * This method is called after render() to populate the <reviews-list> element
    */
-populateReviews() {
-  const reviewsList = this.querySelector('#review-list');
-  if (!reviewsList) return;
+  populateReviews() {
+    const reviewsList = this.querySelector('#review-list');
+    if (!reviewsList) return;
 
-  customElements.whenDefined('reviews-list').then(() => {
-    if (this.reviews.length > 0) {
-      reviewsList.setReviews(this.reviews);
-    }
-  });
-}
+    customElements.whenDefined('reviews-list').then(() => {
+      if (this.reviews.length > 0) {
+        reviewsList.setReviews(this.reviews);
+      }
+    });
+  }
 
   setupListeners() {
+    const isOutOfStock = this.product.in_stock <= 0 || this.product.stock <= 0;
     // Size selection
     const sizeRadios = this.querySelectorAll('input[name="size"]');
     sizeRadios.forEach(radio => {
@@ -252,7 +246,16 @@ populateReviews() {
     // Request button
     const requestBtn = this.querySelector('#btn-request');
     if (requestBtn) {
+          if (isOutOfStock) {
+      requestBtn.disabled = true;
+      requestBtn.title = 'Энэ бүтээгдэхүүн бэлэн биш байна';
+    }
+
       requestBtn.addEventListener('click', () => {
+              if (isOutOfStock) {
+        alert('Уучлаарай, энэ бүтээгдэхүүн бэлэн биш байна.');
+        return;
+      }
         const requestProduct = {
           id: this.product.id,
           brand: this.product.brand,
@@ -283,7 +286,7 @@ populateReviews() {
     const wishBtn = this.querySelector('#btn-wish');
     if (wishBtn) {
       // Set initial state - already done in render() but this ensures consistency
-      if (isLiked(this.product.id)) {
+      if (isLiked(String(this.product.id))) {
         wishBtn.classList.add('btn-wish--active');
       }
 
@@ -291,7 +294,7 @@ populateReviews() {
         e.preventDefault();
         e.stopPropagation();
 
-        const nowLiked = toggleLiked(this.product.id);
+        const nowLiked = toggleLiked(String(this.product.id));
         this.updateWishlistButton(nowLiked);
 
         // Dispatch event to notify other pages (like product cards on browse page)
