@@ -1,39 +1,40 @@
 <!doctype html>
 <html lang="mn">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RentFit</title>
-    <script>
-      (function () {
-        var t =
-          localStorage.getItem("rf_theme") ||
-          (window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light");
-        document.documentElement.setAttribute("data-theme", t);
-      })();
-    </script>
-    <link rel="stylesheet" href="/public/css/global.css" />
-    <link rel="stylesheet" href="/public/css/layout.css" />
-    <link rel="stylesheet" href="/public/css/styles.css" />
-    <link rel="stylesheet" href="/public/css/browse.css" />
-  </head>
 
-  <body>
-    <app-navigation></app-navigation>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RentFit</title>
+  <script>
+    (function () {
+      var t =
+        localStorage.getItem("rf_theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/public/css/global.css" />
+  <link rel="stylesheet" href="/public/css/layout.css" />
+  <link rel="stylesheet" href="/public/css/styles.css" />
+  <link rel="stylesheet" href="/public/css/browse.css" />
+</head>
 
-    <div class="browse-page">
-      <nav class="breadcrumb">
-        <ol>
-          <li><a href="/public/html/index.html">Нүүр</a></li>
-          <li><a href="/public/html/browse.html">Каталог</a></li>
-        </ol>
-      </nav>
-      <section class="cat-wrap">
-        <!-- SIDE FILTER SECTION -->
-        <aside class="flt-sb">
-          <h1>Шүүлт</h1>
+<body>
+  <app-navigation></app-navigation>
+
+  <div class="browse-page">
+    <nav class="breadcrumb">
+      <ol>
+        <li><a href="/public/html/index.html">Нүүр</a></li>
+        <li><a href="/public/html/browse.html">Каталог</a></li>
+      </ol>
+    </nav>
+    <section class="cat-wrap">
+      <!-- SIDE FILTER SECTION -->
+      <aside class="flt-sb">
+        <h1>Шүүлт</h1>
         <details>
           <summary class="flt-ttl">Ангилал</summary>
 
@@ -83,139 +84,119 @@
           </fieldset>
         </details>
 
-          <div class="filter-types">         
+        <div class="filter-types">
           <legend class="flt-ttl">Үнэ (1 өдөр)</legend>
           <div class="pr-inputs">
-            <input
-              type="range"
-              class="price-range"
-              min="5000"
-              max="500000"
-              step="1000"
-              value="500000"
-            />
+            <input type="range" class="price-range" min="5000" max="500000" step="1000" value="500000" />
             <br />
             <span>≤ 500,000₮</span>
           </div>
-          </div> 
-          <hr />
-          <button class="flt-reset">Шүүлт цэвэрлэх</button>
-        </aside>
+        </div>
+        <hr />
+        <button class="flt-reset">Шүүлт цэвэрлэх</button>
+      </aside>
 
-        <!-- MAIN BROWSE SECTION -->
-        <main class="cat-main">
-          <search class="cat-bar">
-            <form class="cat-bar-form" role="search">
-              <label class="cat-search-wrap" for="srchInp">
-                <span class="si" aria-hidden="true">🔍</span>
-                <input
-                  class="cat-search-inp"
-                  id="srchInp"
-                  type="search"
-                  placeholder="Нэр, тайлбар, брэндээр хайх..."
-                  autocomplete="off"
-                />
-              </label>
+      <!-- MAIN BROWSE SECTION -->
+      <main class="cat-main">
+        <search class="cat-bar">
+          <form class="cat-bar-form" role="search">
+            <label class="cat-search-wrap" for="srchInp">
+              <span class="si" aria-hidden="true">🔍</span>
+              <input class="cat-search-inp" id="srchInp" type="search" placeholder="Нэр, тайлбар, брэндээр хайх..."
+                autocomplete="off" />
+            </label>
 
-              <p class="cat-info" id="catInfo" aria-live="polite">
-                15 бараа олдлоо
-              </p>
+            <p class="cat-info" id="catInfo" aria-live="polite">
+              15 бараа олдлоо
+            </p>
 
-              <label class="cat-sort-wrap" for="sortSel">
-                <select class="cat-sort-sel" id="sortSel">
-                  <option value="new">Шинэ эхэнд</option>
-                  <option value="price-asc">Үнэ ↓</option>
-                  <option value="price-desc">Үнэ ↑</option>
-                  <option value="rating">Рейтинг ↓</option>
-                </select>
-              </label>
-            </form>
-          </search>
+            <label class="cat-sort-wrap" for="sortSel">
+              <select class="cat-sort-sel" id="sortSel">
+                <option value="new">Шинэ эхэнд</option>
+                <option value="price-asc">Үнэ ↓</option>
+                <option value="price-desc">Үнэ ↑</option>
+                <option value="rating">Рейтинг ↓</option>
+              </select>
+            </label>
+          </form>
+        </search>
 
-          <browse-product-grid
-            json-url="/public/json/product.json"
-          ></browse-product-grid>
+        <browse-product-grid json-url="/public/json/product.json"></browse-product-grid>
 
-          <div class="pagi">
-            <button class="pgb" disabled>‹</button>
-            <button class="pgb on">1</button>
-            <button class="pgb">2</button>
-            <button class="pgb">›</button>
+        <div class="pagi">
+          <button class="pgb" disabled>‹</button>
+          <button class="pgb on">1</button>
+          <button class="pgb">2</button>
+          <button class="pgb">›</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- Cart sidebar -->
+    <cart-side></cart-side>
+
+    <!-- Toast notification -->
+    <div id="req-toast" class="req-toast"></div>
+
+    <!-- Rental request modal overlay -->
+    <div class="modal-ov" id="reqModal" onclick="if (event.target === this) closeQM();">
+      <article class="modal-card" id="qmCard">
+        <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">
+          ✕
+        </button>
+        <h3>📩 Түрээсийн хүсэлт</h3>
+
+        <!-- Бүтээгдэхүүний товч мэдээлэл -->
+        <section class="rm-product">
+          <figure class="rm-product-fig">
+            <span id="rm-emoji">👗</span>
+          </figure>
+          <div class="rm-product-info">
+            <p class="rm-brand" id="rm-brand">—</p>
+            <p class="rm-name" id="rm-name">—</p>
+            <p class="rm-price" id="rm-price">—</p>
           </div>
-        </main>
-      </section>
+        </section>
 
-      <!-- Cart sidebar -->
-      <cart-side></cart-side>
+        <!-- Хэмжээ сонгох -->
+        <fieldset class="rm-field">
+          <legend>Размер *</legend>
+          <div id="rmSizes" class="rm-size-btns"></div>
+          <input type="hidden" id="rmSize" />
+        </fieldset>
 
-      <!-- Toast notification -->
-      <div id="req-toast" class="req-toast"></div>
-
-      <!-- Rental request modal overlay -->
-      <div
-        class="modal-ov"
-        id="reqModal"
-        onclick="if (event.target === this) closeQM();"
-      >
-        <article class="modal-card" id="qmCard">
-          <button
-            class="modal-x"
-            onclick="closeQM()"
-            aria-label="Хаах"
-            type="button"
-          >
-            ✕
-          </button>
-          <h3>📩 Түрээсийн хүсэлт</h3>
-
-          <!-- Бүтээгдэхүүний товч мэдээлэл -->
-          <section class="rm-product">
-            <figure class="rm-product-fig">
-              <span id="rm-emoji">👗</span>
-            </figure>
-            <div class="rm-product-info">
-              <p class="rm-brand" id="rm-brand">—</p>
-              <p class="rm-name" id="rm-name">—</p>
-              <p class="rm-price" id="rm-price">—</p>
-            </div>
-          </section>
-
-          <!-- Хэмжээ сонгох -->
-          <fieldset class="rm-field">
-            <legend>Размер *</legend>
-            <div id="rmSizes" class="rm-size-btns"></div>
-            <input type="hidden" id="rmSize" />
-          </fieldset>
-
-          <!-- Огноо сонгох -->
-          <fieldset class="rm-dates">
-            <legend>Хугацаа *</legend>
-            <div class="form-group">
-              <label for="rmFrom">Эхлэх огноо</label>
-              <input type="date" id="rmFrom" onchange="calcRmTotal()" />
-            </div>
-            <div class="form-group">
-              <label for="rmTo">Дуусах огноо</label>
-              <input type="date" id="rmTo" onchange="calcRmTotal()" />
-            </div>
-          </fieldset>
-
-          <!-- Нийт дүн харуулах мөр -->
-          <div class="rm-total">
-            <span id="rmDays">0 өдөр</span>
-            <strong id="rmTotal">0₮</strong>
+        <!-- Огноо сонгох -->
+        <fieldset class="rm-dates">
+          <legend>Хугацаа *</legend>
+          <div class="form-group">
+            <label for="rmFrom">Эхлэх огноо</label>
+            <input type="date" id="rmFrom" onchange="calcRmTotal()" min="" />
           </div>
+          <div class="form-group">
+            <label for="rmTo">Дуусах огноо</label>
+            <input type="date" id="rmTo" onchange="calcRmTotal()" min="" />
+          </div>
+        </fieldset>
 
-          <button class="btn-g" type="button" onclick="submitRequest()">
-            📩 Хүсэлт илгээх
-          </button>
-        </article>
-      </div>
+        
+        <!-- Нийт дүн харуулах мөр -->
+        <div class="rm-total">
+          <span id="rmDays">0 өдөр</span>
+          <strong id="rmTotal">0₮</strong>
+        </div>
 
-      <script type="module" src="/public/js/auth.js"></script>
-      <script src="/public/js/buy-modal.js"></script>
-      <script src="/public/js/theme.js"></script>
-      <script type="module" src="/public/wc/index.js"></script>
+        <button class="btn-g" type="button" onclick="submitRequest()">
+          📩 Хүсэлт илгээх
+        </button>
+        
+      </article>
     </div>
-  </body>
+
+    <script type="module" src="/public/js/auth.js"></script>
+    <script src="/public/js/buy-modal.js"></script>
+    <script src="/public/js/theme.js"></script>
+    <script type="module" src="/public/wc/index.js"></script>
+  </div>
+</body>
+
 </html>

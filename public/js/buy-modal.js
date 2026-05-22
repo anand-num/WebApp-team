@@ -1,6 +1,7 @@
 /* ══════════════════════════════════════════════════════════
    RENTFIT — request-modal.js
    Түрээсийн хүсэлтийн modal — Хэрэглэгчийн cart-д хадгална
+   WITH DATE RESTRICTIONS (No past dates allowed)
 ══════════════════════════════════════════════════════════ */
 
 var _rmProduct = null;
@@ -8,29 +9,18 @@ var _currentUserId = null;
 
 // Get current user from localStorage (set during login)
 function getCurrentUser() {
-  // Try to get user from localStorage
   var userJson = localStorage.getItem('rf_user');
-  console.log('localStorage currentUser:', userJson); // DEBUG
+  console.log('localStorage currentUser:', userJson);
   
   if (!userJson) {
-    // Try alternative key names
-    userJson = localStorage.getItem('user');
-    console.log('Trying alternative "user" key:', userJson);
-  }
-  
-  if (!userJson) {
-    // Try to see what's in localStorage
     console.log('All localStorage keys:', Object.keys(localStorage));
     return null;
   }
   
   try {
     var userData = JSON.parse(userJson);
-    console.log('Parsed user data:', userData); // DEBUG
-    
-    // Get user_id from different possible field names
     _currentUserId = userData.user_id || userData.id || userData._id;
-    console.log('Extracted user_id:', _currentUserId); // DEBUG
+    console.log('Extracted user_id:', _currentUserId);
     
     if (!_currentUserId) {
       console.error('No user_id found in user data:', userData);
@@ -44,8 +34,44 @@ function getCurrentUser() {
   }
 }
 
+// Set minimum date to today for both date inputs
+function setDateRestrictions() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
+  
+  const fromInput = document.getElementById('rmFrom');
+  const toInput = document.getElementById('rmTo');
+  
+  if (fromInput) {
+    fromInput.min = todayStr;
+  }
+  
+  if (toInput) {
+    toInput.min = todayStr;
+  }
+}
+
+// Set end date minimum based on start date selection
+function updateEndDateMin() {
+  const fromInput = document.getElementById('rmFrom');
+  const toInput = document.getElementById('rmTo');
+  
+  if (fromInput && fromInput.value) {
+    toInput.min = fromInput.value;
+  } else {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    toInput.min = `${year}-${month}-${day}`;
+  }
+}
+
 function openRequestModal(product) {
-  console.log('openRequestModal called with product:', product); // DEBUG
+  console.log('openRequestModal called with product:', product);
   
   _rmProduct = product;
   
@@ -81,10 +107,14 @@ function openRequestModal(product) {
     if (firstBtn) firstBtn.classList.add('sel');
   }
 
+  // Reset date inputs
   document.getElementById('rmFrom').value = '';
   document.getElementById('rmTo').value = '';
   document.getElementById('rmDays').textContent = '0 өдөр';
   document.getElementById('rmTotal').textContent = '0₮';
+  
+  // ✅ Apply date restrictions to prevent past dates
+  setDateRestrictions();
 
   document.getElementById('reqModal').classList.add('open');
 }
@@ -106,6 +136,9 @@ function calcRmTotal() {
   var price = parseInt(String(_rmProduct.price || _rmProduct.basePrice || 0).replace(/[^0-9]/g, ''), 10) || 0;
   var from = document.getElementById('rmFrom').value;
   var to = document.getElementById('rmTo').value;
+  
+  // ✅ Update end date minimum when start date changes
+  updateEndDateMin();
 
   if (!from || !to) {
     document.getElementById('rmDays').textContent = '0 өдөр';
@@ -119,6 +152,7 @@ function calcRmTotal() {
   document.getElementById('rmDays').textContent = days + ' өдөр';
   document.getElementById('rmTotal').textContent = (days * price).toLocaleString() + '₮';
 }
+
 /* ── Add to Cart (Сагсанд нэмэх) ─────────────────────── */
 async function submitRequest() {
   var starts_at = document.getElementById('rmFrom').value;
@@ -156,7 +190,6 @@ async function submitRequest() {
     status: 'pending'
   };
 
-  // ✅ FIX: Use the full API URL with port 3000
   const API_BASE_URL = 'http://localhost:3000';
   const url = `${API_BASE_URL}/api/users/${_currentUserId}/cart/add`;
   
@@ -192,8 +225,6 @@ async function submitRequest() {
     } else {
       alert('✓ Сагсанд нэмэгдлээ!');
     }
-
-
 
   } catch (error) {
     console.error('Error:', error);
