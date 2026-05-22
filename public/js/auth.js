@@ -110,7 +110,7 @@ class AuthUI {
 
   clearErrors() {
     const allErrorSpans = document.querySelectorAll('.field-error');
-    allErrorSpans.forEach(function(errorSpan) {
+    allErrorSpans.forEach(function (errorSpan) {
       errorSpan.textContent = '';
     });
   }
@@ -129,7 +129,7 @@ class AuthUI {
     const user = this.#auth.getSession();
 
     // Дескоп болон мобайл nav-ийн товчлуурыг олно
-    const loginBtn  = document.getElementById('loginBtn');
+    const loginBtn = document.getElementById('loginBtn');
     const mobileBtn = document.getElementById('mobileLoginBtn');
 
     // Хуудсанд дэскоп болон мобайл хоёулаа байхгүй бол зогсоно
@@ -137,18 +137,18 @@ class AuthUI {
 
     if (user) {
       const initial = (user.full_name || user.username || '?').trim().charAt(0).toUpperCase();
-      const avatar  = `<span class="prof-avatar">${initial}</span>`;
-      const onLogin = function(e) { e.stopPropagation(); this.toggleDropdown(user); }.bind(this);
+      const avatar = `<span class="prof-avatar">${initial}</span>`;
+      const onLogin = function (e) { e.stopPropagation(); this.toggleDropdown(user); }.bind(this);
 
       if (loginBtn) { loginBtn.innerHTML = avatar; loginBtn.title = user.full_name || user.username; loginBtn.onclick = onLogin; }
-      if (mobileBtn){ mobileBtn.innerHTML = avatar; mobileBtn.onclick = onLogin; }
+      if (mobileBtn) { mobileBtn.innerHTML = avatar; mobileBtn.onclick = onLogin; }
 
     } else {
-      const icon    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+      const icon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
       const onLogin = () => { const m = document.getElementById('loginModal'); this.openModal(m); };
 
       if (loginBtn) { loginBtn.innerHTML = icon; loginBtn.title = 'Нэвтрэх'; loginBtn.onclick = onLogin; }
-      if (mobileBtn){ mobileBtn.innerHTML = icon; mobileBtn.onclick = onLogin; }
+      if (mobileBtn) { mobileBtn.innerHTML = icon; mobileBtn.onclick = onLogin; }
     }
   }
 
@@ -167,14 +167,13 @@ class AuthUI {
 
     // Use <nav> — semantic navigation landmark
     const drop = document.createElement('nav');
-    drop.id        = 'profDD';
+    drop.id = 'profDD';
     drop.className = 'prof-dropdown';
     drop.setAttribute('aria-label', 'Хэрэглэгчийн цэс');
 
     drop.innerHTML = `
       <a href="${base}#info"><span>👤</span> Профайл</a>
       <a href="${base}#active"><span>📦</span> Миний түрээс</a>
-      <a href="${base}#incoming"><span>📩</span> Ирсэн хүсэлт</a>
       <a href="${base}#listings"><span>👗</span> Миний зар</a>
       <a href="${base}#notifications"><span>🔔</span> Мэдэгдэл</a>
       <hr>
@@ -210,7 +209,7 @@ class AuthUI {
   wire() {
 
     // Хоёр modal-ийг олж хувьсагчид хадгална — доорх бүх үйлдэлд ашиглана
-    const loginModal    = document.getElementById('loginModal');
+    const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
 
     // ── Хаах товчнууд ──────────────────────────────────
@@ -316,11 +315,11 @@ class AuthUI {
         // Формын талбаруудаас утгыг уншина
         // .trim() — эхэн болон төгсгөлийн хоосон зайг арилгана
         const email = document.getElementById('m-email').value.trim();
-        const pass  = document.getElementById('m-pass').value;
+        const pass = document.getElementById('m-pass').value;
 
         // Талбар хоосон байвал алдаа харуулж зогсоно
         if (!email) return this.showError('login-email-err', 'И-мэйл оруулна уу');
-        if (!pass)  return this.showError('login-pass-err',  'Нууц үг оруулна уу');
+        if (!pass) return this.showError('login-pass-err', 'Нууц үг оруулна уу');
 
         // Auth.js-ийн findUser() ашиглан бүх хэрэглэгчдээс тохирохыг хайна
         const user = await this.#auth.findUser(email, pass);
@@ -338,7 +337,9 @@ class AuthUI {
         // 2. Modal хаана
         // 3. Nav товчлуурыг аватараар шинэчилнэ
         // 4. Формын талбаруудыг цэвэрлэнэ
+        // After successful login, add this line:
         this.#auth.setSession(user);
+        window.dispatchEvent(new CustomEvent('loginSuccess', { detail: { user } }));
         this.closeModal(loginModal);
         this.updateNavBtn();
         loginForm.reset();
@@ -361,20 +362,20 @@ class AuthUI {
         // Формын 5 талбараас утгыг уншина
         // trim() hoyr tallin hooson zaig ustgana
         const fullName = document.getElementById('r-name').value.trim();
-        const email    = document.getElementById('r-email').value.trim();
-        const phone    = document.getElementById('r-phone').value.trim();
-        const pass     = document.getElementById('r-pass').value;
-        const pass2    = document.getElementById('r-pass2').value;
+        const email = document.getElementById('r-email').value.trim();
+        const phone = document.getElementById('r-phone').value.trim();
+        const pass = document.getElementById('r-pass').value;
+        const pass2 = document.getElementById('r-pass2').value;
 
         // Бүх талбаруудыг шалгана
         // ok = false болвол submit цааш үргэлжлэхгүй
         let ok = true;
-        if (!fullName)               { this.showError('reg-name-err',  'Нэр оруулна уу');              ok = false; }
-        if (!email)                  { this.showError('reg-email-err', 'И-мэйл оруулна уу');           ok = false; }
-        if (!phone)                  { this.showError('reg-phone-err', 'Утас оруулна уу');              ok = false; }
-        if (!pass)                   { this.showError('reg-pass-err',  'Нууц үг оруулна уу');          ok = false; }
-        if (pass && pass.length < 6) { this.showError('reg-pass-err',  'Хамгийн багадаа 6 тэмдэгт'); ok = false; }
-        if (pass !== pass2)          { this.showError('reg-pass2-err', 'Нууц үг таарахгүй байна');     ok = false; }
+        if (!fullName) { this.showError('reg-name-err', 'Нэр оруулна уу'); ok = false; }
+        if (!email) { this.showError('reg-email-err', 'И-мэйл оруулна уу'); ok = false; }
+        if (!phone) { this.showError('reg-phone-err', 'Утас оруулна уу'); ok = false; }
+        if (!pass) { this.showError('reg-pass-err', 'Нууц үг оруулна уу'); ok = false; }
+        if (pass && pass.length < 6) { this.showError('reg-pass-err', 'Хамгийн багадаа 6 тэмдэгт'); ok = false; }
+        if (pass !== pass2) { this.showError('reg-pass2-err', 'Нууц үг таарахгүй байна'); ok = false; }
 
         // Аль нэг шалгалт амжилтгүй болсон бол зогсоно
         if (!ok) return;
@@ -388,21 +389,22 @@ class AuthUI {
         // user_id — 'u' + одоогийн цаг (мс) → давтагдашгүй ID (жш: 'u1713456789123')
         // username — имэйлийн @ тэмдэгтийн өмнөх хэсэг (жш: 'bat' from 'bat@mail.com')
         const newUser = {
-          user_id        : 'u' + Date.now(),
-          username       : email.split('@')[0],
-          full_name      : fullName,
-          email          : email,
-          password       : pass,
-          phone          : phone,
-          membership     : 'standard',
+          user_id: 'u' + Date.now(),
+          username: email.split('@')[0],
+          full_name: fullName,
+          email: email,
+          password: pass,
+          phone: phone,
+          membership: 'standard',
           published_items: [],
-          rented_items   : [],
+          rented_items: [],
         };
 
         // Энэ болгох
         try {
           const savedUser = await this.#auth.register(newUser);
           this.#auth.setSession(savedUser);
+           window.dispatchEvent(new CustomEvent('loginSuccess', { detail: { user: savedUser } }));
           this.closeModal(registerModal);
           this.updateNavBtn();
           registerForm.reset();

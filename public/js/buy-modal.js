@@ -7,6 +7,14 @@
 var _rmProduct = null;
 var _currentUserId = null;
 
+// ✅ Helper function to open login modal (from auth.js)
+function openLoginModal() {
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) {
+    loginModal.classList.add('open');
+  }
+}
+
 // Get current user from localStorage (set during login)
 function getCurrentUser() {
   var userJson = localStorage.getItem('rf_user');
@@ -71,16 +79,14 @@ function updateEndDateMin() {
 }
 
 function openRequestModal(product) {
-  console.log('openRequestModal called with product:', product);
-  
-  _rmProduct = product;
-  
-  var currentUser = getCurrentUser();
+  const currentUser = getCurrentUser();
   if (!currentUser) {
     alert('Та эхлээд нэвтрэх шаардлагатай');
-    window.location.href = '/login.html';
+    openLoginModal(); // ✅ Opens the modal from auth.js
     return;
   }
+
+  _rmProduct = product;
 
   var nameEl = document.getElementById('rm-name');
   var brandEl = document.getElementById('rm-brand');
@@ -113,7 +119,7 @@ function openRequestModal(product) {
   document.getElementById('rmDays').textContent = '0 өдөр';
   document.getElementById('rmTotal').textContent = '0₮';
   
-  // ✅ Apply date restrictions to prevent past dates
+  // Apply date restrictions to prevent past dates
   setDateRestrictions();
 
   document.getElementById('reqModal').classList.add('open');
@@ -137,7 +143,7 @@ function calcRmTotal() {
   var from = document.getElementById('rmFrom').value;
   var to = document.getElementById('rmTo').value;
   
-  // ✅ Update end date minimum when start date changes
+  // Update end date minimum when start date changes
   updateEndDateMin();
 
   if (!from || !to) {
@@ -155,6 +161,13 @@ function calcRmTotal() {
 
 /* ── Add to Cart (Сагсанд нэмэх) ─────────────────────── */
 async function submitRequest() {
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    alert('Та эхлээд нэвтрэх шаардлагатай');
+    openLoginModal(); // ✅ Opens the modal from auth.js
+    return;
+  }
+  
   var starts_at = document.getElementById('rmFrom').value;
   var expires_at = document.getElementById('rmTo').value;
   var size = document.getElementById('rmSize').value;
@@ -169,15 +182,9 @@ async function submitRequest() {
     return;
   }
 
-  var currentUser = getCurrentUser();
-  if (!currentUser) {
-    alert('Та эхлээд нэвтрэх шаардлагатай');
-    window.location.href = '/login.html';
-    return;
-  }
-
   if (!_currentUserId) {
     alert('Хэрэглэгчийн ID олдсонгүй');
+    openLoginModal(); // ✅ Try to login again
     return;
   }
 
