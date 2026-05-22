@@ -506,7 +506,7 @@ function pagePending() {
 ══════════════════════════════════════════ */
 function pageRejected() {
   /* ▶ [ШАЛГУУР 3 — filter + join] Зөвхөн rejected барааг шүүнэ */
-  const list = filterProducts({ search: DB.search, status: 'rejected' });
+  const list = filterProducts({ search: DB.search, status: 'Rejected' });
 
   return `
     <div class="content-header">
