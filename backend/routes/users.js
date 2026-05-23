@@ -198,7 +198,8 @@ router.post("/:userId/cart/checkout", async (req, res) => {
       product_id: item.product_id,
       starts_at: item.starts_at,
       expires_at: item.expires_at,
-      rented_at: new Date().toISOString(),
+      status: 'active',
+      rented_at: new Date().toISOString()
     }));
 
     await usersCollection.updateOne(
