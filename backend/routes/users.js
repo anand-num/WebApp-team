@@ -695,6 +695,75 @@ router.delete('/:userId/publish-request/:requestId', async (req, res) => {
   }
 });
 
+// POST /api/users/:userId/reviews - Add a review for a rental
+router.post('/:userId/reviews', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { rental_id, rating, comment } = req.body;
+    const { usersCollection, productsCollection } = await connectToDb();
+
+    // Find the user and the specific rental
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the rental item
+    const rental = user.rented_items?.find(r => r.rental_id === rental_id);
+    if (!rental) {
+      return res.status(404).json({ error: 'Rental not found' });
+    }
+
+    // Add review to the rental item
+    await usersCollection.updateOne(
+      { user_id: userId, 'rented_items.rental_id': rental_id },
+      { 
+        $set: { 
+          'rented_items.$.reviewed': true,
+          'rented_items.$.review_rating': rating,
+          'rented_items.$.review_comment': comment,
+          'rented_items.$.reviewed_at': new Date().toISOString()
+        }
+      }
+    );
+
+    // Also add review to the product collection
+    const product = await productsCollection.findOne({ id: rental.product_id });
+    if (product) {
+      const newReview = {
+        user_id: userId,
+        name: user.full_name || user.username,
+        rating: rating,
+        comment: comment,
+        createdAt: new Date().toISOString()
+      };
+      
+      await productsCollection.updateOne(
+        { id: rental.product_id },
+        { 
+          $push: { reviews: newReview },
+          $inc: { review_count: 1 }
+        }
+      );
+      
+      // Update average rating
+      const updatedProduct = await productsCollection.findOne({ id: rental.product_id });
+      const reviews = updatedProduct.reviews || [];
+      const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+      const avgRating = totalRating / reviews.length;
+      await productsCollection.updateOne(
+        { id: rental.product_id },
+        { $set: { rating: Math.round(avgRating * 10) / 10 } }
+      );
+    }
+
+    res.json({ success: true, message: 'Review submitted successfully' });
+  } catch (error) {
+    console.error('Review submit error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // ========== GENERAL USER ROUTE - MUST BE LAST! ==========
 router.get("/:userId", async (req, res) => {
   try {

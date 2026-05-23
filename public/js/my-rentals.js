@@ -500,13 +500,49 @@ function setupStarButtons() {
   });
 }
 
-function submitReview() {
+
+async function submitReview() {
   var comment = document.getElementById('review-comment').value.trim();
   if (selectedStars === 0) { showToast('Одны үнэлгээ сонгоно уу!', 'red'); return; }
   if (!comment) { showToast('Сэтгэгдэл бичнэ үү!', 'red'); return; }
 
-  closeReviewModal();
-  showToast('Сэтгэгдэл амжилттай илгээгдлээ! ★', 'green');
+  var raw = localStorage.getItem('rf_user');
+  if (!raw) { showToast('Нэвтэрсэн байх шаардлагатай!', 'red'); return; }
+  var user;
+  try { user = JSON.parse(raw); } catch (_) { return; }
+  if (!user?.user_id) return;
+
+  try {
+    const response = await fetch(`${API}/users/${user.user_id}/reviews`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rental_id: currentReviewId,
+        rating: selectedStars,
+        comment: comment
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit review');
+    }
+
+    // Update local data
+    var r = rentals.find(function(x) { return x.rental_id === currentReviewId; });
+    if (r) { 
+      r.reviewed = true;
+      r.review_rating = selectedStars;
+      r.review_comment = comment;
+    }
+
+    closeReviewModal();
+    renderHistoryRentals();
+    showToast('Сэтгэгдэл амжилттай илгээгдлээ! ★', 'green');
+    
+  } catch (error) {
+    console.error('Review submit error:', error);
+    showToast('Сэтгэгдэл илгээхэд алдаа гарлаа!', 'red');
+  }
 }
 
 function setupModalClose() {
