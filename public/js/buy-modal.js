@@ -191,7 +191,7 @@ async function submitRequest() {
   var product_id = _rmProduct.id || _rmProduct.product_id || _rmProduct.item_id;
   
   var cartData = {
-    product_id: product_id,
+    product_id: String(product_id),
     starts_at: starts_at,
     expires_at: expires_at,
     status: 'pending'

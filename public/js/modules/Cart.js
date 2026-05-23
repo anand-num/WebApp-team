@@ -101,7 +101,7 @@ export default class Cart {
     }
 
     const cartData = {
-      product_id: product.id || product.product_id,
+      product_id: String(product.id || product.product_id),
       starts_at: startDate,
       expires_at: endDate,
       size: size || 'M',

@@ -257,7 +257,7 @@ function renderActiveRentals() {
 
   var activeItems = rentals.filter(function(r) {
     return r.status === 'delivery' || r.status === 'pending' ||
-           r.status === 'active'   || r.status === 'overdue' ;
+           r.status === 'active'   || r.status === 'overdue' || r.status==='paid';
   });
 
   if (activeItems.length === 0) {

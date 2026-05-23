@@ -1,7 +1,6 @@
 /* ══════════════════════════════════════════════════════════
    RENTFIT — cart.js
    Олон алхамт захиалгын хуудас
-   Updated for async MongoDB Cart class
 ══════════════════════════════════════════════════════════ */
 
 import Cart from './modules/Cart.js';
@@ -53,34 +52,6 @@ class CartPage {
     return this.#quickId
       ? items.filter(i => i.id == this.#quickId)
       : items;
-  }
-
-  // ── Сагс хоосон бол туршилтын мэдээлэл нэмэх (ASYNC) ──
-  async seedIfEmpty() {
-    const items = await cart.getItems();
-    if (items.length) return;
-
-    try {
-      const r = await fetch('http://localhost:3000/api/products');
-      const products = await r.json();
-      const seeds = products.slice(0, 2);
-      const today = new Date().toISOString().slice(0, 10);
-      const endDate = new Date();
-      endDate.setDate(endDate.getDate() + 3);
-
-      for (const p of seeds) {
-        await cart.addProduct(
-          p,
-          today,
-          endDate.toISOString().slice(0, 10),
-          Array.isArray(p.sizes) ? p.sizes[0] : (p.sizes || 'M')
-        );
-      }
-      
-      console.log('Seed products added to cart');
-    } catch (e) {
-      console.warn('[cart] seed failed', e);
-    }
   }
 
   updateStepper(idx) {
@@ -220,11 +191,25 @@ class CartPage {
     if (!items.length) {
       this.cartList.innerHTML = `
         <li class="cart-empty">
-          <p>Таны сагс хоосон байна.</p>
-          <a href="/public/html/browse.html" class="btn-primary">← Каталогруу очих</a>
+          <div class="cart-empty-content">
+            <p>Таны сагс хоосон байна.</p>
+            <a href="/public/html/browse.html" class="btn-primary catalog-btn">← Каталогруу очих</a>
+          </div>
         </li>`;
       this.updateReceipt([]);
+      
+      if (this.nextBtn) {
+        this.nextBtn.disabled = true;
+        this.nextBtn.style.opacity = '0.5';
+        this.nextBtn.style.cursor = 'not-allowed';
+      }
       return;
+    }
+    
+    if (this.nextBtn) {
+      this.nextBtn.disabled = false;
+      this.nextBtn.style.opacity = '1';
+      this.nextBtn.style.cursor = 'pointer';
     }
 
     items.forEach(item => {
@@ -240,7 +225,6 @@ class CartPage {
     return true;
   }
 
-  // ── Баталгаажуулах алхамын агуулгыг үүсгэх (ASYNC) ──
   async buildConfirmation() {
     const items = await this.getActiveItems();
     const gradients = [
@@ -290,7 +274,6 @@ class CartPage {
     }
   }
 
-  // ── Захиалга өгөх (ASYNC) ────────────────────────────
   async placeOrder() {
     const orderId = 'RF-' + Math.floor(100000 + Math.random() * 900000);
     const el = document.getElementById('order-id');
@@ -335,6 +318,7 @@ class CartPage {
   }
 
   async loadProducts() {
+    // Only load products for enrichment, not for adding to cart
     try {
       const r = await fetch('http://localhost:3000/api/products');
       if (r.ok) { this.#products = await r.json(); }
@@ -342,7 +326,7 @@ class CartPage {
   }
 
   async init() {
-    await Promise.all([this.seedIfEmpty(), this.loadProducts()]);
+    await this.loadProducts(); // Only for product details enrichment
     this.setupListeners();
     this.showStep(0);
     await this.renderCart();

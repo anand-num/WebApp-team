@@ -5,13 +5,29 @@ const { MongoClient, ObjectId } = require('mongodb');
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
-// ========== AUTH ROUTES (no userId parameter) ==========
+let db;
+let usersCollection;
+let productsCollection;
+
+// ── Connect once when server starts ──
+async function connectToDb() {
+  if (!db) {
+    await client.connect();
+    db = client.db('webapp-team');
+    usersCollection = db.collection('users');
+    productsCollection = db.collection('product');
+    console.log('✅ MongoDB connected successfully');
+  }
+  return { db, usersCollection, productsCollection };
+}
+
+// Call this at server startup (in server.js)
+// For now, we'll connect on first request
+// ========== AUTH ROUTES ==========
 router.get('/', async (req, res) => {
   try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    const collection = db.collection('users');
-    const result = await collection.find({}, { projection: { password: 0 } }).toArray();
+    const { usersCollection } = await connectToDb();
+    const result = await usersCollection.find({}, { projection: { password: 0 } }).toArray();
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -21,11 +37,9 @@ router.get('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const collection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
-    const user = await collection.findOne({
+    const user = await usersCollection.findOne({
       $or: [{ email: email }, { username: email }],
       password: password
     });
@@ -43,12 +57,10 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { email, username, password } = req.body;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const collection = db.collection('users');
+    const { email, username, password, full_name, phone } = req.body;
+    const { usersCollection } = await connectToDb();
 
-    const existing = await collection.findOne({
+    const existing = await usersCollection.findOne({
       email: { $regex: new RegExp(`^${email}$`, 'i') }
     });
 
@@ -56,8 +68,30 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'Энэ имэйл аль хэдийн бүртгэлтэй байна' });
     }
 
-    const newUser = { email, username, password, createdAt: new Date() };
-    await collection.insertOne(newUser);
+    // Generate new user_id
+    const lastUser = await usersCollection.find().sort({ user_id: -1 }).limit(1).toArray();
+    let newUserId = 'u001';
+    if (lastUser.length > 0) {
+      const lastId = parseInt(lastUser[0].user_id.substring(1));
+      newUserId = `u${String(lastId + 1).padStart(3, '0')}`;
+    }
+
+    const newUser = { 
+      user_id: newUserId,
+      email, 
+      username, 
+      full_name: full_name || username,
+      phone: phone || '',
+      password, 
+      membership: 'standard',
+      published_items: [],
+      rented_items: [],
+      cart: [],
+      liked_items: [],
+      createdAt: new Date() 
+    };
+
+    await usersCollection.insertOne(newUser);
 
     const { password: _, ...userWithoutPassword } = newUser;
     res.status(201).json(userWithoutPassword);
@@ -69,10 +103,8 @@ router.post('/register', async (req, res) => {
 router.get('/check-email', async (req, res) => {
   try {
     const { email } = req.query;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const collection = db.collection('users');
-    const existing = await collection.findOne({
+    const { usersCollection } = await connectToDb();
+    const existing = await usersCollection.findOne({
       email: { $regex: new RegExp(`^${email}$`, 'i') }
     });
     res.json({ exists: !!existing });
@@ -81,26 +113,24 @@ router.get('/check-email', async (req, res) => {
   }
 });
 
-// ========== CART ROUTES (SPECIFIC - MUST COME BEFORE /:userId) ==========
+// ========== CART ROUTES ==========
 router.post('/:userId/cart/add', async (req, res) => {
   try {
     const { userId } = req.params;
-    const { product_id, starts_at, expires_at, status = 'pending' } = req.body;
-
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { product_id, starts_at, expires_at, size, status = 'pending' } = req.body;
+    const { usersCollection } = await connectToDb();
 
     const user = await usersCollection.findOne({ user_id: userId });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
+    const productIdStr = String(product_id);
     const cartItem = {
       cart_id: new ObjectId().toString(),
-      product_id: product_id,
+      product_id: productIdStr,
       starts_at: starts_at,
       expires_at: expires_at,
+      size: size || 'M',
       status: status,
       added_at: new Date().toISOString()
     };
@@ -121,7 +151,6 @@ router.post('/:userId/cart/add', async (req, res) => {
       cart: updatedUser.cart || [],
       cartCount: (updatedUser.cart || []).length
     });
-
   } catch (error) {
     console.error('Cart add error:', error);
     res.status(500).json({ error: error.message });
@@ -131,9 +160,7 @@ router.post('/:userId/cart/add', async (req, res) => {
 router.get('/:userId/cart', async (req, res) => {
   try {
     const { userId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
     const user = await usersCollection.findOne(
       { user_id: userId },
@@ -150,7 +177,6 @@ router.get('/:userId/cart', async (req, res) => {
       cart: user.cart || [],
       cartCount: (user.cart || []).length
     });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -159,9 +185,7 @@ router.get('/:userId/cart', async (req, res) => {
 router.delete('/:userId/cart/remove/:cartId', async (req, res) => {
   try {
     const { userId, cartId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
     await usersCollection.updateOne(
       { user_id: userId },
@@ -169,7 +193,6 @@ router.delete('/:userId/cart/remove/:cartId', async (req, res) => {
     );
 
     res.json({ message: 'Item removed from cart' });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -178,9 +201,7 @@ router.delete('/:userId/cart/remove/:cartId', async (req, res) => {
 router.post('/:userId/cart/checkout', async (req, res) => {
   try {
     const { userId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
     const user = await usersCollection.findOne({ user_id: userId });
     if (!user) {
@@ -196,7 +217,8 @@ router.post('/:userId/cart/checkout', async (req, res) => {
       product_id: item.product_id,
       starts_at: item.starts_at,
       expires_at: item.expires_at,
-      status: 'active',
+      size: item.size || 'M',
+      status: 'paid',
       rented_at: new Date().toISOString()
     }));
 
@@ -209,7 +231,70 @@ router.post('/:userId/cart/checkout', async (req, res) => {
     );
 
     res.json({ message: `Successfully checked out ${rentalItems.length} items` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
+// ========== LIKED ITEMS ROUTES ==========
+router.get('/:userId/liked', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { usersCollection } = await connectToDb();
+
+    const user = await usersCollection.findOne(
+      { user_id: userId },
+      { projection: { liked_items: 1, username: 1 } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      user_id: userId,
+      username: user.username,
+      liked_items: user.liked_items || []
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/:userId/liked/toggle', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { product_id } = req.body;
+    const { usersCollection } = await connectToDb();
+
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const likedItems = user.liked_items || [];
+    const index = likedItems.indexOf(product_id);
+
+    let action;
+    if (index === -1) {
+      await usersCollection.updateOne(
+        { user_id: userId },
+        { $push: { liked_items: product_id } }
+      );
+      action = 'added';
+    } else {
+      await usersCollection.updateOne(
+        { user_id: userId },
+        { $pull: { liked_items: product_id } }
+      );
+      action = 'removed';
+    }
+
+    res.json({
+      success: true,
+      action: action,
+      liked: action === 'added'
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -219,9 +304,7 @@ router.post('/:userId/cart/checkout', async (req, res) => {
 router.get('/:userId/rented-items', async (req, res) => {
   try {
     const { userId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
     const user = await usersCollection.findOne(
       { user_id: userId },
@@ -238,7 +321,6 @@ router.get('/:userId/rented-items', async (req, res) => {
       rented_items: user.rented_items || [],
       total_rented: (user.rented_items || []).length
     });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -247,9 +329,7 @@ router.get('/:userId/rented-items', async (req, res) => {
 router.patch('/:userId/rented-items/:rentalId/return', async (req, res) => {
   try {
     const { userId, rentalId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const usersCollection = db.collection('users');
+    const { usersCollection } = await connectToDb();
 
     await usersCollection.updateOne(
       { 
@@ -265,42 +345,16 @@ router.patch('/:userId/rented-items/:rentalId/return', async (req, res) => {
     );
 
     res.json({ message: 'Item returned successfully' });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// ========== GENERAL USER ROUTE - MUST BE LAST! ==========
-router.get('/:userId', async (req, res) => {
-  try {
-    const { userId } = req.params;
-    await client.connect();
-    const db = client.db('webapp-team');
-    const collection = db.collection('users');
-
-    const user = await collection.findOne(
-      { user_id: userId },
-      { projection: { password: 0 } }
-    );
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json(user);
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// GET /api/users/:userId/notifications
+// ========== NOTIFICATIONS ROUTES ==========
 router.get('/:userId/notifications', async (req, res) => {
   try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    const user = await db.collection('users').findOne(
+    const { usersCollection } = await connectToDb();
+    const user = await usersCollection.findOne(
       { user_id: req.params.userId },
       { projection: { notifications: 1 } }
     );
@@ -310,12 +364,10 @@ router.get('/:userId/notifications', async (req, res) => {
   }
 });
 
-// PUT /api/users/:userId/notifications/read — бүгдийг уншсан болгох
 router.put('/:userId/notifications/read', async (req, res) => {
   try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    await db.collection('users').updateOne(
+    const { usersCollection } = await connectToDb();
+    await usersCollection.updateOne(
       { user_id: req.params.userId },
       { $set: { 'notifications.$[].read': true } }
     );
@@ -325,34 +377,30 @@ router.put('/:userId/notifications/read', async (req, res) => {
   }
 });
 
-// GET /api/users/:userId/rentals — түрээсийн жагсаалт (product мэдээлэлтэй нэгтгэсэн)
+// ========== RENTALS WITH PRODUCT DETAILS ==========
 router.get('/:userId/rentals', async (req, res) => {
   try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    const user = await db.collection('users').findOne(
+    const { usersCollection, productsCollection } = await connectToDb();
+    const user = await usersCollection.findOne(
       { user_id: req.params.userId },
       { projection: { rented_items: 1 } }
     );
 
     const items = user?.rented_items || [];
 
-    // product_id-уудаар product collection-оос мэдээлэл авах
     const productIds = items.map(i => i.product_id).filter(id => id != null);
-    const products = await db.collection('product').find({
+    const products = await productsCollection.find({
       id: { $in: productIds }
     }).toArray();
 
-    // rented_items + product мэдээллийг нэгтгэх
     const result = items.map(item => {
       const product = products.find(p => p.id === item.product_id);
       return {
         ...item,
-        name:  product?.item_name || item.name || 'Unknown',
-        brand: product?.brand    || item.brand || '',
-        img:   product?.img_src   || item.img   || '',
-        price: product?.price    || item.price || 0,
-        size:  product?.sizes?.join(', ') || item.size || '',
+        name: product?.item_name || item.name || 'Unknown',
+        brand: product?.brand || item.brand || '',
+        img: product?.img_src || item.img || '',
+        price: product?.price || item.price || 0
       };
     });
 
@@ -362,53 +410,49 @@ router.get('/:userId/rentals', async (req, res) => {
   }
 });
 
-// PUT /api/users/:userId/rentals/:rentalId — rental статус өөрчлөх
-router.put('/:userId/rentals/:rentalId', async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    await db.collection('users').updateOne(
-      {
-        user_id: req.params.userId,
-        'rented_items.id': parseInt(req.params.rentalId)
-      },
-      { $set: { 'rented_items.$.status': req.body.status } }
-    );
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// GET /api/users/:userId/listings — нийтэлсэн зарууд (product мэдээлэлтэй нэгтгэсэн)
+// ========== LISTINGS (PUBLISHED ITEMS) ==========
 router.get('/:userId/listings', async (req, res) => {
   try {
-    await client.connect();
-    const db = client.db('webapp-team');
-    const user = await db.collection('users').findOne(
+    const { usersCollection, productsCollection } = await connectToDb();
+    const user = await usersCollection.findOne(
       { user_id: req.params.userId },
       { projection: { published_items: 1 } }
     );
 
     const items = user?.published_items || [];
-    const productIds = items.map(i => i.product_id).filter(id => id != null);
+    const productIds = items;
 
-    const products = await db.collection('product').find({
+    const products = await productsCollection.find({
       id: { $in: productIds }
     }).toArray();
 
-    const result = items.map(item => {
-      const product = products.find(p => p.id === item.product_id);
-      return {
-        ...item,
-        name:  product?.item_name || item.name || 'Unknown',
-        brand: product?.brand    || item.brand || '',
-        price: product?.price    || item.price || '',
-        img:   product?.img_src  || item.img || ''
-      };
-    });
+    const result = products.map(product => ({
+      ...product,
+      status: product.status || 'active'
+    }));
 
     res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== GENERAL USER ROUTE - MUST BE LAST! ==========
+router.get('/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { usersCollection } = await connectToDb();
+
+    const user = await usersCollection.findOne(
+      { user_id: userId },
+      { projection: { password: 0 } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
