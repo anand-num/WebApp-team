@@ -357,7 +357,7 @@ function renderActiveRentals() {
 
   var activeItems = rentals.filter(function(r) {
     return r.status === 'delivery' || r.status === 'pending' ||
-           r.status === 'active'   || r.status === 'overdue';
+           r.status === 'active'   || r.status === 'overdue'|| r.status==='paid';
   });
 
   if (activeItems.length === 0) {
@@ -396,8 +396,7 @@ function renderActiveRentals() {
       imgHtml +
       '<div class="p-order-info">' +
         '<p class="p-order-name">' + r.name + '</p>' +
-        '<p class="p-order-meta">' + (r.brand || '') + ' · ' + (r.size || '') + ' · ' + r.startDate + ' – ' + r.endDate + ' · ' + (r.days || '') + ' өдөр</p>' +
-        daysLeft +
+'<p class="p-order-meta">' + (r.brand || '') + ' · ' + (r.size || '') + ' · ' + (r.starts_at || '—') + ' – ' + (r.expires_at || '—') + '</p>' +        daysLeft +
       '</div>' +
       '<strong class="p-order-total">' + fmt(r.price) + '</strong>' +
       '<div class="p-order-right">' +
@@ -727,7 +726,7 @@ function acceptRequest(id) {
 }
 
 function confirmDelivery(id) {
-  var r = rentals.find(function(x) { return x.id === id; });
+  var r = rentals.find(function(x) { return x.rental_id === id; });
   if (!r) return;
   r.status = 'active';
   updateRentalStatus(id, 'active');

@@ -198,6 +198,7 @@ router.post("/:userId/cart/checkout", async (req, res) => {
       product_id: item.product_id,
       starts_at: item.starts_at,
       expires_at: item.expires_at,
+      status: 'paid',
       rented_at: new Date().toISOString(),
     }));
 
@@ -599,7 +600,7 @@ router.get("/:userId/rentals", async (req, res) => {
         img: product?.img_src || item.img || "",
         price: product?.price || item.price || 0,
         size: product?.sizes?.join(", ") || item.size || "",
-        status: product?.status || "unknown",
+        status: item.status || "paid",
       };
     });
 
