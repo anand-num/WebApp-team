@@ -278,23 +278,25 @@ class ProductPage extends HTMLElement {
     }
 
     // Wishlist button
+
     const wishBtn = this.querySelector('#btn-wish');
     if (wishBtn) {
-      // Set initial state - already done in render() but this ensures consistency
-      if (isLiked(String(this.product.id))) {
-        wishBtn.classList.add('btn-wish--active');
-      }
+      // Check initial state - must be async or use .then()
+      isLiked(String(this.product.id)).then(isLikedStatus => {
+        if (isLikedStatus) {
+          wishBtn.classList.add('btn-wish--active');
+        }
+      });
 
-      wishBtn.addEventListener('click', (e) => {
+      wishBtn.addEventListener('click', async (e) => {  // ← Added 'async'
         e.preventDefault();
         e.stopPropagation();
 
-        const nowLiked = toggleLiked(String(this.product.id));
+        const nowLiked = await toggleLiked(String(this.product.id));  // ← Added 'await'
         this.updateWishlistButton(nowLiked);
 
-        // Dispatch event to notify other pages (like product cards on browse page)
         window.dispatchEvent(new CustomEvent('likedUpdated', {
-          detail: { productId: this.product.id, liked: nowLiked }
+          detail: { productId: String(this.product.id), liked: nowLiked }
         }));
       });
     }
