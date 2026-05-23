@@ -4,123 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Миний профайл — RentFit</title>
-  <script>(function () { var t = localStorage.getItem('rf_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <script>(function(){var t=localStorage.getItem('rf_theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="/public/css/global.css">
   <link rel="stylesheet" href="/public/css/layout.css">
   <link rel="stylesheet" href="/public/css/styles.css">
   <link rel="stylesheet" href="/public/css/my-rentals.css">
-<base target="_blank">
 </head>
 <body>
 
   <app-navigation></app-navigation>
 
-  <!-- МЭДЭЭЛЭЛ POPUP -->
-  <div class="notif-popup" id="info-popup">
-    <div class="notif-popup-header">
-      <span>⚙️ Хувийн мэдээлэл</span>
-      <button onclick="closeInfoPopup()">✕</button>
-    </div>
-    <div class="notif-popup-list" style="padding: 16px; max-height: 70vh; overflow-y: auto;">
-      <div class="profile-form">
-        <div class="form-group">
-          <label>Нэр</label>
-          <input type="text" id="inp-name">
-        </div>
-        <div class="form-group">
-          <label>Имэйл</label>
-          <input type="email" id="inp-email">
-        </div>
-        <div class="form-group">
-          <label>Утас</label>
-          <input type="tel" id="inp-phone">
-        </div>
-        <div class="form-group">
-          <label>Хот</label>
-          <input type="text" id="inp-city" value="Улаанбаатар">
-        </div>
-        <div class="form-group full">
-          <label>Хүргэлтийн хаяг</label>
-          <input type="text" placeholder="Дүүрэг, хороо, байр, орц, давхар...">
-        </div>
-        <button class="btn-sm dark" style="width: 100%; margin-top: 8px;" onclick="showToast('Мэдээлэл хадгалагдлаа ✓','green')">Хадгалах</button>
-      </div>
-      <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
-      <h3 style="font-size: 1rem; margin-bottom: 12px;">🔒 Нууц үг солих</h3>
-      <div class="profile-form">
-        <div class="form-group full" style="margin-bottom: 10px;">
-          <label>Одоогийн нууц үг</label>
-          <input type="password" placeholder="••••••••">
-        </div>
-        <div class="form-group full" style="margin-bottom: 10px;">
-          <label>Шинэ нууц үг</label>
-          <input type="password" placeholder="••••••••">
-        </div>
-        <button class="btn-sm outline" style="width: 100%;" onclick="showToast('Нууц үг солигдлоо ✓','green')">Солих</button>
-      </div>
-    </div>
-  </div>
-  <div class="notif-overlay" id="info-overlay" onclick="closeInfoPopup()"></div>
-
   <main class="page">
     <div class="profile-wrap">
 
-      <!-- Профайлын дээд хэсэг -->
+      <!-- Profile Header -->
       <div class="profile-hd">
         <div class="profile-av" id="profile-av">?</div>
         <div class="profile-info">
           <div style="display:flex; align-items:center; gap:12px;">
             <h1 id="profile-name">Зочин</h1>
-            <button class="notif-icon-btn" id="info-icon-btn" onclick="toggleInfoPopup()" title="Хувийн мэдээлэл">
-              ⚙️
-            </button>
+            <button class="notif-icon-btn" id="info-icon-btn" onclick="toggleInfoPopup()" title="Хувийн мэдээлэл">⚙️</button>
           </div>
           <p class="email" id="profile-email">—</p>
           <p class="meta" id="profile-meta">📞 — · 📍 Улаанбаатар</p>
         </div>
       </div>
 
-      <!-- Статистик -->
+      <!-- Stats -->
       <div class="profile-stats">
-        <div class="p-stat">
-          <div class="val" id="stat-active">0</div>
-          <div class="lbl">Идэвхтэй</div>
-        </div>
-        <div class="p-stat">
-          <div class="val" id="stat-total">0</div>
-          <div class="lbl">Нийт захиалга</div>
-        </div>
-        <div class="p-stat">
-          <div class="val" id="stat-listings">0</div>
-          <div class="lbl">Миний зар</div>
-        </div>
-        <div class="p-stat">
-          <div class="val">75к₮</div>
-          <div class="lbl">Орлого</div>
-        </div>
+        <div class="p-stat"><div class="val" id="stat-active">0</div><div class="lbl">Идэвхтэй</div></div>
+        <div class="p-stat"><div class="val" id="stat-total">0</div><div class="lbl">Нийт захиалга</div></div>
+        <div class="p-stat"><div class="val" id="stat-listings">0</div><div class="lbl">Миний зар</div></div>
       </div>
 
-      <!-- Табууд -->
+      <!-- Tabs -->
       <div class="profile-tabs">
-        <button class="ptab active" id="tab-notif" aria-controls="panel-notif">
-          Мэдэгдэл <span class="notif-badge" id="notif-badge" hidden style="position:static; margin-left:4px;">0</span>
-        </button>
-        <button class="ptab" id="tab-history" aria-controls="panel-history">миний шүүгээ</button>
+        <button class="ptab active" id="tab-notif" aria-controls="panel-notif">Мэдэгдэл <span class="notif-badge" id="notif-badge" hidden>0</span></button>
+        <button class="ptab" id="tab-history" aria-controls="panel-history">Миний шүүгээ</button>
         <button class="ptab" id="tab-listings" aria-controls="panel-listings">Миний зарууд</button>
       </div>
 
-      <!-- МЭДЭГДЭЛ ТАБ -->
+      <!-- NOTIFICATIONS TAB -->
       <div id="panel-notif">
         <div class="profile-card">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-            <h3 style="margin:0;">🔔 Таны мэдэгдлүүд</h3>
+          <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+            <h3>🔔 Таны мэдэгдлүүд</h3>
             <button class="btn-sm outline" onclick="markAllRead()">Бүгдийг уншсан болгох</button>
           </div>
           <div id="notif-popup-list"></div>
         </div>
       </div>
 
-      <!-- ТҮҮХ ТАБ -->
+      <!-- HISTORY TAB (My Rentals) -->
       <div id="panel-history" hidden>
         <div class="profile-card">
           <h3>📦 Одоо түрээслэж байна</h3>
@@ -132,87 +67,43 @@
         </div>
       </div>
 
-      <!-- МИНИЙ ЗАРУУД ТАБ -->
+      <!-- LISTINGS TAB (My Listings) -->
       <div id="panel-listings" hidden>
         <div class="profile-card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-            <h3 style="margin-bottom:0">👗 Миний түрээсийн зарууд</h3>
+          <div style="display:flex; justify-content:space-between; margin-bottom:20px">
+            <h3>👗 Миний түрээсийн зарууд</h3>
             <button class="btn-sm dark" id="btn-add-listing">+ Хувцас нэмэх</button>
           </div>
-
-          <!-- Publish Requests Section -->
-          <div id="publish-requests-section" style="margin-bottom:24px;">
-            <h4 style="font-size:0.9rem;color:var(--muted);margin-bottom:12px;">⏳ Хүлээгдэж буй хүсэлтүүд</h4>
+          <div id="publish-requests-section">
+            <h4>⏳ Хүлээгдэж буй хүсэлтүүд</h4>
             <div id="publish-requests-list"></div>
           </div>
-
           <div class="listing-tabs">
             <button class="ltab active" data-status="all">Бүгд</button>
             <button class="ltab" data-status="pending">⏳ Хүлээгдэж буй</button>
             <button class="ltab" data-status="published">✅ Нийтлэгдсэн</button>
             <button class="ltab" data-status="rejected">❌ Буцаагдсан</button>
           </div>
-
           <div id="listings-list"></div>
         </div>
 
-        <!-- ADD LISTING FORM -->
+        <!-- Add Listing Form -->
         <div class="listing-add-card" id="listing-form-wrap" hidden>
           <h3>✨ Шинэ хувцас түрээслүүлэх</h3>
-          <p style="font-size:.8rem;color:var(--muted);margin-bottom:18px">
-            Admin баталгаажуулсны дараа каталогт харагдана.
-          </p>
-
-          <!-- Image Upload -->
-          <div class="form-group full" style="margin-bottom:18px;">
-            <label>Зураг оруулах *</label>
-            <div class="image-upload-area" id="image-upload-area" style="border:2px dashed var(--border);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;">
-              <div id="upload-placeholder">
-                <div style="font-size:2rem;margin-bottom:8px;">📷</div>
-                <p style="color:var(--muted);margin:0;">Зураг оруулахын тулд дарна уу</p>
-                <p style="font-size:0.75rem;color:var(--muted);margin-top:4px;">JPG, PNG, WEBP (max 5MB)</p>
-              </div>
-              <img id="preview-image" style="max-width:100%;max-height:200px;border-radius:8px;display:none;" />
-              <input type="file" id="listing-image-input" accept="image/*" style="display:none;">
-            </div>
-            <button class="btn-sm outline" id="btn-remove-image" style="margin-top:8px;display:none;">❌ Зураг устгах</button>
-          </div>
-
-          <div class="profile-form">
-            <div class="form-group">
-              <label>Хувцасны нэр *</label>
-              <input type="text" id="l-name" placeholder="жш: Улаан танго даашинз">
-            </div>
-            <div class="form-group">
-              <label>Брэнд *</label>
-              <input type="text" id="l-brand" placeholder="жш: Zara, H&M">
-            </div>
-            <div class="form-group">
-              <label>Өдөрт үнэ (₮) *</label>
-              <input type="number" id="l-price" placeholder="жш: 25000">
-            </div>
-            <div class="form-group">
-              <label>Хэмжээ</label>
-              <input type="text" id="l-size" placeholder="жш: S/M/L">
-            </div>
-            <div class="form-group">
-              <label>Ангилал</label>
-              <select id="l-category" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);">
-                <option value="Cosplay">Cosplay</option>
-                <option value="Costume">Costume</option>
-                <option value="Evening Wear">Evening Wear</option>
-                <option value="Cultural">Cultural</option>
-                <option value="Dance">Dance</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Other">Бусад</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label>Тайлбар</label>
-              <textarea id="l-desc" placeholder="Хувцасны тухай дэлгэрэнгүй..."></textarea>
+          <div class="form-group">
+            <label>Зураг *</label>
+            <div class="image-upload-area" id="image-upload-area">
+              <div id="upload-placeholder">📷 Зураг оруулах</div>
+              <img id="preview-image" style="display:none">
+              <input type="file" id="listing-image-input" accept="image/*" style="display:none">
             </div>
           </div>
-          <div style="display:flex;gap:10px;margin-top:18px">
+          <div class="form-group"><label>Хувцасны нэр *</label><input type="text" id="l-name"></div>
+          <div class="form-group"><label>Брэнд *</label><input type="text" id="l-brand"></div>
+          <div class="form-group"><label>Үнэ (₮) *</label><input type="number" id="l-price"></div>
+          <div class="form-group"><label>Хэмжээ</label><input type="text" id="l-size"></div>
+          <div class="form-group"><label>Тайлбар</label><textarea id="l-desc"></textarea></div>
+          <div style="display:flex; gap:10px;">
             <button class="btn-g" id="btn-submit-listing">Илгээх</button>
             <button class="btn-sm outline" id="btn-cancel-listing">Болих</button>
           </div>
@@ -222,22 +113,30 @@
     </div>
   </main>
 
-  <!-- СЭТГЭГДЭЛ MODAL -->
+  <!-- Info Popup -->
+  <div class="notif-popup" id="info-popup">
+    <div class="notif-popup-header"><span>⚙️ Хувийн мэдээлэл</span><button onclick="closeInfoPopup()">✕</button></div>
+    <div class="notif-popup-list" style="padding:16px;">
+      <div class="profile-form">
+        <div class="form-group"><label>Нэр</label><input type="text" id="inp-name"></div>
+        <div class="form-group"><label>Имэйл</label><input type="email" id="inp-email"></div>
+        <div class="form-group"><label>Утас</label><input type="tel" id="inp-phone"></div>
+        <div class="form-group"><label>Хот</label><input type="text" id="inp-city" value="Улаанбаатар"></div>
+        <button class="btn-sm dark" style="width:100%;" onclick="showToast('Мэдээлэл хадгалагдлаа ✓','green')">Хадгалах</button>
+      </div>
+    </div>
+  </div>
+  <div class="notif-overlay" id="info-overlay" onclick="closeInfoPopup()"></div>
+
+  <!-- Review Modal -->
   <div class="modal-ov" id="review-modal">
     <div class="modal-card">
       <button class="modal-x" onclick="closeReviewModal()">✕</button>
       <h3>★ Сэтгэгдэл бичих</h3>
       <div class="star-row">
-        <button class="star-btn">★</button>
-        <button class="star-btn">★</button>
-        <button class="star-btn">★</button>
-        <button class="star-btn">★</button>
-        <button class="star-btn">★</button>
+        <button class="star-btn">★</button><button class="star-btn">★</button><button class="star-btn">★</button><button class="star-btn">★</button><button class="star-btn">★</button>
       </div>
-      <div class="form-group" style="margin-bottom:0">
-        <label>Сэтгэгдэл</label>
-        <textarea id="review-comment" placeholder="Хувцасны чанар, загвар..."></textarea>
-      </div>
+      <div class="form-group"><label>Сэтгэгдэл</label><textarea id="review-comment"></textarea></div>
       <div style="display:flex;gap:10px;margin-top:18px">
         <button class="btn-g" onclick="submitReview()">Илгээх</button>
         <button class="btn-sm outline" onclick="closeReviewModal()">Болих</button>
