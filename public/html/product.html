@@ -30,7 +30,7 @@
   <div class="modal-ov" id="reqModal" onclick="if(event.target===this)closeQM()">
     <article class="modal-card" id="qmCard">
       <button class="modal-x" onclick="closeQM()" aria-label="Хаах" type="button">✕</button>
-      <h3>📩 Түрээсийн хүсэлт</h3>
+      <h3>Огноо сонгох</h3>
       
       <section class="rm-product">
         <figure class="rm-product-fig">
@@ -66,17 +66,12 @@
         <strong id="rmTotal">0₮</strong>
       </div>
 
-      <div class="form-group">
-        <label for="rmComment">Нэмэлт тайлбар</label>
-        <textarea id="rmComment" rows="3" placeholder="Онцгой хүсэлт..."></textarea>
-      </div>
-
-      <button class="btn-g" type="button" onclick="submitRequest()">📩 Хүсэлт илгээх</button>
+      <button class="btn-g" type="button" onclick="submitRequest()">Сагсанд нэмэх</button>
     </article>
   </div>
 
   <script type="module" src="/public/js/auth.js"></script>
-  <script src="/public/js/request-modal.js"></script>
+  <script src="/public/js/buy-modal.js"></script>
   <script src="/public/js/theme.js"></script>
   <script type="module" src="/public/wc/index.js"></script>
   <script type="module" src="../wc/navigation.js"></script>

@@ -1,30 +1,92 @@
 /* ══════════════════════════════════════════════════════════
    RENTFIT — request-modal.js
-   Түрээсийн хүсэлтийн modal — CART-д хадгална
+   Түрээсийн хүсэлтийн modal — Хэрэглэгчийн cart-д хадгална
+   WITH DATE RESTRICTIONS (No past dates allowed)
 ══════════════════════════════════════════════════════════ */
 
 var _rmProduct = null;
 var _currentUserId = null;
 
-function getCurrentUser() {
-  var user = localStorage.getItem('currentUser');
-  if (user) {
-    var userData = JSON.parse(user);
-    _currentUserId = userData.user_id || userData.id;
-    return userData;
+// ✅ Helper function to open login modal (from auth.js)
+function openLoginModal() {
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) {
+    loginModal.classList.add('open');
   }
-  return null;
+}
+
+// Get current user from localStorage (set during login)
+function getCurrentUser() {
+  var userJson = localStorage.getItem('rf_user');
+  console.log('localStorage currentUser:', userJson);
+  
+  if (!userJson) {
+    console.log('All localStorage keys:', Object.keys(localStorage));
+    return null;
+  }
+  
+  try {
+    var userData = JSON.parse(userJson);
+    _currentUserId = userData.user_id || userData.id || userData._id;
+    console.log('Extracted user_id:', _currentUserId);
+    
+    if (!_currentUserId) {
+      console.error('No user_id found in user data:', userData);
+      return null;
+    }
+    
+    return userData;
+  } catch (e) {
+    console.error('Error parsing user data:', e);
+    return null;
+  }
+}
+
+// Set minimum date to today for both date inputs
+function setDateRestrictions() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
+  
+  const fromInput = document.getElementById('rmFrom');
+  const toInput = document.getElementById('rmTo');
+  
+  if (fromInput) {
+    fromInput.min = todayStr;
+  }
+  
+  if (toInput) {
+    toInput.min = todayStr;
+  }
+}
+
+// Set end date minimum based on start date selection
+function updateEndDateMin() {
+  const fromInput = document.getElementById('rmFrom');
+  const toInput = document.getElementById('rmTo');
+  
+  if (fromInput && fromInput.value) {
+    toInput.min = fromInput.value;
+  } else {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    toInput.min = `${year}-${month}-${day}`;
+  }
 }
 
 function openRequestModal(product) {
-  _rmProduct = product;
-  
-  var currentUser = getCurrentUser();
+  const currentUser = getCurrentUser();
   if (!currentUser) {
     alert('Та эхлээд нэвтрэх шаардлагатай');
-    window.location.href = '/login.html';
+    openLoginModal(); // ✅ Opens the modal from auth.js
     return;
   }
+
+  _rmProduct = product;
 
   var nameEl = document.getElementById('rm-name');
   var brandEl = document.getElementById('rm-brand');
@@ -51,10 +113,14 @@ function openRequestModal(product) {
     if (firstBtn) firstBtn.classList.add('sel');
   }
 
+  // Reset date inputs
   document.getElementById('rmFrom').value = '';
   document.getElementById('rmTo').value = '';
   document.getElementById('rmDays').textContent = '0 өдөр';
   document.getElementById('rmTotal').textContent = '0₮';
+  
+  // Apply date restrictions to prevent past dates
+  setDateRestrictions();
 
   document.getElementById('reqModal').classList.add('open');
 }
@@ -76,6 +142,9 @@ function calcRmTotal() {
   var price = parseInt(String(_rmProduct.price || _rmProduct.basePrice || 0).replace(/[^0-9]/g, ''), 10) || 0;
   var from = document.getElementById('rmFrom').value;
   var to = document.getElementById('rmTo').value;
+  
+  // Update end date minimum when start date changes
+  updateEndDateMin();
 
   if (!from || !to) {
     document.getElementById('rmDays').textContent = '0 өдөр';
@@ -90,44 +159,51 @@ function calcRmTotal() {
   document.getElementById('rmTotal').textContent = (days * price).toLocaleString() + '₮';
 }
 
-/* ── CART-д хадгалах (SHOPPING CART) ─────────────────── */
+/* ── Add to Cart (Сагсанд нэмэх) ─────────────────────── */
 async function submitRequest() {
-  var from = document.getElementById('rmFrom').value;
-  var to = document.getElementById('rmTo').value;
+  const currentUser = getCurrentUser();
+  if (!currentUser) {
+    alert('Та эхлээд нэвтрэх шаардлагатай');
+    openLoginModal(); // ✅ Opens the modal from auth.js
+    return;
+  }
+  
+  var starts_at = document.getElementById('rmFrom').value;
+  var expires_at = document.getElementById('rmTo').value;
   var size = document.getElementById('rmSize').value;
 
-  if (!from || !to) {
+  // Date validation
+  if (!starts_at || !expires_at) {
     alert('Эхлэх болон дуусах огноог сонгоно уу.');
     return;
   }
-  if (new Date(to) <= new Date(from)) {
+  if (new Date(expires_at) <= new Date(starts_at)) {
     alert('Дуусах огноо эхлэх огноогоос хойш байх ёстой.');
     return;
   }
 
-  var currentUser = getCurrentUser();
-  if (!currentUser) {
-    alert('Та эхлээд нэвтрэх шаардлагатай');
+  if (!_currentUserId) {
+    alert('Хэрэглэгчийн ID олдсонгүй');
+    openLoginModal(); // ✅ Try to login again
     return;
   }
 
-  var days = Math.max(1, Math.round((new Date(to) - new Date(from)) / 86400000));
-  var price = parseInt(String(_rmProduct ? (_rmProduct.price || _rmProduct.basePrice || 0) : 0).replace(/[^0-9]/g, ''), 10) || 0;
-  var totalPrice = price * days;
-
+  var product_id = _rmProduct.id || _rmProduct.product_id || _rmProduct.item_id;
+  
   var cartData = {
-    productId: _rmProduct.id || _rmProduct.product_id,
-    startDate: from,
-    endDate: to,
-    days: days,
-    size: size,
-    totalPrice: totalPrice,
-    dailyRate: price
+    product_id: product_id,
+    starts_at: starts_at,
+    expires_at: expires_at,
+    status: 'pending'
   };
 
+  const API_BASE_URL = 'http://localhost:3000';
+  const url = `${API_BASE_URL}/api/users/${_currentUserId}/cart/add`;
+  
+  console.log('Sending to API:', { url, data: cartData });
+
   try {
-    // Add to CART (not directly to rented_items)
-    const response = await fetch(`/api/users/${currentUser.user_id}/cart/add`, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -135,12 +211,17 @@ async function submitRequest() {
       body: JSON.stringify(cartData)
     });
 
-    const result = await response.json();
+    console.log('Response status:', response.status);
 
     if (!response.ok) {
-      throw new Error(result.error || 'Алдаа гарлаа');
+      const text = await response.text();
+      console.error('Server error response:', text);
+      throw new Error(`Server error: ${response.status} ${response.statusText}`);
     }
 
+    const result = await response.json();
+    console.log('Success:', result);
+    
     closeQM();
 
     var toast = document.getElementById('req-toast');
@@ -150,11 +231,6 @@ async function submitRequest() {
       setTimeout(function() { toast.classList.remove('show'); }, 3000);
     } else {
       alert('✓ Сагсанд нэмэгдлээ!');
-    }
-
-    // Show cart option
-    if (confirm('Сагс руу очих уу?')) {
-      window.location.href = '/cart.html';
     }
 
   } catch (error) {

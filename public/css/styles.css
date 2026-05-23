@@ -1619,3 +1619,95 @@ a {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
+
+/* Date range highlighting styles */
+.date-range-highlight {
+  position: relative;
+}
+
+/* Style for date inputs when range is selected */
+.date-range-active {
+  border-color: var(--gold, #c9a84c) !important;
+  background-color: rgba(201, 168, 76, 0.05) !important;
+}
+
+/* Info text showing selected range */
+.range-info {
+  font-size: 12px;
+  color: var(--gold, #c9a84c);
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DATE RANGE HIGHLIGHTING STYLES
+══════════════════════════════════════════════════════════ */
+
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Date input styling */
+#rmFrom, #rmTo {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border, #e5d5c5);
+  border-radius: 12px;
+  background: var(--surface-input, white);
+  color: var(--text-primary, #1a1714);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+#rmFrom:hover, #rmTo:hover {
+  border-color: var(--gold, #c9a84c);
+}
+
+#rmFrom:focus, #rmTo:focus {
+  outline: none;
+  border-color: var(--gold, #c9a84c);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+}
+
+/* Dark mode support */
+[data-theme="dark"] #rmFrom,
+[data-theme="dark"] #rmTo {
+  background: #262118;
+  border-color: #2d2820;
+  color: #f0ece6;
+}
+
+[data-theme="dark"] .date-range-active {
+  background-color: rgba(201, 168, 76, 0.15) !important;
+}
+
+[data-theme="dark"] .range-info {
+  background: rgba(201, 168, 76, 0.15);
+}
+
+.badge--soldout {
+    background: #d32f2f;
+    color: white;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+}

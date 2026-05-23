@@ -75,6 +75,7 @@ class BrowseProductGrid extends HTMLElement {
       card.setAttribute("review-count", product.review_count);
       card.setAttribute("image", `/public/source/${product.img_src}`);
       card.setAttribute("status", product.status || "");
+      card.setAttribute("stock",product.in_stock);
 
       if (product.sizes) {
         card.setAttribute("sizes", JSON.stringify(product.sizes));
@@ -207,11 +208,24 @@ function wireBrowseFilters(gridSelector) {
     });
   });
 
-  // Price filter
+  // ✅ UPDATED - Price filter with dynamic span update
   const priceRange = document.querySelector(".price-range");
+  const priceLabel = document.querySelector(".pr-inputs span");
+  
   if (priceRange) {
+    // Set initial value
+    if (priceLabel) {
+      priceLabel.textContent = `≤ ${parseInt(priceRange.value).toLocaleString()}₮`;
+    }
+    
     priceRange.addEventListener("input", (e) => {
-      grid.filterByPrice(parseInt(e.target.value, 10));
+      const value = parseInt(e.target.value, 10);
+      grid.filterByPrice(value);
+      
+      // Update the span text dynamically
+      if (priceLabel) {
+        priceLabel.textContent = `≤ ${value.toLocaleString()}₮`;
+      }
     });
   }
 
@@ -250,7 +264,13 @@ function wireBrowseFilters(gridSelector) {
 
       if (searchInput) searchInput.value = "";
       if (sortSelect) sortSelect.value = "new";
-      if (priceRange) priceRange.value = 500000;
+      if (priceRange) {
+        priceRange.value = 500000;
+        // ✅ Update span when reset
+        if (priceLabel) {
+          priceLabel.textContent = "≤ 500,000₮";
+        }
+      }
 
       // Clear URL
       const url = new URL(window.location.href);
@@ -259,7 +279,6 @@ function wireBrowseFilters(gridSelector) {
     });
   }
 }
-
 // ─────────────────────────────────────────────────────────
 // INITIALIZE
 // ─────────────────────────────────────────────────────────

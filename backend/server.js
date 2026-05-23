@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors({
   origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT','PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -48,6 +48,14 @@ app.get('/browse', (req, res) => {
 
 app.get('/product', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/html/product.html'));
+});
+
+app.get('/cart', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/cart.html'));
+});
+
+app.get('/cart.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/cart.html'));
 });
 
 // ─────────────────────────────────────────────────────────
