@@ -85,7 +85,8 @@
     "anna_costume",
     "bear_costume"
   ],
-  "liked_items": []
+  "liked_items": [],
+  "cart": []
 },
 {
   "_id": {
@@ -108,7 +109,8 @@
     "mongol_deel",
     "wedding_dress"
   ],
-  "liked_items": []
+  "liked_items": [],
+  "cart": []
 },
 {
   "_id": {
@@ -126,7 +128,8 @@
     "kimono",
     "voiled_evergarden"
   ],
-  "liked_items": []
+  "liked_items": [],
+  "cart": []
 },
 {
   "_id": {
@@ -144,7 +147,8 @@
     "mongolian_olimpic",
     "mongolian_male_costume"
   ],
-  "liked_items": []
+  "liked_items": [],
+  "cart": []
 },
 {
   "_id": {
@@ -162,5 +166,6 @@
     "ягаан_гоёлын",
     "big_blue_dress"
   ],
-  "liked_items": []
+  "liked_items": [],
+  "cart": []
 }]
