@@ -913,4 +913,140 @@ router.delete('/:userId/publish-request/:requestId', async (req, res) => {
     res.json({ success: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
+
+
+// ========== LIKED ITEMS ROUTES ==========
+router.get('/:userId/liked', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    await client.connect();
+    const db = client.db("webapp-team");
+    const usersCollection = db.collection("users");
+
+    const user = await usersCollection.findOne(
+      { user_id: userId },
+      { projection: { liked_items: 1, username: 1 } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      user_id: userId,
+      username: user.username,
+      liked_items: user.liked_items || []
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/:userId/liked/toggle', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { product_id } = req.body;
+    await client.connect();
+    const db = client.db("webapp-team");
+    const usersCollection = db.collection("users");
+
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const likedItems = user.liked_items || [];
+    const index = likedItems.indexOf(product_id);
+
+    let action;
+    if (index === -1) {
+      await usersCollection.updateOne(
+        { user_id: userId },
+        { $push: { liked_items: product_id } }
+      );
+      action = 'added';
+    } else {
+      await usersCollection.updateOne(
+        { user_id: userId },
+        { $pull: { liked_items: product_id } }
+      );
+      action = 'removed';
+    }
+
+    res.json({
+      success: true,
+      action: action,
+      liked: action === 'added'
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== REVIEWS ROUTES ==========
+router.post('/:userId/reviews', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { rental_id, rating, comment } = req.body;
+    await client.connect();
+    const db = client.db("webapp-team");
+    const usersCollection = db.collection("users");
+    const productsCollection = db.collection("product");
+
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const rental = user.rented_items?.find(r => r.rental_id === rental_id);
+    if (!rental) {
+      return res.status(404).json({ error: 'Rental not found' });
+    }
+
+    await usersCollection.updateOne(
+      { user_id: userId, 'rented_items.rental_id': rental_id },
+      {
+        $set: {
+          'rented_items.$.reviewed': true,
+          'rented_items.$.review_rating': rating,
+          'rented_items.$.review_comment': comment,
+          'rented_items.$.reviewed_at': new Date().toISOString()
+        }
+      }
+    );
+
+    const product = await productsCollection.findOne({ id: rental.product_id });
+    if (product) {
+      const newReview = {
+        user_id: userId,
+        name: user.full_name || user.username,
+        rating: rating,
+        comment: comment,
+        createdAt: new Date().toISOString()
+      };
+
+      await productsCollection.updateOne(
+        { id: rental.product_id },
+        {
+          $push: { reviews: newReview },
+          $inc: { review_count: 1 }
+        }
+      );
+
+      const updatedProduct = await productsCollection.findOne({ id: rental.product_id });
+      const reviews = updatedProduct.reviews || [];
+      const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+      const avgRating = totalRating / reviews.length;
+      await productsCollection.updateOne(
+        { id: rental.product_id },
+        { $set: { rating: Math.round(avgRating * 10) / 10 } }
+      );
+    }
+
+    res.json({ success: true, message: 'Review submitted successfully' });
+  } catch (error) {
+    console.error('Review submit error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 module.exports = router;
