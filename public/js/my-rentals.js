@@ -251,7 +251,7 @@ function renderActiveRentals() {
 
   // Filter for active rentals (paid status)
   var activeItems = rentals.filter(function(r) {
-    return r.status === 'paid';
+    return r.status === 'paid'|| r.status ==='pending'||r.status ==='active'||r.status === 'overdue';
   });
 
   console.log('Active rentals to render:', activeItems.length);
@@ -308,7 +308,7 @@ function renderHistoryRentals() {
 
   // Filter for completed/done rentals
   var historyItems = rentals.filter(function(r) {
-    return r.status === 'done' || r.status === 'completed' || r.status === 'returned' || r.status === 'cancelled';
+    return r.status === 'done' || r.status === 'cancelled';
   });
 
   console.log('History rentals to render:', historyItems.length);
