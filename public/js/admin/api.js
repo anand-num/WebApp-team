@@ -20,6 +20,7 @@ export async function loadProducts() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const rawArray = await response.json();
+    // [ЗАСВАР] raw.id байвал түүнийг ашиглана, publish_requests зэрэг
     DB.products = rawArray.map((raw, i) => new Product(raw, i));
     DB.productsLoaded = true;
   } catch (err) {
@@ -50,17 +51,101 @@ export async function loadUsers() {
 ══════════════════════════════════════════ */
 
 export async function approveProductAPI(id) {
+  const product = DB.products.find(x => x.id == id);
+
+  if (product && product.isPublishRequest) {
+    // Publisher username-р user олох
+    const user = DB.users.find(u => {
+      const raw = u.name || '';
+      return raw === product.publisher ||
+             raw.split(' ')[0] === product.publisher ||
+             product.publisher.includes(raw.split(' ')[0]);
+    });
+
+    // user_id-г DB.users-с олох — User класс raw user_id-г хадгалдаггүй тул
+    // шууд fetch хийж авах
+    let userId = null;
+
+    try {
+      const usersRes  = await fetch(`${API}/users`);
+      const usersRaw  = await usersRes.json();
+      const foundUser = usersRaw.find(u =>
+        u.username === product.publisher ||
+        u.full_name === product.publisher
+      );
+      userId = foundUser?.user_id;
+    } catch (e) {
+      console.error('User олдсонгүй:', e);
+    }
+
+    if (!userId) {
+      console.error('userId олдсонгүй — publisher:', product.publisher);
+      return;
+    }
+
+    const requestId = product.requestId;
+    console.log('Approving:', { userId, requestId });
+
+    const res = await fetch(
+      `${API}/users/${userId}/publish-request/${requestId}/approve`,
+      { method: 'PUT' }
+    );
+
+    if (res.ok) {
+      // DB-с хасах
+      DB.products = DB.products.filter(x => x.id != id);
+    }
+    return;
+  }
+
+  // Энгийн бараа approve хийх
   await fetch(`${API}/products/${id}/status`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: 'standard' })
   });
-  // DB дотор шууд өөрчлөх — дахин fetch хийхгүй
   const p = DB.products.find(x => x.id == id);
   if (p) p.status = 'standard';
 }
 
 export async function rejectProductAPI(id) {
+  const product = DB.products.find(x => x.id == id);
+
+  if (product && product.isPublishRequest) {
+    let userId = null;
+
+    try {
+      const usersRes  = await fetch(`${API}/users`);
+      const usersRaw  = await usersRes.json();
+      const foundUser = usersRaw.find(u =>
+        u.username === product.publisher ||
+        u.full_name === product.publisher
+      );
+      userId = foundUser?.user_id;
+    } catch (e) {
+      console.error('User олдсонгүй:', e);
+    }
+
+    if (!userId) {
+      console.error('userId олдсонгүй — publisher:', product.publisher);
+      return;
+    }
+
+    const requestId = product.requestId;
+    console.log('Rejecting:', { userId, requestId });
+
+    const res = await fetch(
+      `${API}/users/${userId}/publish-request/${requestId}/reject`,
+      { method: 'PUT' }
+    );
+
+    if (res.ok) {
+      DB.products = DB.products.filter(x => x.id != id);
+    }
+    return;
+  }
+
+  // Энгийн бараа reject хийх
   await fetch(`${API}/products/${id}/status`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -69,7 +154,6 @@ export async function rejectProductAPI(id) {
   const p = DB.products.find(x => x.id == id);
   if (p) p.status = 'rejected';
 }
-
 export async function deleteProductAPI(id) {
   await fetch(`${API}/products/${id}`, { method: 'DELETE' });
   DB.products = DB.products.filter(x => x.id != id);

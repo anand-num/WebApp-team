@@ -29,7 +29,9 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 const productRoutes = require('./routes/products');
 const reviewRoutes  = require('./routes/review');
 const userRoutes    = require('./routes/users');
+const uploadRoutes = require('./routes/upload');
 
+app.use('/api/upload', uploadRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/reviews',  reviewRoutes);
 app.use('/api/users',    userRoutes);
