@@ -10,8 +10,11 @@
 import { DB } from './store.js';
 import { CATS, SIZES, STATUS_LABEL } from './constants.js';
 import {
-  filterProducts, filterUsers, getProductStats, getSizesSummary
+  filterProducts, filterUsers, getProductStats, getSizesSummary,
+  approveProductAPI, rejectProductAPI, deleteProductAPI,
+  saveProductAPI, addProductAPI
 } from './api.js';
+
 import {
   applyPage, toast, nav, $, bindNav,
   productCellHTML, ratingCellHTML, emptyRowHTML
@@ -824,31 +827,32 @@ function currentSub() {
   return 'products';
 }
 
-export function approveProduct(id) {
+export async function approveProduct(id) {
+  await approveProductAPI(id);
   const p = DB.products.find(x => x.id == id);
-  if (p) { p.status = 'standard'; toast(`"${p.name}" зөвшөөрөгдлөө ✓`, 'green'); }
+  if (p) toast(`"${p.name}" зөвшөөрөгдлөө ✓`, 'green');
   renderAdmin(currentSub());
 }
 
-export function rejectProduct(id) {
+export async function rejectProduct(id) {
+  await rejectProductAPI(id);
   const p = DB.products.find(x => x.id == id);
-  if (p) { p.status = 'rejected'; toast(`"${p.name}" татгалзагдлаа`, 'red'); }
+  if (p) toast(`"${p.name}" татгалзагдлаа`, 'red');
   renderAdmin(currentSub());
 }
 
+export async function deleteProduct(id) {
+  if (!confirm('Энэ барааг устгах уу?')) return;
+  await deleteProductAPI(id);
+  toast('Устгагдлаа');
+  renderAdmin(currentSub())
+}
 export function restoreProduct(id) {
   const p = DB.products.find(x => x.id == id);
   if (p) { p.status = 'standard'; toast(`"${p.name}" сэргээгдлээ ✓`, 'green'); }
   renderAdmin('rejected');
 }
 
-export function deleteProduct(id) {
-  if (!confirm('Энэ барааг устгах уу?')) return;
-  /* ▶ [ШАЛГУУР 3 — filter] Устгахдаа filter ашиглана */
-  DB.products = DB.products.filter(x => x.id != id);
-  toast('Устгагдлаа');
-  renderAdmin(currentSub());
-}
 
 export function approveAll() {
   /* ▶ [ШАЛГУУР 3 — filter] Pending барааг олж статусыг өөрчилнэ */
