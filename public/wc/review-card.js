@@ -49,6 +49,16 @@ export class ReviewCard extends HTMLElement {
     return starsHtml;
   }
 
+  escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   render() {
     const authorName = this.review.author || this.review.user_name || 'Хэрэглэгч';
     const initials = this.getInitials(authorName);
@@ -58,37 +68,19 @@ export class ReviewCard extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
-          --background-primary: var(--background-primary, #ffffff);
-          --background-secondary: var(--background-secondary, #f5f1ed);
-          --background-beige-medium: var(--background-beige-medium, #e8dcc4);
-          --background-beige-dark: var(--background-beige-dark, #d4c5a9);
-          --text-primary: var(--text-primary, #1a1a1a);
-          --text-secondary: var(--text-secondary, #666666);
-          --text-tertiary: var(--text-tertiary, #999999);
-
-          --font-heading: var(--font-heading, 'Georgia', serif);
-          --font-body: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
-          --font-bold: var(--font-bold, 'Helvetica Neue', sans-serif);
+          display: block;
         }
-
-        * {
-          box-sizing: border-box;
-        }
-        .review-container{
-        display:flex;
-        flex-direction:row;
-        height:16rem;
-        }
+        
         .review-card {
-          background: var(--background-primary);
-          border: 1px solid var(--text-primary);
-          width:15rem;
-          border-radius: 4px;
-          padding: 1.5rem;
+          background: var(--background-primary, #ffffff);
+          border: 1px solid var(--border, #e5d5c5);
+          border-radius: 12px;
+          padding: 1.25rem 1.25rem 0 1.25rem;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 0.75rem;
           transition: box-shadow 0.2s, transform 0.2s;
+          height: 100%;
         }
 
         .review-card:hover {
@@ -98,117 +90,66 @@ export class ReviewCard extends HTMLElement {
 
         .review-hd {
           display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          margin-bottom: 0.5rem;
+          align-items: center;
+          gap: 0.75rem;
         }
 
         .reviewer-initial {
           flex-shrink: 0;
-          width: 40px;
-          height: 40px;
-          min-width: 40px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background-color: rgba(201, 168, 76, 0.15);
-          color: var(--gold);
-          border: 1px solid rgba(201, 168, 76, 0.35);
+          background: var(--gold, #c9a84c);
+          color: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-heading), serif;
-          font-size: 1rem;
+          font-family: var(--font-heading, 'Playfair Display', serif);
+          font-size: 1.1rem;
           font-weight: 600;
-          margin-top: 0;
         }
 
         .reviewer-info {
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
         }
 
         .reviewer-name {
           display: block;
-          color: var(--text-primary);
-          font-family: var(--font-body), sans-serif;
+          color: var(--text-primary, #1a1714);
+          font-family: var(--font-body, 'Inter', sans-serif);
           font-size: 0.9rem;
-          font-weight: 550;
-          margin: 0;
-          padding: 0;
-          line-height: 1.2;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
         }
 
         .stars {
-          font-size: 1.3rem;
-          color: var(--gold);
-          letter-spacing: 1px;
-          margin: 0;
-          padding: 0;
+          font-size: 1rem;
+          color: var(--gold, #c9a84c);
+          letter-spacing: 2px;
         }
 
         .review-text {
-          color: var(--text-secondary);
-          font-family: var(--font-body), sans-serif;
-          font-size: 0.9rem;
-          line-height: 1.6;
+          color: var(--text-secondary, #685d54);
+          font-family: var(--font-body, 'Inter', sans-serif);
+          font-size: 0.85rem;
+          line-height: 1.5;
           margin: 0;
-          padding: 0;
-          text-align: justify;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 48rem) {
+        @media (max-width: 768px) {
           .review-card {
-            padding: 1.2rem;
+            padding: 1rem 1rem 0 1rem;
           }
-
           .reviewer-initial {
             width: 36px;
             height: 36px;
-            min-width: 36px;
             font-size: 0.9rem;
           }
-
-          .review-hd {
-            gap: 0.75rem;
-          }
-
           .reviewer-name {
             font-size: 0.85rem;
           }
-
-          .review-text {
-            font-size: 0.85rem;
-          }
-
-          .stars {
-            font-size: 1.1rem;
-          }
-        }
-
-        @media (max-width: 30rem) {
-          .review-card {
-            padding: 1rem;
-          }
-
-          .reviewer-initial {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            font-size: 0.85rem;
-          }
-
-          .reviewer-name {
-            font-size: 0.8rem;
-          }
-
           .review-text {
             font-size: 0.8rem;
-          }
-
-          .stars {
-            font-size: 1rem;
           }
         }
       </style>
@@ -226,33 +167,20 @@ export class ReviewCard extends HTMLElement {
     `;
   }
 
-  // Simple XSS protection
-  escapeHtml(str) {
-    if (!str) return '';
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
   // Method to update review data dynamically
   setReview(reviewData) {
     this.review = reviewData;
     this.render();
   }
 
-  // Allow attribute updates to trigger re-render
+  static get observedAttributes() {
+    return ['rating', 'author', 'comment', 'user-name'];
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue && this.shadowRoot) {
       this.connectedCallback();
     }
-  }
-
-  // Observe these attributes for changes
-  static get observedAttributes() {
-    return ['rating', 'author', 'comment', 'user-name'];
   }
 }
 

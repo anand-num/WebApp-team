@@ -37,21 +37,16 @@ class ProductPage extends HTMLElement {
     }
 
     try {
-      // API-с product болон review хамт авах
-      const [productsResponse, reviewsResponse] = await Promise.all([
-        fetch(`http://localhost:3000/api/products`),
-        fetch(`http://localhost:3000/api/reviews`)
-      ]);
+      // Fetch product from API (includes embedded reviews)
+      const response = await fetch(`http://localhost:3000/api/products`);
+      const products = await response.json();
 
-      const products = await productsResponse.json();
-      const allReviews = await reviewsResponse.json();
-
-      // ID-гаар product олох
+      // Find the product by ID
       this.product = products.find(p => p.id == productId);
 
-      // Тухайн product-ийн review-үүдийг шүүх
       if (this.product) {
-        this.reviews = allReviews.filter(r => r.product_id == this.product.id);
+        // Reviews are now embedded in the product object
+        this.reviews = this.product.reviews || [];
         this.basePrice = parsePrice(this.product.price);
       }
 
@@ -246,16 +241,16 @@ class ProductPage extends HTMLElement {
     // Request button
     const requestBtn = this.querySelector('#btn-request');
     if (requestBtn) {
-          if (isOutOfStock) {
-      requestBtn.disabled = true;
-      requestBtn.title = 'Энэ бүтээгдэхүүн бэлэн биш байна';
-    }
+      if (isOutOfStock) {
+        requestBtn.disabled = true;
+        requestBtn.title = 'Энэ бүтээгдэхүүн бэлэн биш байна';
+      }
 
       requestBtn.addEventListener('click', () => {
-              if (isOutOfStock) {
-        alert('Уучлаарай, энэ бүтээгдэхүүн бэлэн биш байна.');
-        return;
-      }
+        if (isOutOfStock) {
+          alert('Уучлаарай, энэ бүтээгдэхүүн бэлэн биш байна.');
+          return;
+        }
         const requestProduct = {
           id: this.product.id,
           brand: this.product.brand,
