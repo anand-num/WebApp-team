@@ -196,7 +196,7 @@ router.post('/:userId/cart/checkout', async (req, res) => {
       product_id: item.product_id,
       starts_at: item.starts_at,
       expires_at: item.expires_at,
-      status: 'paid',
+      status: 'active',
       rented_at: new Date().toISOString()
     }));
 
