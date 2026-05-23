@@ -259,7 +259,8 @@ img {
 .profile-wrap {
   max-width: 960px;
   margin: 0 auto;
-  padding: 36px 36px 80px
+  padding: 36px 36px 80px;
+  min-height: 90vh;
 }
 
 .profile-hd {
