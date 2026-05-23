@@ -352,7 +352,7 @@ router.get('/:userId/rentals', async (req, res) => {
         brand: product?.brand    || item.brand || '',
         img:   product?.img_src   || item.img   || '',
         price: product?.price    || item.price || 0,
-        size:  product?.sizes?.join(', ') || item.size || ''
+        size:  product?.sizes?.join(', ') || item.size || '',
       };
     });
 

@@ -209,9 +209,9 @@ function statusColor(status) {
 
 function listingStatusLabel(status) {
   var map = {
-    pending:   '⏳ Хүлээгдэж буй',
-    published: '✅ Нийтлэгдсэн',
-    rejected:  '❌ Буцаагдсан'
+    Pending:   '⏳ Хүлээгдэж буй',
+    Published: '✅ Нийтлэгдсэн',
+    Rejected:  '❌ Буцаагдсан'
   };
   return map[status] || status;
 }
