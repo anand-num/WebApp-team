@@ -9,16 +9,8 @@
   "password": "bataa123",
   "phone": "9911_xxxx",
   "membership": "premium",
-  "published_items": [
-    "anna_costume",
-    "big_blue_dress",
-    "mongol_deel",
-    "mongolian_queen",
-    "wedding_cost"
-  ],
+  "published_items": [],
   "rented_items": [
-    "ballroom_male_costume",
-    "tango_red_dress",
     {
       "rental_id": "6a104169572cabd9a321a066",
       "product_id": 2,
@@ -28,40 +20,28 @@
       "rented_at": "2026-05-22T11:43:37.175Z"
     },
     {
-      "rental_id": "6a104169572cabd9a321a067",
-      "product_id": "3",
-      "starts_at": "2026-05-22",
-      "expires_at": "2026-05-23",
+      "rental_id": "6a118200c6e8551fc182f078",
+      "product_id": 11,
+      "starts_at": "2026-05-23",
+      "expires_at": "2026-05-24",
       "status": "paid",
-      "rented_at": "2026-05-22T11:43:37.175Z"
+      "rented_at": "2026-05-23T10:31:28.137Z"
     },
     {
-      "rental_id": "6a1075f74355a7322f9c272a",
-      "product_id": 1,
-      "starts_at": "2026-05-22",
-      "expires_at": "2026-05-25",
+      "rental_id": "6a118fcde9de716db8d7fbba",
+      "product_id": "1",
+      "starts_at": "2024-01-01",
+      "expires_at": "2024-01-07",
+      "size": "M",
       "status": "paid",
-      "rented_at": "2026-05-22T15:27:51.830Z"
-    },
-    {
-      "rental_id": "6a1075f74355a7322f9c272b",
-      "product_id": 2,
-      "starts_at": "2026-05-22",
-      "expires_at": "2026-05-25",
-      "status": "paid",
-      "rented_at": "2026-05-22T15:27:51.830Z"
-    },
-    {
-      "rental_id": "6a1075f74355a7322f9c272c",
-      "product_id": 14,
-      "starts_at": "2026-05-22",
-      "expires_at": "2026-05-23",
-      "status": "paid",
-      "rented_at": "2026-05-22T15:27:51.831Z"
+      "rented_at": "2026-05-23T11:30:21.805Z"
     }
   ],
   "cart": [],
-  "liked_items": []
+  "liked_items": [
+    "1",
+    "2"
+  ]
 },
 {
   "_id": {
@@ -85,8 +65,7 @@
     "anna_costume",
     "bear_costume"
   ],
-  "liked_items": [],
-  "cart": []
+  "liked_items": []
 },
 {
   "_id": {
@@ -109,8 +88,7 @@
     "mongol_deel",
     "wedding_dress"
   ],
-  "liked_items": [],
-  "cart": []
+  "liked_items": []
 },
 {
   "_id": {
@@ -128,8 +106,7 @@
     "kimono",
     "voiled_evergarden"
   ],
-  "liked_items": [],
-  "cart": []
+  "liked_items": []
 },
 {
   "_id": {
@@ -147,8 +124,7 @@
     "mongolian_olimpic",
     "mongolian_male_costume"
   ],
-  "liked_items": [],
-  "cart": []
+  "liked_items": []
 },
 {
   "_id": {
@@ -166,6 +142,5 @@
     "ягаан_гоёлын",
     "big_blue_dress"
   ],
-  "liked_items": [],
-  "cart": []
+  "liked_items": []
 }]
