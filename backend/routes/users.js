@@ -384,11 +384,16 @@ router.get("/:userId/rentals", async (req, res) => {
       { projection: { rented_items: 1 } }
     );
 
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     const items = user?.rented_items || [];
 
     const productIds = items
       .map((i) => i.product_id)
       .filter((id) => id != null);
+    
     const products = await productsCollection
       .find({ id: { $in: productIds } })
       .toArray();
@@ -396,22 +401,28 @@ router.get("/:userId/rentals", async (req, res) => {
     const result = items.map((item) => {
       const product = products.find((p) => p.id == item.product_id);
       return {
-        ...item,
-        name: product?.item_name || item.name || "Unknown",
-        brand: product?.brand || item.brand || "",
-        img: product?.img_src || item.img || "",
-        price: product?.price || item.price || 0,
-        size: product?.sizes?.join(", ") || item.size || "",
-        status: product?.status || "unknown",
+        rental_id: item.rental_id,
+        product_id: item.product_id,
+        starts_at: item.starts_at,
+        expires_at: item.expires_at,
+        size: item.size || product?.sizes?.[0] || "M",
+        status: item.status,  // ✅ USE RENTAL ITEM'S STATUS, not product status
+        rented_at: item.rented_at,
+        name: product?.item_name || "Бүтээгдэхүүн",
+        brand: product?.brand || "",
+        img: product?.img_src || "",
+        price: product?.price || 0,
+        total_price: item.total_price || 0
       };
     });
 
+    console.log('Rentals API result:', result.length, 'items');
     res.json(result);
   } catch (error) {
+    console.error('Rentals error:', error);
     res.status(500).json({ error: error.message });
   }
 });
-
 // ========== LISTINGS (PUBLISHED ITEMS) ==========
 router.get("/:userId/listings", async (req, res) => {
   try {
