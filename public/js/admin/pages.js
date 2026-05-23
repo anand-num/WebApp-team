@@ -332,7 +332,7 @@ function pageDashboard() {
             ${pendingRows.length
               ? pendingRows.map(p => `
                   <tr>
-                    <td>${productCellHTML(p)}</td>
+                    <td>${productCellHTML(p)} ${p.isPublishRequest ? '<span class="badge pending" style="margin-left:4px;font-size:0.6rem">NEW</span>' : ''}</td>
                     <td>${p.categoryLabel}</td>
                     <td><span class="price-cell">${p.price}</span></td>
                     <td><div class="actions">
@@ -410,14 +410,14 @@ function pageAllProducts() {
             ${list.length
               ? list.map(p => `
                   <tr>
-                    <td>${productCellHTML(p)}</td>
+                    <td>${productCellHTML(p)} ${p.isPublishRequest ? '<span class="badge pending" style="margin-left:4px;font-size:0.6rem">NEW</span>' : ''}</td>
                     <td style="color:var(--text3)">${p.publisher || '&mdash;'}</td>
                     <td>${ratingCellHTML(p)}</td>
                     <td>
                       <div class="price-cell">${p.price}</div>
                       <div class="price-period">${p.pricePeriod}</div>
                     </td>
-                    <td><span class="badge ${p.status}">${p.statusLabel}</span></td>
+                    <td><span class="badge ${p.status} ${p.isPublishRequest ? 'publish-request-badge' : ''}">${p.statusLabel}${p.isPublishRequest ? ' (Хүсэлт)' : ''}</span></td>
                     <td><div class="actions">
                       <button class="btn-icon" data-edit="${p.id}" title="Засах">&#9998;</button>
                       ${p.status === 'pending' ? `
@@ -481,7 +481,7 @@ function pagePending() {
             ${list.length
               ? list.map(p => `
                   <tr class="pending-row">
-                    <td>${productCellHTML(p)}</td>
+                    <td>${productCellHTML(p)} ${p.isPublishRequest ? '<span class="badge pending" style="margin-left:4px;font-size:0.6rem">NEW</span>' : ''}</td>
                     <td style="color:var(--text3)">${p.publisher || '&mdash;'}</td>
                     <td><span style="font-size:.75rem;color:var(--text2)">${p.categoryLabel}</span></td>
                     <td>
@@ -547,7 +547,7 @@ function pageRejected() {
             ${list.length
               ? list.map(p => `
                   <tr class="rejected-row">
-                    <td>${productCellHTML(p)}</td>
+                    <td>${productCellHTML(p)} ${p.isPublishRequest ? '<span class="badge pending" style="margin-left:4px;font-size:0.6rem">NEW</span>' : ''}</td>
                     <td style="color:var(--text3)">${p.publisher || '&mdash;'}</td>
                     <td><span style="font-size:.75rem;color:var(--text2)">${p.categoryLabel}</span></td>
                     <td>

@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId } = require("mongodb");
 
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
@@ -21,31 +21,31 @@ async function connectToDb() {
   return { db, usersCollection, productsCollection };
 }
 
-// Call this at server startup (in server.js)
-// For now, we'll connect on first request
 // ========== AUTH ROUTES ==========
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { usersCollection } = await connectToDb();
-    const result = await usersCollection.find({}, { projection: { password: 0 } }).toArray();
+    const result = await usersCollection
+      .find({}, { projection: { password: 0 } })
+      .toArray();
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const { usersCollection } = await connectToDb();
-
+    
     const user = await usersCollection.findOne({
       $or: [{ email: email }, { username: email }],
-      password: password
+      password: password,
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Имэйл эсвэл нууц үг буруу байна' });
+      return res.status(401).json({ error: "Имэйл эсвэл нууц үг буруу байна" });
     }
 
     const { password: _, ...userWithoutPassword } = user;
@@ -55,17 +55,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { email, username, password, full_name, phone } = req.body;
     const { usersCollection } = await connectToDb();
 
     const existing = await usersCollection.findOne({
-      email: { $regex: new RegExp(`^${email}$`, 'i') }
+      email: { $regex: new RegExp(`^${email}$`, "i") },
     });
 
     if (existing) {
-      return res.status(400).json({ error: 'Энэ имэйл аль хэдийн бүртгэлтэй байна' });
+      return res.status(400).json({ error: "Энэ имэйл аль хэдийн бүртгэлтэй байна" });
     }
 
     // Generate new user_id
@@ -100,12 +100,12 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.get('/check-email', async (req, res) => {
+router.get("/check-email", async (req, res) => {
   try {
     const { email } = req.query;
     const { usersCollection } = await connectToDb();
     const existing = await usersCollection.findOne({
-      email: { $regex: new RegExp(`^${email}$`, 'i') }
+      email: { $regex: new RegExp(`^${email}$`, "i") },
     });
     res.json({ exists: !!existing });
   } catch (error) {
@@ -114,16 +114,17 @@ router.get('/check-email', async (req, res) => {
 });
 
 // ========== CART ROUTES ==========
-router.post('/:userId/cart/add', async (req, res) => {
+router.post("/:userId/cart/add", async (req, res) => {
   try {
     const { userId } = req.params;
-    const { product_id, starts_at, expires_at, size, status = 'pending' } = req.body;
+    const { product_id, starts_at, expires_at, size, status = "pending" } = req.body;
     const { usersCollection } = await connectToDb();
 
     const user = await usersCollection.findOne({ user_id: userId });
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
+    
     const productIdStr = String(product_id);
     const cartItem = {
       cart_id: new ObjectId().toString(),
@@ -132,7 +133,7 @@ router.post('/:userId/cart/add', async (req, res) => {
       expires_at: expires_at,
       size: size || 'M',
       status: status,
-      added_at: new Date().toISOString()
+      added_at: new Date().toISOString(),
     };
 
     await usersCollection.updateOne(
@@ -147,17 +148,17 @@ router.post('/:userId/cart/add', async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Item added to cart',
+      message: "Item added to cart",
       cart: updatedUser.cart || [],
-      cartCount: (updatedUser.cart || []).length
+      cartCount: (updatedUser.cart || []).length,
     });
   } catch (error) {
-    console.error('Cart add error:', error);
+    console.error("Cart add error:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.get('/:userId/cart', async (req, res) => {
+router.get("/:userId/cart", async (req, res) => {
   try {
     const { userId } = req.params;
     const { usersCollection } = await connectToDb();
@@ -168,21 +169,21 @@ router.get('/:userId/cart', async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json({
       user_id: userId,
       username: user.username,
       cart: user.cart || [],
-      cartCount: (user.cart || []).length
+      cartCount: (user.cart || []).length,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.delete('/:userId/cart/remove/:cartId', async (req, res) => {
+router.delete("/:userId/cart/remove/:cartId", async (req, res) => {
   try {
     const { userId, cartId } = req.params;
     const { usersCollection } = await connectToDb();
@@ -192,27 +193,27 @@ router.delete('/:userId/cart/remove/:cartId', async (req, res) => {
       { $pull: { cart: { cart_id: cartId } } }
     );
 
-    res.json({ message: 'Item removed from cart' });
+    res.json({ message: "Item removed from cart" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.post('/:userId/cart/checkout', async (req, res) => {
+router.post("/:userId/cart/checkout", async (req, res) => {
   try {
     const { userId } = req.params;
-    const { usersCollection } = await connectToDb();
+    const { usersCollection, productsCollection } = await connectToDb();
 
     const user = await usersCollection.findOne({ user_id: userId });
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     if (!user.cart || user.cart.length === 0) {
-      return res.status(400).json({ error: 'Cart is empty' });
+      return res.status(400).json({ error: "Cart is empty" });
     }
 
-    const rentalItems = user.cart.map(item => ({
+    const rentalItems = user.cart.map((item) => ({
       rental_id: new ObjectId().toString(),
       product_id: item.product_id,
       starts_at: item.starts_at,
@@ -226,11 +227,22 @@ router.post('/:userId/cart/checkout', async (req, res) => {
       { user_id: userId },
       {
         $push: { rented_items: { $each: rentalItems } },
-        $set: { cart: [] }
+        $set: { cart: [] },
       }
     );
 
-    res.json({ message: `Successfully checked out ${rentalItems.length} items` });
+    // Update product status to pending
+    const productIds = user.cart
+      .map((item) => item.product_id)
+      .filter((id) => id != null);
+    await productsCollection.updateMany(
+      { id: { $in: productIds } },
+      { $set: { status: "pending" } }
+    );
+
+    res.json({
+      message: `Successfully checked out ${rentalItems.length} items`,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -301,7 +313,7 @@ router.post('/:userId/liked/toggle', async (req, res) => {
 });
 
 // ========== RENTED ITEMS ROUTES ==========
-router.get('/:userId/rented-items', async (req, res) => {
+router.get("/:userId/rented-items", async (req, res) => {
   try {
     const { userId } = req.params;
     const { usersCollection } = await connectToDb();
@@ -312,39 +324,118 @@ router.get('/:userId/rented-items', async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json({
       user_id: userId,
       username: user.username,
       rented_items: user.rented_items || [],
-      total_rented: (user.rented_items || []).length
+      total_rented: (user.rented_items || []).length,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.patch('/:userId/rented-items/:rentalId/return', async (req, res) => {
+router.patch("/:userId/rented-items/:rentalId/return", async (req, res) => {
   try {
     const { userId, rentalId } = req.params;
-    const { usersCollection } = await connectToDb();
+    const { usersCollection, productsCollection } = await connectToDb();
+
+    const user = await usersCollection.findOne(
+      { user_id: userId, "rented_items.rental_id": rentalId },
+      { projection: { "rented_items.$": 1 } }
+    );
+
+    const rental = user?.rented_items?.[0];
+
+    if (rental && rental.product_id != null) {
+      await productsCollection.updateOne(
+        { id: rental.product_id },
+        { $set: { status: "done" } }
+      );
+    }
 
     await usersCollection.updateOne(
-      { 
+      {
         user_id: userId,
-        "rented_items.rental_id": rentalId
+        "rented_items.rental_id": rentalId,
       },
-      { 
-        $set: { 
-          "rented_items.$.status": "returned",
-          "rented_items.$.returned_at": new Date().toISOString()
-        } 
+      {
+        $set: {
+          "rented_items.$.returned_at": new Date().toISOString(),
+        },
       }
     );
 
-    res.json({ message: 'Item returned successfully' });
+    res.json({ message: "Item returned successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== RENTALS WITH PRODUCT DETAILS ==========
+router.get("/:userId/rentals", async (req, res) => {
+  try {
+    const { usersCollection, productsCollection } = await connectToDb();
+    const user = await usersCollection.findOne(
+      { user_id: req.params.userId },
+      { projection: { rented_items: 1 } }
+    );
+
+    const items = user?.rented_items || [];
+
+    const productIds = items
+      .map((i) => i.product_id)
+      .filter((id) => id != null);
+    const products = await productsCollection
+      .find({ id: { $in: productIds } })
+      .toArray();
+
+    const result = items.map((item) => {
+      const product = products.find((p) => p.id == item.product_id);
+      return {
+        ...item,
+        name: product?.item_name || item.name || "Unknown",
+        brand: product?.brand || item.brand || "",
+        img: product?.img_src || item.img || "",
+        price: product?.price || item.price || 0,
+        size: product?.sizes?.join(", ") || item.size || "",
+        status: product?.status || "unknown",
+      };
+    });
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== LISTINGS (PUBLISHED ITEMS) ==========
+router.get("/:userId/listings", async (req, res) => {
+  try {
+    const { usersCollection, productsCollection } = await connectToDb();
+    const user = await usersCollection.findOne(
+      { user_id: req.params.userId },
+      { projection: { published_items: 1 } }
+    );
+
+    const items = user?.published_items || [];
+    const productIds = items
+      .map((i) => i.product_id)
+      .filter((id) => id != null);
+
+    const products = await productsCollection
+      .find({ id: { $in: productIds } })
+      .toArray();
+
+    const result = products.map(product => ({
+      ...product,
+      status: product.status || 'active'
+    }));
+
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -377,68 +468,224 @@ router.put('/:userId/notifications/read', async (req, res) => {
   }
 });
 
-// ========== RENTALS WITH PRODUCT DETAILS ==========
-router.get('/:userId/rentals', async (req, res) => {
+// ========== PUBLISH REQUEST ROUTES ==========
+router.post("/:userId/publish-request", async (req, res) => {
   try {
-    const { usersCollection, productsCollection } = await connectToDb();
-    const user = await usersCollection.findOne(
-      { user_id: req.params.userId },
-      { projection: { rented_items: 1 } }
+    const { usersCollection } = await connectToDb();
+    const { userId } = req.params;
+    const { name, brand, price, size, description, category, img } = req.body;
+
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const requestId = new ObjectId().toString();
+    const publishRequest = {
+      request_id: requestId,
+      name: name || "",
+      brand: brand || "",
+      price: price || "",
+      size: size || "S/M/L",
+      description: description || "",
+      category: category || "Other",
+      img: img || "",
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    await usersCollection.updateOne(
+      { user_id: userId },
+      { $push: { publish_requests: publishRequest } }
     );
 
-    const items = user?.rented_items || [];
-
-    const productIds = items.map(i => i.product_id).filter(id => id != null);
-    const products = await productsCollection.find({
-      id: { $in: productIds }
-    }).toArray();
-
-    const result = items.map(item => {
-      const product = products.find(p => p.id === item.product_id);
-      return {
-        ...item,
-        name: product?.item_name || item.name || 'Unknown',
-        brand: product?.brand || item.brand || '',
-        img: product?.img_src || item.img || '',
-        price: product?.price || item.price || 0
-      };
+    res.status(201).json({
+      success: true,
+      message: "Зар илгээгдлээ! Admin баталгаажуулна.",
+      request: publishRequest,
     });
-
-    res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// ========== LISTINGS (PUBLISHED ITEMS) ==========
-router.get('/:userId/listings', async (req, res) => {
+router.get("/:userId/publish-requests", async (req, res) => {
   try {
-    const { usersCollection, productsCollection } = await connectToDb();
+    const { usersCollection } = await connectToDb();
     const user = await usersCollection.findOne(
       { user_id: req.params.userId },
-      { projection: { published_items: 1 } }
+      { projection: { publish_requests: 1 } }
+    );
+    res.json(user?.publish_requests || []);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.put("/:userId/publish-request/:requestId/approve", async (req, res) => {
+  try {
+    const { usersCollection, productsCollection } = await connectToDb();
+    const { userId, requestId } = req.params;
+
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) return res.status(404).json({ error: "User олдсонгүй" });
+
+    const request = user.publish_requests?.find(r => r.request_id === requestId);
+    if (!request) return res.status(404).json({ error: "Request олдсонгүй" });
+
+    // Get new product ID
+    const lastProduct = await productsCollection.find().sort({ id: -1 }).limit(1).toArray();
+    const newProductId = lastProduct.length ? (lastProduct[0].id || 0) + 1 : 1;
+
+    const newProduct = {
+      id: newProductId,
+      brand: request.brand || "",
+      publisher: user.username || "",
+      item_name: request.name || "",
+      rating: 0,
+      review_count: 0,
+      price: request.price || "",
+      price_period: "өдрөөс",
+      status: "standard",
+      category: request.category || "",
+      description: request.description || "",
+      img_src: request.img || "",
+      sizes: request.size ? request.size.split("/") : ["S", "M", "L"],
+      in_stock: 1,
+      date_posted: new Date().toISOString().split("T")[0],
+    };
+
+    await productsCollection.insertOne(newProduct);
+    await usersCollection.updateOne(
+      { user_id: userId },
+      { $pull: { publish_requests: { request_id: requestId } } }
+    );
+    await usersCollection.updateOne(
+      { user_id: userId },
+      {
+        $push: {
+          published_items: {
+            product_id: newProductId,
+            status: "published",
+            views: 0,
+            createdAt: new Date().toISOString(),
+          },
+        },
+      }
+    );
+    await usersCollection.updateOne(
+      { user_id: userId },
+      {
+        $push: {
+          notifications: {
+            id: Date.now(),
+            type: "publish",
+            message: `"${request.name}" зар нийтлэгдлээ ✓`,
+            read: false,
+            createdAt: new Date().toISOString(),
+          },
+        },
+      }
     );
 
-    const items = user?.published_items || [];
-    const productIds = items;
+    res.json({ success: true, message: "Зар баталгаажлаа!", product: newProduct });
+  } catch (error) {
+    console.error("Approve error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
-    const products = await productsCollection.find({
-      id: { $in: productIds }
-    }).toArray();
+router.put("/:userId/publish-request/:requestId/reject", async (req, res) => {
+  try {
+    const { usersCollection } = await connectToDb();
+    const { userId, requestId } = req.params;
 
-    const result = products.map(product => ({
-      ...product,
-      status: product.status || 'active'
-    }));
+    const user = await usersCollection.findOne({ user_id: userId });
+    if (!user) return res.status(404).json({ error: "User олдсонгүй" });
 
-    res.json(result);
+    const request = user.publish_requests?.find(r => r.request_id === requestId);
+
+    await usersCollection.updateOne(
+      { user_id: userId },
+      { $pull: { publish_requests: { request_id: requestId } } }
+    );
+    await usersCollection.updateOne(
+      { user_id: userId },
+      {
+        $push: {
+          published_items: {
+            product_id: request?.product_id || null,
+            status: "rejected",
+            views: 0,
+            createdAt: new Date().toISOString(),
+          },
+        },
+      }
+    );
+    await usersCollection.updateOne(
+      { user_id: userId },
+      {
+        $push: {
+          notifications: {
+            id: Date.now(),
+            type: "publish",
+            message: `"${request?.name}" зар буцаагдлаа`,
+            read: false,
+            createdAt: new Date().toISOString(),
+          },
+        },
+      }
+    );
+
+    res.json({ success: true, message: "Зар буцаагдлаа." });
+  } catch (error) {
+    console.error("Reject error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.put('/:userId/publish-request/:requestId', async (req, res) => {
+  try {
+    const { usersCollection } = await connectToDb();
+    const { userId, requestId } = req.params;
+
+    await usersCollection.updateOne(
+      { user_id: userId, 'publish_requests.request_id': requestId },
+      {
+        $set: {
+          'publish_requests.$.name': req.body.name || '',
+          'publish_requests.$.brand': req.body.brand || '',
+          'publish_requests.$.price': req.body.price || '',
+          'publish_requests.$.size': req.body.size || '',
+          'publish_requests.$.description': req.body.description || '',
+          'publish_requests.$.category': req.body.category || '',
+          'publish_requests.$.img': req.body.img || '',
+        }
+      }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.delete('/:userId/publish-request/:requestId', async (req, res) => {
+  try {
+    const { usersCollection } = await connectToDb();
+    const { userId, requestId } = req.params;
+
+    await usersCollection.updateOne(
+      { user_id: userId },
+      { $pull: { publish_requests: { request_id: requestId } } }
+    );
+    res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // ========== GENERAL USER ROUTE - MUST BE LAST! ==========
-router.get('/:userId', async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { usersCollection } = await connectToDb();
@@ -449,7 +696,7 @@ router.get('/:userId', async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json(user);
