@@ -70,8 +70,15 @@ async function loadPublishRequestsFromDB() {
 
 function getImgHtml(img, fallbackName) {
   if (!img) return '<div class="p-order-emoji">👗</div>';
-  var src = img.startsWith('http') ? img : '/public/source/' + img;
-  return '<img class="p-order-img" src="' + src + '" alt="' + fallbackName + '" data-fallback="emoji">';
+
+  var src;
+  if (img.startsWith('data:') || img.startsWith('http') || img.startsWith('/')) {
+    src = img; // base64 эсвэл full URL — угтвар нэмэхгүй
+  } else {
+    src = '/public/source/' + img; // зөвхөн filename бол угтвар нэмэх
+  }
+
+  return '<img class="p-order-img" src="' + src + '" alt="' + (fallbackName || '') + '" data-fallback="emoji">';
 }
 
 // ── Image Upload ──────────────────────────────────────────
