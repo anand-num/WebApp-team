@@ -600,7 +600,7 @@ function openEditRequestModal(requestId) {
         </div>
         <div class="form-group">
           <label>Ангилал</label>
-          <select id="edit-category" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);">
+          <select id="edit-category" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);">
             <option value="Cosplay"     ${req.category==='Cosplay'     ?'selected':''}>Cosplay</option>
             <option value="Costume"     ${req.category==='Costume'     ?'selected':''}>Costume</option>
             <option value="Evening Wear"${req.category==='Evening Wear'?'selected':''}>Evening Wear</option>

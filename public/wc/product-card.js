@@ -112,7 +112,7 @@ export class ProductCard extends HTMLElement {
             </svg>
           </button>
           <button class="card-request-btn ${this.stock <= 0 ? 'disabled' : ''}" ${this.stock <= 0 ? 'disabled' : ''}>
-            ${this.stock <= 0 ? '❌ Дууссан байна' : '📩 Хүсэлт илгээх'}
+            ${this.stock <= 0 ? '❌ Дууссан байна' : '📩 Сагслах'}
           </button>
         </div>
         <div class="card-body">
