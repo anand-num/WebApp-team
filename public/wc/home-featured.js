@@ -72,7 +72,7 @@ render() {
                     </svg>
                   </button>
                   <button class="card-request-btn ${isOutOfStock ? 'disabled' : ''}" data-id="${p.id}" ${isOutOfStock ? 'disabled' : ''}>
-                    ${isOutOfStock ? '❌ Дуссан байна' : '📩 Сагслах'}
+                    ${isOutOfStock ? 'Дуссан байна' : 'Сагслах'}
                   </button>
                 </div>
                 <div class="card-body">
